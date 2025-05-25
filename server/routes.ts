@@ -209,6 +209,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Invite code management endpoints
+  app.post("/api/invite-codes", async (req, res) => {
+    try {
+      const code = crypto.randomBytes(4).toString('hex').toUpperCase();
+      const inviteCode = await storage.createInviteCode({
+        code,
+        isUsed: "false"
+      });
+      
+      res.json(inviteCode);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create invite code" });
+    }
+  });
+
+  app.post("/api/invite-codes/verify", async (req, res) => {
+    try {
+      const { code } = req.body;
+      
+      if (!code) {
+        return res.status(400).json({ error: "Invite code is required" });
+      }
+      
+      const inviteCode = await storage.getInviteCode(code.toUpperCase());
+      
+      if (!inviteCode) {
+        return res.status(404).json({ error: "Invalid invite code" });
+      }
+      
+      if (inviteCode.isUsed === "true") {
+        return res.status(400).json({ error: "Invite code has already been used" });
+      }
+      
+      // Mark as used
+      await storage.markInviteCodeAsUsed(code.toUpperCase());
+      
+      res.json({ message: "Invite code verified successfully" });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to verify invite code" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

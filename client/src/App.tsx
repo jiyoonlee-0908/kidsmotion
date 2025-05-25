@@ -3,25 +3,48 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { useState, useEffect } from "react";
 import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
+import Admin from "@/pages/admin";
+import InviteCodeForm from "@/components/invite-code-form";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/report/:id" component={Home} />
+      <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check if user was previously authenticated
+  useEffect(() => {
+    const auth = localStorage.getItem('kidsmotion_authenticated');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleAuthSuccess = () => {
+    localStorage.setItem('kidsmotion_authenticated', 'true');
+    setIsAuthenticated(true);
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        {!isAuthenticated ? (
+          <InviteCodeForm onSuccess={handleAuthSuccess} />
+        ) : (
+          <Router />
+        )}
       </TooltipProvider>
     </QueryClientProvider>
   );
