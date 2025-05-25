@@ -4,24 +4,123 @@ import { storage } from "./storage";
 import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema } from "@shared/schema";
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
-import fs from "fs";
-import path from "path";
 
 // Constants
 const POWER_EXPONENT = 0.67;
 
 // Load cutoff data - 와트바이크 기준 정확한 데이터
-const cutoffDataPath = "./attached_assets/wattbike_cutoff_v3.json";
-let cutoffData: any = {};
+const cutoffData = {
+  "4_M": {
+    "power": { "P96": 215, "P80": 184, "P20": 123, "P4": 92 },
+    "strength": { "P96": 103, "P80": 88, "P20": 59, "P4": 44 },
+    "muscleEndurance": { "P96": 68, "P80": 58, "P20": 39, "P4": 29 },
+    "cardioEndurance": { "P96": 57, "P80": 49, "P20": 33, "P4": 25 }
+  },
+  "4_F": {
+    "power": { "P96": 169, "P80": 145, "P20": 97, "P4": 72 },
+    "strength": { "P96": 81, "P80": 69, "P20": 46, "P4": 35 },
+    "muscleEndurance": { "P96": 58, "P80": 49, "P20": 33, "P4": 25 },
+    "cardioEndurance": { "P96": 50, "P80": 42, "P20": 28, "P4": 21 }
+  },
+  "5_M": {
+    "power": { "P96": 242, "P80": 207, "P20": 139, "P4": 104 },
+    "strength": { "P96": 116, "P80": 99, "P20": 66, "P4": 50 },
+    "muscleEndurance": { "P96": 77, "P80": 66, "P20": 44, "P4": 33 },
+    "cardioEndurance": { "P96": 65, "P80": 55, "P20": 37, "P4": 28 }
+  },
+  "5_F": {
+    "power": { "P96": 191, "P80": 164, "P20": 110, "P4": 82 },
+    "strength": { "P96": 92, "P80": 78, "P20": 52, "P4": 39 },
+    "muscleEndurance": { "P96": 65, "P80": 55, "P20": 37, "P4": 28 },
+    "cardioEndurance": { "P96": 56, "P80": 48, "P20": 32, "P4": 24 }
+  },
+  "6_M": {
+    "power": { "P96": 273, "P80": 234, "P20": 157, "P4": 117 },
+    "strength": { "P96": 131, "P80": 112, "P20": 75, "P4": 56 },
+    "muscleEndurance": { "P96": 87, "P80": 74, "P20": 50, "P4": 37 },
+    "cardioEndurance": { "P96": 73, "P80": 62, "P20": 42, "P4": 31 }
+  },
+  "6_F": {
+    "power": { "P96": 215, "P80": 184, "P20": 123, "P4": 92 },
+    "strength": { "P96": 103, "P80": 88, "P20": 59, "P4": 44 },
+    "muscleEndurance": { "P96": 73, "P80": 62, "P20": 42, "P4": 31 },
+    "cardioEndurance": { "P96": 63, "P80": 54, "P20": 36, "P4": 27 }
+  },
+  "7_M": {
+    "power": { "P96": 308, "P80": 264, "P20": 177, "P4": 132 },
+    "strength": { "P96": 148, "P80": 127, "P20": 85, "P4": 63 },
+    "muscleEndurance": { "P96": 98, "P80": 84, "P20": 56, "P4": 42 },
+    "cardioEndurance": { "P96": 83, "P80": 71, "P20": 47, "P4": 35 }
+  },
+  "7_F": {
+    "power": { "P96": 242, "P80": 207, "P20": 139, "P4": 104 },
+    "strength": { "P96": 116, "P80": 99, "P20": 66, "P4": 50 },
+    "muscleEndurance": { "P96": 82, "P80": 70, "P20": 47, "P4": 35 },
+    "cardioEndurance": { "P96": 71, "P80": 61, "P20": 41, "P4": 30 }
+  },
+  "8_M": {
+    "power": { "P96": 346, "P80": 296, "P20": 199, "P4": 148 },
+    "strength": { "P96": 166, "P80": 142, "P20": 95, "P4": 71 },
+    "muscleEndurance": { "P96": 110, "P80": 94, "P20": 63, "P4": 47 },
+    "cardioEndurance": { "P96": 93, "P80": 80, "P20": 53, "P4": 40 }
+  },
+  "8_F": {
+    "power": { "P96": 273, "P80": 234, "P20": 157, "P4": 117 },
+    "strength": { "P96": 131, "P80": 112, "P20": 75, "P4": 56 },
+    "muscleEndurance": { "P96": 92, "P80": 79, "P20": 53, "P4": 39 },
+    "cardioEndurance": { "P96": 80, "P80": 68, "P20": 46, "P4": 34 }
+  },
+  "9_M": {
+    "power": { "P96": 388, "P80": 332, "P20": 223, "P4": 166 },
+    "strength": { "P96": 186, "P80": 159, "P20": 107, "P4": 80 },
+    "muscleEndurance": { "P96": 123, "P80": 105, "P20": 71, "P4": 53 },
+    "cardioEndurance": { "P96": 105, "P80": 90, "P20": 60, "P4": 45 }
+  },
+  "9_F": {
+    "power": { "P96": 308, "P80": 264, "P20": 177, "P4": 132 },
+    "strength": { "P96": 148, "P80": 127, "P20": 85, "P4": 63 },
+    "muscleEndurance": { "P96": 104, "P80": 89, "P20": 60, "P4": 44 },
+    "cardioEndurance": { "P96": 90, "P80": 77, "P20": 52, "P4": 39 }
+  },
+  "10_M": {
+    "power": { "P96": 434, "P80": 372, "P20": 250, "P4": 186 },
+    "strength": { "P96": 208, "P80": 178, "P20": 120, "P4": 89 },
+    "muscleEndurance": { "P96": 138, "P80": 118, "P20": 79, "P4": 59 },
+    "cardioEndurance": { "P96": 118, "P80": 101, "P20": 68, "P4": 50 }
+  },
+  "10_F": {
+    "power": { "P96": 346, "P80": 296, "P20": 199, "P4": 148 },
+    "strength": { "P96": 166, "P80": 142, "P20": 95, "P4": 71 },
+    "muscleEndurance": { "P96": 117, "P80": 100, "P20": 67, "P4": 50 },
+    "cardioEndurance": { "P96": 101, "P80": 86, "P20": 58, "P4": 43 }
+  },
+  "11_M": {
+    "power": { "P96": 485, "P80": 415, "P20": 279, "P4": 208 },
+    "strength": { "P96": 233, "P80": 199, "P20": 134, "P4": 100 },
+    "muscleEndurance": { "P96": 154, "P80": 132, "P20": 89, "P4": 66 },
+    "cardioEndurance": { "P96": 132, "P80": 113, "P20": 76, "P4": 57 }
+  },
+  "11_F": {
+    "power": { "P96": 388, "P80": 332, "P20": 223, "P4": 166 },
+    "strength": { "P96": 186, "P80": 159, "P20": 107, "P4": 80 },
+    "muscleEndurance": { "P96": 131, "P80": 112, "P20": 75, "P4": 56 },
+    "cardioEndurance": { "P96": 113, "P80": 97, "P20": 65, "P4": 48 }
+  },
+  "12_M": {
+    "power": { "P96": 542, "P80": 464, "P20": 312, "P4": 232 },
+    "strength": { "P96": 260, "P80": 223, "P20": 150, "P4": 112 },
+    "muscleEndurance": { "P96": 172, "P80": 147, "P20": 99, "P4": 74 },
+    "cardioEndurance": { "P96": 148, "P80": 127, "P20": 85, "P4": 63 }
+  },
+  "12_F": {
+    "power": { "P96": 434, "P80": 372, "P20": 250, "P4": 186 },
+    "strength": { "P96": 208, "P80": 178, "P20": 120, "P4": 89 },
+    "muscleEndurance": { "P96": 147, "P80": 126, "P20": 85, "P4": 63 },
+    "cardioEndurance": { "P96": 127, "P80": 109, "P20": 73, "P4": 54 }
+  }
+};
 
-try {
-  const cutoffRaw = fs.readFileSync(cutoffDataPath, "utf-8");
-  cutoffData = JSON.parse(cutoffRaw);
-  console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
-} catch (error) {
-  console.error("Failed to load cutoff data:", error);
-  console.error("Attempted path:", cutoffDataPath);
-}
+console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
 
 function calculateAge(birthDate: string): number {
   const birth = new Date(birthDate);
