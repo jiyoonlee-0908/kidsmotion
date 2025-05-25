@@ -9,6 +9,12 @@ export interface IStorage {
   createAnalysisResult(result: InsertAnalysisResult): Promise<AnalysisResult>;
   getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined>;
   getMeasurementsByStudent(studentName: string): Promise<Measurement[]>;
+  searchMeasurements(criteria: {
+    studentName: string;
+    affiliation?: string;
+    birthDate?: string;
+    gender?: string;
+  }): Promise<Measurement[]>;
   createInviteCode(code: InsertInviteCode): Promise<InviteCode>;
   getInviteCode(code: string): Promise<InviteCode | undefined>;
   markInviteCodeAsUsed(code: string): Promise<void>;
@@ -99,6 +105,42 @@ export class MemStorage implements IStorage {
   async getMeasurementsByStudent(studentName: string): Promise<Measurement[]> {
     return Array.from(this.measurements.values())
       .filter(measurement => measurement.studentName === studentName)
+      .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
+  }
+
+  async searchMeasurements(criteria: {
+    studentName: string;
+    affiliation?: string;
+    birthDate?: string;
+    gender?: string;
+  }): Promise<Measurement[]> {
+    return Array.from(this.measurements.values())
+      .filter(measurement => {
+        // 이름은 필수 조건
+        if (measurement.studentName !== criteria.studentName) {
+          return false;
+        }
+        
+        // 소속이 있으면 확인
+        if (criteria.affiliation && criteria.affiliation.trim() !== "" && 
+            measurement.affiliation !== criteria.affiliation) {
+          return false;
+        }
+        
+        // 생년월일이 있으면 확인
+        if (criteria.birthDate && criteria.birthDate.trim() !== "" && 
+            measurement.birthDate !== criteria.birthDate) {
+          return false;
+        }
+        
+        // 성별이 있으면 확인
+        if (criteria.gender && criteria.gender.trim() !== "" && 
+            measurement.gender !== criteria.gender) {
+          return false;
+        }
+        
+        return true;
+      })
       .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
   }
 

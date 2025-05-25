@@ -356,6 +356,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Search measurements endpoint
+  app.get("/api/measurements/search", async (req, res) => {
+    try {
+      const { studentName, affiliation, birthDate, gender } = req.query;
+      
+      if (!studentName) {
+        return res.status(400).json({ error: "Student name is required" });
+      }
+      
+      const measurements = await storage.searchMeasurements({
+        studentName: studentName as string,
+        affiliation: affiliation as string,
+        birthDate: birthDate as string,
+        gender: gender as string
+      });
+      
+      // Get analysis results for each measurement
+      const results = await Promise.all(
+        measurements.map(async (measurement) => {
+          const analysis = await storage.getAnalysisResult(measurement.id);
+          return {
+            measurement,
+            analysis
+          };
+        })
+      );
+      
+      res.json(results);
+      
+    } catch (error) {
+      console.error("검색 오류:", error);
+      res.status(500).json({ error: "Failed to search measurements" });
+    }
+  });
+
   // Invite code management endpoints
   app.post("/api/invite-codes", async (req, res) => {
     try {

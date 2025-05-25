@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import Home from "@/pages/home";
+import Records from "@/pages/records";
 import NotFound from "@/pages/not-found";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
@@ -13,6 +14,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/records" component={Records} />
       <Route path="/report/:id" component={Home} />
       <Route component={NotFound} />
     </Switch>
