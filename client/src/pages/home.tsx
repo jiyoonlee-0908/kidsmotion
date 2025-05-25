@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone } from "lucide-react";
+import Navigation from "@/components/navigation";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import MobileAppIntegration from "@/components/mobile-app-integration";
@@ -38,8 +39,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      {/* Navigation */}
+      <Navigation />
+      
       {/* Modern Header */}
-      <header className="glass-effect border-b border-white/20 sticky top-0 z-50">
+      <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-5">

@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import Navigation from "@/components/navigation";
 import { Search, History, User, Calendar, School } from "lucide-react";
 import { calculateAge, getGrade, getGradeColor } from "@/lib/fitness-calculations";
 import type { Measurement, AnalysisResult } from "@shared/schema";
@@ -66,8 +67,11 @@ export default function Records() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
+      {/* Navigation */}
+      <Navigation />
+      
+      <div className="max-w-6xl mx-auto p-6">
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-3 mb-4">
