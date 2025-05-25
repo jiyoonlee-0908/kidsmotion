@@ -13,6 +13,7 @@ export const measurements = pgTable("measurements", {
   measureDate: text("measure_date").notNull(),
   studentName: text("student_name").notNull(),
   birthDate: text("birth_date").notNull(),
+  gender: text("gender").notNull(), // "M" or "F"
   height: real("height").notNull(),
   weight: real("weight").notNull(),
   power5s: real("power_5s").notNull(),

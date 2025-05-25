@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2, UserPlus, Zap, Scale, ChartLine } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -39,6 +40,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
       measureDate: new Date().toISOString().split('T')[0],
       studentName: "",
       birthDate: "",
+      gender: "M",
       height: 0,
       weight: 0,
       power5s: 0,
@@ -134,6 +136,28 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                     <FormControl>
                       <Input type="date" {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="gender"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>성별</FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="성별을 선택하세요" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="M">남자</SelectItem>
+                        <SelectItem value="F">여자</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

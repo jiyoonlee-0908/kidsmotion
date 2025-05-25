@@ -79,12 +79,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const age = calculateAge(measurementData.birthDate);
       const bmi = measurementData.weight / Math.pow(measurementData.height / 100, 2);
       
-      // Determine gender key (기본값을 남성으로 설정, 실제로는 폼에서 입력받아야 함)
+      // 성별과 나이에 따른 데이터 키 생성
       const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
-      const genderKey = `${clampedAge}_M`; // 남성 기본값, 추후 성별 입력 기능 추가 필요
+      const genderKey = `${clampedAge}_${measurementData.gender}`;
       const cutoffs = cutoffData.data?.[genderKey];
       
-      console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 키: ${genderKey}`);
+      console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       
       // Calculate relative power (W/kg^0.67)
       const weightPower = Math.pow(measurementData.weight, 0.67);
