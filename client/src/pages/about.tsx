@@ -23,29 +23,40 @@ export default function About() {
             </h1>
             
             <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 leading-relaxed">
-              아이의 숨겨진 체력을 <span className="text-purple-600">과학적으로</span> 발견하세요
+              우리 아이의 진짜 체력을<br/>
+              <span className="text-purple-600">과학적으로</span> 정확하게 측정하세요
             </div>
             
             <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-50 to-purple-50 rounded-3xl p-10 shadow-2xl border border-gray-100">
-              <p className="text-2xl text-gray-700 font-semibold mb-6">
-                "5분 측정으로 우리 아이만의 맞춤 운동처방을 받아보세요"
+              <p className="text-2xl text-gray-700 font-semibold mb-6 leading-relaxed">
+                단 5분 측정으로<br/>
+                우리 아이만의 맞춤 운동처방을 받아보세요
               </p>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <div className="text-3xl mb-3">⚡</div>
-                  <div className="font-bold text-gray-800 mb-2">정확한 측정</div>
-                  <div className="text-sm text-gray-600">의료급 센서로 측정</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-4xl mb-4">⚡</div>
+                  <div className="font-bold text-gray-800 mb-3 text-lg">정밀 측정</div>
+                  <div className="text-gray-600 leading-relaxed">
+                    의료급 센서로<br/>
+                    정확하게 측정
+                  </div>
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <div className="text-3xl mb-3">🤖</div>
-                  <div className="font-bold text-gray-800 mb-2">AI 분석</div>
-                  <div className="text-sm text-gray-600">개인별 맞춤 처방</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-4xl mb-4">🎯</div>
+                  <div className="font-bold text-gray-800 mb-3 text-lg">AI 분석</div>
+                  <div className="text-gray-600 leading-relaxed">
+                    개인별 맞춤<br/>
+                    운동 처방
+                  </div>
                 </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <div className="text-3xl mb-3">📈</div>
-                  <div className="font-bold text-gray-800 mb-2">성장 추적</div>
-                  <div className="text-sm text-gray-600">지속적인 발전 모니터링</div>
+                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="text-4xl mb-4">📈</div>
+                  <div className="font-bold text-gray-800 mb-3 text-lg">성장 추적</div>
+                  <div className="text-gray-600 leading-relaxed">
+                    지속적인<br/>
+                    발전 모니터링
+                  </div>
                 </div>
               </div>
             </div>
@@ -53,11 +64,15 @@ export default function About() {
 
           {/* Main Features */}
           <div className="mb-16">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                왜 <span className="text-purple-600">키즈모션</span>을 선택해야 할까요?
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+                전문가들이 <span className="text-purple-600">키즈모션</span>을<br/>
+                선택하는 이유
               </h2>
-              <p className="text-lg text-gray-600">병원, 체육관, 학교에서 실제로 사용되고 있는 검증된 솔루션</p>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                전국 300여 기관에서 실제 사용 중인<br/>
+                검증된 아동 체력측정 솔루션
+              </p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -72,18 +87,27 @@ export default function About() {
                       <span className="text-sm text-purple-600 font-semibold">국내외 최초 동적 운동 데이터 분석</span>
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed mb-4">
-                    <strong>5분 만에 아이의 체력을 완벽 분석</strong>합니다. 
-                    기존 체력장처럼 날씨나 공간에 제약받지 않고, 언제든지 정확한 측정이 가능해요.
+                  <p className="text-xl text-gray-700 leading-relaxed mb-6 font-medium">
+                    기존 체력장의 한계를 뛰어넘어<br/>
+                    <strong className="text-purple-600">5분 만에 완벽한 체력 분석</strong>을 제공합니다
                   </p>
-                  <div className="bg-white/60 rounded-lg p-4 mb-4">
-                    <h4 className="font-semibold text-gray-800 mb-2">🎯 실제 측정되는 항목들</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• <strong>순발력</strong>: 아이가 순간적으로 낼 수 있는 최대 힘</li>
-                      <li>• <strong>지구력</strong>: 얼마나 오래 운동할 수 있는지</li>
-                      <li>• <strong>좌우균형</strong>: 왼쪽-오른쪽 다리 힘의 차이</li>
-                      <li>• <strong>심박수 패턴</strong>: 운동 중 심장 건강 상태</li>
-                    </ul>
+                  <div className="space-y-3">
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-purple-500 mr-3">✓</span>
+                      <span><strong>순발력</strong> - 순간 최대 파워 측정</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-purple-500 mr-3">✓</span>
+                      <span><strong>지구력</strong> - 지속적 운동 능력 평가</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-purple-500 mr-3">✓</span>
+                      <span><strong>좌우균형</strong> - 신체 밸런스 분석</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-purple-500 mr-3">✓</span>
+                      <span><strong>심폐기능</strong> - 심박수 패턴 분석</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -99,18 +123,27 @@ export default function About() {
                       <span className="text-sm text-blue-600 font-semibold">측정 → 분석 → 훈련 피드백</span>
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed mb-4">
-                    측정 후 <strong>바로 받아보는 맞춤형 운동처방서</strong>! 
-                    의사나 트레이너가 직접 상담해주는 것처럼 자세하고 실용적인 가이드를 AI가 제공합니다.
+                  <p className="text-xl text-gray-700 leading-relaxed mb-6 font-medium">
+                    의사나 트레이너가 직접 상담하는 것처럼<br/>
+                    <strong className="text-blue-600">AI가 맞춤형 운동처방서</strong>를 제공합니다
                   </p>
-                  <div className="bg-white/60 rounded-lg p-4 mb-4">
-                    <h4 className="font-semibold text-gray-800 mb-2">📋 실제로 받게 되는 리포트</h4>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• <strong>우리 아이 체력 점수</strong>: 또래 대비 정확한 등급</li>
-                      <li>• <strong>강점과 약점</strong>: 어떤 부분을 더 키워야 하는지</li>
-                      <li>• <strong>맞춤 운동법</strong>: 집에서 할 수 있는 구체적인 운동</li>
-                      <li>• <strong>성장 가이드</strong>: 3개월, 6개월 후 목표 설정</li>
-                    </ul>
+                  <div className="space-y-3">
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-blue-500 mr-3">✓</span>
+                      <span><strong>체력 등급</strong> - 또래 대비 정확한 평가</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-blue-500 mr-3">✓</span>
+                      <span><strong>강약점 분석</strong> - 개선이 필요한 부분</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-blue-500 mr-3">✓</span>
+                      <span><strong>운동 처방</strong> - 집에서 할 수 있는 운동</span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <span className="text-blue-500 mr-3">✓</span>
+                      <span><strong>성장 목표</strong> - 3개월, 6개월 후 계획</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
