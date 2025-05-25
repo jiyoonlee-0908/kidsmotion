@@ -61,6 +61,16 @@ export default function Home() {
 
             {/* 네비게이션 */}
             <div className="flex space-x-6">
+              <Button
+                variant="ghost"
+                className={`text-lg font-medium px-4 py-2 ${
+                  currentView === 'measurement' ? 'text-purple-600' : 'text-gray-600'
+                } hover:text-purple-600`}
+                onClick={() => setCurrentView('measurement')}
+              >
+                홈
+              </Button>
+              
               {/* 분석 드롭다운 */}
               <div 
                 className="relative"
@@ -69,7 +79,7 @@ export default function Home() {
               >
                 <Button
                   variant="ghost"
-                  className="text-lg font-medium px-4 py-2 text-purple-600 hover:text-purple-700"
+                  className="text-lg font-medium px-4 py-2 text-gray-600 hover:text-purple-600"
                 >
                   분석
                 </Button>
