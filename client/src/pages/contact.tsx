@@ -5,21 +5,41 @@ import Navigation from "@/components/navigation";
 
 export default function Contact() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-teal-50">
+    <div className="min-h-screen bg-white">
       <Navigation />
       <main className="pt-24 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-800 mb-6">
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <div className="text-center mb-20">
+            <div className="mb-8">
+              <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-full text-base font-bold shadow-lg">
+                언제든 연락하세요
+              </span>
+            </div>
+            
+            <h1 className="text-6xl md:text-7xl font-black text-gray-900 mb-8 leading-none tracking-tight">
+              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 문의하기
               </span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">
-              MotionBike에 대해 궁금한 점이 있으시거나 도움이 필요하시면 언제든 연락해주세요.<br/>
-              전문 상담팀이 신속하고 친절하게 도움을 드리겠습니다.
-            </p>
+            
+            <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 leading-relaxed">
+              궁금한 것이 있으시나요?<br/>
+              <span className="text-purple-600">전문팀</span>이 도와드릴게요
+            </div>
+            
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-50 to-purple-50 rounded-3xl p-10 shadow-2xl border border-gray-100">
+              <p className="text-2xl text-gray-700 font-semibold mb-6 leading-relaxed">
+                빠른 답변을 원하시면 전화로,<br/>
+                자세한 상담을 원하시면 방문으로 연락해보세요
+              </p>
+              
+              <div className="flex justify-center items-center text-lg text-gray-600">
+                <span className="bg-green-100 text-green-800 px-4 py-2 rounded-full font-semibold">
+                  📞 평균 응답시간: 2분 이내
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Contact Methods */}
