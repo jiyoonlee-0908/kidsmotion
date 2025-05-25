@@ -47,6 +47,8 @@ function App() {
         <Toaster />
         <Switch>
           <Route path="/admin" component={Admin} />
+          <Route path="/about" component={About} />
+          <Route path="/contact" component={Contact} />
           {!isAuthenticated ? (
             <Route>
               <InviteCodeForm onSuccess={handleAuthSuccess} />
