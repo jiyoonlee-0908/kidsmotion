@@ -7,6 +7,9 @@ import { generateFitnessAnalysis } from "./openai";
 import fs from "fs";
 import path from "path";
 
+// Constants
+const POWER_EXPONENT = 0.67;
+
 // Load cutoff data
 const cutoffDataPath = path.resolve(import.meta.dirname, "..", "attached_assets", "cutoff_v2.json");
 let cutoffData: any = {};
@@ -87,18 +90,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       
-      // Calculate relative power (W/kg^0.67)
-      const weightPower = Math.pow(measurementData.weight, 0.67);
-      console.log(`체중: ${measurementData.weight}kg, 체중^0.67: ${weightPower}`);
-      
-      const relativePowers = {
-        "5s": measurementData.power5s / weightPower,
-        "15s": measurementData.power15s / weightPower,
-        "30s": measurementData.power30s / weightPower,
-        "60s": measurementData.power60s / weightPower
+      // 사용자 입력: 절대 파워값 (W)
+      const absolutePowers = {
+        "5s": measurementData.power5s,
+        "15s": measurementData.power15s,
+        "30s": measurementData.power30s,
+        "60s": measurementData.power60s
       };
       
-      console.log(`입력된 절대 파워값: 5s=${measurementData.power5s}W, 15s=${measurementData.power15s}W, 30s=${measurementData.power30s}W, 60s=${measurementData.power60s}W`);
+      // 상대 파워 계산: W / kg^POWER_EXPONENT
+      const weightPower = Math.pow(measurementData.weight, POWER_EXPONENT);
+      console.log(`체중: ${measurementData.weight}kg, 체중^${POWER_EXPONENT}: ${weightPower}`);
+      
+      const relativePowers = {
+        "5s": absolutePowers["5s"] / weightPower,
+        "15s": absolutePowers["15s"] / weightPower,
+        "30s": absolutePowers["30s"] / weightPower,
+        "60s": absolutePowers["60s"] / weightPower
+      };
+      
+      console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
       console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
       // Calculate percentiles
