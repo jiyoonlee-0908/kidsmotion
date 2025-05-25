@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertMeasurementSchema, insertAnalysisResultSchema } from "@shared/schema";
+import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema } from "@shared/schema";
+import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
 import fs from "fs";
 import path from "path";

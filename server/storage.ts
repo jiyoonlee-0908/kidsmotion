@@ -1,4 +1,4 @@
-import { measurements, analysisResults, type Measurement, type InsertMeasurement, type AnalysisResult, type InsertAnalysisResult, users, type User, type InsertUser } from "@shared/schema";
+import { measurements, analysisResults, inviteCodes, type Measurement, type InsertMeasurement, type AnalysisResult, type InsertAnalysisResult, users, type User, type InsertUser, type InviteCode, type InsertInviteCode } from "@shared/schema";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -9,23 +9,30 @@ export interface IStorage {
   createAnalysisResult(result: InsertAnalysisResult): Promise<AnalysisResult>;
   getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined>;
   getMeasurementsByStudent(studentName: string): Promise<Measurement[]>;
+  createInviteCode(code: InsertInviteCode): Promise<InviteCode>;
+  getInviteCode(code: string): Promise<InviteCode | undefined>;
+  markInviteCodeAsUsed(code: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private measurements: Map<number, Measurement>;
   private analysisResults: Map<number, AnalysisResult>;
+  private inviteCodes: Map<string, InviteCode>;
   private currentUserId: number;
   private currentMeasurementId: number;
   private currentAnalysisId: number;
+  private currentInviteCodeId: number;
 
   constructor() {
     this.users = new Map();
     this.measurements = new Map();
     this.analysisResults = new Map();
+    this.inviteCodes = new Map();
     this.currentUserId = 1;
     this.currentMeasurementId = 1;
     this.currentAnalysisId = 1;
+    this.currentInviteCodeId = 1;
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -88,6 +95,32 @@ export class MemStorage implements IStorage {
     return Array.from(this.measurements.values())
       .filter(measurement => measurement.studentName === studentName)
       .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
+  }
+
+  async createInviteCode(insertInviteCode: InsertInviteCode): Promise<InviteCode> {
+    const id = this.currentInviteCodeId++;
+    const inviteCode: InviteCode = { 
+      id,
+      code: insertInviteCode.code,
+      isUsed: insertInviteCode.isUsed || "false",
+      usedAt: null,
+      createdAt: new Date()
+    };
+    this.inviteCodes.set(inviteCode.code, inviteCode);
+    return inviteCode;
+  }
+
+  async getInviteCode(code: string): Promise<InviteCode | undefined> {
+    return this.inviteCodes.get(code);
+  }
+
+  async markInviteCodeAsUsed(code: string): Promise<void> {
+    const inviteCode = this.inviteCodes.get(code);
+    if (inviteCode) {
+      inviteCode.isUsed = "true";
+      inviteCode.usedAt = new Date();
+      this.inviteCodes.set(code, inviteCode);
+    }
   }
 }
 
