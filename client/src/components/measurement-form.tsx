@@ -548,7 +548,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
                             <Timer className="w-4 h-4 text-green-600" />
-                            360초 심폐지구력 (W)
+                            360초 파워/유산소지구력 (W)
                           </FormLabel>
                           <FormControl>
                             <Input

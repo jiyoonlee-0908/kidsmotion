@@ -21,6 +21,8 @@ export default function Home() {
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
   const [currentView, setCurrentView] = useState<'measurement' | 'history'>('measurement');
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showStudentSearch, setShowStudentSearch] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<{name: string, gender: string, birthDate: string} | null>(null);
 
   const handleMeasurementComplete = (data: MeasurementResponse) => {
     setMeasurementData(data);
@@ -115,7 +117,7 @@ export default function Home() {
                         currentView === 'history' ? 'text-purple-600 bg-purple-50 font-medium' : 'text-gray-700'
                       }`}
                       onClick={() => {
-                        setCurrentView('history');
+                        setShowStudentSearch(true);
                         setShowDropdown(false);
                       }}
                     >
@@ -474,6 +476,94 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* 학생 검색 모달 */}
+      {showStudentSearch && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                  <Search className="w-5 h-5 mr-2 text-blue-600" />
+                  학생 검색
+                </h2>
+                <button
+                  onClick={() => {
+                    setShowStudentSearch(false);
+                    setSelectedStudent(null);
+                  }}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+              <p className="text-gray-600 mt-2">학생의 이름, 성별, 생년월일을 입력하여 측정 기록을 검색하세요</p>
+            </div>
+
+            <div className="p-6">
+              {!selectedStudent ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">이름</label>
+                      <Input 
+                        placeholder="홍길동"
+                        value={selectedStudent?.name || ""}
+                        onChange={(e) => {
+                          // 임시로 검색 상태 업데이트
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">성별</label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="성별 선택" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="male">남자</SelectItem>
+                          <SelectItem value="female">여자</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">생년월일</label>
+                      <Input 
+                        type="date"
+                        placeholder="2010-01-01"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-center pt-4">
+                    <Button 
+                      onClick={() => {
+                        // 학생 검색 실행 및 결과 표시
+                        setSelectedStudent({
+                          name: "홍길동",
+                          gender: "male", 
+                          birthDate: "2010-01-01"
+                        });
+                        setCurrentView('history');
+                        setShowStudentSearch(false);
+                      }}
+                      className="bg-blue-600 hover:bg-blue-700 px-8"
+                    >
+                      <Search className="w-4 h-4 mr-2" />
+                      검색하기
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <MeasurementHistory 
+                  studentName={selectedStudent.name}
+                  searchStudent={selectedStudent}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
