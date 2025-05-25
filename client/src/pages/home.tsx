@@ -47,9 +47,9 @@ export default function Home() {
               </div>
               <div>
                 <h1 className="text-3xl font-black tracking-tight">
-                  <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">MotionBike</span>
+                  <span className="text-gray-800 font-black">MotionBike</span>
                   <span className="text-gray-300 mx-3 font-thin text-2xl">|</span>
-                  <span className="text-gray-800 font-black">KidsMotion</span>
+                  <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">KidsMotion</span>
                 </h1>
                 <p className="text-sm text-gray-500 font-medium tracking-wide mt-1">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
