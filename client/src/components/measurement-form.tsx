@@ -393,12 +393,11 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
               </div>
             </div>
 
-            {/* 심박수 측정 섹션 (필수) */}
+            {/* 심박수 측정 섹션 */}
             <div className="space-y-4">
               <div className="flex items-center gap-2 mb-4">
                 <Heart className="w-5 h-5 text-red-500" />
                 <h3 className="text-lg font-semibold text-gray-800">심박수 측정</h3>
-                <Badge variant="destructive" className="text-xs">필수</Badge>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-red-50 rounded-lg border border-red-200">
