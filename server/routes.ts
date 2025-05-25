@@ -1,0 +1,182 @@
+import type { Express } from "express";
+import { createServer, type Server } from "http";
+import { storage } from "./storage";
+import { insertMeasurementSchema, insertAnalysisResultSchema } from "@shared/schema";
+import { generateFitnessAnalysis } from "./openai";
+import fs from "fs";
+import path from "path";
+
+// Load cutoff data
+const cutoffDataPath = path.resolve(import.meta.dirname, "..", "attached_assets", "cutoff_v2.json");
+let cutoffData: any = {};
+
+try {
+  const cutoffRaw = fs.readFileSync(cutoffDataPath, "utf-8");
+  cutoffData = JSON.parse(cutoffRaw);
+} catch (error) {
+  console.error("Failed to load cutoff data:", error);
+}
+
+function calculateAge(birthDate: string): number {
+  const birth = new Date(birthDate);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+  return age;
+}
+
+function calculatePercentile(value: number, cutoffs: any): number {
+  if (!cutoffs) return 50;
+  
+  if (value <= cutoffs.P4) return Math.random() * 4;
+  else if (value <= cutoffs.P20) return 4 + Math.random() * 16;
+  else if (value <= cutoffs.P80) return 20 + Math.random() * 60;
+  else if (value <= cutoffs.P96) return 80 + Math.random() * 16;
+  else return 96 + Math.random() * 4;
+}
+
+function getBalanceStatus(leftBalance: number, rightBalance: number): string {
+  const diff = Math.abs(leftBalance - rightBalance);
+  if (diff <= 5) return "이상적";
+  else if (diff <= 7) return "주의";
+  else return "경고";
+}
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  
+  app.post("/api/measurements", async (req, res) => {
+    try {
+      const measurementData = insertMeasurementSchema.parse(req.body);
+      
+      // Create measurement
+      const measurement = await storage.createMeasurement(measurementData);
+      
+      // Calculate analysis
+      const age = calculateAge(measurementData.birthDate);
+      const bmi = measurementData.weight / Math.pow(measurementData.height / 100, 2);
+      
+      // Determine gender key (simplified - could be input in real app)
+      const genderKey = age >= 10 ? `${age}_M` : "10_M"; // Default fallback
+      const cutoffs = cutoffData.data?.[genderKey];
+      
+      // Calculate relative power (W/kg^0.67)
+      const weightPower = Math.pow(measurementData.weight, 0.67);
+      const relativePowers = {
+        "5s": measurementData.power5s / weightPower,
+        "15s": measurementData.power15s / weightPower,
+        "30s": measurementData.power30s / weightPower,
+        "60s": measurementData.power60s / weightPower
+      };
+      
+      // Calculate percentiles
+      const percentiles = {
+        "5s": calculatePercentile(relativePowers["5s"], cutoffs?.["5s"]),
+        "15s": calculatePercentile(relativePowers["15s"], cutoffs?.["15s"]),
+        "30s": calculatePercentile(relativePowers["30s"], cutoffs?.["30s"]),
+        "60s": calculatePercentile(relativePowers["60s"], cutoffs?.["60s"])
+      };
+      
+      const overallPercentile = (percentiles["5s"] + percentiles["15s"] + percentiles["30s"] + percentiles["60s"]) / 4;
+      const balanceStatus = getBalanceStatus(measurementData.leftBalance, measurementData.rightBalance);
+      
+      // Determine strengths and improvements
+      const categories = [
+        { name: "순발력", percentile: percentiles["5s"] },
+        { name: "근력", percentile: percentiles["15s"] },
+        { name: "근지구력", percentile: percentiles["30s"] },
+        { name: "심폐지구력", percentile: percentiles["60s"] }
+      ];
+      
+      categories.sort((a, b) => b.percentile - a.percentile);
+      const strengths = categories.slice(0, 2).map(c => c.name);
+      const improvements = categories.slice(-1).map(c => c.name);
+      
+      // Generate AI analysis
+      const aiAnalysis = await generateFitnessAnalysis({
+        studentName: measurementData.studentName,
+        age,
+        overallPercentile,
+        percentiles: {
+          power: percentiles["5s"],
+          strength: percentiles["15s"],
+          muscleEndurance: percentiles["30s"],
+          cardioEndurance: percentiles["60s"]
+        },
+        balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
+        strengths,
+        improvements
+      });
+      
+      // Create analysis result
+      const analysisResult = await storage.createAnalysisResult({
+        measurementId: measurement.id,
+        bmi,
+        age,
+        overallPercentile,
+        percentile5s: percentiles["5s"],
+        percentile15s: percentiles["15s"],
+        percentile30s: percentiles["30s"],
+        percentile60s: percentiles["60s"],
+        balanceStatus,
+        aiSummary: aiAnalysis.summary,
+        balanceComment: aiAnalysis.balanceComment,
+        explanation5s: aiAnalysis.explanations.power,
+        explanation15s: aiAnalysis.explanations.strength,
+        explanation30s: aiAnalysis.explanations.muscleEndurance,
+        explanation60s: aiAnalysis.explanations.cardioEndurance,
+        comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
+        overallAssessment: aiAnalysis.overallAssessment
+      });
+      
+      res.json({
+        measurement,
+        analysis: analysisResult,
+        strengths,
+        improvements
+      });
+      
+    } catch (error) {
+      console.error("Error creating measurement:", error);
+      res.status(400).json({ error: "Invalid measurement data" });
+    }
+  });
+  
+  app.get("/api/measurements/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const measurement = await storage.getMeasurement(id);
+      
+      if (!measurement) {
+        return res.status(404).json({ error: "Measurement not found" });
+      }
+      
+      const analysis = await storage.getAnalysisResult(id);
+      
+      res.json({
+        measurement,
+        analysis
+      });
+      
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve measurement" });
+    }
+  });
+  
+  app.get("/api/measurements/student/:name", async (req, res) => {
+    try {
+      const studentName = decodeURIComponent(req.params.name);
+      const measurements = await storage.getMeasurementsByStudent(studentName);
+      
+      res.json(measurements);
+      
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve student measurements" });
+    }
+  });
+
+  const httpServer = createServer(app);
+  return httpServer;
+}
