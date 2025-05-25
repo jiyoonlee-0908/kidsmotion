@@ -197,7 +197,7 @@ export default function Home() {
                 </p>
               </div>
               
-              <div id="about">
+              <div>
                 <h4 className="text-lg font-semibold mb-4">서비스</h4>
                 <ul className="space-y-2 text-gray-300">
                   <li>체력 측정 및 분석</li>
@@ -217,7 +217,7 @@ export default function Home() {
                 </ul>
               </div>
               
-              <div id="contact">
+              <div>
                 <h4 className="text-lg font-semibold mb-4">연락처</h4>
                 <div className="space-y-3 text-gray-300">
                   <div className="flex items-center space-x-3">
