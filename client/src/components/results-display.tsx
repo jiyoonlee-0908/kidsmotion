@@ -377,7 +377,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center mb-2">
-                  <QRCode value={reportUrl} size={96} />
+                  <QRCodeSVG value={reportUrl} size={96} />
                 </div>
                 <p className="text-sm text-gray-600">이력 확인 QR</p>
               </div>

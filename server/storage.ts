@@ -62,7 +62,18 @@ export class MemStorage implements IStorage {
 
   async createAnalysisResult(insertResult: InsertAnalysisResult): Promise<AnalysisResult> {
     const id = this.currentAnalysisId++;
-    const result: AnalysisResult = { ...insertResult, id };
+    const result: AnalysisResult = { 
+      ...insertResult, 
+      id,
+      aiSummary: insertResult.aiSummary || null,
+      balanceComment: insertResult.balanceComment || null,
+      explanation5s: insertResult.explanation5s || null,
+      explanation15s: insertResult.explanation15s || null,
+      explanation30s: insertResult.explanation30s || null,
+      explanation60s: insertResult.explanation60s || null,
+      comprehensiveAnalysis: insertResult.comprehensiveAnalysis || null,
+      overallAssessment: insertResult.overallAssessment || null
+    };
     this.analysisResults.set(id, result);
     return result;
   }
