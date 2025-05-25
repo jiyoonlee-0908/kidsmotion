@@ -27,12 +27,7 @@ export default function Navigation() {
           </div>
 
           {/* Navigation Menu */}
-          <div className="flex space-x-1">
-            <Button variant="ghost" className="flex items-center space-x-2">
-              <Home className="w-4 h-4" />
-              <span>홈</span>
-            </Button>
-
+          <div className="flex space-x-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
@@ -59,16 +54,6 @@ export default function Navigation() {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <Button variant="ghost" className="flex items-center space-x-2">
-              <Info className="w-4 h-4" />
-              <span>소개</span>
-            </Button>
-
-            <Button variant="ghost" className="flex items-center space-x-2">
-              <MessageCircle className="w-4 h-4" />
-              <span>문의</span>
-            </Button>
           </div>
         </div>
       </div>
