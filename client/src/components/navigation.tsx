@@ -1,6 +1,12 @@
 import { Link, useLocation } from "wouter";
-import { ActivitySquare, Search, History } from "lucide-react";
+import { ActivitySquare, Search, History, ChevronDown, BarChart3, Home, MessageCircle, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function Navigation() {
   const [location] = useLocation();
@@ -16,31 +22,53 @@ export default function Navigation() {
             </div>
             <div>
               <h1 className="text-xl font-bold gradient-text">KidsMotion</h1>
-              <p className="text-xs text-gray-500">체력 분석 시스템</p>
+              <p className="text-xs text-gray-500 font-medium">MotionBike</p>
             </div>
           </div>
 
           {/* Navigation Menu */}
-          <div className="flex space-x-2">
-            <Link href="/">
-              <Button 
-                variant={location === "/" ? "default" : "ghost"} 
-                className="flex items-center space-x-2"
-              >
-                <Search className="w-4 h-4" />
-                <span>측정</span>
-              </Button>
-            </Link>
-            
-            <Link href="/records">
-              <Button 
-                variant={location === "/records" ? "default" : "ghost"} 
-                className="flex items-center space-x-2"
-              >
-                <History className="w-4 h-4" />
-                <span>기록</span>
-              </Button>
-            </Link>
+          <div className="flex space-x-1">
+            <Button variant="ghost" className="flex items-center space-x-2">
+              <Home className="w-4 h-4" />
+              <span>홈</span>
+            </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant={location === "/" || location === "/records" ? "default" : "ghost"} 
+                  className="flex items-center space-x-2"
+                >
+                  <BarChart3 className="w-4 h-4" />
+                  <span>분석</span>
+                  <ChevronDown className="w-3 h-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex items-center space-x-2 w-full cursor-pointer">
+                    <Search className="w-4 h-4" />
+                    <span>측정</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/records" className="flex items-center space-x-2 w-full cursor-pointer">
+                    <History className="w-4 h-4" />
+                    <span>기록</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button variant="ghost" className="flex items-center space-x-2">
+              <Info className="w-4 h-4" />
+              <span>소개</span>
+            </Button>
+
+            <Button variant="ghost" className="flex items-center space-x-2">
+              <MessageCircle className="w-4 h-4" />
+              <span>문의</span>
+            </Button>
           </div>
         </div>
       </div>
