@@ -120,7 +120,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   <FormItem>
                     <FormLabel>이름</FormLabel>
                     <FormControl>
-                      <Input placeholder="홍길동" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -252,7 +252,6 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input 
                           type="number" 
-                          placeholder="200" 
                           min="0" 
                           max="1000"
                           {...field}
@@ -286,7 +285,6 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input 
                           type="number" 
-                          placeholder="180" 
                           min="0" 
                           max="1000"
                           {...field}
@@ -307,7 +305,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input 
                           type="number" 
-                          placeholder="160" 
+
                           min="0" 
                           max="1000"
                           {...field}
@@ -328,7 +326,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input 
                           type="number" 
-                          placeholder="140" 
+
                           min="0" 
                           max="1000"
                           {...field}
