@@ -161,7 +161,7 @@ export default function Home() {
                 <ul className="space-y-2 text-gray-300">
                   <li>체력 측정 및 분석</li>
                   <li>AI 기반 운동 처방</li>
-                  <li>진전도 추적 관리</li>
+                  <li>진도 상황 관리</li>
                   <li>전문 리포트 생성</li>
                 </ul>
               </div>
@@ -181,7 +181,7 @@ export default function Home() {
                 <div className="space-y-3 text-gray-300">
                   <div className="flex items-center space-x-3">
                     <Phone className="w-4 h-4" />
-                    <span>1588-0000</span>
+                    <span>010-8445-0908</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="w-4 h-4" />
@@ -189,7 +189,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-4 h-4" />
-                    <span>서울시 강남구 테헤란로</span>
+                    <span>서울시 강서구 금낭화로 234</span>
                   </div>
                 </div>
               </div>
