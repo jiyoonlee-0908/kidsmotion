@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings } from "lucide-react";
+import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star } from "lucide-react";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import type { Measurement, AnalysisResult } from "@shared/schema";
@@ -54,13 +54,21 @@ export default function Home() {
                 <p className="text-sm text-gray-600 font-medium">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
-                <HelpCircle className="w-5 h-5" />
-              </button>
-              <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
-                <Settings className="w-5 h-5" />
-              </button>
+            <div className="flex items-center space-x-8">
+              <nav className="hidden md:flex items-center space-x-6">
+                <a href="#home" className="text-gray-700 hover:text-primary font-medium transition-colors">홈</a>
+                <a href="#analysis" className="text-gray-700 hover:text-primary font-medium transition-colors">분석</a>
+                <a href="#about" className="text-gray-700 hover:text-primary font-medium transition-colors">소개</a>
+                <a href="#contact" className="text-gray-700 hover:text-primary font-medium transition-colors">문의</a>
+              </nav>
+              <div className="flex items-center space-x-3">
+                <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <HelpCircle className="w-5 h-5" />
+                </button>
+                <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <Settings className="w-5 h-5" />
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -29,13 +29,34 @@ function calculateAge(birthDate: string): number {
 }
 
 function calculatePercentile(value: number, cutoffs: any): number {
-  if (!cutoffs) return 50;
+  if (!cutoffs) {
+    console.log("경고: cutoffs 데이터가 없음, 기본값 50 반환");
+    return 50;
+  }
   
-  if (value <= cutoffs.P4) return Math.random() * 4;
-  else if (value <= cutoffs.P20) return 4 + Math.random() * 16;
-  else if (value <= cutoffs.P80) return 20 + Math.random() * 60;
-  else if (value <= cutoffs.P96) return 80 + Math.random() * 16;
-  else return 96 + Math.random() * 4;
+  console.log(`백분위 계산: 값=${value}, P4=${cutoffs.P4}, P20=${cutoffs.P20}, P80=${cutoffs.P80}, P96=${cutoffs.P96}`);
+  
+  if (value <= cutoffs.P4) {
+    const percentile = 2; // P4 이하는 약 2%
+    console.log(`결과: P4 이하, ${percentile}%`);
+    return percentile;
+  } else if (value <= cutoffs.P20) {
+    const percentile = 4 + ((value - cutoffs.P4) / (cutoffs.P20 - cutoffs.P4)) * 16;
+    console.log(`결과: P4-P20 구간, ${Math.round(percentile)}%`);
+    return Math.round(percentile);
+  } else if (value <= cutoffs.P80) {
+    const percentile = 20 + ((value - cutoffs.P20) / (cutoffs.P80 - cutoffs.P20)) * 60;
+    console.log(`결과: P20-P80 구간, ${Math.round(percentile)}%`);
+    return Math.round(percentile);
+  } else if (value <= cutoffs.P96) {
+    const percentile = 80 + ((value - cutoffs.P80) / (cutoffs.P96 - cutoffs.P80)) * 16;
+    console.log(`결과: P80-P96 구간, ${Math.round(percentile)}%`);
+    return Math.round(percentile);
+  } else {
+    const percentile = 96 + 2; // P96 이상은 약 98%
+    console.log(`결과: P96 이상, ${percentile}%`);
+    return percentile;
+  }
 }
 
 function getBalanceStatus(leftBalance: number, rightBalance: number): string {
@@ -58,9 +79,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const age = calculateAge(measurementData.birthDate);
       const bmi = measurementData.weight / Math.pow(measurementData.height / 100, 2);
       
-      // Determine gender key (simplified - could be input in real app)
-      const genderKey = age >= 10 ? `${age}_M` : "10_M"; // Default fallback
+      // Determine gender key (기본값을 남성으로 설정, 실제로는 폼에서 입력받아야 함)
+      const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
+      const genderKey = `${clampedAge}_M`; // 남성 기본값, 추후 성별 입력 기능 추가 필요
       const cutoffs = cutoffData.data?.[genderKey];
+      
+      console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 키: ${genderKey}`);
       
       // Calculate relative power (W/kg^0.67)
       const weightPower = Math.pow(measurementData.weight, 0.67);

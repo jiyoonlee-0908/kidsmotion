@@ -3,12 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   User, Trophy, Scale, BarChart3, TrendingUp, 
-  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode
+  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer
 } from "lucide-react";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
 import ProgressChart from "@/components/charts/progress-chart";
 import { QRCodeSVG } from "qrcode.react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
 interface ResultsDisplayProps {
@@ -41,6 +43,47 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   };
 
   const reportUrl = `${window.location.origin}/report/${measurement.id}`;
+
+  // PDF 저장 기능
+  const handleSavePDF = async () => {
+    const element = document.getElementById('results-container');
+    if (!element) return;
+
+    try {
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff'
+      });
+      
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save(`${measurement.studentName}_체력분석_리포트.pdf`);
+    } catch (error) {
+      console.error('PDF 저장 오류:', error);
+    }
+  };
+
+  // 인쇄 기능
+  const handlePrint = () => {
+    window.print();
+  };
   
   const fitnessItems = [
     {
@@ -77,13 +120,31 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
 
   return (
     <div className="space-y-6">
-      {/* New Measurement Button */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-gray-900">체력 분석 결과</h2>
-        <Button onClick={onNewMeasurement} variant="outline" className="flex items-center space-x-2">
-          <RotateCcw className="w-4 h-4" />
-          <span>새 측정</span>
-        </Button>
+      {/* Header with Action Buttons */}
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold gradient-text">체력 분석 결과</h2>
+        <div className="flex items-center space-x-3">
+          <Button 
+            onClick={handleSavePDF}
+            className="fitness-icon hover:scale-105 transition-all duration-300"
+          >
+            <Download className="w-5 h-5 text-white" />
+          </Button>
+          <Button 
+            onClick={handlePrint}
+            className="fitness-icon hover:scale-105 transition-all duration-300"
+          >
+            <Printer className="w-5 h-5 text-white" />
+          </Button>
+          <Button 
+            onClick={onNewMeasurement} 
+            variant="outline" 
+            className="px-6 py-3 rounded-2xl border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2"
+          >
+            <RotateCcw className="w-4 h-4" />
+            <span className="font-semibold">새 측정</span>
+          </Button>
+        </div>
       </div>
 
       {/* Card 1: Basic Info */}
