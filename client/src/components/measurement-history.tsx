@@ -21,21 +21,31 @@ interface HistoryData {
   analysis: AnalysisResult;
 }
 
-export default function MeasurementHistory({ studentName, currentMeasurement }: MeasurementHistoryProps) {
+export default function MeasurementHistory({ studentName, searchStudent, currentMeasurement }: MeasurementHistoryProps) {
   const [history, setHistory] = useState<HistoryData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMetric, setSelectedMetric] = useState<'power' | 'strength' | 'muscleEndurance' | 'cardioEndurance'>('power');
 
   useEffect(() => {
-    if (studentName) {
+    if (searchStudent.name && searchStudent.gender && searchStudent.birthDate) {
       fetchHistory();
     }
-  }, [studentName]);
+  }, [searchStudent]);
 
   const fetchHistory = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/measurements/student/${encodeURIComponent(studentName)}`);
+      const response = await fetch('/api/measurements/student/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: searchStudent.name,
+          gender: searchStudent.gender,
+          birthDate: searchStudent.birthDate,
+        }),
+      });
       if (response.ok) {
         const measurements = await response.json();
         
