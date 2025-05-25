@@ -8,6 +8,11 @@ import type { Measurement, AnalysisResult } from "@shared/schema";
 
 interface MeasurementHistoryProps {
   studentName: string;
+  searchStudent: {
+    name: string;
+    gender: string;
+    birthDate: string;
+  };
   currentMeasurement?: Measurement;
 }
 

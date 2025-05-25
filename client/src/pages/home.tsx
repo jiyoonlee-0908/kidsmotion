@@ -20,7 +20,11 @@ export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
   const [showHistory, setShowHistory] = useState(false);
-  const [searchStudentName, setSearchStudentName] = useState("");
+  const [searchStudent, setSearchStudent] = useState({
+    name: "",
+    gender: "",
+    birthDate: ""
+  });
 
   const handleMeasurementComplete = (data: MeasurementResponse) => {
     setMeasurementData(data);
@@ -38,7 +42,26 @@ export default function Home() {
   const handleNewMeasurement = () => {
     setShowResults(false);
     setMeasurementData(null);
+    setShowHistory(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSearchStudent = () => {
+    const { name, gender, birthDate } = searchStudent;
+    if (!name.trim() || !gender || !birthDate) {
+      alert("이름, 성별, 생년월일을 모두 입력해 주세요.");
+      return;
+    }
+    setShowHistory(true);
+    setShowResults(false);
+    
+    // Smooth scroll to history section
+    setTimeout(() => {
+      const historyElement = document.getElementById('history-container');
+      if (historyElement) {
+        historyElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -84,7 +107,7 @@ export default function Home() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {!showResults ? (
+        {!showResults && !showHistory ? (
           <>
             {/* Hero Section */}
             <section id="home" className="text-center mb-20">
@@ -128,10 +151,141 @@ export default function Home() {
               </div>
             </section>
             
-            <div id="analysis">
+            {/* 메인 선택 섹션 */}
+            <section className="mb-16">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                {/* 새로운 측정 */}
+                <Card className="glass-effect border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group" 
+                      onClick={() => {
+                        const formElement = document.getElementById('measurement-form');
+                        if (formElement) {
+                          formElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                      <Bike className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary transition-colors">새로운 측정</h3>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      아이의 체력을 새로 측정하고<br />
+                      AI 분석 결과를 확인해보세요
+                    </p>
+                    <Button className="w-full bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                      측정 시작하기
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* 기록 조회 */}
+                <Card className="glass-effect border-0 shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                      onClick={() => {
+                        const searchElement = document.getElementById('student-search');
+                        if (searchElement) {
+                          searchElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-500 via-teal-500 to-cyan-500 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300">
+                      <History className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary transition-colors">기록 조회</h3>
+                    <p className="text-gray-600 leading-relaxed mb-6">
+                      이전 측정 기록을 조회하고<br />
+                      성장 과정을 확인해보세요
+                    </p>
+                    <Button variant="outline" className="w-full border-2 border-emerald-500 text-emerald-600 hover:bg-emerald-500 hover:text-white font-semibold py-3 rounded-xl transition-all duration-300">
+                      기록 조회하기
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            {/* 학생 검색 섹션 */}
+            <section id="student-search" className="mb-16">
+              <div className="max-w-2xl mx-auto">
+                <Card className="glass-effect border-0 shadow-xl">
+                  <CardContent className="p-8">
+                    <div className="text-center mb-8">
+                      <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg">
+                        <Search className="w-8 h-8 text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">학생 기록 조회</h3>
+                      <p className="text-gray-600">정확한 학생 식별을 위해 모든 정보를 입력해 주세요</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">학생 이름</label>
+                        <Input
+                          type="text"
+                          placeholder="학생 이름을 입력하세요"
+                          value={searchStudent.name}
+                          onChange={(e) => setSearchStudent({...searchStudent, name: e.target.value})}
+                          className="h-12"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">성별</label>
+                          <select
+                            value={searchStudent.gender}
+                            onChange={(e) => setSearchStudent({...searchStudent, gender: e.target.value})}
+                            className="w-full h-12 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                          >
+                            <option value="">선택하세요</option>
+                            <option value="M">남자</option>
+                            <option value="F">여자</option>
+                          </select>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">생년월일</label>
+                          <Input
+                            type="date"
+                            value={searchStudent.birthDate}
+                            onChange={(e) => setSearchStudent({...searchStudent, birthDate: e.target.value})}
+                            className="h-12"
+                          />
+                        </div>
+                      </div>
+
+                      <Button 
+                        onClick={handleSearchStudent}
+                        className="w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-semibold py-3 h-12 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                      >
+                        <Search className="w-5 h-5 mr-2" />
+                        기록 조회하기
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+
+            {/* 측정 폼 섹션 */}
+            <div id="measurement-form">
               <MeasurementForm onComplete={handleMeasurementComplete} />
             </div>
           </>
+        ) : showHistory ? (
+          <div id="history-container">
+            <MeasurementHistory 
+              studentName={searchStudent.name}
+              searchStudent={searchStudent}
+            />
+            <div className="text-center mt-8">
+              <Button 
+                onClick={handleNewMeasurement}
+                variant="outline"
+                className="px-8 py-3"
+              >
+                홈으로 돌아가기
+              </Button>
+            </div>
+          </div>
         ) : (
           <div id="results-container">
             {measurementData && (

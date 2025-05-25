@@ -344,15 +344,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get("/api/measurements/student/:name", async (req, res) => {
+  app.post("/api/measurements/student/search", async (req, res) => {
     try {
-      const studentName = decodeURIComponent(req.params.name);
-      const measurements = await storage.getMeasurementsByStudent(studentName);
+      const { name, gender, birthDate } = req.body;
       
-      res.json(measurements);
+      if (!name || !gender || !birthDate) {
+        return res.status(400).json({ error: "이름, 성별, 생년월일이 모두 필요합니다" });
+      }
+      
+      const allMeasurements = await storage.getMeasurementsByStudent(name);
+      
+      // 이름 + 성별 + 생년월일로 정확한 학생 필터링
+      const matchingMeasurements = allMeasurements.filter(measurement => 
+        measurement.studentName === name &&
+        measurement.gender === gender &&
+        measurement.birthDate === birthDate
+      );
+      
+      res.json(matchingMeasurements);
       
     } catch (error) {
-      res.status(500).json({ error: "Failed to retrieve student measurements" });
+      res.status(500).json({ error: "학생 측정 기록 조회에 실패했습니다" });
     }
   });
 
