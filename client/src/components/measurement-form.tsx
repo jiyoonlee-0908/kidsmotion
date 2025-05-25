@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -64,19 +64,6 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
     },
   });
 
-  // 연령에 따른 고급측정 자동 펼치기
-  const watchedBirthDate = form.watch("birthDate");
-  const currentAge = watchedBirthDate ? calculateAge(watchedBirthDate) : 0;
-  
-  // 10세 이상이면 자동으로 고급측정 펼치기
-  React.useEffect(() => {
-    if (currentAge >= 10) {
-      setShowAdvanced(true);
-    } else {
-      setShowAdvanced(false);
-    }
-  }, [currentAge]);
-
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
       const response = await apiRequest("POST", "/api/measurements", data);
@@ -102,7 +89,13 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
     createMeasurement.mutate(data);
   };
 
-
+  // Auto-adjust right balance when left balance changes
+  const handleLeftBalanceChange = (value: string) => {
+    const leftValue = parseFloat(value) || 0;
+    const rightValue = 100 - leftValue;
+    form.setValue("leftBalance", leftValue);
+    form.setValue("rightBalance", rightValue);
+  };
 
   return (
     <Card className="fitness-card">
@@ -267,7 +260,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power5s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>5초 최대파워 (A)</FormLabel>
+                      <FormLabel>5초 파워</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -287,7 +280,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power15s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>15초 최대파워 (A)</FormLabel>
+                      <FormLabel>15초 파워</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -307,7 +300,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power30s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>30초 평균파워 (C)</FormLabel>
+                      <FormLabel>30초 파워</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -328,7 +321,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power60s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>60초 평균파워 (C)</FormLabel>
+                      <FormLabel>60초 파워</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -367,9 +360,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           max="100"
                           {...field}
                           onChange={(e) => {
-                            const value = parseFloat(e.target.value) || 0;
-                            field.onChange(value);
-                            form.setValue("rightBalance", 100 - value);
+                            handleLeftBalanceChange(e.target.value);
                           }}
                         />
                       </FormControl>
@@ -390,7 +381,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           placeholder="52" 
                           min="0" 
                           max="100"
-                          {...field}
+                          value={field.value}
                           readOnly
                           className="bg-gray-100"
                         />
@@ -418,7 +409,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder=""
+                          placeholder="예: 185"
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
@@ -438,7 +429,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder=""
+                          placeholder="예: 145"
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
@@ -458,7 +449,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder=""
+                          placeholder="예: 65"
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
@@ -518,7 +509,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
                             <Timer className="w-4 h-4 text-blue-600" />
-                            180초 파워/장거리지구력 (W)
+                            180초 근지구력 (W)
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -542,7 +533,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
                             <Timer className="w-4 h-4 text-green-600" />
-                            360초 파워/유산소지구력 (W)
+                            360초 심폐지구력 (W)
                           </FormLabel>
                           <FormControl>
                             <Input
