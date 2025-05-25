@@ -267,7 +267,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power5s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>5초 순발력 (A)</FormLabel>
+                      <FormLabel>5초 최대파워 (A)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -287,7 +287,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power15s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>15초 근력 (A)</FormLabel>
+                      <FormLabel>15초 최대파워 (A)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -307,7 +307,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power30s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>30초 근지구력 (C)</FormLabel>
+                      <FormLabel>30초 평균파워 (C)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -328,7 +328,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power60s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>60초 심폐지구력 (C)</FormLabel>
+                      <FormLabel>60초 평균파워 (C)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
