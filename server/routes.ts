@@ -213,13 +213,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/invite-codes", async (req, res) => {
     try {
       const code = crypto.randomBytes(4).toString('hex').toUpperCase();
+      console.log("생성된 코드:", code);
+      
       const inviteCode = await storage.createInviteCode({
         code,
         isUsed: "false"
       });
       
+      console.log("저장된 초대 코드:", inviteCode);
       res.json(inviteCode);
     } catch (error) {
+      console.error("초대 코드 생성 오류:", error);
       res.status(500).json({ error: "Failed to create invite code" });
     }
   });

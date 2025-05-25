@@ -1,0 +1,84 @@
+Replit version 2a1ca508, pid2 version 0.0.1337
+_app-f37a9de3a3cc4d00.js:38 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-f37a9de3a3cc4d00.js:38 [LaunchDarkly] LaunchDarkly client initialized
+22Tracking Prevention blocked access to storage for <URL>.
+_app-f37a9de3a3cc4d00.js:38 [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/62b35a865152ab14c5942820/eyJrZXkiOiI0MjYzMTI5NyIsImtpbmQiOiJ1c2VyIiwibmFtZSI6IjJneW9vb24iLCJyb2xlcyI6WyJpbnRlbnRfYnVzaW5lc3MiLCJvbmJvYXJkaW5nX2pvYl9lbmciLCJvbmJvYXJkaW5nX3JvbGVfbWVtYmVyIl0sImVtYWlsIjoiMmd5b29vbkBnbWFpbC5jb20iLCJ0aW1lX2NyZWF0ZWQiOjE3NDcxMzMzNTk0MjksIl9tZXRhIjp7InByaXZhdGVBdHRyaWJ1dGVzIjpbImVtYWlsIl19fQ
+framework-812388ecc6587870.js:1  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'battery'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'layout-animations'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'navigation-override'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'oversized-images'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'publickey-credentials'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'speaker-selection'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'unoptimized-images'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'unsized-media'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Unrecognized feature: 'pointer-lock'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-812388ecc6587870.js:1
+framework-812388ecc6587870.js:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-812388ecc6587870.js:1
+stallwart.build.js:1 stallwart: failed ping 1
+FitnessReporter:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+_app-f37a9de3a3cc4d00.js:38 [LaunchDarkly] Closing stream connection
+framework-812388ecc6587870.js:1  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-812388ecc6587870.js:1
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'ambient-light-sensor'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'battery'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'execution-while-not-rendered'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'layout-animations'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'legacy-image-formats'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'navigation-override'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'oversized-images'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'publickey-credentials'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'speaker-selection'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'unoptimized-images'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Unrecognized feature: 'unsized-media'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Allow attribute will take precedence over 'allowfullscreen'.
+9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/__replco/workspace_iframe.html?initialPath=%2F&id=%3Arc7%3A:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+workspace_iframe.html:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+Console.js:61  코드 생성 오류: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+Mt.forEach.n.<computed> @ Console.js:61
+
+                
+          
+          
+          
+         Microsoft Edge is moving towards a new experience that allows users to choose to browse without third-party cookies.
+[NEW] Explain Console errors by using Copilot in Edge: click
+         
+         to explain an error. 
+        Learn more
