@@ -22,21 +22,30 @@ export default function Admin() {
 
   const loginMutation = useMutation({
     mutationFn: async (password: string) => {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password }),
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error("잘못된 비밀번호입니다.");
+      try {
+        const response = await fetch("/api/admin/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ password }),
+        });
+        
+        if (!response.ok) {
+          throw new Error("잘못된 비밀번호입니다.");
+        }
+        
+        // Try to parse JSON, but don't fail if it's not valid JSON
+        try {
+          return await response.json();
+        } catch {
+          // If JSON parsing fails but response is ok, consider it success
+          return { message: "로그인 성공" };
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        throw error;
       }
-      
-      const result = await response.json();
-      return result;
     },
     onSuccess: () => {
       setIsAuthenticated(true);
