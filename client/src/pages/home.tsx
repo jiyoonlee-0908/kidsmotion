@@ -137,10 +137,15 @@ export default function Home() {
           <div className="space-y-6">
             {/* 타이틀 섹션 */}
             <div className="text-center mb-8">
-              <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-                AI 기반 아동 체력 분석
-              </h2>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              <div className="inline-flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  AI 기반 아동 체력 분석
+                </h2>
+              </div>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 데이터 기반 스마트 체력 진단으로 기관별 맞춤형 솔루션을 제공하는 차세대 헬스케어 플랫폼
               </p>
             </div>
