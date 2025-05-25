@@ -76,24 +76,24 @@ export default function About() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="text-center">
                     <div className="w-12 h-12 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-purple-600">5s</span>
+                      <span className="text-xl font-bold text-purple-600">파워</span>
                     </div>
-                    <h4 className="font-semibold text-gray-800 mb-2">순발력 측정</h4>
-                    <p className="text-sm text-gray-600">폭발적인 파워 발휘 능력을 측정하여 순간적인 근력을 평가합니다.</p>
+                    <h4 className="font-semibold text-gray-800 mb-2">파워 측정</h4>
+                    <p className="text-sm text-gray-600">5초, 15초, 30초, 60초 구간별로 파워를 측정하여 체력 요소를 종합 분석합니다.</p>
                   </div>
                   <div className="text-center">
                     <div className="w-12 h-12 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-blue-600">15s</span>
+                      <span className="text-xl font-bold text-blue-600">균형</span>
                     </div>
-                    <h4 className="font-semibold text-gray-800 mb-2">근력 측정</h4>
-                    <p className="text-sm text-gray-600">근육의 최대 힘을 발휘하는 능력을 평가하여 기초 체력을 확인합니다.</p>
+                    <h4 className="font-semibold text-gray-800 mb-2">좌우 밸런스</h4>
+                    <p className="text-sm text-gray-600">좌측과 우측 다리의 파워 균형을 분석하여 신체 밸런스 상태를 확인합니다.</p>
                   </div>
                   <div className="text-center">
                     <div className="w-12 h-12 bg-teal-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-teal-600">30s</span>
+                      <span className="text-xl font-bold text-teal-600">AI</span>
                     </div>
-                    <h4 className="font-semibold text-gray-800 mb-2">근지구력</h4>
-                    <p className="text-sm text-gray-600">근육이 지속적으로 힘을 발휘하는 능력을 측정합니다.</p>
+                    <h4 className="font-semibold text-gray-800 mb-2">AI 리포트</h4>
+                    <p className="text-sm text-gray-600">측정 결과를 바탕으로 AI가 개인별 맞춤 분석 리포트와 운동 처방을 제공합니다.</p>
                   </div>
                 </div>
               </CardContent>
@@ -139,25 +139,25 @@ export default function About() {
                   <div>
                     <h4 className="text-xl font-semibold text-gray-800 mb-3">MotionBike</h4>
                     <p className="text-gray-600 leading-relaxed mb-4">
-                      MotionBike는 아동 체력 분석 분야의 선도기업으로, 과학적이고 체계적인 접근을 통해 
-                      미래 세대의 건강한 성장을 지원하는 혁신적인 솔루션을 제공합니다.
+                      MotionBike는 아동 체력 측정 및 분석 서비스를 개발하는 스타트업으로, 
+                      와트바이크를 활용한 체력 측정과 AI 기반 리포트 시스템을 제공합니다.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="font-semibold text-gray-700">설립:</span>
-                        <span className="ml-2 text-gray-600">2023년</span>
+                        <span className="font-semibold text-gray-700">설립 예정:</span>
+                        <span className="ml-2 text-gray-600">2026년</span>
                       </div>
                       <div>
                         <span className="font-semibold text-gray-700">위치:</span>
                         <span className="ml-2 text-gray-600">서울시 강서구</span>
                       </div>
                       <div>
-                        <span className="font-semibold text-gray-700">특허:</span>
-                        <span className="ml-2 text-gray-600">AI 체력분석 기술</span>
+                        <span className="font-semibold text-gray-700">서비스:</span>
+                        <span className="ml-2 text-gray-600">체력 측정 & AI 리포트</span>
                       </div>
                       <div>
-                        <span className="font-semibold text-gray-700">인증:</span>
-                        <span className="ml-2 text-gray-600">의료기기 인증 진행중</span>
+                        <span className="font-semibold text-gray-700">단계:</span>
+                        <span className="ml-2 text-gray-600">MVP 개발중</span>
                       </div>
                     </div>
                   </div>
