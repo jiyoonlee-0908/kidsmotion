@@ -31,10 +31,12 @@ export default function Admin() {
       });
       
       if (!response.ok) {
+        const errorData = await response.text();
         throw new Error("잘못된 비밀번호입니다.");
       }
       
-      return response.json();
+      const result = await response.json();
+      return result;
     },
     onSuccess: () => {
       setIsAuthenticated(true);
