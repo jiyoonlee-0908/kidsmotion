@@ -10,8 +10,8 @@ import path from "path";
 // Constants
 const POWER_EXPONENT = 0.67;
 
-// Load cutoff data
-const cutoffDataPath = path.resolve(import.meta.dirname, "..", "attached_assets", "cutoff_v2.json");
+// Load cutoff data - 와트바이크 기준 정확한 데이터
+const cutoffDataPath = path.resolve(import.meta.dirname, "..", "attached_assets", "wattbike_cutoff_v3.json");
 let cutoffData: any = {};
 
 try {
