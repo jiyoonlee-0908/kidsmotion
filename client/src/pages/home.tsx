@@ -52,6 +52,7 @@ export default function Home() {
                 <Activity className="w-7 h-7 text-white" />
               </div>
               <div>
+                <p className="text-sm text-gray-500 mb-1">MotionBike</p>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   KidsMotion
                 </h1>
