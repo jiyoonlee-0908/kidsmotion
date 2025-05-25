@@ -9,11 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, UserPlus, Zap, Scale, ChartLine, Plus, Minus, Info, Timer, Heart } from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Loader2, UserPlus, Zap, Scale, ChartLine, Plus, Minus, Info, Timer, Heart, ChevronDown, ChevronUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertMeasurementSchema } from "@shared/schema";
 import { z } from "zod";
+import { calculateAge } from "@/lib/fitness-calculations";
 
 const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
@@ -34,6 +36,8 @@ interface MeasurementFormProps {
 
 export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
   const { toast } = useToast();
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showHeartRate, setShowHeartRate] = useState(false);
   
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -380,6 +384,128 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   )}
                 />
               </div>
+            </div>
+
+            {/* 고급 측정 섹션 */}
+            <div className="space-y-4">
+              <Collapsible open={showAdvanced} onOpenChange={setShowAdvanced}>
+                <CollapsibleTrigger asChild>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full flex items-center justify-between p-4 border-2 border-dashed border-purple-300 hover:border-purple-500 hover:bg-purple-50 transition-all"
+                  >
+                    <div className="flex items-center gap-2">
+                      <Plus className={`w-5 h-5 text-purple-600 transition-transform ${showAdvanced ? 'rotate-45' : ''}`} />
+                      <span className="font-medium text-purple-700">고급 측정 추가 (선택사항)</span>
+                      {(() => {
+                        const currentAge = form.watch("birthDate") ? calculateAge(form.watch("birthDate")) : 0;
+                        if (currentAge >= 10) {
+                          return <Badge variant="secondary" className="bg-green-100 text-green-700">권장</Badge>;
+                        }
+                        return null;
+                      })()}
+                    </div>
+                    {showAdvanced ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </Button>
+                </CollapsibleTrigger>
+                
+                <CollapsibleContent className="space-y-4 mt-4">
+                  <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                    <div className="flex items-start">
+                      <Info className="w-5 h-5 text-blue-600 mt-0.5 mr-2" />
+                      <div>
+                        <p className="text-sm text-blue-800 font-medium">고급 측정 안내</p>
+                        <p className="text-xs text-blue-700 mt-1">
+                          180초(근지구력), 360초(심폐지구력) 측정과 심박수 데이터를 추가로 수집합니다. 
+                          10세 이상 권장하지만, 모든 연령에서 선택적으로 실시 가능합니다.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 추가 파워 측정 */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
+                    <div>
+                      <Label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                        <Timer className="w-4 h-4 text-blue-600" />
+                        180초 근지구력 (W)
+                      </Label>
+                      <Input
+                        type="number"
+                        placeholder="예: 85"
+                        className="bg-white"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">3분간 일정 강도 유지</p>
+                    </div>
+                    
+                    <div>
+                      <Label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                        <Timer className="w-4 h-4 text-green-600" />
+                        360초 심폐지구력 (W)
+                      </Label>
+                      <Input
+                        type="number"
+                        placeholder="예: 70"
+                        className="bg-white"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">6분간 유산소 영역</p>
+                    </div>
+                  </div>
+
+                  {/* 심박수 섹션 */}
+                  <Collapsible open={showHeartRate} onOpenChange={setShowHeartRate}>
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full flex items-center justify-between p-3 border border-gray-300 hover:border-red-400 hover:bg-red-50"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Heart className="w-4 h-4 text-red-500" />
+                          <span className="text-sm font-medium">심박수 데이터 추가</span>
+                        </div>
+                        {showHeartRate ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </Button>
+                    </CollapsibleTrigger>
+                    
+                    <CollapsibleContent className="mt-3">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-red-50 rounded-lg">
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700 mb-2 block">최대 심박수 (BPM)</Label>
+                          <Input
+                            type="number"
+                            placeholder="예: 185"
+                            className="bg-white"
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700 mb-2 block">평균 심박수 (BPM)</Label>
+                          <Input
+                            type="number"
+                            placeholder="예: 145"
+                            className="bg-white"
+                          />
+                        </div>
+                        
+                        <div>
+                          <Label className="text-sm font-medium text-gray-700 mb-2 block">안정시 심박수 (BPM)</Label>
+                          <Input
+                            type="number"
+                            placeholder="예: 65"
+                            className="bg-white"
+                          />
+                        </div>
+                      </div>
+                      
+                      <p className="text-xs text-gray-600 mt-2 text-center">
+                        Garmin 등 외장 심박계 사용 권장 | 선택적 입력 사항
+                      </p>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
 
             <Button 
