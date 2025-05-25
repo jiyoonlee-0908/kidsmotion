@@ -88,12 +88,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Calculate relative power (W/kg^0.67)
       const weightPower = Math.pow(measurementData.weight, 0.67);
+      console.log(`체중: ${measurementData.weight}kg, 체중^0.67: ${weightPower}`);
+      
       const relativePowers = {
         "5s": measurementData.power5s / weightPower,
         "15s": measurementData.power15s / weightPower,
         "30s": measurementData.power30s / weightPower,
         "60s": measurementData.power60s / weightPower
       };
+      
+      console.log(`입력된 절대 파워값: 5s=${measurementData.power5s}W, 15s=${measurementData.power15s}W, 30s=${measurementData.power30s}W, 60s=${measurementData.power60s}W`);
+      console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
       // Calculate percentiles
       const percentiles = {
@@ -102,6 +107,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.["30s"]),
         "60s": calculatePercentile(relativePowers["60s"], cutoffs?.["60s"])
       };
+      
+      console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
       
       const overallPercentile = (percentiles["5s"] + percentiles["15s"] + percentiles["30s"] + percentiles["60s"]) / 4;
       const balanceStatus = getBalanceStatus(measurementData.leftBalance, measurementData.rightBalance);
