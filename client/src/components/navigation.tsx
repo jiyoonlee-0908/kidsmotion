@@ -71,24 +71,16 @@ export default function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <button 
-                onClick={() => {
-                  console.log('About button clicked');
-                  setLocation('/about');
-                }}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
-              >
-                소개
-              </button>
-              <button 
-                onClick={() => {
-                  console.log('Contact button clicked');
-                  setLocation('/contact');
-                }}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
-              >
-                문의
-              </button>
+              <Link href="/about">
+                <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
+                  소개
+                </button>
+              </Link>
+              <Link href="/contact">
+                <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
+                  문의
+                </button>
+              </Link>
             </nav>
             <div className="flex items-center space-x-3">
               <button 
