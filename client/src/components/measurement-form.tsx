@@ -105,9 +105,15 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
   // Auto-adjust right balance when left balance changes
   const handleLeftBalanceChange = (value: string) => {
     const leftValue = parseFloat(value) || 0;
-    const rightValue = Math.max(0, 100 - leftValue);
-    form.setValue("leftBalance", leftValue);
+    const rightValue = 100 - leftValue;
     form.setValue("rightBalance", rightValue);
+  };
+
+  // Auto-adjust left balance when right balance changes
+  const handleRightBalanceChange = (value: string) => {
+    const rightValue = parseFloat(value) || 0;
+    const leftValue = 100 - rightValue;
+    form.setValue("leftBalance", leftValue);
   };
 
   return (
@@ -273,7 +279,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power5s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>5초 파워/순발력</FormLabel>
+                      <FormLabel>5초 파워/순발력 (A)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -293,7 +299,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power15s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>15초 파워/근력</FormLabel>
+                      <FormLabel>15초 파워/근력 (A)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -313,7 +319,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power30s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>30초 파워/근지구력</FormLabel>
+                      <FormLabel>30초 파워/근지구력 (C)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -334,7 +340,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   name="power60s"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>60초 파워/심폐지구력</FormLabel>
+                      <FormLabel>60초 파워/심폐지구력 (C)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -396,9 +402,12 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           placeholder="52" 
                           min="0" 
                           max="100"
-                          value={field.value}
-                          readOnly
-                          className="bg-gray-100"
+                          value={field.value || ''}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(Number(value));
+                            handleRightBalanceChange(value);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
