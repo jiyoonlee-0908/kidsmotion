@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useState, useEffect } from "react";
 import Home from "@/pages/home";
 import Records from "@/pages/records";
+import About from "@/pages/about";
+import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
@@ -15,6 +17,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/records" component={Records} />
+      <Route path="/about" component={About} />
+      <Route path="/contact" component={Contact} />
       <Route path="/report/:id" component={Home} />
       <Route component={NotFound} />
     </Switch>

@@ -71,18 +71,12 @@ export default function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <button 
-                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
-              >
-                소개
-              </button>
-              <button 
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
-              >
-                문의
-              </button>
+              <Link href="/about">
+                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">소개</span>
+              </Link>
+              <Link href="/contact">
+                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">문의</span>
+              </Link>
             </nav>
             <div className="flex items-center space-x-3">
               <button 
