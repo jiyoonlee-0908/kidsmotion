@@ -11,14 +11,16 @@ import path from "path";
 const POWER_EXPONENT = 0.67;
 
 // Load cutoff data - 와트바이크 기준 정확한 데이터
-const cutoffDataPath = path.resolve(import.meta.dirname, "..", "attached_assets", "wattbike_cutoff_v3.json");
+const cutoffDataPath = path.resolve(process.cwd(), "attached_assets", "wattbike_cutoff_v3.json");
 let cutoffData: any = {};
 
 try {
   const cutoffRaw = fs.readFileSync(cutoffDataPath, "utf-8");
   cutoffData = JSON.parse(cutoffRaw);
+  console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
 } catch (error) {
   console.error("Failed to load cutoff data:", error);
+  console.error("Attempted path:", cutoffDataPath);
 }
 
 function calculateAge(birthDate: string): number {
@@ -86,9 +88,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // 성별과 나이에 따른 데이터 키 생성
       const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
       const genderKey = `${clampedAge}_${measurementData.gender}`;
-      const cutoffs = cutoffData.data?.[genderKey];
+      const cutoffs = cutoffData[genderKey]; // data 중첩 제거
       
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
+      console.log(`Cutoffs found:`, cutoffs ? "Yes" : "No", cutoffs);
       
       // 사용자 입력: 절대 파워값 (W)
       const absolutePowers = {
@@ -118,12 +121,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Calculate percentiles (including 180s/360s if available)
       const percentiles = {
-        "5s": calculatePercentile(relativePowers["5s"], cutoffs?.["5s"]),
-        "15s": calculatePercentile(relativePowers["15s"], cutoffs?.["15s"]),
-        "30s": calculatePercentile(relativePowers["30s"], cutoffs?.["30s"]),
-        "60s": calculatePercentile(relativePowers["60s"], cutoffs?.["60s"]),
-        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.["60s"]) : null,
-        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.["60s"]) : null
+        "5s": calculatePercentile(relativePowers["5s"], cutoffs?.power),
+        "15s": calculatePercentile(relativePowers["15s"], cutoffs?.strength),
+        "30s": calculatePercentile(relativePowers["30s"], cutoffs?.muscleEndurance),
+        "60s": calculatePercentile(relativePowers["60s"], cutoffs?.cardioEndurance),
+        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.cardioEndurance) : null,
+        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.cardioEndurance) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
