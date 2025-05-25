@@ -4,42 +4,51 @@ import Navigation from "@/components/navigation";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-black text-white overflow-hidden relative">
-      {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-blue-900/10 to-black"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.3),transparent_50%)] animate-pulse"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(59,130,246,0.2),transparent_50%)] animate-pulse delay-1000"></div>
-      
+    <div className="min-h-screen bg-white">
       <Navigation />
-      <main className="pt-24 pb-16 relative z-10">
+      <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
-          <div className="text-center mb-16">
-            <div className="mb-4">
-              <span className="inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold mb-4">
-                🎯 국내 최초 어린이 전용 스마트 체력 측정 장비
+          <div className="text-center mb-20">
+            <div className="mb-8">
+              <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-full text-base font-bold shadow-lg">
+                혁신적인 아동 체력측정 솔루션
               </span>
             </div>
-            <h1 className="text-6xl font-bold text-gray-800 mb-8">
-              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent">
+            
+            <h1 className="text-6xl md:text-7xl font-black text-gray-900 mb-8 leading-none tracking-tight">
+              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                 키즈모션
               </span>
-              <br/>
-              <span className="text-3xl text-gray-700 font-medium">
-                아이의 체력을 측정하는 첫 번째 디지털 솔루션
-              </span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-5xl mx-auto">
-              <strong className="text-gray-800">"아이들의 체력, 이제 정확하게 측정하고 개선할 수 있습니다"</strong><br/><br/>
-              키즈모션은 100~150cm 어린이를 위한 <strong className="text-blue-600">세계 최초의 전용 체력측정 스마트바이크</strong>입니다.<br/>
-              단순한 운동기구가 아닌, 실시간으로 아이의 체력을 과학적으로 분석하고<br/>
-              <strong className="text-purple-600">AI가 개인별 맞춤 운동처방까지 제공하는 혁신적인 솔루션</strong>입니다.<br/><br/>
-              <span className="text-lg text-gray-700">
-                🏥 의료진도 신뢰하는 정확한 데이터 &nbsp;|&nbsp; 
-                👨‍👩‍👧‍👦 부모님도 이해하기 쉬운 리포트 &nbsp;|&nbsp; 
-                🎯 아이들도 재미있는 측정과정
-              </span>
-            </p>
+            
+            <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 leading-relaxed">
+              아이의 숨겨진 체력을 <span className="text-purple-600">과학적으로</span> 발견하세요
+            </div>
+            
+            <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-50 to-purple-50 rounded-3xl p-10 shadow-2xl border border-gray-100">
+              <p className="text-2xl text-gray-700 font-semibold mb-6">
+                "5분 측정으로 우리 아이만의 맞춤 운동처방을 받아보세요"
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <div className="text-3xl mb-3">⚡</div>
+                  <div className="font-bold text-gray-800 mb-2">정확한 측정</div>
+                  <div className="text-sm text-gray-600">의료급 센서로 측정</div>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <div className="text-3xl mb-3">🤖</div>
+                  <div className="font-bold text-gray-800 mb-2">AI 분석</div>
+                  <div className="text-sm text-gray-600">개인별 맞춤 처방</div>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <div className="text-3xl mb-3">📈</div>
+                  <div className="font-bold text-gray-800 mb-2">성장 추적</div>
+                  <div className="text-sm text-gray-600">지속적인 발전 모니터링</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Main Features */}
