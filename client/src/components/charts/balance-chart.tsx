@@ -31,8 +31,10 @@ export default function BalanceChart({ leftBalance, rightBalance, status }: Bala
         datasets: [
           {
             data: [leftBalance, rightBalance],
-            backgroundColor: ["hsl(var(--primary))", "hsl(var(--chart-2))"],
-            borderWidth: 0,
+            backgroundColor: ["#EF4444", "#3B82F6"], // 빨강, 파랑
+            borderWidth: 3,
+            borderColor: "#FFFFFF",
+            hoverBackgroundColor: ["#DC2626", "#2563EB"],
           },
         ],
       },

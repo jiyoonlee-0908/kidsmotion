@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
 const openai = new OpenAI({ 
-  apiKey: process.env.OPENAI_API_KEY || "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"
+  apiKey: "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"
 });
 
 export interface FitnessAnalysisRequest {

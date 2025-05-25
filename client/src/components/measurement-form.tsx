@@ -155,7 +155,20 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                         min="100" 
                         max="200"
                         {...field}
-                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || value === '0') {
+                            field.onChange('');
+                          } else {
+                            field.onChange(parseFloat(value) || '');
+                          }
+                        }}
+                        onFocus={(e) => {
+                          if (e.target.value === '0') {
+                            e.target.value = '';
+                            field.onChange('');
+                          }
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -177,7 +190,20 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                         max="150"
                         step="0.1"
                         {...field}
-                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || value === '0') {
+                            field.onChange('');
+                          } else {
+                            field.onChange(parseFloat(value) || '');
+                          }
+                        }}
+                        onFocus={(e) => {
+                          if (e.target.value === '0') {
+                            e.target.value = '';
+                            field.onChange('');
+                          }
+                        }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -206,7 +232,20 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           min="0" 
                           max="1000"
                           {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (value === '' || value === '0') {
+                              field.onChange('');
+                            } else {
+                              field.onChange(parseFloat(value) || '');
+                            }
+                          }}
+                          onFocus={(e) => {
+                            if (e.target.value === '0') {
+                              e.target.value = '';
+                              field.onChange('');
+                            }
+                          }}
                         />
                       </FormControl>
                       <FormMessage />

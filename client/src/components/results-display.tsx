@@ -25,17 +25,19 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   const { measurement, analysis, strengths, improvements } = data;
   
   const getGradeColor = (percentile: number) => {
-    if (percentile >= 80) return "bg-green-500";
-    if (percentile >= 60) return "bg-blue-500";
+    if (percentile >= 90) return "bg-emerald-500";
+    if (percentile >= 70) return "bg-blue-500";
     if (percentile >= 40) return "bg-yellow-500";
-    return "bg-orange-500";
+    if (percentile >= 20) return "bg-orange-500";
+    return "bg-red-500";
   };
   
   const getGradeText = (percentile: number) => {
-    if (percentile >= 80) return "A급";
-    if (percentile >= 60) return "B급";
-    if (percentile >= 40) return "C급";
-    return "D급";
+    if (percentile >= 90) return "매우우수";
+    if (percentile >= 70) return "우수";
+    if (percentile >= 40) return "평균";
+    if (percentile >= 20) return "주의";
+    return "경고";
   };
 
   const reportUrl = `${window.location.origin}/report/${measurement.id}`;
