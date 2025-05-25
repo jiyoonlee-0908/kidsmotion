@@ -14,6 +14,18 @@ export interface FitnessAnalysisRequest {
     strength: number;
     muscleEndurance: number;
     cardioEndurance: number;
+    longEndurance180s?: number | null;
+    longEndurance360s?: number | null;
+  };
+  advancedPowerData?: {
+    power180s: number;
+    power360s: number;
+    hasAdvancedData: boolean;
+  };
+  heartRateData?: {
+    maxBpm: number | null;
+    avgBpm: number | null;
+    restingBpm: number | null;
   };
   balanceDifference: number;
   strengths: string[];

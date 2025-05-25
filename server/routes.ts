@@ -95,7 +95,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "5s": measurementData.power5s,
         "15s": measurementData.power15s,
         "30s": measurementData.power30s,
-        "60s": measurementData.power60s
+        "60s": measurementData.power60s,
+        "180s": measurementData.power180s || 0,
+        "360s": measurementData.power360s || 0
       };
       
       // 상대 파워 계산: W / kg^POWER_EXPONENT
@@ -106,18 +108,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "5s": absolutePowers["5s"] / weightPower,
         "15s": absolutePowers["15s"] / weightPower,
         "30s": absolutePowers["30s"] / weightPower,
-        "60s": absolutePowers["60s"] / weightPower
+        "60s": absolutePowers["60s"] / weightPower,
+        "180s": absolutePowers["180s"] / weightPower,
+        "360s": absolutePowers["360s"] / weightPower
       };
       
       console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
       console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
-      // Calculate percentiles
+      // Calculate percentiles (including 180s/360s if available)
       const percentiles = {
         "5s": calculatePercentile(relativePowers["5s"], cutoffs?.["5s"]),
         "15s": calculatePercentile(relativePowers["15s"], cutoffs?.["15s"]),
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.["30s"]),
-        "60s": calculatePercentile(relativePowers["60s"], cutoffs?.["60s"])
+        "60s": calculatePercentile(relativePowers["60s"], cutoffs?.["60s"]),
+        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.["60s"]) : null,
+        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.["60s"]) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
@@ -125,7 +131,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const overallPercentile = (percentiles["5s"] + percentiles["15s"] + percentiles["30s"] + percentiles["60s"]) / 4;
       const balanceStatus = getBalanceStatus(measurementData.leftBalance, measurementData.rightBalance);
       
-      // Determine strengths and improvements
+      // Determine strengths and improvements (including 180s/360s if available)
       const categories = [
         { name: "순발력", percentile: percentiles["5s"] },
         { name: "근력", percentile: percentiles["15s"] },
@@ -133,11 +139,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { name: "심폐지구력", percentile: percentiles["60s"] }
       ];
       
+      // Add advanced endurance categories if data is available
+      if (percentiles["180s"]) {
+        categories.push({ name: "중장거리지구력", percentile: percentiles["180s"] });
+      }
+      if (percentiles["360s"]) {
+        categories.push({ name: "장거리지구력", percentile: percentiles["360s"] });
+      }
+      
       categories.sort((a, b) => b.percentile - a.percentile);
       const strengths = categories.slice(0, 2).map(c => c.name);
       const improvements = categories.slice(-1).map(c => c.name);
       
-      // Generate AI analysis
+      // Heart rate analysis for energy systems
+      const heartRateData = {
+        maxBpm: measurementData.maxBpm || null,
+        avgBpm: measurementData.avgBpm || null,
+        restingBpm: measurementData.restingBpm || null
+      };
+
+      // Generate AI analysis with complete data
       const aiAnalysis = await generateFitnessAnalysis({
         studentName: measurementData.studentName,
         age,
@@ -146,8 +167,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           power: percentiles["5s"],
           strength: percentiles["15s"],
           muscleEndurance: percentiles["30s"],
-          cardioEndurance: percentiles["60s"]
+          cardioEndurance: percentiles["60s"],
+          longEndurance180s: percentiles["180s"],
+          longEndurance360s: percentiles["360s"]
         },
+        advancedPowerData: {
+          power180s: absolutePowers["180s"],
+          power360s: absolutePowers["360s"],
+          hasAdvancedData: absolutePowers["180s"] > 0 || absolutePowers["360s"] > 0
+        },
+        heartRateData,
         balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
         strengths,
         improvements
