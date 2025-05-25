@@ -10,62 +10,94 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-gray-800 mb-6">
-              <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                MotionBike 소개
+            <div className="mb-4">
+              <span className="inline-block bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full text-sm font-semibold mb-4">
+                🎯 국내 최초 어린이 전용 스마트 체력 측정 장비
+              </span>
+            </div>
+            <h1 className="text-6xl font-bold text-gray-800 mb-8">
+              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-teal-600 bg-clip-text text-transparent">
+                키즈모션
+              </span>
+              <br/>
+              <span className="text-3xl text-gray-700 font-medium">
+                아이의 체력을 측정하는 첫 번째 디지털 솔루션
               </span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed max-w-4xl mx-auto">
-              아동 체력 분석의 새로운 표준을 제시하는 AI 기반 플랫폼입니다.<br/>
-              과학적 근거와 첨단 기술을 바탕으로 우리 아이들의 건강한 성장을 지원합니다.<br/>
-              정확한 체력 측정부터 개인맞춤형 운동 처방까지, 전문적이고 체계적인 솔루션을 제공합니다.<br/>
-              미래 세대의 건강한 삶을 위한 혁신적인 디지털 헬스케어 서비스를 경험해보세요.
+            <p className="text-xl text-gray-600 leading-relaxed max-w-5xl mx-auto">
+              <strong className="text-gray-800">"가장 설득력 있는 아동 체력 분석 솔루션"</strong><br/><br/>
+              키즈모션 모션바이크는 운동 중 실시간 데이터를 기반으로 성장과 체력을 분석하는 혁신적인 스마트 사이클입니다.<br/>
+              단순히 '작게 만든 자전거'가 아닌, <strong className="text-blue-600">100~150cm 어린이 체형에 맞춘 커스텀 프레임</strong>의 정밀 피트니스 기기로,<br/>
+              파워미터·케이던스 내장, 공기저항 기반 플라이휠, 외장 심박계를 통해<br/>
+              순발력, 근지구력, 심폐지구력, 좌우 밸런스, 페달링 일관성 등의 동적 운동 데이터를 자동 분석·시각화하여<br/>
+              <strong className="text-purple-600">측정으로 끝나지 않고 훈련까지 연결되는 완결형 플랫폼</strong>을 제공합니다.
             </p>
           </div>
 
           {/* Main Features */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-none shadow-xl">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4">
-                    <BarChart className="w-8 h-8 text-white" />
+          <div className="mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-bold text-gray-800 mb-4">
+                왜 <span className="text-purple-600">키즈모션</span>인가?
+              </h2>
+              <p className="text-lg text-gray-600">기존 아날로그 체력측정의 한계를 뛰어넘는 디지털 혁신</p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-none shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4">
+                      <BarChart className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-800">실시간 정밀 측정</h3>
+                      <span className="text-sm text-purple-600 font-semibold">국내외 최초 동적 운동 데이터 분석</span>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800">정밀한 체력 분석</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  와트바이크 기반의 과학적 측정 시스템으로 아이의 체력을 정확하게 분석합니다. 
-                  5초, 15초, 30초, 60초 구간별 파워 측정을 통해 순발력, 근력, 근지구력, 심폐지구력을 종합적으로 평가합니다.
-                </p>
-                <ul className="text-gray-600 space-y-2">
-                  <li>• 나이별, 성별 맞춤 기준 적용</li>
-                  <li>• W/kg^0.67 공식으로 정확한 상대파워 계산</li>
-                  <li>• 좌우 균형 분석으로 신체 밸런스 확인</li>
-                  <li>• 한국 아동 표준 데이터 기반 정확한 평가</li>
-                </ul>
-              </CardContent>
-            </Card>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    기존 악력기, 정적 측정과 달리 <strong>운동 중 생체 신호를 실시간으로 정량화</strong>합니다. 
+                    파워미터·케이던스 내장, 공기저항 기반 플라이휠로 순발력부터 심폐지구력까지 완벽 분석.
+                  </p>
+                  <div className="bg-white/60 rounded-lg p-4 mb-4">
+                    <h4 className="font-semibold text-gray-800 mb-2">🔬 과학적 측정 시스템</h4>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• W/kg^0.67 공식 기반 정확한 상대파워 계산</li>
+                      <li>• 좌우 밸런스 & 페달링 일관성 분석</li>
+                      <li>• 외장 심박계 연동 심폐기능 평가</li>
+                      <li>• 한국 아동 표준 데이터 기반 백분위 산출</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
 
-            <Card className="bg-gradient-to-br from-blue-50 to-teal-50 border-none shadow-xl">
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
-                    <Star className="w-8 h-8 text-white" />
+              <Card className="bg-gradient-to-br from-blue-50 to-teal-50 border-none shadow-xl transform hover:scale-105 transition-transform duration-300">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
+                      <Star className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-800">완결형 플랫폼</h3>
+                      <span className="text-sm text-blue-600 font-semibold">측정 → 분석 → 훈련 피드백</span>
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-800">AI 맞춤 코칭</h3>
-                </div>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  OpenAI 기반 인공지능이 측정 결과를 분석하여 개인별 맞춤 운동 처방과 
-                  성장 가이드를 제공합니다. 전문적이면서도 이해하기 쉬운 한국어 코칭을 받아보세요.
-                </p>
-                <ul className="text-gray-600 space-y-2">
-                  <li>• 개인별 강점과 개선점 분석</li>
-                  <li>• 맞춤형 운동 프로그램 추천</li>
-                  <li>• 성장 단계별 목표 설정 지원</li>
-                  <li>• 전문적인 운동 처방 및 가이드라인</li>
-                </ul>
-              </CardContent>
-            </Card>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    단순 측정이 아닌 <strong>실시간 자세 분석과 훈련 피드백까지 연결</strong>되는 
+                    통합 솔루션. AI가 개인별 맞춤 운동 처방과 성장 가이드를 자동 생성합니다.
+                  </p>
+                  <div className="bg-white/60 rounded-lg p-4 mb-4">
+                    <h4 className="font-semibold text-gray-800 mb-2">🤖 AI 기반 맞춤 코칭</h4>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      <li>• 개인별 강점/약점 즉시 분석</li>
+                      <li>• 성장 단계별 맞춤 운동 프로그램</li>
+                      <li>• 전문적이면서 이해하기 쉬운 한국어 리포트</li>
+                      <li>• 공공보건, 교육, 유소년 스포츠 전 영역 활용</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Detailed Features */}
