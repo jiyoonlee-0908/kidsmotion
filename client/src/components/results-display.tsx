@@ -176,7 +176,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <QRCodeSVG value={reportUrl} size={72} />
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <div className="text-center">
               <p className="text-sm text-gray-600">측정일</p>
               <p className="font-semibold text-gray-900">{measurement.measureDate}</p>
@@ -190,12 +190,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <p className="font-semibold text-gray-900">{measurement.birthDate}</p>
             </div>
             <div className="text-center">
-              <p className="text-sm text-gray-600">키</p>
-              <p className="font-semibold text-gray-900">{measurement.height} cm</p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600">체중</p>
-              <p className="font-semibold text-gray-900">{measurement.weight} kg</p>
+              <p className="text-sm text-gray-600">키/체중</p>
+              <p className="font-semibold text-gray-900">{measurement.height}cm / {measurement.weight}kg</p>
             </div>
             <div className="text-center">
               <p className="text-sm text-gray-600">BMI</p>
