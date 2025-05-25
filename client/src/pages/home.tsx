@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Scale, BarChart3, Shield, Users, Phone, Mail, MapPin, Search, Activity, Calendar, User, Ruler, Weight, Zap } from "lucide-react";
+import { Scale, BarChart3, Shield, Users, Phone, Mail, MapPin, Search, Activity, Calendar, User, Ruler, Weight, Zap, Heart } from "lucide-react";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import MeasurementHistory from "@/components/measurement-history";
@@ -75,7 +75,11 @@ export default function Home() {
               <div 
                 className="relative"
                 onMouseEnter={() => setShowDropdown(true)}
-                onMouseLeave={() => setShowDropdown(false)}
+                onMouseLeave={() => {
+                  setTimeout(() => {
+                    setShowDropdown(false);
+                  }, 300);
+                }}
               >
                 <Button
                   variant="ghost"
@@ -85,7 +89,15 @@ export default function Home() {
                 </Button>
                 
                 {showDropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                  <div 
+                    className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
+                    onMouseEnter={() => setShowDropdown(true)}
+                    onMouseLeave={() => {
+                      setTimeout(() => {
+                        setShowDropdown(false);
+                      }, 300);
+                    }}
+                  >
                     <button
                       className={`w-full text-left px-4 py-2 hover:bg-purple-50 transition-colors ${
                         currentView === 'measurement' ? 'text-purple-600 bg-purple-50 font-medium' : 'text-gray-700'
@@ -276,16 +288,53 @@ export default function Home() {
                   <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
                     <div className="text-center">
                       <label className="block text-sm font-medium text-gray-700 mb-2">왼쪽</label>
-                      <Input placeholder="50.0" className="w-full text-center font-mono text-lg" />
+                      <Input 
+                        placeholder="50.0" 
+                        className="w-full text-center font-mono text-lg" 
+                        onChange={(e) => {
+                          const leftValue = parseFloat(e.target.value) || 0;
+                          const rightInput = e.target.parentElement?.parentElement?.querySelector('div:last-child input') as HTMLInputElement;
+                          if (rightInput) {
+                            rightInput.value = (100 - leftValue).toFixed(1);
+                          }
+                        }}
+                      />
                     </div>
                     <div className="text-center">
                       <label className="block text-sm font-medium text-gray-700 mb-2">오른쪽</label>
-                      <Input placeholder="50.0" className="w-full text-center font-mono text-lg" />
+                      <Input 
+                        placeholder="50.0" 
+                        className="w-full text-center font-mono text-lg" 
+                        readOnly
+                      />
                     </div>
                   </div>
-                  <p className="text-center text-sm text-gray-500 mt-3">
-                    좌우 합계가 100%가 되도록 입력해주세요
-                  </p>
+                </div>
+
+                {/* 심폐기능 섹션 */}
+                <div className="bg-red-50 rounded-lg p-6">
+                  <h3 className="font-semibold text-gray-800 mb-4 flex items-center">
+                    <Heart className="w-5 h-5 mr-2 text-red-600" />
+                    심폐기능 (선택사항)
+                  </h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="text-center">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">최대심박수</label>
+                      <Input placeholder="측정값 없음" className="w-full text-center font-mono" />
+                      <p className="text-xs text-gray-500 mt-1">bpm</p>
+                    </div>
+                    <div className="text-center">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">평균심박수</label>
+                      <Input placeholder="측정값 없음" className="w-full text-center font-mono" />
+                      <p className="text-xs text-gray-500 mt-1">bpm</p>
+                    </div>
+                    <div className="text-center">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">안정시심박수</label>
+                      <Input placeholder="측정값 없음" className="w-full text-center font-mono" />
+                      <p className="text-xs text-gray-500 mt-1">bpm</p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* 고급 측정 (선택사항) */}
