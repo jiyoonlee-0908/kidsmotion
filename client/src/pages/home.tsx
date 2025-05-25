@@ -125,10 +125,11 @@ export default function Home() {
           <div className="space-y-6">
             {/* 타이틀 섹션 */}
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-800 mb-3">AI 기반 아동 체력 분석</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                정확한 측정과 과학적 데이터 분석을 통해 아이의 체력 상태를 종합적으로 평가하고 
-                개인별 맞춤 성장 방안을 제시합니다
+              <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                AI 기반 아동 체력 분석
+              </h2>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+                데이터 기반 스마트 체력 진단으로 기관별 맞춤형 솔루션을 제공하는 차세대 헬스케어 플랫폼
               </p>
             </div>
 
@@ -243,24 +244,24 @@ export default function Home() {
                   
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">5초 파워</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">순발력</label>
                       <Input placeholder="0" className="w-full text-center font-mono text-lg" />
-                      <p className="text-xs text-gray-500 mt-1">순발력</p>
+                      <p className="text-xs text-gray-500 mt-1">5초 최대파워</p>
                     </div>
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">15초 파워</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">근력</label>
                       <Input placeholder="0" className="w-full text-center font-mono text-lg" />
-                      <p className="text-xs text-gray-500 mt-1">근력</p>
+                      <p className="text-xs text-gray-500 mt-1">15초 최대파워</p>
                     </div>
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">30초 파워</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">근지구력</label>
                       <Input placeholder="0" className="w-full text-center font-mono text-lg" />
-                      <p className="text-xs text-gray-500 mt-1">근지구력</p>
+                      <p className="text-xs text-gray-500 mt-1">30초 최대파워</p>
                     </div>
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">60초 파워</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">심폐지구력</label>
                       <Input placeholder="0" className="w-full text-center font-mono text-lg" />
-                      <p className="text-xs text-gray-500 mt-1">심폐지구력</p>
+                      <p className="text-xs text-gray-500 mt-1">60초 최대파워</p>
                     </div>
                   </div>
                 </div>
@@ -296,14 +297,14 @@ export default function Home() {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">180초 파워 (W)</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">장기 지구력</label>
                       <Input placeholder="측정값 없음" className="w-full text-center font-mono" />
-                      <p className="text-xs text-gray-500 mt-1">장기 지구력 (10세 이상 권장)</p>
+                      <p className="text-xs text-gray-500 mt-1">180초 최대파워 (10세 이상 권장)</p>
                     </div>
                     <div className="text-center">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">360초 파워 (W)</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">최대 지구력</label>
                       <Input placeholder="측정값 없음" className="w-full text-center font-mono" />
-                      <p className="text-xs text-gray-500 mt-1">최대 지구력 (10세 이상 권장)</p>
+                      <p className="text-xs text-gray-500 mt-1">360초 최대파워 (10세 이상 권장)</p>
                     </div>
                   </div>
                 </div>
