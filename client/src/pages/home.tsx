@@ -189,7 +189,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center space-x-3">
                     <MapPin className="w-4 h-4" />
-                    <span>서울시 강서구 금낭화로 234</span>
+                    <span>서울시 강서구 금낭화로 234, GX2</span>
                   </div>
                 </div>
               </div>
