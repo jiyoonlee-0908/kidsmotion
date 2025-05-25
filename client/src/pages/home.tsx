@@ -52,11 +52,10 @@ export default function Home() {
                 <Activity className="w-7 h-7 text-white" />
               </div>
               <div>
-                <p className="text-sm text-gray-500 mb-1">MotionBike</p>
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                   KidsMotion
                 </h1>
-                <p className="text-sm text-gray-500">AI 기반 아동 체력 분석 시스템</p>
+                <p className="text-sm text-gray-500">MotionBike</p>
               </div>
             </div>
 
@@ -151,25 +150,25 @@ export default function Home() {
               <Card className="text-center p-4 bg-gradient-to-br from-purple-50 to-white border-purple-200 hover:shadow-lg transition-all duration-300">
                 <Scale className="w-10 h-10 mx-auto mb-3 text-purple-600" />
                 <h3 className="font-semibold text-gray-800 mb-2">좌우 밸런스</h3>
-                <p className="text-sm text-gray-600">정밀한 균형 측정으로 신체 불균형 조기 발견</p>
+                <p className="text-sm text-gray-600 leading-relaxed">정밀한 균형 측정으로<br />신체 불균형 조기 발견</p>
               </Card>
 
               <Card className="text-center p-4 bg-gradient-to-br from-blue-50 to-white border-blue-200 hover:shadow-lg transition-all duration-300">
                 <BarChart3 className="w-10 h-10 mx-auto mb-3 text-blue-600" />
                 <h3 className="font-semibold text-gray-800 mb-2">정밀 분석</h3>
-                <p className="text-sm text-gray-600">5단계 파워 측정으로 종합 체력 평가</p>
+                <p className="text-sm text-gray-600 leading-relaxed">5단계 파워 측정으로<br />종합 체력 평가</p>
               </Card>
 
               <Card className="text-center p-4 bg-gradient-to-br from-green-50 to-white border-green-200 hover:shadow-lg transition-all duration-300">
                 <Shield className="w-10 h-10 mx-auto mb-3 text-green-600" />
                 <h3 className="font-semibold text-gray-800 mb-2">AI 코칭</h3>
-                <p className="text-sm text-gray-600">개인별 특성 맞춤 운동 처방 제공</p>
+                <p className="text-sm text-gray-600 leading-relaxed">개인별 특성에 맞는<br />운동 처방 제공</p>
               </Card>
 
               <Card className="text-center p-4 bg-gradient-to-br from-orange-50 to-white border-orange-200 hover:shadow-lg transition-all duration-300">
                 <Users className="w-10 h-10 mx-auto mb-3 text-orange-600" />
                 <h3 className="font-semibold text-gray-800 mb-2">전문 리포트</h3>
-                <p className="text-sm text-gray-600">상세한 PDF 리포트와 QR 공유</p>
+                <p className="text-sm text-gray-600 leading-relaxed">상세한 PDF 리포트와<br />QR 코드 공유</p>
               </Card>
             </div>
 
