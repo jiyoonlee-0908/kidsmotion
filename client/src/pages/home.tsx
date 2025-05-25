@@ -101,12 +101,7 @@ export default function Home() {
           </Button>
         </div>
 
-        {/* 연락처 */}
-        <div className="p-3 border-t border-gray-200 text-center">
-          <div className="text-xs text-gray-400 space-y-1">
-            <div>010-8445-0908</div>
-          </div>
-        </div>
+
       </div>
 
       {/* 메인 콘텐츠 */}
@@ -262,11 +257,109 @@ export default function Home() {
           </div>
         </div>
 
+        {/* 풍부한 정보 섹션 */}
+        <div className="bg-gradient-to-br from-gray-50 to-blue-50 mt-16">
+          <div className="max-w-6xl mx-auto p-8">
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* 회사 소개 */}
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mr-4">
+                    <Bike className="w-7 h-7 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                      KidsMotion
+                    </h3>
+                    <p className="text-gray-500 text-sm">by MotionBike</p>
+                  </div>
+                </div>
+                <p className="text-gray-700 leading-relaxed">
+                  과학적이고 정확한 어린이 체력 측정을 통해 건강한 성장을 지원하는 전문 분석 시스템입니다. 
+                  최첨단 와트바이크 기술과 AI 분석을 통해 개인별 맞춤 코칭을 제공합니다.
+                </p>
+              </div>
+
+              {/* 서비스 특징 */}
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <BarChart className="w-6 h-6 mr-2 text-purple-600" />
+                  주요 특징
+                </h4>
+                <ul className="space-y-3">
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <span className="font-semibold text-gray-800">정밀한 좌우 밸런스 측정</span>
+                      <p className="text-sm text-gray-600">0.1% 단위의 정확한 좌우 균형 분석</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <span className="font-semibold text-gray-800">과학적 체력 분석</span>
+                      <p className="text-sm text-gray-600">5단계 측정으로 종합적 체력 평가</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <span className="font-semibold text-gray-800">AI 맞춤형 코칭</span>
+                      <p className="text-sm text-gray-600">개인별 특성에 맞는 운동 처방</p>
+                    </div>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <div>
+                      <span className="font-semibold text-gray-800">전문가 리포트</span>
+                      <p className="text-sm text-gray-600">PDF 다운로드 및 QR 공유 가능</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 연락처 & 찾아오는 길 */}
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                  <Phone className="w-6 h-6 mr-2 text-purple-600" />
+                  연락처 & 위치
+                </h4>
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <Phone className="w-5 h-5 mr-3 text-purple-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-gray-800">고객센터</p>
+                      <p className="text-gray-600">010-8445-0908</p>
+                      <p className="text-sm text-gray-500">평일 09:00 - 18:00</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <MapPin className="w-5 h-5 mr-3 text-blue-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-gray-800">본사 위치</p>
+                      <p className="text-gray-600">서울시 강서구 금낭화로 234, GX2</p>
+                      <p className="text-sm text-gray-500">지하철 9호선 가양역 2번출구 도보 5분</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <Mail className="w-5 h-5 mr-3 text-green-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-semibold text-gray-800">이메일 문의</p>
+                      <p className="text-gray-600">info@motionbike.com</p>
+                      <p className="text-sm text-gray-500">24시간 접수, 1일 내 답변</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* 푸터 */}
-        <div className="bg-gray-800 text-white mt-16">
+        <div className="bg-gray-900 text-white">
           <div className="max-w-6xl mx-auto p-6">
-            <div className="text-center space-y-4">
-              <div className="flex items-center justify-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-4">
                 <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mr-3">
                   <Bike className="w-5 h-5 text-white" />
                 </div>
@@ -276,26 +369,13 @@ export default function Home() {
                 <span className="text-gray-400 text-sm ml-2">by MotionBike</span>
               </div>
               
-              <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-300">
-                <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  010-8445-0908
-                </div>
-                <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  서울시 강서구 금낭화로 234, GX2
-                </div>
-                <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  info@motionbike.com
-                </div>
-              </div>
+              <p className="text-gray-400 text-sm mb-4">
+                © 2024 MotionBike Co., Ltd. All rights reserved. | 사업자등록번호: 123-45-67890 | 대표: 김대표
+              </p>
               
-              <div className="border-t border-gray-600 pt-4">
-                <p className="text-gray-400 text-sm">
-                  © 2024 MotionBike. All rights reserved.
-                </p>
-              </div>
+              <p className="text-gray-500 text-xs">
+                KidsMotion은 MotionBike의 등록상표입니다. 무단 복제 및 전재를 금지합니다.
+              </p>
             </div>
           </div>
         </div>
