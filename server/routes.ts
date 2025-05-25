@@ -235,18 +235,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Determine strengths and improvements (including 180s/360s if available)
       const categories = [
-        { name: "순발력", percentile: percentiles["5s"] },
-        { name: "근력", percentile: percentiles["15s"] },
-        { name: "근지구력", percentile: percentiles["30s"] },
-        { name: "심폐지구력", percentile: percentiles["60s"] }
+        { name: "순발력/폭발력", percentile: percentiles["5s"] },
+        { name: "무산소 파워", percentile: percentiles["15s"] },
+        { name: "무산소성 지구력", percentile: percentiles["30s"] },
+        { name: "혼합 지구력", percentile: percentiles["60s"] }
       ];
       
       // Add advanced endurance categories if data is available
       if (percentiles["180s"]) {
-        categories.push({ name: "중장거리지구력", percentile: percentiles["180s"] });
+        categories.push({ name: "근지구력", percentile: percentiles["180s"] });
       }
       if (percentiles["360s"]) {
-        categories.push({ name: "장거리지구력", percentile: percentiles["360s"] });
+        categories.push({ name: "심폐지구력", percentile: percentiles["360s"] });
       }
       
       categories.sort((a, b) => b.percentile - a.percentile);

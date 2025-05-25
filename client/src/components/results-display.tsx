@@ -87,33 +87,48 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   
   const fitnessItems = [
     {
-      title: "순발력 (5초)",
+      title: "순발력/폭발력 (5초)",
       power: measurement.power5s,
       percentile: Math.round(analysis.percentile5s),
       explanation: analysis.explanation5s,
       category: "power"
     },
     {
-      title: "근력 (15초)",
+      title: "무산소 파워 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
       explanation: analysis.explanation15s,
       category: "strength"
     },
     {
-      title: "근지구력 (30초)",
+      title: "무산소성 지구력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
       explanation: analysis.explanation30s,
       category: "endurance"
     },
     {
-      title: "심폐지구력 (60초)",
+      title: "혼합 지구력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
       explanation: analysis.explanation60s,
       category: "cardio"
-    }
+    },
+    // 180초, 360초 데이터가 있으면 추가
+    ...(measurement.power180s && analysis.percentile180s ? [{
+      title: "근지구력 (180초)",
+      power: measurement.power180s,
+      percentile: Math.round(analysis.percentile180s),
+      explanation: "180초 지속적인 파워 유지 능력을 평가합니다.",
+      category: "muscular-endurance"
+    }] : []),
+    ...(measurement.power360s && analysis.percentile360s ? [{
+      title: "심폐지구력 (360초)",
+      power: measurement.power360s,
+      percentile: Math.round(analysis.percentile360s),
+      explanation: "360초 장시간 지속적인 파워 유지 능력을 평가합니다.",
+      category: "cardio-endurance"
+    }] : [])
   ];
 
   const comprehensiveAnalysisPoints = analysis.comprehensiveAnalysis?.split(" | ") || [];
