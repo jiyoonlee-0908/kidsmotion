@@ -41,17 +41,17 @@ export default function Home() {
       <header className="glass-effect border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
-              <div className="fitness-icon">
-                <Bike className="text-white w-7 h-7" />
+            <div className="flex items-center space-x-5">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
+                <Bike className="text-white w-8 h-8" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold tracking-tight">
-                  <span className="gradient-text font-extrabold">MotionBike</span>
-                  <span className="text-gray-400 mx-2 font-light">|</span>
-                  <span className="text-gray-900 font-bold">KidsMotion</span>
+                <h1 className="text-3xl font-black tracking-tight">
+                  <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">MotionBike</span>
+                  <span className="text-gray-300 mx-3 font-thin text-2xl">|</span>
+                  <span className="text-gray-800 font-black">KidsMotion</span>
                 </h1>
-                <p className="text-sm text-gray-600 font-medium tracking-wide">AI 기반 아동 체력 분석 플랫폼</p>
+                <p className="text-sm text-gray-500 font-medium tracking-wide mt-1">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
             </div>
             <div className="flex items-center space-x-8">
@@ -80,11 +80,11 @@ export default function Home() {
             {/* Hero Section */}
             <section id="home" className="text-center mb-20">
               <div className="max-w-7xl mx-auto">
-                <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
-                  <span className="gradient-text">AI 기반 아동 체력 분석</span>
+                <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
+                  <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 기반 아동 체력 분석</span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-gray-600 mb-16 leading-relaxed max-w-5xl mx-auto font-medium">
-                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 <span className="gradient-text font-semibold">맞춤형 운동 처방</span>을 제공합니다
+                <p className="text-lg text-gray-600 mb-16 leading-relaxed max-w-4xl mx-auto font-medium">
+                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent font-semibold">맞춤형 운동 처방</span>을 제공합니다
                 </p>
                 <div className="grid grid-cols-4 gap-8 mb-16">
                   <div className="fitness-card text-center group">
@@ -99,7 +99,7 @@ export default function Home() {
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">정밀 분석</h3>
-                    <p className="text-gray-600 leading-relaxed">4가지 체력 요소를 정밀하게<br />측정하고 백분위로 평가</p>
+                    <p className="text-gray-600 leading-relaxed">4가지 체력요소를 정밀하게<br />측정하고 백분위로 평가</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
