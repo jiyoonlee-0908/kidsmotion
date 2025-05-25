@@ -11,7 +11,7 @@ import path from "path";
 const POWER_EXPONENT = 0.67;
 
 // Load cutoff data - 와트바이크 기준 정확한 데이터
-const cutoffDataPath = path.resolve(process.cwd(), "attached_assets", "wattbike_cutoff_v3.json");
+const cutoffDataPath = "./attached_assets/wattbike_cutoff_v3.json";
 let cutoffData: any = {};
 
 try {
