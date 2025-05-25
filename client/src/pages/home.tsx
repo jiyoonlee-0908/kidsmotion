@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star } from "lucide-react";
+import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale } from "lucide-react";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import type { Measurement, AnalysisResult } from "@shared/schema";
@@ -42,16 +42,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-4">
-              <div className="fitness-icon animated-pulse">
+              <div className="fitness-icon">
                 <Bike className="text-white w-7 h-7" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold">
-                  <span className="gradient-text">MotionBike</span>
-                  <span className="text-gray-700 mx-2">|</span>
-                  <span className="text-gray-800">KidsMotion</span>
+                <h1 className="text-2xl font-bold tracking-tight">
+                  <span className="gradient-text font-extrabold">MotionBike</span>
+                  <span className="text-gray-400 mx-2 font-light">|</span>
+                  <span className="text-gray-900 font-bold">KidsMotion</span>
                 </h1>
-                <p className="text-sm text-gray-600 font-medium">AI 기반 아동 체력 분석 플랫폼</p>
+                <p className="text-sm text-gray-600 font-medium tracking-wide">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
             </div>
             <div className="flex items-center space-x-8">
@@ -78,36 +78,45 @@ export default function Home() {
         {!showResults ? (
           <>
             {/* Hero Section */}
-            <section id="home" className="text-center mb-16">
-              <div className="max-w-4xl mx-auto">
-                <h1 className="text-5xl font-bold mb-6">
-                  <span className="gradient-text">AI 기반 아동 체력 분석</span>
+            <section id="home" className="text-center mb-20">
+              <div className="max-w-5xl mx-auto">
+                <h1 className="text-6xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
+                  <span className="gradient-text">AI 기반</span><br />
+                  <span className="text-gray-900">아동 체력 분석</span>
                 </h1>
-                <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 
-                  맞춤형 운동 처방을 제공합니다.
+                <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
+                  정확한 측정 데이터와 인공지능 분석으로<br />
+                  우리 아이의 체력을 과학적으로 평가하고<br />
+                  <span className="gradient-text font-semibold">맞춤형 운동 처방</span>을 제공합니다
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                  <div className="fitness-card text-center">
-                    <div className="fitness-icon mx-auto mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                  <div className="fitness-card text-center group">
+                    <div className="fitness-icon mx-auto mb-6">
+                      <Scale className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">좌우 밸런스</h3>
+                    <p className="text-gray-600 leading-relaxed">좌우 균형 상태를 정밀하게<br />측정하고 분석하여 제공</p>
+                  </div>
+                  <div className="fitness-card text-center group">
+                    <div className="fitness-icon mx-auto mb-6">
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">정밀 분석</h3>
-                    <p className="text-gray-600">4가지 체력 요소를 정밀하게 측정하고 백분위로 평가</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">정밀 분석</h3>
+                    <p className="text-gray-600 leading-relaxed">4가지 체력 요소를 정밀하게<br />측정하고 백분위로 평가</p>
                   </div>
-                  <div className="fitness-card text-center">
-                    <div className="fitness-icon mx-auto mb-4">
+                  <div className="fitness-card text-center group">
+                    <div className="fitness-icon mx-auto mb-6">
                       <Shield className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">AI 코칭</h3>
-                    <p className="text-gray-600">개인별 특성에 맞는 맞춤형 운동 처방과 개선 방안 제시</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">AI 코칭</h3>
+                    <p className="text-gray-600 leading-relaxed">개인별 특성에 맞는 맞춤형<br />운동 처방과 개선 방안 제시</p>
                   </div>
-                  <div className="fitness-card text-center">
-                    <div className="fitness-icon mx-auto mb-4">
+                  <div className="fitness-card text-center group">
+                    <div className="fitness-icon mx-auto mb-6">
                       <Users className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">전문 리포트</h3>
-                    <p className="text-gray-600">보호자와 지도자를 위한 상세한 분석 리포트 제공</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
+                    <p className="text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
                   </div>
                 </div>
               </div>
