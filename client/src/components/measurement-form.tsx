@@ -394,13 +394,12 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
             </div>
 
             {/* 심박수 측정 섹션 */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 mb-4">
-                <Heart className="w-5 h-5 text-red-500" />
-                <h3 className="text-lg font-semibold text-gray-800">심박수 측정</h3>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-red-50 rounded-lg border border-red-200">
+            <div className="bg-gray-50 rounded-lg p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                <Heart className="text-red-500 mr-2" />
+                심박수 측정
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <FormField
                   control={form.control}
                   name="maxHeartRate"
@@ -461,10 +460,6 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                   )}
                 />
               </div>
-              
-              <p className="text-xs text-gray-600 text-center">
-                Garmin 등 외장 심박계 사용 권장 | 정확한 분석을 위해 필수 입력
-              </p>
             </div>
 
             {/* 고급 측정 섹션 */}
