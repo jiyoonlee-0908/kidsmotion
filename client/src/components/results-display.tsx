@@ -305,7 +305,102 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         </CardContent>
       </Card>
 
-      {/* Card 5: Comprehensive Analysis */}
+      {/* Card 5: Heart Rate Health Assessment */}
+      {(analysis.maxBpm || analysis.avgBpm || analysis.restingBpm) && (
+        <Card className="fitness-card">
+          <CardContent>
+            <div className="flex items-center space-x-3 mb-6">
+              <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900">심박수 건강도 평가</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* 안정시 심박수 */}
+              {analysis.restingBpm && (
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                    <span className="text-xl font-bold text-blue-600">{analysis.restingBpm}</span>
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">안정시 심박수</h4>
+                  <p className="text-sm text-gray-600">
+                    {analysis.restingBpm < 60 ? "매우 좋음" : 
+                     analysis.restingBpm < 80 ? "양호" : 
+                     analysis.restingBpm < 100 ? "보통" : "주의"}
+                  </p>
+                  <Badge className={`mt-2 ${
+                    analysis.restingBpm < 60 ? "bg-emerald-500" :
+                    analysis.restingBpm < 80 ? "bg-blue-500" :
+                    analysis.restingBpm < 100 ? "bg-yellow-500" : "bg-red-500"
+                  } text-white`}>
+                    {analysis.restingBpm < 60 ? "우수" : 
+                     analysis.restingBpm < 80 ? "양호" : 
+                     analysis.restingBpm < 100 ? "보통" : "개선필요"}
+                  </Badge>
+                </div>
+              )}
+              
+              {/* 최대 심박수 */}
+              {analysis.maxBpm && (
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-3">
+                    <span className="text-xl font-bold text-red-600">{analysis.maxBpm}</span>
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">최대 심박수</h4>
+                  <p className="text-sm text-gray-600">
+                    예상 최대: {220 - analysis.age}
+                  </p>
+                  <Badge className={`mt-2 ${
+                    Math.abs(analysis.maxBpm - (220 - analysis.age)) < 10 ? "bg-emerald-500" :
+                    Math.abs(analysis.maxBpm - (220 - analysis.age)) < 20 ? "bg-blue-500" : "bg-yellow-500"
+                  } text-white`}>
+                    {Math.abs(analysis.maxBpm - (220 - analysis.age)) < 10 ? "적절" :
+                     Math.abs(analysis.maxBpm - (220 - analysis.age)) < 20 ? "양호" : "확인필요"}
+                  </Badge>
+                </div>
+              )}
+              
+              {/* 평균 심박수 */}
+              {analysis.avgBpm && (
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
+                    <span className="text-xl font-bold text-green-600">{analysis.avgBpm}</span>
+                  </div>
+                  <h4 className="font-semibold text-gray-900 mb-2">운동시 평균 심박수</h4>
+                  <p className="text-sm text-gray-600">
+                    운동 적응도 평가
+                  </p>
+                  <Badge className={`mt-2 ${
+                    analysis.restingBpm && analysis.maxBpm ? 
+                    (analysis.avgBpm - analysis.restingBpm) / (analysis.maxBpm - analysis.restingBpm) > 0.6 ? "bg-emerald-500" :
+                    (analysis.avgBpm - analysis.restingBpm) / (analysis.maxBpm - analysis.restingBpm) > 0.4 ? "bg-blue-500" : "bg-yellow-500"
+                    : "bg-blue-500"
+                  } text-white`}>
+                    적절한 강도
+                  </Badge>
+                </div>
+              )}
+            </div>
+            
+            {/* 심박수 건강 요약 */}
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <h4 className="font-semibold text-gray-900 mb-2">💓 심박수 건강 포인트</h4>
+              <div className="space-y-2 text-sm text-gray-700">
+                {analysis.restingBpm && analysis.restingBpm < 70 && (
+                  <p>✅ 안정시 심박수가 좋아요! 심장이 효율적으로 뛰고 있어요.</p>
+                )}
+                {analysis.restingBpm && analysis.restingBpm >= 90 && (
+                  <p>💡 안정시 심박수가 높아요. 꾸준한 유산소 운동으로 개선할 수 있어요.</p>
+                )}
+                <p>🏃‍♀️ 규칙적인 운동으로 심장을 더 건강하게 만들어봐요!</p>
+                <p>📈 시간이 지나면서 안정시 심박수가 낮아지는 것을 목표로 해요.</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Card 6: Comprehensive Analysis */}
       <Card className="fitness-card">
         <CardContent>
           <div className="flex items-center space-x-3 mb-6">
