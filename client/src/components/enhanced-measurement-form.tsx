@@ -121,19 +121,18 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
   const isAdvancedEligible = currentAge >= 10; // 10세 이상만 고급 측정 권장
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* 기본 정보 섹션 */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <UserPlus className="w-5 h-5 text-purple-600" />
-            기본 정보
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-4xl mx-auto space-y-6">
+        {/* 기본 정보 섹션 */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <UserPlus className="w-5 h-5 text-purple-600" />
+              기본 정보
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="studentName"
@@ -227,10 +226,8 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                   />
                 </div>
               </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
 
       {/* 기본 파워 측정 섹션 */}
       <Card>
