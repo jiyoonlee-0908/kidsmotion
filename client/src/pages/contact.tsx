@@ -1,10 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Users, HelpCircle, Settings } from "lucide-react";
+import Navigation from "@/components/navigation";
 
 export default function Contact() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-teal-50">
+      <Navigation />
       <main className="pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
