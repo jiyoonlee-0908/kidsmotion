@@ -14,7 +14,6 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/report/:id" component={Home} />
-      <Route path="/admin" component={Admin} />
       <Route component={NotFound} />
     </Switch>
   );
@@ -40,11 +39,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        {!isAuthenticated ? (
-          <InviteCodeForm onSuccess={handleAuthSuccess} />
-        ) : (
-          <Router />
-        )}
+        <Switch>
+          <Route path="/admin" component={Admin} />
+          {!isAuthenticated ? (
+            <Route>
+              <InviteCodeForm onSuccess={handleAuthSuccess} />
+            </Route>
+          ) : (
+            <Router />
+          )}
+        </Switch>
       </TooltipProvider>
     </QueryClientProvider>
   );
