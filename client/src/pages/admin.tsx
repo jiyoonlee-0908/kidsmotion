@@ -27,11 +27,13 @@ export default function Admin() {
         },
       });
       
+      const data = await response.json();
+      
       if (!response.ok) {
-        throw new Error("코드 생성에 실패했습니다.");
+        throw new Error(data.error || "코드 생성에 실패했습니다.");
       }
       
-      return response.json();
+      return data;
     },
     onSuccess: (newCode: InviteCode) => {
       setGeneratedCodes(prev => [newCode, ...prev]);
@@ -40,10 +42,11 @@ export default function Admin() {
         description: `새로운 코드: ${newCode.code}`,
       });
     },
-    onError: () => {
+    onError: (error: any) => {
+      console.error("코드 생성 오류:", error);
       toast({
         title: "오류",
-        description: "코드 생성에 실패했습니다.",
+        description: error.message || "코드 생성에 실패했습니다.",
         variant: "destructive",
       });
     },
