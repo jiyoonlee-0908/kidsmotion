@@ -47,37 +47,81 @@ export interface AIAnalysisResponse {
 
 export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Promise<AIAnalysisResponse> {
   try {
-    const prompt = `
-아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
-
+    // Build measurement data based on available information
+    let measurementData = `
 **측정 대상 정보:**
 - 이름: ${data.studentName}
 - 나이: ${data.age}세
 - 종합 백분위: ${Math.round(data.overallPercentile)}% (하위 ${Math.round(data.overallPercentile)}%, 상위 ${Math.round(100 - data.overallPercentile)}%)
 
-**항목별 백분위:**
+**기본 측정 항목별 백분위:**
 - ATP-PC 폭발력 (5초): ${Math.round(data.percentiles.power)}%
 - 해당작용 파워 (15초): ${Math.round(data.percentiles.strength)}%
 - 무산소성 지구력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
-- 유무산소 혼합지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%
+- 유무산소 혼합지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%`;
+
+    // Add advanced measurements if available
+    if (data.advancedPowerData?.hasAdvancedData) {
+      measurementData += `\n\n**고급 측정 항목 (10세 이상 권장):**`;
+      if (data.percentiles.longEndurance180s) {
+        measurementData += `\n- 중장거리 지구력 (180초): ${Math.round(data.percentiles.longEndurance180s)}%`;
+      }
+      if (data.percentiles.longEndurance360s) {
+        measurementData += `\n- 장거리 지구력 (360초): ${Math.round(data.percentiles.longEndurance360s)}%`;
+      }
+    }
+
+    // Add heart rate analysis if available
+    if (data.heartRateData?.maxBpm || data.heartRateData?.avgBpm || data.heartRateData?.restingBpm) {
+      measurementData += `\n\n**심박수 데이터 (에너지 시스템 분석):**`;
+      if (data.heartRateData.maxBpm) {
+        measurementData += `\n- 최대 심박수: ${data.heartRateData.maxBpm} bpm`;
+      }
+      if (data.heartRateData.avgBpm) {
+        measurementData += `\n- 운동 중 평균 심박수: ${data.heartRateData.avgBpm} bpm`;
+      }
+      if (data.heartRateData.restingBpm) {
+        measurementData += `\n- 안정시 심박수: ${data.heartRateData.restingBpm} bpm`;
+      }
+    }
+
+    measurementData += `
 
 **좌우 밸런스:**
 - 좌우 차이: ${data.balanceDifference}%
 - 주요 강점: ${data.strengths.join(', ')}
-- 개선 항목: ${data.improvements.join(', ')}
+- 개선 항목: ${data.improvements.join(', ')}`;
+
+    const prompt = `
+아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
+
+${measurementData}
 
 다음 형식의 JSON으로 응답해주세요:
 {
-  "summary": "빠른 힘을 잘쓰는 아이로, 지구력과 균형을 함께 키워가야합니다. (이런 식으로 아이의 특성 한줄평)",
-  "balanceComment": "좌우 밸런스 3줄 코칭 (예: 오른쪽 다리에 힘이 더 많이 실리고, 한쪽만 과도하게 힘을 쓰는 습관이 있어 좌우밸런스 주의 등급입니다. 우1:좌3의 비율로 런지, 보수볼운동을 추천합니다.)",
+  "summary": "강점과 보완점을 바탕으로 한 한줄 요약 (예: 빠른 힘을 잘쓰는 아이로, 지구력과 균형을 함께 키워가야합니다.)",
+  "balanceComment": "좌우 밸런스에 대한 구체적 분석과 개선방안 (3-4줄)",
   "explanations": {
     "power": "ATP-PC 폭발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
     "strength": "해당작용 파워 백분위에 맞는 정확한 해설",
     "muscleEndurance": "무산소성 지구력 백분위에 맞는 정확한 해설", 
     "cardioEndurance": "유무산소 혼합지구력 백분위에 맞는 정확한 해설"
   },
-  "comprehensiveAnalysis": ["종합분석 3줄"],
-  "overallAssessment": "10줄 이상의 상세한 종합평가 (반드시 '상위 XX%' 표현 포함, 아동 이름 포함)"
+  "comprehensiveAnalysis": [
+    "종합평가 포인트 1 (전반적 체력 수준)",
+    "종합평가 포인트 2 (에너지 시스템 분석)",
+    "종합평가 포인트 3 (강점 활용 방안)",
+    "종합평가 포인트 4 (개선 필요 영역)",
+    "종합평가 포인트 5 (운동 추천사항)",
+    "종합평가 포인트 6 (영양 및 생활습관)",
+    "종합평가 포인트 7 (부모님 지원방안)",
+    "종합평가 포인트 8 (단계별 목표설정)",
+    "종합평가 포인트 9 (정기적 측정 중요성)",
+    "종합평가 포인트 10 (동기부여 방법)",
+    "종합평가 포인트 11 (안전 주의사항)",
+    "종합평가 포인트 12 (장기적 발전 전망)"
+  ],
+  "overallAssessment": "12줄 이상의 상세한 종합평가 (반드시 '상위 XX%' 표현 포함, 아동 이름 포함, 심박수 및 장거리 데이터 반영)"
 }
 
 **백분위 해석 기준 (절대 틀리지 마세요):**
