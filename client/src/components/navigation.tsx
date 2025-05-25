@@ -72,13 +72,19 @@ export default function Navigation() {
               </DropdownMenu>
               
               <button 
-                onClick={() => setLocation('/about')}
+                onClick={() => {
+                  console.log('About button clicked');
+                  setLocation('/about');
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
               >
                 소개
               </button>
               <button 
-                onClick={() => setLocation('/contact')}
+                onClick={() => {
+                  console.log('Contact button clicked');
+                  setLocation('/contact');
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
               >
                 문의
