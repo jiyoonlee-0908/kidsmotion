@@ -21,6 +21,10 @@ const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
   leftBalance: z.number().min(0).max(100),
   rightBalance: z.number().min(0).max(100),
+  // 필수 심박수 필드들
+  maxHeartRate: z.number().min(60).max(220),
+  avgHeartRate: z.number().min(50).max(200),
+  restingHeartRate: z.number().min(40).max(120),
 }).refine((data) => {
   return Math.abs((data.leftBalance + data.rightBalance) - 100) < 0.1;
 }, {
@@ -54,6 +58,9 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
       power60s: 0,
       leftBalance: 50,
       rightBalance: 50,
+      maxHeartRate: 0,
+      avgHeartRate: 0,
+      restingHeartRate: 0,
     },
   });
 
@@ -386,6 +393,81 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
               </div>
             </div>
 
+            {/* 심박수 측정 섹션 (필수) */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 mb-4">
+                <Heart className="w-5 h-5 text-red-500" />
+                <h3 className="text-lg font-semibold text-gray-800">심박수 측정</h3>
+                <Badge variant="destructive" className="text-xs">필수</Badge>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-red-50 rounded-lg border border-red-200">
+                <FormField
+                  control={form.control}
+                  name="maxHeartRate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">최대 심박수 (BPM)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="예: 185"
+                          className="bg-white"
+                          {...field}
+                          onChange={e => field.onChange(Number(e.target.value))}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="avgHeartRate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">평균 심박수 (BPM)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="예: 145"
+                          className="bg-white"
+                          {...field}
+                          onChange={e => field.onChange(Number(e.target.value))}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="restingHeartRate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm font-medium text-gray-700">안정시 심박수 (BPM)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="예: 65"
+                          className="bg-white"
+                          {...field}
+                          onChange={e => field.onChange(Number(e.target.value))}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <p className="text-xs text-gray-600 text-center">
+                Garmin 등 외장 심박계 사용 권장 | 정확한 분석을 위해 필수 입력
+              </p>
+            </div>
+
             {/* 고급 측정 섹션 */}
             <div className="space-y-4">
               <Collapsible open={showAdvanced} onOpenChange={setShowAdvanced}>
@@ -426,31 +508,53 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
 
                   {/* 추가 파워 측정 */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gray-50 rounded-lg">
-                    <div>
-                      <Label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                        <Timer className="w-4 h-4 text-blue-600" />
-                        180초 근지구력 (W)
-                      </Label>
-                      <Input
-                        type="number"
-                        placeholder="예: 85"
-                        className="bg-white"
-                      />
-                      <p className="text-xs text-gray-500 mt-1">3분간 일정 강도 유지</p>
-                    </div>
+                    <FormField
+                      control={form.control}
+                      name="power180s"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                            <Timer className="w-4 h-4 text-blue-600" />
+                            180초 근지구력 (W)
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="예: 85"
+                              className="bg-white"
+                              {...field}
+                              onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                            />
+                          </FormControl>
+                          <p className="text-xs text-gray-500">3분간 일정 강도 유지</p>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                     
-                    <div>
-                      <Label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                        <Timer className="w-4 h-4 text-green-600" />
-                        360초 심폐지구력 (W)
-                      </Label>
-                      <Input
-                        type="number"
-                        placeholder="예: 70"
-                        className="bg-white"
-                      />
-                      <p className="text-xs text-gray-500 mt-1">6분간 유산소 영역</p>
-                    </div>
+                    <FormField
+                      control={form.control}
+                      name="power360s"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                            <Timer className="w-4 h-4 text-green-600" />
+                            360초 심폐지구력 (W)
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="예: 70"
+                              className="bg-white"
+                              {...field}
+                              onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                            />
+                          </FormControl>
+                          <p className="text-xs text-gray-500">6분간 유산소 영역</p>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
 
                   {/* 심박수 섹션 */}
