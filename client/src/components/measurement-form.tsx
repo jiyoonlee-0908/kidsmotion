@@ -102,19 +102,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
     createMeasurement.mutate(data);
   };
 
-  // Auto-adjust right balance when left balance changes
-  const handleLeftBalanceChange = (value: string) => {
-    const leftValue = parseFloat(value) || 0;
-    const rightValue = 100 - leftValue;
-    form.setValue("rightBalance", rightValue);
-  };
 
-  // Auto-adjust left balance when right balance changes
-  const handleRightBalanceChange = (value: string) => {
-    const rightValue = parseFloat(value) || 0;
-    const leftValue = 100 - rightValue;
-    form.setValue("leftBalance", leftValue);
-  };
 
   return (
     <Card className="fitness-card">
@@ -377,11 +365,11 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           placeholder="48" 
                           min="0" 
                           max="100"
-                          value={field.value || ''}
+                          {...field}
                           onChange={(e) => {
-                            const value = e.target.value;
-                            field.onChange(Number(value));
-                            handleLeftBalanceChange(value);
+                            const value = parseFloat(e.target.value) || 0;
+                            field.onChange(value);
+                            form.setValue("rightBalance", 100 - value);
                           }}
                         />
                       </FormControl>
@@ -402,12 +390,9 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                           placeholder="52" 
                           min="0" 
                           max="100"
-                          value={field.value || ''}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            field.onChange(Number(value));
-                            handleRightBalanceChange(value);
-                          }}
+                          {...field}
+                          readOnly
+                          className="bg-gray-100"
                         />
                       </FormControl>
                       <FormMessage />
