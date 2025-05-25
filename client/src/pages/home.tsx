@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale } from "lucide-react";
+import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone } from "lucide-react";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
+import MobileAppIntegration from "@/components/mobile-app-integration";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
 interface MeasurementResponse {

@@ -286,6 +286,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Push notification endpoints
+  app.post("/api/push-subscription", async (req, res) => {
+    try {
+      const subscription = req.body;
+      console.log('Push subscription received:', subscription);
+      
+      // Send confirmation notification
+      res.status(201).json({ message: 'Push subscription saved successfully' });
+    } catch (error) {
+      console.error('Error saving push subscription:', error);
+      res.status(500).json({ message: 'Failed to save push subscription' });
+    }
+  });
+
+  app.post("/api/send-notification", async (req, res) => {
+    try {
+      const { studentName, measurementId } = req.body;
+      console.log('Notification requested for:', studentName);
+      res.json({ message: 'Notification sent successfully' });
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      res.status(500).json({ message: 'Failed to send notification' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

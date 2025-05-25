@@ -6,6 +6,27 @@
     <title>MotionBike | KidsMotion - 체력 분석 웹 리포트</title>
     <meta name="description" content="아이들의 체력 측정 데이터를 분석하여 AI 기반 코칭과 시각화된 리포트를 제공하는 전문 웹 애플리케이션" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#7B5CFF" />
+    
+    <!-- iOS PWA Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="KidsMotion" />
+    <link rel="apple-touch-icon" href="/generated-icon.png" />
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('SW registered:', registration))
+            .catch(registrationError => console.log('SW registration failed:', registrationError));
+        });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
