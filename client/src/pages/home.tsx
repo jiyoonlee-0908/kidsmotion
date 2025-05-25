@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone } from "lucide-react";
-import Navigation from "@/components/navigation";
+import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone, ChevronDown, Search, History } from "lucide-react";
+import { Link } from "wouter";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import MobileAppIntegration from "@/components/mobile-app-integration";
@@ -39,9 +45,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {/* Navigation */}
-      <Navigation />
-      
       {/* Modern Header */}
       <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +68,30 @@ export default function Home() {
             <div className="flex items-center space-x-8">
               <nav className="hidden md:flex items-center space-x-8">
                 <a href="#home" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">홈</a>
-                <a href="#analysis" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">분석</a>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 flex items-center space-x-1">
+                      <span>분석</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <a href="#analysis" className="flex items-center space-x-2 w-full cursor-pointer">
+                        <Search className="w-4 h-4" />
+                        <span>측정</span>
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/records" className="flex items-center space-x-2 w-full cursor-pointer">
+                        <History className="w-4 h-4" />
+                        <span>기록</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
                 <a href="#about" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">소개</a>
                 <a href="#contact" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">문의</a>
               </nav>
