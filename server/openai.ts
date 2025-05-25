@@ -41,7 +41,7 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 **측정 대상 정보:**
 - 이름: ${data.studentName}
 - 나이: ${data.age}세
-- 종합 백분위: ${Math.round(data.overallPercentile)}% (상위 ${Math.round(100 - data.overallPercentile)}%)
+- 종합 백분위: ${Math.round(data.overallPercentile)}% (하위 ${Math.round(data.overallPercentile)}%, 상위 ${Math.round(100 - data.overallPercentile)}%)
 
 **항목별 백분위:**
 - 순발력 (5초): ${Math.round(data.percentiles.power)}%
@@ -68,17 +68,19 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
   "overallAssessment": "10줄 이상의 상세한 종합평가 (반드시 '상위 XX%' 표현 포함, 아동 이름 포함)"
 }
 
-**평가 기준:**
-- 90% 이상: 매우우수 - 강점으로 활용
-- 70% 이상: 우수 - 지속 발전
-- 40% 이상: 평균 - 꾸준한 노력 필요  
-- 20% 이상: 주의 - 집중적 개선 필요
-- 20% 미만: 경고 - 전문적 관리 필요
+**백분위 해석 기준 (절대 틀리지 마세요):**
+- 90% 이상: 매우우수 (상위 10% 이내) - 뛰어난 능력, 강점으로 활용
+- 70-89%: 우수 (상위 11-30%) - 좋은 수준, 지속 발전  
+- 40-69%: 평균 (상위 31-60%) - 보통 수준, 꾸준한 노력 필요
+- 20-39%: 주의 (상위 61-80%) - 평균 이하, 집중적 개선 필요
+- 20% 미만: 경고 (상위 80% 이하) - 매우 낮은 수준, 전문적 관리 필요
 
-**중요사항:**
-- 백분위가 높으면 좋은 점 강조, 낮으면 개선방안 제시
-- 구체적인 운동법과 실행방안 포함
-- 긍정적이면서도 객관적인 톤 유지
+**절대 규칙:**
+- 2% = 하위 2% = 상위 98% (매우 낮은 수준이므로 경고)
+- 낮은 백분위는 절대 "뛰어나다", "우수하다" 표현 금지
+- 높은 백분위만 긍정적 표현 사용
+- 구체적인 운동법과 개선방안 제시
+- 정확한 평가와 현실적인 조언 제공
 `;
 
     const response = await openai.chat.completions.create({
