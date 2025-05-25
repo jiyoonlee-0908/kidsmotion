@@ -72,14 +72,14 @@ export default function Navigation() {
               </DropdownMenu>
               
               <Link href="/about">
-                <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
+                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">
                   소개
-                </button>
+                </span>
               </Link>
               <Link href="/contact">
-                <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
+                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">
                   문의
-                </button>
+                </span>
               </Link>
             </nav>
             <div className="flex items-center space-x-3">
