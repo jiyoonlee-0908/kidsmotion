@@ -255,9 +255,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Heart rate analysis for energy systems
       const heartRateData = {
-        maxBpm: measurementData.maxBpm || null,
-        avgBpm: measurementData.avgBpm || null,
-        restingBpm: measurementData.restingBpm || null
+        maxBpm: measurementData.maxHeartRate || null,
+        avgBpm: measurementData.avgHeartRate || null,
+        restingBpm: measurementData.restingHeartRate || null
       };
 
       // Generate AI analysis with complete data
@@ -294,6 +294,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         percentile15s: percentiles["15s"],
         percentile30s: percentiles["30s"],
         percentile60s: percentiles["60s"],
+        percentile180s: percentiles["180s"],
+        percentile360s: percentiles["360s"],
+        maxBpm: heartRateData.maxBpm,
+        avgBpm: heartRateData.avgBpm,
+        restingBpm: heartRateData.restingBpm,
         balanceStatus,
         aiSummary: aiAnalysis.summary,
         balanceComment: aiAnalysis.balanceComment,
