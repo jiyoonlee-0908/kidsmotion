@@ -182,6 +182,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <p className="font-semibold text-gray-900">{measurement.measureDate}</p>
             </div>
             <div className="text-center">
+              <p className="text-sm text-gray-600">소속</p>
+              <p className="font-semibold text-gray-900">{measurement.affiliation}</p>
+            </div>
+            <div className="text-center">
               <p className="text-sm text-gray-600">생년월일</p>
               <p className="font-semibold text-gray-900">{measurement.birthDate}</p>
             </div>
