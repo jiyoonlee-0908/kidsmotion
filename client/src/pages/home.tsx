@@ -131,27 +131,35 @@ export default function Home() {
                 {/* 특징 카드들 */}
                 <div className="grid md:grid-cols-4 gap-6">
                   <Card className="text-center p-6 bg-gradient-to-br from-purple-50 to-white border-purple-200 hover:shadow-lg transition-all">
-                    <Scale className="w-12 h-12 mx-auto mb-3 text-purple-600" />
-                    <h3 className="font-semibold text-gray-800 mb-1">좌우밸런스</h3>
-                    <p className="text-sm text-gray-600">정확한 균형 측정</p>
+                    <Scale className="w-12 h-12 mx-auto mb-4 text-purple-600" />
+                    <h3 className="font-bold text-lg text-gray-800 mb-3">정밀한 좌우밸런스</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      0.1% 단위의 정확한 좌우 균형 분석으로 신체 불균형을 조기에 발견하고 교정 방향을 제시합니다.
+                    </p>
                   </Card>
 
                   <Card className="text-center p-6 bg-gradient-to-br from-blue-50 to-white border-blue-200 hover:shadow-lg transition-all">
-                    <BarChart className="w-12 h-12 mx-auto mb-3 text-blue-600" />
-                    <h3 className="font-semibold text-gray-800 mb-1">체력분석</h3>
-                    <p className="text-sm text-gray-600">과학적 분석</p>
+                    <BarChart className="w-12 h-12 mx-auto mb-4 text-blue-600" />
+                    <h3 className="font-bold text-lg text-gray-800 mb-3">과학적 체력분석</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      5단계 파워 측정으로 순발력, 근력, 근지구력, 심폐지구력을 종합적으로 평가하고 분석합니다.
+                    </p>
                   </Card>
 
                   <Card className="text-center p-6 bg-gradient-to-br from-green-50 to-white border-green-200 hover:shadow-lg transition-all">
-                    <Target className="w-12 h-12 mx-auto mb-3 text-green-600" />
-                    <h3 className="font-semibold text-gray-800 mb-1">AI코칭</h3>
-                    <p className="text-sm text-gray-600">맞춤형 가이드</p>
+                    <Target className="w-12 h-12 mx-auto mb-4 text-green-600" />
+                    <h3 className="font-bold text-lg text-gray-800 mb-3">AI 맞춤형 코칭</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      인공지능이 개인별 체력 특성을 분석하여 맞춤형 운동 처방과 개선 방안을 구체적으로 제안합니다.
+                    </p>
                   </Card>
 
                   <Card className="text-center p-6 bg-gradient-to-br from-orange-50 to-white border-orange-200 hover:shadow-lg transition-all">
-                    <Smartphone className="w-12 h-12 mx-auto mb-3 text-orange-600" />
-                    <h3 className="font-semibold text-gray-800 mb-1">전문리포트</h3>
-                    <p className="text-sm text-gray-600">상세한 분석</p>
+                    <Smartphone className="w-12 h-12 mx-auto mb-4 text-orange-600" />
+                    <h3 className="font-bold text-lg text-gray-800 mb-3">전문가 리포트</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      상세한 분석 결과를 전문가 수준의 PDF 리포트로 제공하며, QR 코드로 간편하게 공유 가능합니다.
+                    </p>
                   </Card>
                 </div>
 
@@ -257,124 +265,118 @@ export default function Home() {
           </div>
         </div>
 
-        {/* 풍부한 정보 섹션 */}
-        <div className="bg-gradient-to-br from-gray-50 to-blue-50 mt-16">
+        {/* 지원 서비스 섹션 */}
+        <div className="bg-gray-50 mt-16">
           <div className="max-w-6xl mx-auto p-8">
-            <div className="grid md:grid-cols-3 gap-8">
-              {/* 회사 소개 */}
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center mr-4">
-                    <Bike className="w-7 h-7 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                      KidsMotion
-                    </h3>
-                    <p className="text-gray-500 text-sm">by MotionBike</p>
-                  </div>
+            <div className="text-center mb-10">
+              <h2 className="text-3xl font-bold text-gray-800 mb-4">서비스 지원</h2>
+              <p className="text-gray-600">KidsMotion을 더욱 효과적으로 활용하세요</p>
+            </div>
+            
+            <div className="grid md:grid-cols-4 gap-6">
+              {/* 사용자 가이드 */}
+              <div className="bg-white rounded-xl p-6 text-center shadow-lg">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
                 </div>
-                <p className="text-gray-700 leading-relaxed">
-                  과학적이고 정확한 어린이 체력 측정을 통해 건강한 성장을 지원하는 전문 분석 시스템입니다. 
-                  최첨단 와트바이크 기술과 AI 분석을 통해 개인별 맞춤 코칭을 제공합니다.
-                </p>
+                <h3 className="font-semibold text-gray-800 mb-2">사용자 가이드</h3>
+                <p className="text-sm text-gray-600">측정 방법부터 결과 해석까지</p>
               </div>
 
-              {/* 서비스 특징 */}
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                  <BarChart className="w-6 h-6 mr-2 text-purple-600" />
-                  주요 특징
-                </h4>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-semibold text-gray-800">정밀한 좌우 밸런스 측정</span>
-                      <p className="text-sm text-gray-600">0.1% 단위의 정확한 좌우 균형 분석</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-semibold text-gray-800">과학적 체력 분석</span>
-                      <p className="text-sm text-gray-600">5단계 측정으로 종합적 체력 평가</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-semibold text-gray-800">AI 맞춤형 코칭</span>
-                      <p className="text-sm text-gray-600">개인별 특성에 맞는 운동 처방</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                    <div>
-                      <span className="font-semibold text-gray-800">전문가 리포트</span>
-                      <p className="text-sm text-gray-600">PDF 다운로드 및 QR 공유 가능</p>
-                    </div>
-                  </li>
-                </ul>
+              {/* 기술 지원 */}
+              <div className="bg-white rounded-xl p-6 text-center shadow-lg">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 1 1 0 19.5 9.75 9.75 0 0 1 0-19.5Z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-gray-800 mb-2">기술 지원</h3>
+                <p className="text-sm text-gray-600">전문가 상담 및 기술 문의</p>
               </div>
 
-              {/* 연락처 & 찾아오는 길 */}
-              <div className="bg-white rounded-xl p-6 shadow-lg">
-                <h4 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                  <Phone className="w-6 h-6 mr-2 text-purple-600" />
-                  연락처 & 위치
-                </h4>
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <Phone className="w-5 h-5 mr-3 text-purple-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-gray-800">고객센터</p>
-                      <p className="text-gray-600">010-8445-0908</p>
-                      <p className="text-sm text-gray-500">평일 09:00 - 18:00</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 mr-3 text-blue-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-gray-800">본사 위치</p>
-                      <p className="text-gray-600">서울시 강서구 금낭화로 234, GX2</p>
-                      <p className="text-sm text-gray-500">지하철 9호선 가양역 2번출구 도보 5분</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <Mail className="w-5 h-5 mr-3 text-green-500 mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-gray-800">이메일 문의</p>
-                      <p className="text-gray-600">info@motionbike.com</p>
-                      <p className="text-sm text-gray-500">24시간 접수, 1일 내 답변</p>
-                    </div>
-                  </div>
+              {/* 교육 프로그램 */}
+              <div className="bg-white rounded-xl p-6 text-center shadow-lg">
+                <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
                 </div>
+                <h3 className="font-semibold text-gray-800 mb-2">교육 프로그램</h3>
+                <p className="text-sm text-gray-600">교사 및 지도자 교육</p>
+              </div>
+
+              {/* 연락처 */}
+              <div className="bg-white rounded-xl p-6 text-center shadow-lg">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Phone className="w-6 h-6 text-orange-600" />
+                </div>
+                <h3 className="font-semibold text-gray-800 mb-2">고객센터</h3>
+                <p className="text-sm text-gray-600 mb-1">010-8445-0908</p>
+                <p className="text-xs text-gray-500">평일 09:00-18:00</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* 푸터 */}
-        <div className="bg-gray-900 text-white">
-          <div className="max-w-6xl mx-auto p-6">
-            <div className="text-center">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-                  <Bike className="w-5 h-5 text-white" />
+        <div className="bg-gray-800 text-white">
+          <div className="max-w-6xl mx-auto p-8">
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* 회사 정보 */}
+              <div>
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+                    <Bike className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                      KidsMotion
+                    </h3>
+                    <p className="text-gray-400 text-sm">by MotionBike</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  KidsMotion
-                </h3>
-                <span className="text-gray-400 text-sm ml-2">by MotionBike</span>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  과학적이고 정확한 어린이 체력 측정을 통해 건강한 성장을 지원하는 전문 분석 시스템
+                </p>
               </div>
-              
-              <p className="text-gray-400 text-sm mb-4">
-                © 2024 MotionBike Co., Ltd. All rights reserved. | 사업자등록번호: 123-45-67890 | 대표: 김대표
-              </p>
-              
-              <p className="text-gray-500 text-xs">
-                KidsMotion은 MotionBike의 등록상표입니다. 무단 복제 및 전재를 금지합니다.
+
+              {/* 서비스 */}
+              <div>
+                <h4 className="text-lg font-semibold mb-4 text-white">서비스</h4>
+                <ul className="space-y-2 text-gray-300 text-sm">
+                  <li>체력 측정 및 분석</li>
+                  <li>AI 기반 맞춤 코칭</li>
+                  <li>전문가 리포트</li>
+                  <li>교육 프로그램</li>
+                </ul>
+              </div>
+
+              {/* 연락처 */}
+              <div>
+                <h4 className="text-lg font-semibold mb-4 text-white">연락처</h4>
+                <div className="space-y-2 text-gray-300 text-sm">
+                  <div className="flex items-center">
+                    <Phone className="w-4 h-4 mr-2" />
+                    <span>010-8445-0908</span>
+                  </div>
+                  <div className="flex items-center">
+                    <Mail className="w-4 h-4 mr-2" />
+                    <span>info@motionbike.com</span>
+                  </div>
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2" />
+                    <span>서울시 강서구 금낭화로 234, GX2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 하단 저작권 */}
+            <div className="border-t border-gray-700 mt-8 pt-6 text-center">
+              <p className="text-gray-400 text-sm">
+                © 2024 MotionBike Co., Ltd. All rights reserved. | 사업자등록번호: 123-45-67890
               </p>
             </div>
           </div>
