@@ -36,28 +36,30 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b-2 border-primary">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      {/* Modern Header */}
+      <header className="glass-effect border-b border-white/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 brand-gradient rounded-lg flex items-center justify-center">
-                <Bike className="text-white text-xl" />
+          <div className="flex justify-between items-center py-6">
+            <div className="flex items-center space-x-4">
+              <div className="fitness-icon animated-pulse">
+                <Bike className="text-white w-7 h-7" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  <span className="text-primary">MotionBike</span> | KidsMotion
+                <h1 className="text-3xl font-bold">
+                  <span className="gradient-text">MotionBike</span>
+                  <span className="text-gray-700 mx-2">|</span>
+                  <span className="text-gray-800">KidsMotion</span>
                 </h1>
-                <p className="text-sm text-gray-600">체력 분석 웹 리포트</p>
+                <p className="text-sm text-gray-600 font-medium">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <button className="text-gray-600 hover:text-primary transition-colors">
-                <HelpCircle className="text-xl" />
+            <div className="flex items-center space-x-3">
+              <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                <HelpCircle className="w-5 h-5" />
               </button>
-              <button className="text-gray-600 hover:text-primary transition-colors">
-                <Settings className="text-xl" />
+              <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                <Settings className="w-5 h-5" />
               </button>
             </div>
           </div>

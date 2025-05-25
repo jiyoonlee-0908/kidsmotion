@@ -89,15 +89,15 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       {/* Card 1: Basic Info */}
       <Card className="fitness-card">
         <CardContent>
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <User className="text-blue-600" />
+          <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center space-x-4">
+              <div className="fitness-icon">
+                <User className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900">기본 정보</h3>
+              <h3 className="text-2xl font-bold gradient-text">기본 정보</h3>
             </div>
-            <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-              <QRCodeSVG value={reportUrl} size={64} />
+            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center shadow-lg border border-white">
+              <QRCodeSVG value={reportUrl} size={72} />
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">

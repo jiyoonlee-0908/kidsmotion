@@ -41,13 +41,13 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 **측정 대상 정보:**
 - 이름: ${data.studentName}
 - 나이: ${data.age}세
-- 종합 백분위: ${data.overallPercentile}%
+- 종합 백분위: ${Math.round(data.overallPercentile)}% (상위 ${Math.round(100 - data.overallPercentile)}%)
 
 **항목별 백분위:**
-- 순발력 (5초): ${data.percentiles.power}%
-- 근력 (15초): ${data.percentiles.strength}%
-- 근지구력 (30초): ${data.percentiles.muscleEndurance}%
-- 심폐지구력 (60초): ${data.percentiles.cardioEndurance}%
+- 순발력 (5초): ${Math.round(data.percentiles.power)}%
+- 근력 (15초): ${Math.round(data.percentiles.strength)}%
+- 근지구력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
+- 심폐지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%
 
 **좌우 밸런스:**
 - 좌우 차이: ${data.balanceDifference}%
@@ -56,24 +56,29 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 
 다음 형식의 JSON으로 응답해주세요:
 {
-  "summary": "체력 요약 한줄평 (30자 이내)",
-  "balanceComment": "좌우 밸런스에 대한 구체적인 코칭 조언 (2-3문장)",
+  "summary": "빠른 힘을 잘쓰는 아이로, 지구력과 균형을 함께 키워가야합니다. (이런 식으로 아이의 특성 한줄평)",
+  "balanceComment": "좌우 밸런스 3줄 코칭 (예: 오른쪽 다리에 힘이 더 많이 실리고, 한쪽만 과도하게 힘을 쓰는 습관이 있어 좌우밸런스 주의 등급입니다. 우1:좌3의 비율로 런지, 보수볼운동을 추천합니다.)",
   "explanations": {
-    "power": "순발력에 대한 해설 (2문장)",
-    "strength": "근력에 대한 해설 (2문장)",
-    "muscleEndurance": "근지구력에 대한 해설 (2문장)",
-    "cardioEndurance": "심폐지구력에 대한 해설 (2문장)"
+    "power": "순발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
+    "strength": "근력 백분위에 맞는 정확한 해설",
+    "muscleEndurance": "근지구력 백분위에 맞는 정확한 해설", 
+    "cardioEndurance": "심폐지구력 백분위에 맞는 정확한 해설"
   },
-  "comprehensiveAnalysis": ["종합분석 첫번째 문장", "종합분석 두번째 문장", "종합분석 세번째 문장"],
-  "overallAssessment": "종합 평가 7줄 문장 (아동의 이름을 포함하여 구체적이고 전문적인 평가)"
+  "comprehensiveAnalysis": ["종합분석 3줄"],
+  "overallAssessment": "10줄 이상의 상세한 종합평가 (반드시 '상위 XX%' 표현 포함, 아동 이름 포함)"
 }
 
-**작성 지침:**
-- 아동의 이름을 자연스럽게 포함
-- 백분위를 기반으로 한 정확한 평가
-- 구체적이고 실행 가능한 조언
-- 긍정적이면서도 객관적인 톤
-- 보호자와 지도자 모두에게 유용한 내용
+**평가 기준:**
+- 90% 이상: 매우우수 - 강점으로 활용
+- 70% 이상: 우수 - 지속 발전
+- 40% 이상: 평균 - 꾸준한 노력 필요  
+- 20% 이상: 주의 - 집중적 개선 필요
+- 20% 미만: 경고 - 전문적 관리 필요
+
+**중요사항:**
+- 백분위가 높으면 좋은 점 강조, 낮으면 개선방안 제시
+- 구체적인 운동법과 실행방안 포함
+- 긍정적이면서도 객관적인 톤 유지
 `;
 
     const response = await openai.chat.completions.create({
