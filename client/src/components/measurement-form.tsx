@@ -98,7 +98,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             {/* Basic Info Section */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-4 gap-6 mb-8">
               <FormField
                 control={form.control}
                 name="measureDate"
@@ -165,7 +165,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
             </div>
 
             {/* Physical Info Section */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-6 mb-8">
               <FormField
                 control={form.control}
                 name="height"
@@ -242,7 +242,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                 <Zap className="text-primary mr-2" />
                 파워 측정값 (W)
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-4">
                 <FormField
                   control={form.control}
                   name="power5s"

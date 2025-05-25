@@ -79,17 +79,14 @@ export default function Home() {
           <>
             {/* Hero Section */}
             <section id="home" className="text-center mb-20">
-              <div className="max-w-5xl mx-auto">
-                <h1 className="text-6xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight">
-                  <span className="gradient-text">AI 기반</span><br />
-                  <span className="text-gray-900">아동 체력 분석</span>
+              <div className="max-w-7xl mx-auto">
+                <h1 className="text-5xl lg:text-6xl font-extrabold mb-6 tracking-tight leading-tight">
+                  <span className="gradient-text">AI 기반 아동 체력 분석</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed max-w-4xl mx-auto font-medium">
-                  정확한 측정 데이터와 인공지능 분석으로<br />
-                  우리 아이의 체력을 과학적으로 평가하고<br />
-                  <span className="gradient-text font-semibold">맞춤형 운동 처방</span>을 제공합니다
+                <p className="text-xl lg:text-2xl text-gray-600 mb-16 leading-relaxed max-w-5xl mx-auto font-medium">
+                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 <span className="gradient-text font-semibold">맞춤형 운동 처방</span>을 제공합니다
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div className="grid grid-cols-4 gap-8 mb-16">
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Scale className="w-8 h-8 text-white" />
