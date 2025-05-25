@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -63,6 +63,19 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
       restingHeartRate: 0,
     },
   });
+
+  // 연령에 따른 고급측정 자동 펼치기
+  const watchedBirthDate = form.watch("birthDate");
+  const currentAge = watchedBirthDate ? calculateAge(watchedBirthDate) : 0;
+  
+  // 10세 이상이면 자동으로 고급측정 펼치기
+  React.useEffect(() => {
+    if (currentAge >= 10) {
+      setShowAdvanced(true);
+    } else {
+      setShowAdvanced(false);
+    }
+  }, [currentAge]);
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
@@ -409,7 +422,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="예: 185"
+                          placeholder=""
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
@@ -429,7 +442,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="예: 145"
+                          placeholder=""
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
@@ -449,7 +462,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="예: 65"
+                          placeholder=""
                           className="bg-white"
                           {...field}
                           onChange={e => field.onChange(Number(e.target.value))}
