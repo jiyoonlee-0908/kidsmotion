@@ -120,24 +120,6 @@ const cutoffData = {
     "cardioEndurance": { "P96": 29, "P80": 26, "P20": 23, "P4": 20 }
   }
 };
-    "power": { "P96": 388, "P80": 332, "P20": 223, "P4": 166 },
-    "strength": { "P96": 186, "P80": 159, "P20": 107, "P4": 80 },
-    "muscleEndurance": { "P96": 131, "P80": 112, "P20": 75, "P4": 56 },
-    "cardioEndurance": { "P96": 113, "P80": 97, "P20": 65, "P4": 48 }
-  },
-  "12_M": {
-    "power": { "P96": 542, "P80": 464, "P20": 312, "P4": 232 },
-    "strength": { "P96": 260, "P80": 223, "P20": 150, "P4": 112 },
-    "muscleEndurance": { "P96": 172, "P80": 147, "P20": 99, "P4": 74 },
-    "cardioEndurance": { "P96": 148, "P80": 127, "P20": 85, "P4": 63 }
-  },
-  "12_F": {
-    "power": { "P96": 434, "P80": 372, "P20": 250, "P4": 186 },
-    "strength": { "P96": 208, "P80": 178, "P20": 120, "P4": 89 },
-    "muscleEndurance": { "P96": 147, "P80": 126, "P20": 85, "P4": 63 },
-    "cardioEndurance": { "P96": 127, "P80": 109, "P20": 73, "P4": 54 }
-  }
-};
 
 console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
 
