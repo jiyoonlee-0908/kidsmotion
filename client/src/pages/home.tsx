@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone, History, Search } from "lucide-react";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
+import MeasurementHistory from "@/components/measurement-history";
 import MobileAppIntegration from "@/components/mobile-app-integration";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
@@ -16,6 +19,8 @@ interface MeasurementResponse {
 export default function Home() {
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
+  const [searchStudentName, setSearchStudentName] = useState("");
 
   const handleMeasurementComplete = (data: MeasurementResponse) => {
     setMeasurementData(data);
