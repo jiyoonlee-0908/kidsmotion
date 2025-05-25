@@ -522,7 +522,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                               type="number"
                               placeholder="예: 85"
                               className="bg-white"
-                              {...field}
+                              value={field.value || ""}
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                             />
                           </FormControl>
@@ -546,7 +546,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                               type="number"
                               placeholder="예: 70"
                               className="bg-white"
-                              {...field}
+                              value={field.value || ""}
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                             />
                           </FormControl>
@@ -557,57 +557,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                     />
                   </div>
 
-                  {/* 심박수 섹션 */}
-                  <Collapsible open={showHeartRate} onOpenChange={setShowHeartRate}>
-                    <CollapsibleTrigger asChild>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full flex items-center justify-between p-3 border border-gray-300 hover:border-red-400 hover:bg-red-50"
-                      >
-                        <div className="flex items-center gap-2">
-                          <Heart className="w-4 h-4 text-red-500" />
-                          <span className="text-sm font-medium">심박수 데이터 추가</span>
-                        </div>
-                        {showHeartRate ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                      </Button>
-                    </CollapsibleTrigger>
-                    
-                    <CollapsibleContent className="mt-3">
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-red-50 rounded-lg">
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">최대 심박수 (BPM)</Label>
-                          <Input
-                            type="number"
-                            placeholder="예: 185"
-                            className="bg-white"
-                          />
-                        </div>
-                        
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">평균 심박수 (BPM)</Label>
-                          <Input
-                            type="number"
-                            placeholder="예: 145"
-                            className="bg-white"
-                          />
-                        </div>
-                        
-                        <div>
-                          <Label className="text-sm font-medium text-gray-700 mb-2 block">안정시 심박수 (BPM)</Label>
-                          <Input
-                            type="number"
-                            placeholder="예: 65"
-                            className="bg-white"
-                          />
-                        </div>
-                      </div>
-                      
-                      <p className="text-xs text-gray-600 mt-2 text-center">
-                        Garmin 등 외장 심박계 사용 권장 | 선택적 입력 사항
-                      </p>
-                    </CollapsibleContent>
-                  </Collapsible>
+
                 </CollapsibleContent>
               </Collapsible>
             </div>

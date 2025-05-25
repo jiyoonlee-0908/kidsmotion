@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
 const openai = new OpenAI({ 
-  apiKey: "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"
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 export interface FitnessAnalysisRequest {
@@ -44,10 +44,10 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 - 종합 백분위: ${Math.round(data.overallPercentile)}% (하위 ${Math.round(data.overallPercentile)}%, 상위 ${Math.round(100 - data.overallPercentile)}%)
 
 **항목별 백분위:**
-- 순발력 (5초): ${Math.round(data.percentiles.power)}%
-- 근력 (15초): ${Math.round(data.percentiles.strength)}%
-- 근지구력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
-- 심폐지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%
+- ATP-PC 폭발력 (5초): ${Math.round(data.percentiles.power)}%
+- 해당작용 파워 (15초): ${Math.round(data.percentiles.strength)}%
+- 무산소성 지구력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
+- 유무산소 혼합지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%
 
 **좌우 밸런스:**
 - 좌우 차이: ${data.balanceDifference}%
@@ -59,10 +59,10 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
   "summary": "빠른 힘을 잘쓰는 아이로, 지구력과 균형을 함께 키워가야합니다. (이런 식으로 아이의 특성 한줄평)",
   "balanceComment": "좌우 밸런스 3줄 코칭 (예: 오른쪽 다리에 힘이 더 많이 실리고, 한쪽만 과도하게 힘을 쓰는 습관이 있어 좌우밸런스 주의 등급입니다. 우1:좌3의 비율로 런지, 보수볼운동을 추천합니다.)",
   "explanations": {
-    "power": "순발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
-    "strength": "근력 백분위에 맞는 정확한 해설",
-    "muscleEndurance": "근지구력 백분위에 맞는 정확한 해설", 
-    "cardioEndurance": "심폐지구력 백분위에 맞는 정확한 해설"
+    "power": "ATP-PC 폭발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
+    "strength": "해당작용 파워 백분위에 맞는 정확한 해설",
+    "muscleEndurance": "무산소성 지구력 백분위에 맞는 정확한 해설", 
+    "cardioEndurance": "유무산소 혼합지구력 백분위에 맞는 정확한 해설"
   },
   "comprehensiveAnalysis": ["종합분석 3줄"],
   "overallAssessment": "10줄 이상의 상세한 종합평가 (반드시 '상위 XX%' 표현 포함, 아동 이름 포함)"
