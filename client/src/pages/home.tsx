@@ -45,12 +45,15 @@ export default function Home() {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
                 <Bike className="text-white w-8 h-8" />
               </div>
-              <div>
-                <h1 className="text-3xl font-black tracking-tight">
-                  <span className="text-gray-800 font-black">MotionBike</span>
-                  <span className="text-gray-300 mx-3 font-thin text-2xl">|</span>
-                  <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">KidsMotion</span>
+              <div className="flex items-baseline space-x-2">
+                <h1 className="text-3xl font-black tracking-tight text-gray-800">
+                  KidsBike
                 </h1>
+                <span className="text-lg font-medium text-gray-500 tracking-wide">
+                  MotionBike
+                </span>
+              </div>
+              <div className="hidden">
                 <p className="text-sm text-gray-500 font-medium tracking-wide mt-1">AI 기반 아동 체력 분석 플랫폼</p>
               </div>
             </div>

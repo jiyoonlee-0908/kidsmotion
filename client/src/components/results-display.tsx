@@ -155,7 +155,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <div className="fitness-icon">
                 <User className="text-white w-6 h-6" />
               </div>
-              <h3 className="text-2xl font-bold gradient-text">기본 정보</h3>
+              <h3 className="text-2xl font-bold gradient-text">{measurement.studentName}</h3>
             </div>
             <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center shadow-lg border border-white">
               <QRCodeSVG value={reportUrl} size={72} />
