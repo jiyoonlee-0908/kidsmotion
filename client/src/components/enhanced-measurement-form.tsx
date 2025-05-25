@@ -64,11 +64,15 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: EnhancedFormData) => {
-      return await apiRequest('/api/measurements', {
+      const response = await fetch('/api/measurements', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'Content-Type': 'application/json' },
       });
+      if (!response.ok) {
+        throw new Error('측정 데이터 전송에 실패했습니다.');
+      }
+      return response.json();
     },
     onSuccess: (data) => {
       toast({
