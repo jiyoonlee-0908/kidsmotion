@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
-import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart, ArcElement, Tooltip, Legend, DoughnutController } from "chart.js";
 
-Chart.register(ArcElement, Tooltip, Legend);
+Chart.register(ArcElement, Tooltip, Legend, DoughnutController);
 
 interface BalanceChartProps {
   leftBalance: number;

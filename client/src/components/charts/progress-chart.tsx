@@ -7,9 +7,10 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarController,
 } from "chart.js";
 
-Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, BarController);
 
 interface ProgressChartProps {
   currentData: number[];

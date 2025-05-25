@@ -7,9 +7,10 @@ import {
   Filler,
   Tooltip,
   Legend,
+  RadarController,
 } from "chart.js";
 
-Chart.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
+Chart.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend, RadarController);
 
 interface RadarChartProps {
   data: {
