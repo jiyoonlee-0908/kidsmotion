@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   User, Trophy, Scale, BarChart3, TrendingUp, 
-  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer
+  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart
 } from "lucide-react";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";

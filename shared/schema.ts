@@ -12,6 +12,7 @@ export const measurements = pgTable("measurements", {
   id: serial("id").primaryKey(),
   measureDate: text("measure_date").notNull(),
   studentName: text("student_name").notNull(),
+  affiliation: text("affiliation").notNull(), // 소속 (학교, 클럽 등)
   birthDate: text("birth_date").notNull(),
   gender: text("gender").notNull(), // "M" or "F"
   height: real("height").notNull(),

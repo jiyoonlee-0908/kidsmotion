@@ -48,6 +48,7 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
     defaultValues: {
       measureDate: new Date().toISOString().split('T')[0],
       studentName: "",
+      affiliation: "",
       birthDate: "",
       gender: "M",
       height: 0,
@@ -133,6 +134,20 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
                     <FormLabel>이름</FormLabel>
                     <FormControl>
                       <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="affiliation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>소속 (학교/클럽)</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="예: 서울초등학교, ABC클럽" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
