@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { 
   Dumbbell, Heart, Timer, Target, Play, CheckCircle, 
-  ArrowRight, Flame, Star, Clock, TrendingUp 
+  ArrowRight, Flame, Star, Clock, TrendingUp, Calendar 
 } from "lucide-react";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
@@ -29,10 +29,10 @@ export default function ExerciseRecommendations({ measurement, analysis }: Exerc
   
   const getWeakestAreas = () => {
     const percentiles = {
-      power: analysis.percentile5s || 50,
-      strength: analysis.percentile15s || 50,
-      muscleEndurance: analysis.percentile30s || 50,
-      cardioEndurance: analysis.percentile60s || 50
+      explosivePower: analysis.percentile5s || 50,      // 순발력/폭발력
+      anaerobicPower: analysis.percentile15s || 50,     // 무산소 파워  
+      anaerobicEndurance: analysis.percentile30s || 50, // 무산소성 지구력
+      mixedEndurance: analysis.percentile60s || 50      // 혼합 지구력
     };
     
     return Object.entries(percentiles)
