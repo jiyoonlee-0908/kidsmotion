@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, real, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, real, timestamp, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -46,6 +46,14 @@ export const analysisResults = pgTable("analysis_results", {
   overallAssessment: text("overall_assessment"),
 });
 
+export const inviteCodes = pgTable("invite_codes", {
+  id: serial("id").primaryKey(),
+  code: text("code").notNull().unique(),
+  isUsed: text("is_used").default("false").notNull(),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export const insertMeasurementSchema = createInsertSchema(measurements).omit({
   id: true,
   createdAt: true,
@@ -62,6 +70,14 @@ export type AnalysisResult = typeof analysisResults.$inferSelect;
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+export const insertInviteCodeSchema = createInsertSchema(inviteCodes).pick({
+  code: true,
+  isUsed: true,
+});
+
+export type InsertInviteCode = z.infer<typeof insertInviteCodeSchema>;
+export type InviteCode = typeof inviteCodes.$inferSelect;
 
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
