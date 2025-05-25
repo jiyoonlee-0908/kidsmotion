@@ -54,7 +54,7 @@ export default function Home() {
                 <Bike className="text-white w-8 h-8" />
               </div>
               <div className="flex items-baseline space-x-2">
-                <h1 className="text-3xl font-black tracking-tight text-gray-800">
+                <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
                   KidsBike
                 </h1>
                 <span className="text-lg font-medium text-gray-500 tracking-wide">
@@ -117,8 +117,8 @@ export default function Home() {
                 <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 기반 아동 체력 분석</span>
                 </h1>
-                <p className="text-lg text-gray-600 mb-16 leading-relaxed max-w-4xl mx-auto font-medium">
-                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 <span className="bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent font-semibold">맞춤형 운동 처방</span>을 제공합니다
+                <p className="text-lg text-black mb-16 leading-relaxed max-w-4xl mx-auto font-medium">
+                  정확한 측정 데이터와 인공지능 분석으로 우리 아이의 체력을 과학적으로 평가하고 맞춤형 운동 처방을 제공합니다
                 </p>
                 <div className="grid grid-cols-4 gap-8 mb-16">
                   <div className="fitness-card text-center group">
