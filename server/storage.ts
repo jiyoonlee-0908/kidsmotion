@@ -133,8 +133,8 @@ export class MemStorage implements IStorage {
           return false;
         }
         
-        // 성별이 있으면 확인
-        if (criteria.gender && criteria.gender.trim() !== "" && 
+        // 성별이 있으면 확인 (단, "all"이면 모든 성별 허용)
+        if (criteria.gender && criteria.gender.trim() !== "" && criteria.gender !== "all" &&
             measurement.gender !== criteria.gender) {
           return false;
         }

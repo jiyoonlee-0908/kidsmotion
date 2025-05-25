@@ -130,7 +130,7 @@ export default function Records() {
                     <SelectValue placeholder="성별 선택" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">전체</SelectItem>
+                    <SelectItem value="all">전체</SelectItem>
                     <SelectItem value="M">남자</SelectItem>
                     <SelectItem value="F">여자</SelectItem>
                   </SelectContent>
