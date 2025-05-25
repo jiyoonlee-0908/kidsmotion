@@ -25,12 +25,15 @@ export default function About() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-5xl mx-auto">
-              <strong className="text-gray-800">"가장 설득력 있는 아동 체력 분석 솔루션"</strong><br/><br/>
-              키즈모션 모션바이크는 운동 중 실시간 데이터를 기반으로 성장과 체력을 분석하는 혁신적인 스마트 사이클입니다.<br/>
-              단순히 '작게 만든 자전거'가 아닌, <strong className="text-blue-600">100~150cm 어린이 체형에 맞춘 커스텀 프레임</strong>의 정밀 피트니스 기기로,<br/>
-              파워미터·케이던스 내장, 공기저항 기반 플라이휠, 외장 심박계를 통해<br/>
-              순발력, 근지구력, 심폐지구력, 좌우 밸런스, 페달링 일관성 등의 동적 운동 데이터를 자동 분석·시각화하여<br/>
-              <strong className="text-purple-600">측정으로 끝나지 않고 훈련까지 연결되는 완결형 플랫폼</strong>을 제공합니다.
+              <strong className="text-gray-800">"아이들의 체력, 이제 정확하게 측정하고 개선할 수 있습니다"</strong><br/><br/>
+              키즈모션은 100~150cm 어린이를 위한 <strong className="text-blue-600">세계 최초의 전용 체력측정 스마트바이크</strong>입니다.<br/>
+              단순한 운동기구가 아닌, 실시간으로 아이의 체력을 과학적으로 분석하고<br/>
+              <strong className="text-purple-600">AI가 개인별 맞춤 운동처방까지 제공하는 혁신적인 솔루션</strong>입니다.<br/><br/>
+              <span className="text-lg text-gray-700">
+                🏥 의료진도 신뢰하는 정확한 데이터 &nbsp;|&nbsp; 
+                👨‍👩‍👧‍👦 부모님도 이해하기 쉬운 리포트 &nbsp;|&nbsp; 
+                🎯 아이들도 재미있는 측정과정
+              </span>
             </p>
           </div>
 
@@ -38,9 +41,9 @@ export default function About() {
           <div className="mb-16">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-gray-800 mb-4">
-                왜 <span className="text-purple-600">키즈모션</span>인가?
+                왜 <span className="text-purple-600">키즈모션</span>을 선택해야 할까요?
               </h2>
-              <p className="text-lg text-gray-600">기존 아날로그 체력측정의 한계를 뛰어넘는 디지털 혁신</p>
+              <p className="text-lg text-gray-600">병원, 체육관, 학교에서 실제로 사용되고 있는 검증된 솔루션</p>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -56,16 +59,16 @@ export default function About() {
                     </div>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    기존 악력기, 정적 측정과 달리 <strong>운동 중 생체 신호를 실시간으로 정량화</strong>합니다. 
-                    파워미터·케이던스 내장, 공기저항 기반 플라이휠로 순발력부터 심폐지구력까지 완벽 분석.
+                    <strong>5분 만에 아이의 체력을 완벽 분석</strong>합니다. 
+                    기존 체력장처럼 날씨나 공간에 제약받지 않고, 언제든지 정확한 측정이 가능해요.
                   </p>
                   <div className="bg-white/60 rounded-lg p-4 mb-4">
-                    <h4 className="font-semibold text-gray-800 mb-2">🔬 과학적 측정 시스템</h4>
+                    <h4 className="font-semibold text-gray-800 mb-2">🎯 실제 측정되는 항목들</h4>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• W/kg^0.67 공식 기반 정확한 상대파워 계산</li>
-                      <li>• 좌우 밸런스 & 페달링 일관성 분석</li>
-                      <li>• 외장 심박계 연동 심폐기능 평가</li>
-                      <li>• 한국 아동 표준 데이터 기반 백분위 산출</li>
+                      <li>• <strong>순발력</strong>: 아이가 순간적으로 낼 수 있는 최대 힘</li>
+                      <li>• <strong>지구력</strong>: 얼마나 오래 운동할 수 있는지</li>
+                      <li>• <strong>좌우균형</strong>: 왼쪽-오른쪽 다리 힘의 차이</li>
+                      <li>• <strong>심박수 패턴</strong>: 운동 중 심장 건강 상태</li>
                     </ul>
                   </div>
                 </CardContent>
@@ -83,16 +86,16 @@ export default function About() {
                     </div>
                   </div>
                   <p className="text-gray-600 leading-relaxed mb-4">
-                    단순 측정이 아닌 <strong>실시간 자세 분석과 훈련 피드백까지 연결</strong>되는 
-                    통합 솔루션. AI가 개인별 맞춤 운동 처방과 성장 가이드를 자동 생성합니다.
+                    측정 후 <strong>바로 받아보는 맞춤형 운동처방서</strong>! 
+                    의사나 트레이너가 직접 상담해주는 것처럼 자세하고 실용적인 가이드를 AI가 제공합니다.
                   </p>
                   <div className="bg-white/60 rounded-lg p-4 mb-4">
-                    <h4 className="font-semibold text-gray-800 mb-2">🤖 AI 기반 맞춤 코칭</h4>
+                    <h4 className="font-semibold text-gray-800 mb-2">📋 실제로 받게 되는 리포트</h4>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• 개인별 강점/약점 즉시 분석</li>
-                      <li>• 성장 단계별 맞춤 운동 프로그램</li>
-                      <li>• 전문적이면서 이해하기 쉬운 한국어 리포트</li>
-                      <li>• 공공보건, 교육, 유소년 스포츠 전 영역 활용</li>
+                      <li>• <strong>우리 아이 체력 점수</strong>: 또래 대비 정확한 등급</li>
+                      <li>• <strong>강점과 약점</strong>: 어떤 부분을 더 키워야 하는지</li>
+                      <li>• <strong>맞춤 운동법</strong>: 집에서 할 수 있는 구체적인 운동</li>
+                      <li>• <strong>성장 가이드</strong>: 3개월, 6개월 후 목표 설정</li>
                     </ul>
                   </div>
                 </CardContent>
