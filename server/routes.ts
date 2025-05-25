@@ -255,6 +255,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin authentication endpoint
+  app.post("/api/admin/login", async (req, res) => {
+    try {
+      const { password } = req.body;
+      
+      if (!password) {
+        return res.status(400).json({ error: "비밀번호가 필요합니다." });
+      }
+      
+      if (password !== process.env.ADMIN_PASSWORD) {
+        return res.status(401).json({ error: "잘못된 비밀번호입니다." });
+      }
+      
+      res.json({ message: "로그인 성공" });
+    } catch (error) {
+      console.error("Admin login error:", error);
+      res.status(500).json({ error: "로그인 처리 중 오류가 발생했습니다." });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
