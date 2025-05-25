@@ -55,11 +55,11 @@ export default function Home() {
               </div>
             </div>
             <div className="flex items-center space-x-8">
-              <nav className="hidden md:flex items-center space-x-6">
-                <a href="#home" className="text-gray-700 hover:text-primary font-medium transition-colors">홈</a>
-                <a href="#analysis" className="text-gray-700 hover:text-primary font-medium transition-colors">분석</a>
-                <a href="#about" className="text-gray-700 hover:text-primary font-medium transition-colors">소개</a>
-                <a href="#contact" className="text-gray-700 hover:text-primary font-medium transition-colors">문의</a>
+              <nav className="hidden md:flex items-center space-x-8">
+                <a href="#home" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">홈</a>
+                <a href="#analysis" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">분석</a>
+                <a href="#about" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">소개</a>
+                <a href="#contact" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">문의</a>
               </nav>
               <div className="flex items-center space-x-3">
                 <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
