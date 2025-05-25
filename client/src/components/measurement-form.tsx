@@ -19,6 +19,8 @@ import { calculateAge } from "@/lib/fitness-calculations";
 
 const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
+  height: z.number().min(100, "키는 최소 100cm 이상이어야 합니다.").max(200, "키는 최대 200cm까지 입력 가능합니다."),
+  weight: z.number().min(18, "체중은 최소 18kg 이상이어야 합니다.").max(100, "체중은 최대 100kg까지 입력 가능합니다."),
   leftBalance: z.number().min(0).max(100),
   rightBalance: z.number().min(0).max(100),
   // 필수 심박수 필드들

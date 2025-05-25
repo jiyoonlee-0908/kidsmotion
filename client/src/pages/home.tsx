@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone, ChevronDown, Search, History } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +21,17 @@ interface MeasurementResponse {
 }
 
 export default function Home() {
+  const [location] = useLocation();
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
+
+  // 홈 페이지로 돌아올 때 상태 리셋
+  useEffect(() => {
+    if (location === '/') {
+      setShowResults(false);
+      setMeasurementData(null);
+    }
+  }, [location]);
 
   const handleMeasurementComplete = (data: MeasurementResponse) => {
     setMeasurementData(data);
