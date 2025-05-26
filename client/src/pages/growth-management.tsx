@@ -252,46 +252,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                 정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한 종합적인 비교 분석을 제공합니다.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {growthPhases.map((phase, index) => {
-                const IconComponent = phase.icon;
-                return (
-                  <Card key={index} className="hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="w-12 h-12 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg flex items-center justify-center">
-                          <IconComponent className="w-6 h-6 text-white" />
-                        </div>
-                        <Badge className={getStatusColor(phase.status)}>
-                          {getStatusText(phase.status)}
-                        </Badge>
-                      </div>
-                      <CardTitle className="text-lg">{phase.phase}</CardTitle>
-                      <p className="text-gray-600 text-sm">{phase.description}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-500">기간</span>
-                          <Badge variant="outline" className="text-xs">{phase.duration}</Badge>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-sm mb-2">주요 활동</h4>
-                          <ul className="space-y-1">
-                            {phase.activities.map((activity, i) => (
-                              <li key={i} className="flex items-center text-xs text-gray-600">
-                                <CheckCircle className="w-3 h-3 mr-2 text-green-500" />
-                                {activity}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+
           </section>
 
           {/* Sample Progress Tracking */}
