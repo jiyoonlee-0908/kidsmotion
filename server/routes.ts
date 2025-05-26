@@ -485,34 +485,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
-  // 프로덕션 환경에서 기본 HTML 응답 처리
+
+
+  // 프로덕션용 SPA 라우팅 처리
   app.get('*', (req, res) => {
-    // API 경로는 제외
+    // API 요청은 404 반환
     if (req.path.startsWith('/api/')) {
       return res.status(404).json({ error: 'API endpoint not found' });
     }
     
-    // 정적 파일 요청은 제외
-    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
-      return res.status(404).send('File not found');
+    // 정적 파일 요청 처리
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|json)$/)) {
+      return res.status(404).send('Static file not found');
     }
     
-    // 모든 페이지 요청에 대해 기본 HTML 반환
-    res.status(200).set({ "Content-Type": "text/html" }).end(`
-      <!DOCTYPE html>
-      <html lang="ko">
-        <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>KidsMotion - 아동 체력 분석 시스템</title>
-          <script type="module" crossorigin src="/src/main.tsx"></script>
-          <link rel="stylesheet" crossorigin href="/src/index.css">
-        </head>
-        <body>
-          <div id="root"></div>
-        </body>
-      </html>
-    `);
+    // SPA를 위한 기본 HTML 반환
+    const html = `<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KidsMotion - 아동 체력 분석 시스템</title>
+    <script type="module">
+      import { createRoot } from 'https://esm.sh/react-dom@18/client';
+      import React from 'https://esm.sh/react@18';
+      
+      // 간단한 React 앱 렌더링
+      const App = () => {
+        return React.createElement('div', {
+          style: {
+            padding: '20px',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center'
+          }
+        }, [
+          React.createElement('h1', { key: 'title' }, 'KidsMotion'),
+          React.createElement('p', { key: 'desc' }, '아동 체력 분석 시스템'),
+          React.createElement('p', { key: 'loading' }, '로딩 중...')
+        ]);
+      };
+      
+      const root = createRoot(document.getElementById('root'));
+      root.render(React.createElement(App));
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>`;
+    
+    res.status(200).set({ "Content-Type": "text/html" }).send(html);
   });
 
   const httpServer = createServer(app);
