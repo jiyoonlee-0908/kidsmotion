@@ -487,41 +487,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
-  // 루트 경로 처리
-  app.get('/', (req, res) => {
-    res.send(`
-<!DOCTYPE html>
-<html>
-<head>
-  <title>KidsMotion</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <h1>KidsMotion 사이트가 작동중입니다!</h1>
-  <p>아동 체력 분석 시스템</p>
-  <a href="/admin">관리자 페이지</a>
-</body>
-</html>
-    `);
-  });
 
-  // Admin 페이지 처리  
-  app.get('/admin', (req, res) => {
-    res.send(`
-<!DOCTYPE html>
-<html>
-<head>
-  <title>KidsMotion Admin</title>
-  <meta charset="UTF-8">
-</head>
-<body>
-  <h1>관리자 페이지</h1>
-  <p>비밀번호: 263910</p>
-  <a href="/">홈으로</a>
-</body>
-</html>
-    `);
-  });
 
   const httpServer = createServer(app);
   return httpServer;

@@ -40,14 +40,8 @@ app.use((req, res, next) => {
   // Register API routes FIRST, before Vite middleware
   const server = await registerRoutes(app);
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
-    serveStatic(app);
-  }
+  // 개발/프로덕션 환경 모두에서 Vite 설정 사용
+  await setupVite(app, server);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
