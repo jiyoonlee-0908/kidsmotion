@@ -292,7 +292,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {/* 파워 */}
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
-                    <h3 className="font-semibold text-gray-800 mb-3">파워 (W/kg^0.67)</h3>
+                    <h3 className="font-semibold text-gray-800 mb-3">파워</h3>
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-600">직전 평균</span>
