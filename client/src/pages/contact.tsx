@@ -48,14 +48,14 @@ export default function Contact({ onNavigate }: ContactProps) {
 
           {/* Contact Methods */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8 text-center">
+            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full">
+              <CardContent className="p-8 text-center h-full flex flex-col">
                 <div className="w-20 h-20 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mx-auto mb-6 flex items-center justify-center">
                   <Phone className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">전화 상담</h3>
-                <p className="text-gray-600 mb-4">빠른 상담을 원하시면 언제든 전화주세요</p>
-                <div className="space-y-2">
+                <p className="text-gray-600 mb-6">빠른 상담을 원하시면 언제든 전화주세요</p>
+                <div className="space-y-2 flex-grow">
                   <p className="text-3xl font-bold text-purple-600">010-8445-0908</p>
                   <p className="text-sm text-gray-500">평일 09:00 - 18:00</p>
                   <p className="text-sm text-gray-500">토요일 09:00 - 13:00</p>
@@ -68,17 +68,18 @@ export default function Contact({ onNavigate }: ContactProps) {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8 text-center">
+            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full">
+              <CardContent className="p-8 text-center h-full flex flex-col">
                 <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-teal-500 rounded-full mx-auto mb-6 flex items-center justify-center">
                   <Mail className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">이메일 문의</h3>
-                <p className="text-gray-600 mb-4">자세한 문의사항을 남겨주시면</p>
-                <div className="space-y-2">
+                <p className="text-gray-600 mb-6">자세한 문의사항을 남겨주시면 신속히 답변드립니다</p>
+                <div className="space-y-2 flex-grow">
                   <p className="text-xl font-semibold text-blue-600">info@motionbike.co.kr</p>
                   <p className="text-sm text-gray-500">24시간 내 답변 보장</p>
                   <p className="text-sm text-gray-500">상세한 자료 첨부 가능</p>
+                  <p className="text-sm text-gray-500">체계적인 상담 진행</p>
                 </div>
                 <Button className="mt-6 w-full bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600">
                   <Mail className="w-4 h-4 mr-2" />
@@ -87,14 +88,14 @@ export default function Contact({ onNavigate }: ContactProps) {
               </CardContent>
             </Card>
             
-            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-              <CardContent className="p-8 text-center">
+            <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full">
+              <CardContent className="p-8 text-center h-full flex flex-col">
                 <div className="w-20 h-20 bg-gradient-to-r from-teal-500 to-green-500 rounded-full mx-auto mb-6 flex items-center justify-center">
                   <MapPin className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">방문 상담</h3>
-                <p className="text-gray-600 mb-4">직접 방문하여 상담을 받으실 수 있습니다</p>
-                <div className="space-y-2">
+                <p className="text-gray-600 mb-6">직접 방문하여 상담을 받으실 수 있습니다</p>
+                <div className="space-y-2 flex-grow">
                   <p className="text-lg font-medium text-teal-600">서울시 강서구</p>
                   <p className="text-lg font-medium text-teal-600">금낭화로 234, GX2</p>
                   <p className="text-sm text-gray-500">지하철 5호선 방화역 4번 출구</p>
