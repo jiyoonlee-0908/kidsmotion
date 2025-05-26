@@ -274,44 +274,103 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
 
           </section>
 
-          {/* Sample Progress Tracking */}
+          {/* Growth Comparison Chart */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 지표 예시</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {trackingMetrics.map((category, categoryIndex) => (
-                <Card key={categoryIndex} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <BarChart3 className="w-5 h-5 text-blue-600" />
-                      <span>{category.category}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {category.metrics.map((metric, metricIndex) => {
-                        const progress = typeof metric.current === 'number' && typeof metric.target === 'number' 
-                          ? (metric.current / metric.target) * 100 
-                          : 0;
-                        
-                        return (
-                          <div key={metricIndex} className="space-y-2">
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm font-medium">{metric.name}</span>
-                              <span className="text-sm text-gray-600">
-                                {metric.current}{metric.unit} / {metric.target}{metric.unit}
-                              </span>
-                            </div>
-                            {typeof metric.current === 'number' && (
-                              <Progress value={Math.min(progress, 100)} className="h-2" />
-                            )}
-                          </div>
-                        );
-                      })}
+            
+            <Card className="max-w-6xl mx-auto hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-center space-x-2 text-xl">
+                  <TrendingUp className="w-6 h-6 text-blue-600" />
+                  <span>직전 평균치 vs 오늘 검사 결과 비교</span>
+                </CardTitle>
+                <p className="text-center text-gray-600 text-sm mt-2">
+                  이전 측정값들의 평균과 최근 측정 결과를 비교하여 성장 패턴을 확인할 수 있습니다.
+                </p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {/* 파워 */}
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <h3 className="font-semibold text-gray-800 mb-3">파워 (W/kg^0.67)</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">직전 평균</span>
+                        <span className="font-medium text-blue-600">17.2</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">오늘 측정</span>
+                        <span className="font-bold text-green-600">18.5</span>
+                      </div>
+                      <div className="pt-2 border-t">
+                        <span className="text-xs text-green-600 font-medium">+1.3 향상 ↗</span>
+                      </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+
+                  {/* 근력 */}
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <h3 className="font-semibold text-gray-800 mb-3">근력</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">직전 평균</span>
+                        <span className="font-medium text-blue-600">72점</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">오늘 측정</span>
+                        <span className="font-bold text-green-600">75점</span>
+                      </div>
+                      <div className="pt-2 border-t">
+                        <span className="text-xs text-green-600 font-medium">+3점 향상 ↗</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 근지구력 */}
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <h3 className="font-semibold text-gray-800 mb-3">근지구력</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">직전 평균</span>
+                        <span className="font-medium text-blue-600">65점</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">오늘 측정</span>
+                        <span className="font-bold text-green-600">68점</span>
+                      </div>
+                      <div className="pt-2 border-t">
+                        <span className="text-xs text-green-600 font-medium">+3점 향상 ↗</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 심폐지구력 */}
+                  <div className="text-center p-4 bg-orange-50 rounded-lg">
+                    <h3 className="font-semibold text-gray-800 mb-3">심폐지구력</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">직전 평균</span>
+                        <span className="font-medium text-blue-600">79점</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">오늘 측정</span>
+                        <span className="font-bold text-green-600">82점</span>
+                      </div>
+                      <div className="pt-2 border-t">
+                        <span className="text-xs text-green-600 font-medium">+3점 향상 ↗</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg text-center">
+                  <p className="text-sm text-gray-700">
+                    <strong>전체적으로 모든 영역에서 꾸준한 향상</strong>이 확인되었습니다. 
+                    지속적인 운동과 관리로 더욱 건강한 성장을 기대할 수 있습니다! 🎉
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
           </section>
 
           {/* Management Tools */}
