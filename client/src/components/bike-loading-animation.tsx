@@ -8,6 +8,8 @@ interface BikeLoadingAnimationProps {
 export default function BikeLoadingAnimation({ isVisible, onAnimationComplete }: BikeLoadingAnimationProps) {
   const [progress, setProgress] = useState(0);
   const [currentMessage, setCurrentMessage] = useState(0);
+  const [bikeDirection, setBikeDirection] = useState(1); // 1 = 오른쪽, -1 = 왼쪽
+  const [bikePosition, setBikePosition] = useState(10);
 
   const messages = [
     "체력 데이터를 분석하고 있습니다...",
@@ -21,31 +23,52 @@ export default function BikeLoadingAnimation({ isVisible, onAnimationComplete }:
     if (!isVisible) {
       setProgress(0);
       setCurrentMessage(0);
+      setBikePosition(10);
+      setBikeDirection(1);
       return;
     }
 
     const interval = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            onAnimationComplete?.();
-          }, 1000);
-          return 100;
+        if (prev >= 50) {
+          // 50%에서 더 이상 진행률을 올리지 않고 계속 애니메이션만 실행
+          return 50;
         }
-        return prev + 2;
+        return prev + 1;
+      });
+    }, 200);
+
+    // 자전거 왕복 애니메이션
+    const bikeInterval = setInterval(() => {
+      setBikePosition(prev => {
+        if (prev >= 85 && bikeDirection === 1) {
+          setBikeDirection(-1);
+          return 85;
+        } else if (prev <= 10 && bikeDirection === -1) {
+          setBikeDirection(1);
+          return 10;
+        }
+        return prev + (bikeDirection * 2);
       });
     }, 100);
 
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % messages.length);
-    }, 2000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);
+      clearInterval(bikeInterval);
       clearInterval(messageInterval);
     };
-  }, [isVisible, onAnimationComplete]);
+  }, [isVisible, onAnimationComplete, bikeDirection]);
+
+  // 외부에서 애니메이션 완료를 호출할 수 있도록
+  useEffect(() => {
+    if (progress >= 50 && !isVisible) {
+      onAnimationComplete?.();
+    }
+  }, [isVisible, progress, onAnimationComplete]);
 
   if (!isVisible) return null;
 
@@ -81,31 +104,36 @@ export default function BikeLoadingAnimation({ isVisible, onAnimationComplete }:
 
           {/* Bike and Rider */}
           <div 
-            className="absolute bottom-4 transition-all duration-100 ease-out"
+            className="absolute bottom-4 transition-all duration-300 ease-out"
             style={{ 
-              left: `${Math.min(progress * 0.85, 85)}%`,
-              transform: 'translateX(-50%)'
+              left: `${bikePosition}%`,
+              transform: `translateX(-50%) ${bikeDirection === -1 ? 'scaleX(-1)' : ''}`
             }}
           >
             {/* Bike SVG */}
-            <svg width="100" height="80" viewBox="0 0 100 80" className="transform scale-x-100">
+            <svg width="100" height="80" viewBox="0 0 100 80" className="transform">
               {/* Rider */}
-              <g className="animate-bounce" style={{ animationDuration: '0.6s' }}>
+              <g className="animate-pulse" style={{ animationDuration: '1.2s' }}>
                 {/* Head */}
                 <circle cx="45" cy="25" r="8" fill="#FFB84D" />
                 {/* Helmet */}
                 <path d="M37 25 Q45 15 53 25 Q50 20 45 20 Q40 20 37 25" fill="#FF6B6B" />
                 
-                {/* Body */}
-                <ellipse cx="45" cy="40" rx="6" ry="12" fill="#4ECDC4" />
+                {/* Body - 앉은 자세 */}
+                <ellipse cx="45" cy="40" rx="6" ry="10" fill="#4ECDC4" />
                 
-                {/* Arms */}
-                <line x1="40" y1="35" x2="30" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                <line x1="50" y1="35" x2="60" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
+                {/* Arms - 핸들바를 잡은 자세 */}
+                <line x1="39" y1="35" x2="30" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
+                <line x1="51" y1="35" x2="60" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
                 
-                {/* Legs */}
-                <line x1="42" y1="50" x2="35" y2="65" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                <line x1="48" y1="50" x2="55" y2="65" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
+                {/* Legs - 페달을 밟는 자세 */}
+                <g className="animate-pulse" style={{ animationDuration: '0.8s' }}>
+                  <line x1="42" y1="48" x2="38" y2="58" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
+                  <line x1="48" y1="48" x2="52" y2="58" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
+                  {/* 발 */}
+                  <ellipse cx="37" cy="60" rx="3" ry="2" fill="#333" />
+                  <ellipse cx="53" cy="60" rx="3" ry="2" fill="#333" />
+                </g>
               </g>
 
               {/* Bike Frame */}
