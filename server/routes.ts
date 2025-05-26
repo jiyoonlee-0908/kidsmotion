@@ -495,8 +495,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return next();
     }
     
-    // 모든 SPA 라우트를 index.html로 서빙
-    res.sendFile('index.html', { root: 'dist' });
+    // SPA 라우트를 위해 루트 경로로 리다이렉트
+    res.redirect('/');
   });
 
   const httpServer = createServer(app);
