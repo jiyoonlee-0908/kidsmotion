@@ -68,7 +68,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
       title: "체력 측정 결과",
       description: "와트바이크 측정을 통한 정확한 체력 데이터",
       icon: BarChart3,
-      content: ["절대 파워 (W)", "상대 파워 (W/kg^0.67)", "근력 및 근지구력", "심폐지구력 점수"]
+      content: ["절대 파워 (W)", "우리회사기밀", "근력 및 근지구력", "심폐지구력 점수"]
     },
     {
       title: "백분위 및 등급 분석",
@@ -161,7 +161,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              체력 측정 결과를 바탕으로 전문가 수준의 상세한 분석 리포트를 자동 생성합니다. 
+              체력 측정 결과를 바탕으로 전문가 수준의 상세한 분석 리포트를 자동 생성합니다.<br />
               학부모님과 학생 모두가 쉽게 이해할 수 있는 체계적인 구성으로 제공됩니다.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -365,7 +365,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
                 <p className="text-xl mb-8 opacity-90">
                   체력 측정 후 즉시 생성되는 상세한 분석 리포트로 성장을 확인하세요
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <Button 
                     size="lg" 
                     className="bg-white text-blue-600 hover:bg-gray-100"
@@ -373,14 +373,6 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
                   >
                     체력 측정 시작하기
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white/10"
-                    onClick={() => onNavigate && onNavigate('contact')}
-                  >
-                    샘플 리포트 보기
                   </Button>
                 </div>
               </CardContent>
