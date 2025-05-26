@@ -49,147 +49,17 @@ export default function Updates({ onNavigate }: UpdatesProps) {
 
   const updates: UpdateItem[] = [
     {
-      version: "v2.1.0",
-      date: "2025-07-15",
-      title: "AI 분석 고도화 및 신체균형 3D 시각화",
-      description: "AI 분석 엔진을 업그레이드하고 신체균형을 3D로 시각화하는 기능을 추가했습니다.",
+      version: "v1.0",
+      date: "2026년 상반기",
+      title: "정식 출시 예정",
+      description: "전국 의료기관 대상 베타 테스트 완료",
       type: "major",
       status: "coming-soon",
       features: [
         {
-          icon: Sparkles,
-          title: "AI 분석 엔진 2.0",
-          description: "더욱 정확하고 개인화된 운동 처방과 코칭 제공",
-          category: "new"
-        },
-        {
-          icon: Monitor,
-          title: "3D 균형 시각화",
-          description: "좌우 균형을 3D 아바타로 직관적으로 확인",
-          category: "new"
-        },
-        {
-          icon: BarChart3,
-          title: "성장 예측 그래프",
-          description: "개인별 체력 성장 패턴 분석 및 미래 예측",
-          category: "new"
-        },
-        {
-          icon: Heart,
-          title: "심박수 연동",
-          description: "웨어러블 기기와 연동하여 심박수 데이터 통합 분석",
-          category: "new"
-        }
-      ]
-    },
-    {
-      version: "v2.0.5",
-      date: "2025-05-26",
-      title: "사용자 지원 시스템 대폭 개선",
-      description: "사용자 가이드, FAQ, 기술 지원 페이지를 새롭게 구성했습니다.",
-      type: "minor",
-      status: "released",
-      features: [
-        {
-          icon: Users,
-          title: "종합 사용자 가이드",
-          description: "측정부터 결과 해석까지 단계별 상세 안내",
-          category: "new"
-        },
-        {
-          icon: Settings,
-          title: "기술 지원 시스템",
-          description: "문제 해결 가이드 및 실시간 지원 요청",
-          category: "new"
-        },
-        {
           icon: CheckCircle,
-          title: "FAQ 검색 기능",
-          description: "카테고리별 필터링 및 키워드 검색으로 빠른 답변 찾기",
-          category: "improvement"
-        }
-      ]
-    },
-    {
-      version: "v2.0.4",
-      date: "2025-05-20",
-      title: "성능 최적화 및 안정성 향상",
-      description: "측정 정확도를 높이고 시스템 안정성을 개선했습니다.",
-      type: "patch",
-      status: "released",
-      features: [
-        {
-          icon: Zap,
-          title: "측정 속도 개선",
-          description: "측정 시간을 30% 단축하고 응답성 향상",
-          category: "improvement"
-        },
-        {
-          icon: Shield,
-          title: "데이터 보안 강화",
-          description: "개인정보 암호화 및 보안 프로토콜 업데이트",
-          category: "security"
-        },
-        {
-          icon: Bug,
-          title: "버그 수정",
-          description: "PDF 내보내기 및 QR 코드 생성 오류 해결",
-          category: "fix"
-        }
-      ]
-    },
-    {
-      version: "v2.0.3",
-      date: "2025-05-15",
-      title: "모바일 최적화 및 접근성 개선",
-      description: "모바일 환경에서의 사용성을 크게 개선했습니다.",
-      type: "minor",
-      status: "released",
-      features: [
-        {
-          icon: Smartphone,
-          title: "반응형 디자인",
-          description: "모든 화면 크기에서 최적화된 사용자 경험",
-          category: "improvement"
-        },
-        {
-          icon: Users,
-          title: "접근성 향상",
-          description: "시각 장애인을 위한 스크린 리더 지원",
-          category: "improvement"
-        },
-        {
-          icon: Download,
-          title: "오프라인 모드",
-          description: "인터넷 연결 없이도 이전 결과 확인 가능",
-          category: "new"
-        }
-      ]
-    },
-    {
-      version: "v2.0.2",
-      date: "2025-05-10",
-      title: "AI 코칭 시스템 도입",
-      description: "개인별 맞춤 운동 처방 및 AI 코칭 기능을 추가했습니다.",
-      type: "major",
-      status: "released",
-      features: [
-        {
-          icon: Sparkles,
-          title: "AI 개인 코치",
-          description: "측정 결과 기반 맞춤형 운동 프로그램 제공",
-          category: "new"
-        },
-        {
-          icon: BarChart3,
-          title: "성과 추적",
-          description: "운동 효과 분석 및 진전 상황 모니터링",
-          category: "new"
-        },
-        {
-          icon: Bell,
-          title: "알림 시스템",
-          description: "운동 시간 알림 및 목표 달성 축하 메시지",
+          title: "베타 테스트 완료",
+          description: "전국 의료기관과의 협력을 통한 체계적인 베타 테스트 진행",
           category: "new"
         }
       ]
@@ -200,25 +70,25 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     {
       title: "팀 관리 시스템",
       description: "학급/팀 단위 관리 및 집단 분석 기능",
-      timeline: "2025년 8월",
+      timeline: "2026년 8월",
       priority: "high"
     },
     {
       title: "게이미피케이션",
       description: "성취 배지, 리더보드, 도전과제 시스템",
-      timeline: "2025년 10월",
+      timeline: "2026년 10월",
       priority: "medium"
     },
     {
       title: "부모/교사 대시보드",
       description: "아이들의 체력 변화 모니터링 전용 인터페이스",
-      timeline: "2025년 12월",
+      timeline: "2026년 12월",
       priority: "high"
     },
     {
       title: "영양 관리 연동",
       description: "체력 데이터와 연계한 영양 상태 분석",
-      timeline: "2026년 2월",
+      timeline: "2027년 2월",
       priority: "low"
     }
   ];
