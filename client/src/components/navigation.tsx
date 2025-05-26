@@ -71,16 +71,18 @@ export default function Navigation() {
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <Link href="/about">
-                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">
-                  소개
-                </span>
-              </Link>
-              <Link href="/contact">
-                <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">
-                  문의
-                </span>
-              </Link>
+              <span 
+                onClick={() => setLocation('/about')}
+                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
+              >
+                소개
+              </span>
+              <span 
+                onClick={() => setLocation('/contact')}
+                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
+              >
+                문의
+              </span>
             </nav>
             <div className="flex items-center space-x-3">
               <button 
