@@ -487,7 +487,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">신체 변화 비교</h3>
           </div>
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">기본 체력 변화 (필수 측정)</h4>
               <ProgressChart 
@@ -517,34 +517,35 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 />
               </div>
             )}
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
-              <div className="bg-gray-50 rounded-lg p-4">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2">날짜</th>
-                      <th className="text-center py-2">좌</th>
-                      <th className="text-center py-2">우</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="py-2">이전 측정</td>
-                      <td className="text-center py-2">42%</td>
-                      <td className="text-center py-2">58%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 font-semibold">{measurement.measureDate}</td>
-                      <td className="text-center py-2 font-semibold">{measurement.leftBalance}%</td>
-                      <td className="text-center py-2 font-semibold">{measurement.rightBalance}%</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="mt-4 flex items-center space-x-2">
-                  <TrendingUp className="text-green-500" />
-                  <span className="text-sm text-gray-700">밸런스가 개선되고 있습니다.</span>
-                </div>
+          </div>
+          
+          <div className="mt-6">
+            <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-2">날짜</th>
+                    <th className="text-center py-2">좌</th>
+                    <th className="text-center py-2">우</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="py-2">이전 측정</td>
+                    <td className="text-center py-2">42%</td>
+                    <td className="text-center py-2">58%</td>
+                  </tr>
+                  <tr>
+                    <td className="py-2 font-semibold">{measurement.measureDate}</td>
+                    <td className="text-center py-2 font-semibold">{measurement.leftBalance}%</td>
+                    <td className="text-center py-2 font-semibold">{measurement.rightBalance}%</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="mt-4 flex items-center space-x-2">
+                <TrendingUp className="text-green-500" />
+                <span className="text-sm text-gray-700">밸런스가 개선되고 있습니다.</span>
               </div>
             </div>
           </div>
@@ -630,8 +631,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   보호자 참고
                 </p>
                 <ul className="space-y-1 text-gray-600">
-                  <li>• 좌우 일관성: 페달링 시 좌/우 힘의 차이를 0~100으로 정량화</li>
-                  <li>• 보정 파워: 체중^0.67로 보정한 실질 파워, 나이별 백분위와 비교</li>
+                  <li>• 체력 측정은 5분 내외로 간편하게 진행됩니다</li>
+                  <li>• 성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
                   <li>• 총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
                 </ul>
               </div>
