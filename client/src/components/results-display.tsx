@@ -47,26 +47,42 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   // PDF 저장 기능
   const handleSavePDF = async () => {
     const element = document.getElementById('results-container');
-    if (!element) return;
+    if (!element) {
+      alert('저장할 결과 화면을 찾을 수 없습니다.');
+      return;
+    }
 
     try {
+      // 로딩 메시지 표시
+      const loadingToast = document.createElement('div');
+      loadingToast.textContent = 'PDF를 생성하고 있습니다...';
+      loadingToast.style.cssText = 'position:fixed;top:20px;right:20px;background:#333;color:white;padding:10px 20px;border-radius:5px;z-index:1000;';
+      document.body.appendChild(loadingToast);
+
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
-        backgroundColor: '#ffffff'
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        width: element.scrollWidth,
+        height: element.scrollHeight,
+        scrollX: 0,
+        scrollY: 0
       });
       
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const imgWidth = 210;
-      const pageHeight = 295;
+      const pageHeight = 297;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
       let position = 0;
 
+      // 첫 페이지 추가
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
 
+      // 여러 페이지가 필요한 경우
       while (heightLeft >= 0) {
         position = heightLeft - imgHeight;
         pdf.addPage();
@@ -74,9 +90,23 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         heightLeft -= pageHeight;
       }
 
-      pdf.save(`${measurement.studentName}_체력분석_리포트.pdf`);
+      // 파일명에서 특수문자 제거
+      const fileName = `${measurement.studentName?.replace(/[^a-zA-Z0-9가-힣]/g, '_') || 'Unknown'}_체력분석_리포트.pdf`;
+      pdf.save(fileName);
+      
+      // 로딩 메시지 제거
+      document.body.removeChild(loadingToast);
+      
+      // 성공 메시지
+      const successToast = document.createElement('div');
+      successToast.textContent = 'PDF가 성공적으로 저장되었습니다!';
+      successToast.style.cssText = 'position:fixed;top:20px;right:20px;background:#10b981;color:white;padding:10px 20px;border-radius:5px;z-index:1000;';
+      document.body.appendChild(successToast);
+      setTimeout(() => document.body.removeChild(successToast), 3000);
+
     } catch (error) {
       console.error('PDF 저장 오류:', error);
+      alert(`PDF 저장 중 오류가 발생했습니다: ${error.message}`);
     }
   };
 
