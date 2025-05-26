@@ -26,7 +26,7 @@ export default function About({ onNavigate }: AboutProps) {
               </span>
             </h1>
             
-            <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-12" style={{ lineHeight: '1.5' }}>
+            <div className="text-3xl md:text-4xl font-bold text-gray-800 mb-12" style={{ lineHeight: '1.3' }}>
               우리 아이의 체력을<br/>
               <span className="text-purple-600">과학적으로</span> 정확하게 측정하세요
             </div>
