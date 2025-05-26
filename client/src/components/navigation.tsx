@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import { Bike, HelpCircle, Settings, Search, History, ChevronDown, X, Book, Phone, Mail, MapPin } from "lucide-react";
 import {
   DropdownMenu,

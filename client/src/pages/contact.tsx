@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Users, HelpCircle, Settings } from "lucide-react";
 import Navigation from "@/components/navigation";
 
-export default function Contact() {
+interface ContactProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function Contact({ onNavigate }: ContactProps) {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
