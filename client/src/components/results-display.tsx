@@ -151,14 +151,15 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           >
             <Printer className="w-5 h-5 text-white" />
           </Button>
-          <Button 
-            onClick={onNewMeasurement} 
-            variant="outline" 
-            className="px-6 py-3 rounded-2xl border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2"
-          >
-            <RotateCcw className="w-4 h-4" />
-            <span className="font-semibold">새 측정</span>
-          </Button>
+          <a href="/">
+            <Button 
+              variant="outline" 
+              className="px-6 py-3 rounded-2xl border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              <span className="font-semibold">새 측정</span>
+            </Button>
+          </a>
         </div>
       </div>
 

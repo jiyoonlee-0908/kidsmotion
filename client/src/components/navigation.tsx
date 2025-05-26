@@ -27,26 +27,24 @@ export default function Navigation() {
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
-          <div className="flex items-center space-x-5">
+          <a href="/" className="flex items-center space-x-5 cursor-pointer">
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
               <Bike className="text-white w-8 h-8" />
             </div>
             <div className="flex items-baseline space-x-2">
-              <Link href="/">
-                <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent cursor-pointer">
-                  KidsBike
-                </h1>
-              </Link>
+              <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                KidsBike
+              </h1>
               <span className="text-lg font-medium text-gray-500 tracking-wide">
                 MotionBike
               </span>
             </div>
-          </div>
+          </a>
           <div className="flex items-center space-x-8">
             <nav className="hidden md:flex items-center space-x-8">
-              <Link href="/">
+              <a href="/">
                 <span className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer">홈</span>
-              </Link>
+              </a>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
