@@ -198,88 +198,86 @@ export default function Home({ onNavigate }: HomeProps) {
       {!showResults && (
         <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            {/* Services Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="flex flex-col h-full">
-                <div className="flex items-center space-x-3 mb-4">
+                <h4 className="text-xl font-bold mb-4">서비스</h4>
+                <ul className="space-y-2 text-gray-300 flex-grow">
+                  <li>체력 측정 및 분석</li>
+                  <li>AI 기반 운동 처방</li>
+                  <li>진도 상황 관리</li>
+                  <li>전문 리포트 생성</li>
+                </ul>
+              </div>
+              
+              <div className="flex flex-col h-full">
+                <h4 className="text-xl font-bold mb-4">지원</h4>
+                <ul className="space-y-2 text-gray-300 flex-grow">
+                  <li 
+                    onClick={() => onNavigate && onNavigate('user-guide')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    사용자 가이드
+                  </li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('faq')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    FAQ
+                  </li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('tech-support')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    기술 지원
+                  </li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('updates')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    업데이트 안내
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="flex flex-col h-full">
+                <h4 className="text-xl font-bold mb-4">연락처</h4>
+                <div className="space-y-3 text-gray-300 flex-grow">
+                  <div className="flex items-center space-x-3">
+                    <Phone className="w-4 h-4" />
+                    <span>010-8445-0908</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Mail className="w-4 h-4" />
+                    <span>support@motionbike.co.kr</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <MapPin className="w-4 h-4" />
+                    <span>서울시 강서구 금낭화로 234, GX2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-700 mt-12 pt-8">
+              {/* MotionBike Section */}
+              <div className="text-center mb-6">
+                <div className="flex items-center justify-center space-x-3 mb-2">
                   <div className="fitness-icon">
                     <Bike className="text-white w-6 h-6" />
                   </div>
                   <h3 className="text-xl font-bold">MotionBike</h3>
                 </div>
-                <div className="text-gray-300 leading-relaxed space-y-2 flex-grow">
+                <div className="text-xs text-gray-500 space-y-1">
                   <div><strong>키즈모션</strong> - 아동 체력 분석</div>
                   <div><strong>실버모션</strong> - 시니어 건강관리</div>
                   <div><strong>휠모션</strong> - 장애인 재활</div>
                 </div>
               </div>
               
-              <div className="hidden lg:block w-px bg-gray-600"></div>
-              
-              <div className="lg:col-span-2">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="flex flex-col h-full">
-                    <h4 className="text-xl font-bold mb-4">서비스</h4>
-                    <ul className="space-y-2 text-gray-300 flex-grow">
-                      <li>체력 측정 및 분석</li>
-                      <li>AI 기반 운동 처방</li>
-                      <li>진도 상황 관리</li>
-                      <li>전문 리포트 생성</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="flex flex-col h-full">
-                    <h4 className="text-xl font-bold mb-4">지원</h4>
-                    <ul className="space-y-2 text-gray-300 flex-grow">
-                      <li 
-                        onClick={() => onNavigate && onNavigate('user-guide')}
-                        className="cursor-pointer hover:text-white transition-colors"
-                      >
-                        사용자 가이드
-                      </li>
-                      <li 
-                        onClick={() => onNavigate && onNavigate('faq')}
-                        className="cursor-pointer hover:text-white transition-colors"
-                      >
-                        FAQ
-                      </li>
-                      <li 
-                        onClick={() => onNavigate && onNavigate('tech-support')}
-                        className="cursor-pointer hover:text-white transition-colors"
-                      >
-                        기술 지원
-                      </li>
-                      <li 
-                        onClick={() => onNavigate && onNavigate('updates')}
-                        className="cursor-pointer hover:text-white transition-colors"
-                      >
-                        업데이트 안내
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="flex flex-col h-full">
-                    <h4 className="text-xl font-bold mb-4">연락처</h4>
-                    <div className="space-y-3 text-gray-300 flex-grow">
-                      <div className="flex items-center space-x-3">
-                        <Phone className="w-4 h-4" />
-                        <span>010-8445-0908</span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <Mail className="w-4 h-4" />
-                        <span>support@motionbike.co.kr</span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <MapPin className="w-4 h-4" />
-                        <span>서울시 강서구 금낭화로 234, GX2</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="text-center text-gray-400">
+                <p>&copy; 2025 MotionBike. All rights reserved. | 개인정보처리방침 | 이용약관</p>
               </div>
-            </div>
-            
-            <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 MotionBike. All rights reserved. | 개인정보처리방침 | 이용약관</p>
             </div>
           </div>
         </footer>
