@@ -108,11 +108,12 @@ export default function Home({ onNavigate }: HomeProps) {
                         <span>측정</span>
                       </a>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/records" className="flex items-center space-x-2 w-full cursor-pointer">
-                        <History className="w-4 h-4" />
-                        <span>기록</span>
-                      </Link>
+                    <DropdownMenuItem 
+                      onClick={() => onNavigate && onNavigate('records')}
+                      className="flex items-center space-x-2 w-full cursor-pointer"
+                    >
+                      <History className="w-4 h-4" />
+                      <span>기록</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
