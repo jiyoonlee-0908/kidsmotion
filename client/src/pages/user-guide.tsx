@@ -185,6 +185,10 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                     <h4 className="font-semibold text-gray-800 mb-3">측정 항목</h4>
                     <ul className="space-y-2">
                       <li className="flex items-center space-x-2">
+                        <Scale className="w-4 h-4 text-green-500" />
+                        <span>좌우 밸런스</span>
+                      </li>
+                      <li className="flex items-center space-x-2">
                         <Zap className="w-4 h-4 text-yellow-500" />
                         <span>순발력</span>
                       </li>
@@ -207,10 +211,6 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                       <li className="flex items-center space-x-2">
                         <Heart className="w-4 h-4 text-pink-500" />
                         <span>심폐지구력 (선택)</span>
-                      </li>
-                      <li className="flex items-center space-x-2">
-                        <Scale className="w-4 h-4 text-green-500" />
-                        <span>좌우 균형</span>
                       </li>
                     </ul>
                   </div>
