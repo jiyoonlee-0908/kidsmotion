@@ -261,7 +261,7 @@ export default function Home({ onNavigate }: HomeProps) {
             
             <div className="border-t border-gray-700 mt-12 pt-8">
               {/* MotionBike Section */}
-              <div className="text-center mb-6 text-xs text-gray-500">
+              <div className="text-center mb-2 text-xs text-gray-500">
                 <strong>MotionBike</strong> <strong>키즈모션</strong> - 아동 체력 분석 | <strong>실버모션</strong> - 시니어 건강관리 | <strong>휠모션</strong> - 장애인 재활
               </div>
               
