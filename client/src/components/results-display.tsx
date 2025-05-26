@@ -120,28 +120,28 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       title: "순발력 (5초)",
       power: measurement.power5s,
       percentile: Math.round(analysis.percentile5s),
-      explanation: analysis.explanation5s,
+      explanation: `순발력이 ${Math.round(analysis.percentile5s)}% 수준입니다. 짧은 시간 안에 최대 파워를 발휘하는 능력을 평가합니다.`,
       category: "power"
     },
     {
       title: "스프린트 파워 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
-      explanation: analysis.explanation15s,
+      explanation: `스프린트 파워가 ${Math.round(analysis.percentile15s)}% 수준입니다. 15초간 지속할 수 있는 강한 파워 발휘 능력을 평가합니다.`,
       category: "strength"
     },
     {
       title: "파워 지속력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
-      explanation: analysis.explanation30s,
+      explanation: `파워 지속력이 ${Math.round(analysis.percentile30s)}% 수준입니다. 30초간 일정한 강도의 파워를 유지하는 능력을 평가합니다.`,
       category: "endurance"
     },
     {
       title: "근력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
-      explanation: analysis.explanation60s,
+      explanation: `근력이 ${Math.round(analysis.percentile60s)}% 수준입니다. 60초간 근육의 힘을 지속적으로 발휘하는 능력을 평가합니다.`,
       category: "cardio"
     },
     // 180초, 360초 데이터가 있으면 추가
@@ -149,14 +149,14 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       title: "근지구력 (180초)",
       power: measurement.power180s,
       percentile: Math.round(analysis.percentile180s),
-      explanation: "180초 지속적인 파워 유지 능력을 평가합니다.",
+      explanation: `근지구력이 ${Math.round(analysis.percentile180s)}% 수준입니다. 180초간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다.`,
       category: "muscular-endurance"
     }] : []),
     ...(measurement.power360s && analysis.percentile360s ? [{
       title: "심폐지구력 (360초)",
       power: measurement.power360s,
       percentile: Math.round(analysis.percentile360s),
-      explanation: "360초 장시간 지속적인 파워 유지 능력을 평가합니다.",
+      explanation: `심폐지구력이 ${Math.round(analysis.percentile360s)}% 수준입니다. 360초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`,
       category: "cardio-endurance"
     }] : [])
   ];
@@ -242,8 +242,32 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="w-20 h-20 mx-auto brand-gradient rounded-full flex items-center justify-center mb-3">
-                <span className="text-2xl font-bold text-white">{Math.round(analysis.overallPercentile)}</span>
+              <div className="relative w-24 h-24 mx-auto mb-3">
+                <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                  <path
+                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="#e5e7eb"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="2"
+                    strokeDasharray={`${analysis.overallPercentile}, 100`}
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#7c3aed" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
+                </div>
               </div>
               <p className="text-sm text-gray-600">종합 백분위</p>
             </div>

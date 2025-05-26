@@ -55,19 +55,19 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 - 종합 백분위: ${Math.round(data.overallPercentile)}% (하위 ${Math.round(data.overallPercentile)}%, 상위 ${Math.round(100 - data.overallPercentile)}%)
 
 **기본 측정 항목별 백분위:**
-- ATP-PC 폭발력 (5초): ${Math.round(data.percentiles.power)}%
-- 해당작용 파워 (15초): ${Math.round(data.percentiles.strength)}%
-- 무산소성 지구력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
-- 유무산소 혼합지구력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%`;
+- 순발력 (5초): ${Math.round(data.percentiles.power)}%
+- 스프린트 파워 (15초): ${Math.round(data.percentiles.strength)}%
+- 파워 지속력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
+- 근력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%`;
 
     // Add advanced measurements if available
     if (data.advancedPowerData?.hasAdvancedData) {
       measurementData += `\n\n**고급 측정 항목 (10세 이상 권장):**`;
       if (data.percentiles.longEndurance180s) {
-        measurementData += `\n- 중장거리 지구력 (180초): ${Math.round(data.percentiles.longEndurance180s)}%`;
+        measurementData += `\n- 근지구력 (180초): ${Math.round(data.percentiles.longEndurance180s)}%`;
       }
       if (data.percentiles.longEndurance360s) {
-        measurementData += `\n- 장거리 지구력 (360초): ${Math.round(data.percentiles.longEndurance360s)}%`;
+        measurementData += `\n- 심폐지구력 (360초): ${Math.round(data.percentiles.longEndurance360s)}%`;
       }
     }
 
@@ -102,10 +102,10 @@ ${measurementData}
   "summary": "강점과 보완점을 바탕으로 한 한줄 요약 (예: 빠른 힘을 잘쓰는 아이로, 지구력과 균형을 함께 키워가야합니다.)",
   "balanceComment": "좌우 밸런스에 대한 구체적 분석과 개선방안 (3-4줄)",
   "explanations": {
-    "power": "ATP-PC 폭발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
-    "strength": "해당작용 파워 백분위에 맞는 정확한 해설",
-    "muscleEndurance": "무산소성 지구력 백분위에 맞는 정확한 해설", 
-    "cardioEndurance": "유무산소 혼합지구력 백분위에 맞는 정확한 해설"
+    "power": "순발력 백분위에 맞는 정확한 해설 (높으면 칭찬, 낮으면 개선방안)",
+    "strength": "스프린트 파워 백분위에 맞는 정확한 해설",
+    "muscleEndurance": "파워 지속력 백분위에 맞는 정확한 해설", 
+    "cardioEndurance": "근력 백분위에 맞는 정확한 해설"
   },
   "comprehensiveAnalysis": [
     "종합평가 포인트 1 (전반적 체력 수준)",
