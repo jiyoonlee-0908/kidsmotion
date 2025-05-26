@@ -11,6 +11,7 @@ import UserGuide from "@/pages/user-guide";
 import FAQ from "@/pages/faq";
 import TechSupport from "@/pages/tech-support";
 import Updates from "@/pages/updates";
+import PrivacyPolicy from "@/pages/privacy-policy";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -36,6 +37,7 @@ function App() {
     else if (path === '/faq') setCurrentPage('faq');
     else if (path === '/tech-support') setCurrentPage('tech-support');
     else if (path === '/updates') setCurrentPage('updates');
+    else if (path === '/privacy-policy') setCurrentPage('privacy-policy');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -91,6 +93,8 @@ function App() {
         return <TechSupport onNavigate={navigateTo} />;
       case 'updates':
         return <Updates onNavigate={navigateTo} />;
+      case 'privacy-policy':
+        return <PrivacyPolicy onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }

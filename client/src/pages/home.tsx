@@ -266,7 +266,13 @@ export default function Home({ onNavigate }: HomeProps) {
               </div>
               
               <div className="text-center text-gray-400">
-                <p>&copy; 2025 MotionBike. All rights reserved. | 개인정보처리방침 | 이용약관</p>
+                <p>&copy; 2025 MotionBike. All rights reserved. | 
+                  <span 
+                    onClick={() => onNavigate && onNavigate('privacy-policy')}
+                    className="cursor-pointer hover:text-white transition-colors underline"
+                  >
+                    개인정보처리방침
+                  </span> | 이용약관</p>
               </div>
             </div>
           </div>
