@@ -27,7 +27,13 @@ export default function Navigation() {
           <div 
             onClick={() => {
               console.log('Logo clicked - navigating to home');
-              window.location.assign('/');
+              if (window.location.pathname === '/') {
+                // 이미 홈 페이지라면 새로고침
+                window.location.reload();
+              } else {
+                // 다른 페이지라면 홈으로 이동
+                window.location.assign('/');
+              }
             }} 
             className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity"
           >
