@@ -122,7 +122,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
     {
       icon: Bell,
       title: "스마트 알림",
-      description: "개인 스케줄에 맞춘 운동 및 측정 알림 시스템",
+      description: "개인 스케줄에 맞춘 운동 및 측정 알림 시스템\n최적의 운동 타이밍과 재측정 일정을 자동으로 알려드립니다",
       features: ["운동 알림", "측정 일정", "목표 리마인드", "격려 메시지"]
     },
     {
@@ -429,7 +429,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                 <p className="text-xl mb-8 opacity-90">
                   데이터 기반의 과학적 성장 관리로 아이의 잠재력을 극대화하세요
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <Button 
                     size="lg" 
                     className="bg-white text-green-600 hover:bg-gray-100"
@@ -437,14 +437,6 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                   >
                     성장 관리 시작하기
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white/10"
-                    onClick={() => onNavigate && onNavigate('contact')}
-                  >
-                    상세 상담 받기
                   </Button>
                 </div>
               </CardContent>
