@@ -10,7 +10,6 @@ import Navigation from "@/components/navigation";
 import { Search, History, User, Calendar, School } from "lucide-react";
 import { calculateAge, getGrade, getGradeColor } from "@/lib/fitness-calculations";
 import type { Measurement, AnalysisResult } from "@shared/schema";
-import type { PageType } from "@/App";
 
 interface RecordSearchForm {
   studentName: string;
@@ -24,11 +23,7 @@ interface HistoryData {
   analysis: AnalysisResult;
 }
 
-interface RecordsProps {
-  onNavigate: (page: PageType) => void;
-}
-
-export default function Records({ onNavigate }: RecordsProps) {
+export default function Records() {
   const [searchForm, setSearchForm] = useState<RecordSearchForm>({
     studentName: "",
     affiliation: "",
