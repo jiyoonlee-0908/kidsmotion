@@ -37,7 +37,7 @@ export default function ProgressChart({ currentData }: ProgressChartProps) {
     chartInstance.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["순발력", "근력", "근지구력", "심폐지구력"],
+        labels: ["순발력 (5초)", "스프린트 파워 (15초)", "파워 지속력 (30초)", "근력 (60초)"],
         datasets: [
           {
             label: "이전 평균",
