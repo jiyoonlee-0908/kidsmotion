@@ -493,7 +493,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                   >
                     <div className="flex items-center gap-2">
                       <Plus className={`w-5 h-5 text-purple-600 transition-transform ${showAdvanced ? 'rotate-45' : ''}`} />
-                      <span className="font-medium text-purple-700">고급 측정 추가 (선택사항)</span>
+                      <span className="font-medium text-purple-700">고급 측정 추가 (선택사항) - 10세 이상 권장</span>
                       {(() => {
                         const currentAge = form.watch("birthDate") ? calculateAge(form.watch("birthDate")) : 0;
                         if (currentAge >= 10) {
