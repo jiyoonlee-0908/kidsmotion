@@ -345,31 +345,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               </div>
               <h3 className="text-xl font-bold text-gray-900">심박수 건강도 평가</h3>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* 안정시 심박수 */}
-              {analysis.restingBpm && (
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                    <span className="text-xl font-bold text-blue-600">{analysis.restingBpm}</span>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">안정시 심박수</h4>
-                  <p className="text-sm text-gray-600">
-                    {analysis.restingBpm < 60 ? "매우 좋음" : 
-                     analysis.restingBpm < 80 ? "양호" : 
-                     analysis.restingBpm < 100 ? "보통" : "주의"}
-                  </p>
-                  <Badge className={`mt-2 ${
-                    analysis.restingBpm < 60 ? "bg-emerald-500" :
-                    analysis.restingBpm < 80 ? "bg-blue-500" :
-                    analysis.restingBpm < 100 ? "bg-yellow-500" : "bg-red-500"
-                  } text-white`}>
-                    {analysis.restingBpm < 60 ? "우수" : 
-                     analysis.restingBpm < 80 ? "양호" : 
-                     analysis.restingBpm < 100 ? "보통" : "개선필요"}
-                  </Badge>
-                </div>
-              )}
-              
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 최대 심박수 */}
               {analysis.maxBpm && (
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
@@ -401,12 +377,15 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                     운동 적응도 평가
                   </p>
                   <Badge className={`mt-2 ${
-                    analysis.restingBpm && analysis.maxBpm ? 
-                    (analysis.avgBpm - analysis.restingBpm) / (analysis.maxBpm - analysis.restingBpm) > 0.6 ? "bg-emerald-500" :
-                    (analysis.avgBpm - analysis.restingBpm) / (analysis.maxBpm - analysis.restingBpm) > 0.4 ? "bg-blue-500" : "bg-yellow-500"
+                    analysis.maxBpm ? 
+                    (analysis.avgBpm / analysis.maxBpm) > 0.8 ? "bg-emerald-500" :
+                    (analysis.avgBpm / analysis.maxBpm) > 0.6 ? "bg-blue-500" : "bg-yellow-500"
                     : "bg-blue-500"
                   } text-white`}>
-                    적절한 강도
+                    {analysis.maxBpm ?
+                     (analysis.avgBpm / analysis.maxBpm) > 0.8 ? "고강도" :
+                     (analysis.avgBpm / analysis.maxBpm) > 0.6 ? "중강도" : "저강도"
+                     : "적절한 강도"}
                   </Badge>
                 </div>
               )}
