@@ -135,7 +135,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
 
   const benefits = [
     "체계적인 성장 과정 관리로 효과 극대화",
-    "객관적 데이터 기반의 진도 확인",
+    "정량적 데이터 기반의 진도 확인",
     "개인 맞춤형 목표 설정 및 조정",
     "지속적인 동기 부여 시스템",
     "장기적인 건강 습관 형성 지원",
