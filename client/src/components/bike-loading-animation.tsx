@@ -112,40 +112,28 @@ export default function BikeLoadingAnimation({ isVisible, onAnimationComplete }:
           >
             {/* Bike SVG */}
             <svg width="100" height="80" viewBox="0 0 100 80" className="transform">
-              {/* Rider */}
-              <g className="animate-pulse" style={{ animationDuration: '1.2s' }}>
-                {/* Head */}
-                <circle cx="45" cy="25" r="8" fill="#FFB84D" />
-                {/* Helmet */}
-                <path d="M37 25 Q45 15 53 25 Q50 20 45 20 Q40 20 37 25" fill="#FF6B6B" />
-                
-                {/* Body - 앉은 자세 */}
-                <ellipse cx="45" cy="40" rx="6" ry="10" fill="#4ECDC4" />
-                
-                {/* Arms - 핸들바를 잡은 자세 */}
-                <line x1="39" y1="35" x2="30" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                <line x1="51" y1="35" x2="60" y2="45" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                
-                {/* Legs - 페달을 밟는 자세 */}
-                <g className="animate-pulse" style={{ animationDuration: '0.8s' }}>
-                  <line x1="42" y1="48" x2="38" y2="58" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                  <line x1="48" y1="48" x2="52" y2="58" stroke="#FFB84D" strokeWidth="3" strokeLinecap="round" />
-                  {/* 발 */}
-                  <ellipse cx="37" cy="60" rx="3" ry="2" fill="#333" />
-                  <ellipse cx="53" cy="60" rx="3" ry="2" fill="#333" />
-                </g>
-              </g>
+              {/* 자전거만 표시 */}
 
               {/* Bike Frame */}
-              <g fill="none" stroke="#333" strokeWidth="2">
+              <g fill="none" stroke="#333" strokeWidth="3">
                 {/* Main frame */}
-                <path d="M20 65 L45 45 L60 45 L70 65" />
-                <path d="M45 45 L35 65" />
-                <path d="M60 45 L60 65" />
+                <path d="M20 65 L45 35 L65 35 L70 65" strokeLinecap="round" />
+                <path d="M45 35 L35 65" strokeLinecap="round" />
+                <path d="M65 35 L65 58" strokeLinecap="round" />
+                
+                {/* Seat */}
+                <path d="M42 35 L48 35" strokeWidth="4" strokeLinecap="round" fill="#8B5CF6" stroke="#8B5CF6" />
                 
                 {/* Handlebars */}
-                <path d="M25 45 L35 45" strokeWidth="3" strokeLinecap="round" />
-                <circle cx="30" r="2" cy="45" fill="#333" />
+                <path d="M25 35 L35 35" strokeWidth="4" strokeLinecap="round" />
+                <circle cx="30" r="3" cy="35" fill="#333" />
+                
+                {/* Pedals */}
+                <circle cx="45" cy="50" r="8" fill="none" stroke="#666" strokeWidth="2" />
+                <g className="animate-spin" style={{ transformOrigin: '45px 50px', animationDuration: '1s' }}>
+                  <rect x="40" y="48" width="10" height="4" fill="#333" rx="2" />
+                  <rect x="43" y="40" width="4" height="10" fill="#333" rx="2" />
+                </g>
               </g>
 
               {/* Wheels */}
