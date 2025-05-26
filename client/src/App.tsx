@@ -9,6 +9,7 @@ import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import UserGuide from "@/pages/user-guide";
 import FAQ from "@/pages/faq";
+import TechSupport from "@/pages/tech-support";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -32,6 +33,7 @@ function App() {
     else if (path === '/records') setCurrentPage('records');
     else if (path === '/user-guide') setCurrentPage('user-guide');
     else if (path === '/faq') setCurrentPage('faq');
+    else if (path === '/tech-support') setCurrentPage('tech-support');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -83,6 +85,8 @@ function App() {
         return <UserGuide onNavigate={navigateTo} />;
       case 'faq':
         return <FAQ onNavigate={navigateTo} />;
+      case 'tech-support':
+        return <TechSupport onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }
