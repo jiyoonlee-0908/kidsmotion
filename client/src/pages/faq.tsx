@@ -57,7 +57,7 @@ const faqData: FAQItem[] = [
     id: "4",
     category: "측정",
     question: "측정 시 아프거나 힘들지 않나요?",
-    answer: "와트바이크는 아이의 체력에 맞춰 자동으로 조절되므로 안전합니다. 언제든지 중단할 수 있으며, 전문 staff가 함께 합니다.",
+    answer: "스마트 사이클은 아이의 체력에 맞춰 자동으로 조절되므로 안전합니다. 언제든지 중단할 수 있으며, 전문 staff가 함께 합니다.",
     keywords: ["안전", "아픔", "힘듦", "중단", "보호"]
   },
 
@@ -84,28 +84,14 @@ const faqData: FAQItem[] = [
     keywords: ["등급", "구분", "백분위", "상위", "하위"]
   },
 
-  // 운동 처방
-  {
-    id: "8",
-    category: "운동처방",
-    question: "운동 처방은 어떻게 따라하나요?",
-    answer: "각 아이에게 맞춘 운동 영상과 설명서를 제공합니다. 주 3회, 1회 20-30분씩 가족과 함께 하시면 됩니다.",
-    keywords: ["운동", "처방", "영상", "따라하기", "빈도"]
-  },
-  {
-    id: "9",
-    category: "운동처방",
-    question: "운동 효과는 언제부터 나타나나요?",
-    answer: "꾸준히 운동하면 4-6주 후부터 체력 향상을 느낄 수 있습니다. 3개월 후 재측정으로 객관적 변화를 확인할 수 있습니다.",
-    keywords: ["효과", "언제", "향상", "변화", "재측정"]
-  },
+
 
   // 서비스 이용
   {
     id: "10",
     category: "서비스",
     question: "측정 비용은 얼마인가요?",
-    answer: "기본 측정 및 분석은 3만원입니다. 단체 할인, 재측정 할인 등 다양한 혜택이 있으니 문의해 주세요.",
+    answer: "측정 비용은 기관마다 차이가 있을 수 있습니다. 정확한 비용은 전화(010-8445-0908)로 문의해 주세요.",
     keywords: ["비용", "가격", "요금", "할인", "단체"]
   },
   {
@@ -149,7 +135,7 @@ const faqData: FAQItem[] = [
   }
 ];
 
-const categories = ["전체", "측정", "결과", "운동처방", "서비스", "개인정보", "기술지원"];
+const categories = ["전체", "측정", "결과", "서비스", "개인정보", "기술지원"];
 
 export default function FAQ({ onNavigate }: FAQProps) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -179,7 +165,7 @@ export default function FAQ({ onNavigate }: FAQProps) {
     switch (category) {
       case "측정": return Clock;
       case "결과": return CheckCircle;
-      case "운동처방": return Heart;
+
       case "서비스": return Users;
       case "개인정보": return Shield;
       case "기술지원": return Settings;
@@ -191,7 +177,7 @@ export default function FAQ({ onNavigate }: FAQProps) {
     switch (category) {
       case "측정": return "bg-blue-100 text-blue-800 border-blue-200";
       case "결과": return "bg-green-100 text-green-800 border-green-200";
-      case "운동처방": return "bg-red-100 text-red-800 border-red-200";
+
       case "서비스": return "bg-purple-100 text-purple-800 border-purple-200";
       case "개인정보": return "bg-yellow-100 text-yellow-800 border-yellow-200";
       case "기술지원": return "bg-teal-100 text-teal-800 border-teal-200";
