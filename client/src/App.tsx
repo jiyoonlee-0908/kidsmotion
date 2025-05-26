@@ -12,6 +12,8 @@ import NotFound from "@/pages/not-found";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
+
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
