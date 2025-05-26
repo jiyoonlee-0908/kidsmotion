@@ -105,8 +105,18 @@ export default function Home({ onNavigate }: HomeProps) {
                   </DropdownMenuContent>
                 </DropdownMenu>
                 
-                <a href="#about" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">소개</a>
-                <a href="#contact" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">문의</a>
+                <span 
+                  onClick={() => onNavigate && onNavigate('about')}
+                  className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
+                >
+                  소개
+                </span>
+                <span 
+                  onClick={() => onNavigate && onNavigate('contact')}
+                  className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
+                >
+                  문의
+                </span>
               </nav>
               <div className="flex items-center space-x-3">
                 <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
