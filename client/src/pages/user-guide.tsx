@@ -297,31 +297,31 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="bg-green-50 p-6 rounded-lg">
-                  <h4 className="font-semibold text-green-800 mb-3">개인 맞춤 운동 계획</h4>
+                  <h4 className="font-semibold text-green-800 mb-3">전문 운동 처방 리포트</h4>
                   <p className="text-green-700 mb-4">
-                    AI가 아이의 체력 수준과 약점을 분석하여 개인별 맞춤 운동을 추천합니다.
+                    AI가 학생의 체력 수준과 약점을 분석하여 기관별 맞춤 운동 프로그램과 지도 가이드를 제공합니다.
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="text-center">
                       <div className="w-12 h-12 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
                         <Target className="w-6 h-6 text-green-600" />
                       </div>
-                      <h5 className="font-medium text-green-800">주 3회</h5>
-                      <p className="text-sm text-green-600">권장 운동 빈도</p>
+                      <h5 className="font-medium text-green-800">개별 맞춤</h5>
+                      <p className="text-sm text-green-600">학생별 운동 처방</p>
                     </div>
                     <div className="text-center">
                       <div className="w-12 h-12 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
                         <Clock className="w-6 h-6 text-green-600" />
                       </div>
-                      <h5 className="font-medium text-green-800">20-30분</h5>
-                      <p className="text-sm text-green-600">1회 운동 시간</p>
+                      <h5 className="font-medium text-green-800">과학적 분석</h5>
+                      <p className="text-sm text-green-600">데이터 기반 처방</p>
                     </div>
                     <div className="text-center">
                       <div className="w-12 h-12 bg-green-100 rounded-full mx-auto mb-2 flex items-center justify-center">
                         <Users className="w-6 h-6 text-green-600" />
                       </div>
-                      <h5 className="font-medium text-green-800">가족 함께</h5>
-                      <p className="text-sm text-green-600">권장 운동 방법</p>
+                      <h5 className="font-medium text-green-800">전문 가이드</h5>
+                      <p className="text-sm text-green-600">지도자용 매뉴얼</p>
                     </div>
                   </div>
                 </div>
