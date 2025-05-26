@@ -242,7 +242,12 @@ export default function Home({ onNavigate }: HomeProps) {
                   >
                     기술 지원
                   </li>
-                  <li className="cursor-pointer hover:text-white transition-colors">업데이트 안내</li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('updates')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    업데이트 안내
+                  </li>
                 </ul>
               </div>
               
