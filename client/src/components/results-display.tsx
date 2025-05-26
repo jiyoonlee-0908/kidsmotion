@@ -124,21 +124,21 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       category: "power"
     },
     {
-      title: "무산소 파워 (15초)",
+      title: "스프린트 파워 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
       explanation: analysis.explanation15s,
       category: "strength"
     },
     {
-      title: "무산소 지구력 (30초)",
+      title: "파워 지속력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
       explanation: analysis.explanation30s,
       category: "endurance"
     },
     {
-      title: "혼합 파워 (60초)",
+      title: "근력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
       explanation: analysis.explanation60s,
