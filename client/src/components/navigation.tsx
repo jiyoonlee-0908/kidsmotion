@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
 import { Bike, HelpCircle, Settings, Search, History, ChevronDown, X, Book, Phone, Mail, MapPin } from "lucide-react";
-import { Link } from "wouter";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function Navigation() {
-  const [location, setLocation] = useLocation();
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -57,17 +54,17 @@ export default function Navigation() {
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
-                  <DropdownMenuItem asChild>
-                    <Link href="/" className="flex items-center space-x-2 w-full cursor-pointer">
+                  <DropdownMenuItem>
+                    <div onClick={() => window.location.href = '/'} className="flex items-center space-x-2 w-full cursor-pointer">
                       <Search className="w-4 h-4" />
                       <span>측정</span>
-                    </Link>
+                    </div>
                   </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/records" className="flex items-center space-x-2 w-full cursor-pointer">
+                  <DropdownMenuItem>
+                    <div onClick={() => window.location.href = '/records'} className="flex items-center space-x-2 w-full cursor-pointer">
                       <History className="w-4 h-4" />
                       <span>기록</span>
-                    </Link>
+                    </div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
