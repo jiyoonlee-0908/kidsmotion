@@ -348,7 +348,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                         <div className="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
                           <h4 className="font-semibold text-purple-800">v1.0 정식 출시 예정 (2026년 상반기)</h4>
                           <ul className="text-sm text-purple-700 mt-1 space-y-1">
-                            <li>• 전국 교육기관 대상 베타 테스트 완료</li>
+                            <li>• 전국 의료기관 대상 베타 테스트 완료</li>
                           </ul>
                         </div>
                       </div>
