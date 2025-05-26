@@ -1,13 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
-import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
-
-// 정적 파일 우선 제공 (프로덕션 사이트 문제 해결)
-app.use(express.static(path.join(process.cwd(), 'public')));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -45,9 +40,14 @@ app.use((req, res, next) => {
   // Register API routes FIRST, before Vite middleware
   const server = await registerRoutes(app);
 
-  // 모든 환경에서 Vite 개발 서버 사용 (프로덕션 사이트 문제 해결)
-  process.env.NODE_ENV = "development";
-  await setupVite(app, server);
+  // importantly only setup vite in development and after
+  // setting up all the other routes so the catch-all route
+  // doesn't interfere with the other routes
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
+  }
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
