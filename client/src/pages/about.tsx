@@ -1,8 +1,13 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { BarChart, Star, Bike, Phone, Mail, MapPin } from "lucide-react";
 import Navigation from "@/components/navigation";
+import type { PageType } from "@/App";
 
-export default function About() {
+interface AboutProps {
+  onNavigate: (page: PageType) => void;
+}
+
+export default function About({ onNavigate }: AboutProps) {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
