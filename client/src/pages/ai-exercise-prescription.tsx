@@ -84,7 +84,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
       icon: Activity,
       title: "균형감각",
       description: "신체 균형과 협응력을 기르는 운동",
-      exercises: ["한 발 서기", "밸런스 보드", "요가", "태극권"],
+      exercises: ["한 발 서기", "밸런스 보드", "보수볼", "짐볼"],
       targetAreas: ["균형감각", "협응력", "유연성"],
       difficulty: "초급",
       duration: "10-15분"
