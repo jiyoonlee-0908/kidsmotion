@@ -485,6 +485,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
 
+  // 프로덕션 환경에서 기본 HTML 응답 처리
+  app.get('*', (req, res) => {
+    // API 경로는 제외
+    if (req.path.startsWith('/api/')) {
+      return res.status(404).json({ error: 'API endpoint not found' });
+    }
+    
+    // 정적 파일 요청은 제외
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+      return res.status(404).send('File not found');
+    }
+    
+    // 모든 페이지 요청에 대해 기본 HTML 반환
+    res.status(200).set({ "Content-Type": "text/html" }).end(`
+      <!DOCTYPE html>
+      <html lang="ko">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>KidsMotion - 아동 체력 분석 시스템</title>
+          <script type="module" crossorigin src="/src/main.tsx"></script>
+          <link rel="stylesheet" crossorigin href="/src/index.css">
+        </head>
+        <body>
+          <div id="root"></div>
+        </body>
+      </html>
+    `);
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
