@@ -367,7 +367,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
                 <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900">심박수 건강도 평가</h3>
+              <h3 className="text-xl font-bold text-gray-900">심박수 확인</h3>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 최대 심박수 */}
