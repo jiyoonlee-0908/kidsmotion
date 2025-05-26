@@ -70,12 +70,12 @@ export default function About({ onNavigate }: AboutProps) {
           <div className="mb-16">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-                전문가들이 <span className="text-purple-600">키즈모션</span>을<br/>
-                선택하는 이유
+                <span className="text-purple-600">키즈모션</span>의<br/>
+                핵심 기능과 특징
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                전국 300여 기관에서 실제 사용 중인<br/>
-                검증된 아동 체력측정 솔루션
+                과학적 측정과 AI 분석을 결합한<br/>
+                혁신적인 아동 체력측정 솔루션
               </p>
             </div>
             
