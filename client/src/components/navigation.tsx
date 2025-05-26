@@ -303,7 +303,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
 
             {/* Settings Modal */}
             <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
-              <DialogContent className="max-w-2xl">
+              <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold text-gray-800 flex items-center space-x-3">
                     <Settings className="w-6 h-6 text-purple-600" />
@@ -343,24 +343,12 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                   {/* 업데이트 안내 */}
                   <Card>
                     <CardContent className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-800 mb-4">업데이트 안내</h3>
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">개발 로드맵</h3>
                       <div className="space-y-3">
-                        <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-500">
-                          <h4 className="font-semibold text-green-800">v2.1.0 (2024.12.15)</h4>
-                          <ul className="text-sm text-green-700 mt-1 space-y-1">
-                            <li>• 체중 최소 기준 15kg으로 완화</li>
-                            <li>• AI 분석 정확도 향상</li>
-                            <li>• PDF 리포트 디자인 개선</li>
-                            <li>• 모바일 반응형 최적화</li>
-                          </ul>
-                        </div>
-                        <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-500">
-                          <h4 className="font-semibold text-blue-800">v2.0.0 (2024.11.20)</h4>
-                          <ul className="text-sm text-blue-700 mt-1 space-y-1">
-                            <li>• 심박수 데이터 통합 분석</li>
-                            <li>• 3D 균형 아바타 추가</li>
-                            <li>• 성장 예측 기능 도입</li>
-                            <li>• QR 코드 공유 기능</li>
+                        <div className="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
+                          <h4 className="font-semibold text-purple-800">v1.0 정식 출시 예정 (2026년 상반기)</h4>
+                          <ul className="text-sm text-purple-700 mt-1 space-y-1">
+                            <li>• 전국 교육기관 대상 베타 테스트 완료</li>
                           </ul>
                         </div>
                       </div>
