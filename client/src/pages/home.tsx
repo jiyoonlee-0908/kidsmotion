@@ -230,7 +230,12 @@ export default function Home({ onNavigate }: HomeProps) {
                   >
                     사용자 가이드
                   </li>
-                  <li className="cursor-pointer hover:text-white transition-colors">FAQ</li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('faq')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    FAQ
+                  </li>
                   <li className="cursor-pointer hover:text-white transition-colors">기술 지원</li>
                   <li className="cursor-pointer hover:text-white transition-colors">업데이트 안내</li>
                 </ul>
