@@ -23,7 +23,11 @@ interface HistoryData {
   analysis: AnalysisResult;
 }
 
-export default function Records() {
+interface RecordsProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function Records({ onNavigate }: RecordsProps) {
   const [searchForm, setSearchForm] = useState<RecordSearchForm>({
     studentName: "",
     affiliation: "",
@@ -69,7 +73,7 @@ export default function Records() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50">
       {/* Navigation */}
-      <Navigation />
+      <Navigation onNavigate={onNavigate} />
       
       <div className="max-w-6xl mx-auto p-6">
         {/* Header */}

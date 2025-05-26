@@ -20,7 +20,11 @@ interface MeasurementResponse {
   improvements: string[];
 }
 
-export default function Home() {
+interface HomeProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function Home({ onNavigate }: HomeProps) {
   const [location] = useLocation();
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);

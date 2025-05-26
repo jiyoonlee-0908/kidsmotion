@@ -16,10 +16,22 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function Navigation() {
+interface NavigationProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function Navigation({ onNavigate }: NavigationProps = {}) {
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  // const [location, setLocation] = useLocation();
+
+  const handleNavigation = (page: string) => {
+    if (onNavigate) {
+      onNavigate(page);
+    } else {
+      // Fallback for direct navigation
+      window.location.href = `/${page === 'home' ? '' : page}`;
+    }
+  };
 
   return (
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
@@ -110,12 +122,12 @@ export default function Navigation() {
           </div>
           <div className="flex items-center space-x-8">
             <nav className="hidden md:flex items-center space-x-8">
-              <Link 
-                href="/"
+              <span 
+                onClick={() => handleNavigation('home')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 홈
-              </Link>
+              </span>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -126,32 +138,32 @@ export default function Navigation() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                   <DropdownMenuItem>
-                    <Link href="/" className="flex items-center space-x-2 w-full">
+                    <div onClick={() => handleNavigation('home')} className="flex items-center space-x-2 w-full cursor-pointer">
                       <Search className="w-4 h-4" />
                       <span>측정</span>
-                    </Link>
+                    </div>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/records" className="flex items-center space-x-2 w-full">
+                    <div onClick={() => handleNavigation('records')} className="flex items-center space-x-2 w-full cursor-pointer">
                       <History className="w-4 h-4" />
                       <span>기록</span>
-                    </Link>
+                    </div>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <Link 
-                href="/about"
+              <span 
+                onClick={() => handleNavigation('about')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
-              </Link>
-              <Link 
-                href="/contact"
+              </span>
+              <span 
+                onClick={() => handleNavigation('contact')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의
-              </Link>
+              </span>
             </nav>
             <div className="flex items-center space-x-3">
               <button 
