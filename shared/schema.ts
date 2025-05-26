@@ -26,7 +26,6 @@ export const measurements = pgTable("measurements", {
   // 필수 심박수 데이터
   maxHeartRate: real("max_heart_rate").notNull(),
   avgHeartRate: real("avg_heart_rate").notNull(),
-  restingHeartRate: real("resting_heart_rate").notNull(),
   // 고급 측정 (선택사항)
   power180s: real("power_180s"),
   power360s: real("power_360s"),
