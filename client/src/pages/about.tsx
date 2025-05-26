@@ -224,7 +224,7 @@ export default function About({ onNavigate }: AboutProps) {
                     <h4 className="text-xl font-semibold text-gray-800 mb-3">MotionBike</h4>
                     <p className="text-gray-600 leading-relaxed mb-4">
                       MotionBike는 아동 체력 측정 및 분석 서비스를 개발하는 스타트업으로, 
-                      와트바이크를 활용한 체력 측정과 AI 기반 리포트 시스템을 제공합니다.
+                      전문 체력측정 장비와 AI 기반 리포트 시스템을 제공합니다.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                       <div>
