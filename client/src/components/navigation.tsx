@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Settings, HelpCircle, Menu, Home, FileText, Users, Phone } from "lucide-react";
 import {
@@ -14,13 +15,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { PageType } from "@/App";
 
-interface NavigationProps {
-  onNavigate: (page: PageType) => void;
-}
-
-export default function Navigation({ onNavigate }: NavigationProps) {
+export default function Navigation() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
@@ -30,13 +26,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <div 
-              onClick={() => {
-                console.log('Logo clicked - navigating to home');
-                onNavigate('home');
-              }}
-              className="flex items-center cursor-pointer"
-            >
+            <Link href="/" className="flex items-center">
               <h1 className="text-2xl font-black">
                 <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   KidsMotion
@@ -45,18 +35,15 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                   | MotionBike
                 </span>
               </h1>
-            </div>
+            </Link>
           </div>
           
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <nav className="flex items-center space-x-8">
-              <span 
-                onClick={() => onNavigate('home')}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
-              >
+              <Link href="/" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
                 홈
-              </span>
+              </Link>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -65,41 +52,27 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                   </span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
-                  <DropdownMenuItem 
-                    onClick={() => onNavigate('home')}
-                    className="cursor-pointer"
-                  >
-                    <FileText className="mr-2 h-4 w-4" />
-                    새 측정하기
+                  <DropdownMenuItem asChild>
+                    <Link href="/" className="flex items-center space-x-2 w-full">
+                      <FileText className="mr-2 h-4 w-4" />
+                      새 측정하기
+                    </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
-                    onClick={() => onNavigate('records')}
-                    className="cursor-pointer"
-                  >
-                    <Users className="mr-2 h-4 w-4" />
-                    기록 조회
+                  <DropdownMenuItem asChild>
+                    <Link href="/records" className="flex items-center space-x-2 w-full">
+                      <Users className="mr-2 h-4 w-4" />
+                      기록 조회
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <span 
-                onClick={() => {
-                  console.log('소개 클릭됨');
-                  onNavigate('about');
-                }}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
-              >
+              <Link href="/about" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
                 소개
-              </span>
-              <span 
-                onClick={() => {
-                  console.log('문의 클릭됨');
-                  onNavigate('contact');
-                }}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
-              >
+              </Link>
+              <Link href="/contact" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
                 문의
-              </span>
+              </Link>
             </nav>
             <div className="flex items-center space-x-3">
               <button 
@@ -126,21 +99,29 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={() => onNavigate('home')}>
-                  <Home className="mr-2 h-4 w-4" />
-                  홈
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex items-center space-x-2 w-full">
+                    <Home className="mr-2 h-4 w-4" />
+                    홈
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('records')}>
-                  <FileText className="mr-2 h-4 w-4" />
-                  기록 조회
+                <DropdownMenuItem asChild>
+                  <Link href="/records" className="flex items-center space-x-2 w-full">
+                    <FileText className="mr-2 h-4 w-4" />
+                    기록 조회
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('about')}>
-                  <Users className="mr-2 h-4 w-4" />
-                  소개
+                <DropdownMenuItem asChild>
+                  <Link href="/about" className="flex items-center space-x-2 w-full">
+                    <Users className="mr-2 h-4 w-4" />
+                    소개
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('contact')}>
-                  <Phone className="mr-2 h-4 w-4" />
-                  문의
+                <DropdownMenuItem asChild>
+                  <Link href="/contact" className="flex items-center space-x-2 w-full">
+                    <Phone className="mr-2 h-4 w-4" />
+                    문의
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
