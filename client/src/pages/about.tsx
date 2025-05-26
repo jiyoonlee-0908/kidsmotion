@@ -142,7 +142,7 @@ export default function About({ onNavigate }: AboutProps) {
                     </div>
                     <div className="flex items-center text-gray-700">
                       <span className="text-blue-500 mr-3">✓</span>
-                      <span><strong>운동 처방</strong> - 집에서 할 수 있는 운동</span>
+                      <span><strong>운동 처방</strong> - 기관별 맞춤 프로그램</span>
                     </div>
                     <div className="flex items-center text-gray-700">
                       <span className="text-blue-500 mr-3">✓</span>
