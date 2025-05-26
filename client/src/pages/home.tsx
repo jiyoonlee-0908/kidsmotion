@@ -8,6 +8,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import SimpleLoadingAnimation from "@/components/simple-loading-animation";
@@ -30,6 +38,8 @@ export default function Home({ onNavigate }: HomeProps) {
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   // 홈 페이지로 돌아올 때 상태 리셋
   useEffect(() => {
@@ -132,10 +142,16 @@ export default function Home({ onNavigate }: HomeProps) {
                 </span>
               </nav>
               <div className="flex items-center space-x-3">
-                <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                <button 
+                  onClick={() => setHelpOpen(true)}
+                  className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
                   <HelpCircle className="w-5 h-5" />
                 </button>
-                <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl">
+                <button 
+                  onClick={() => setSettingsOpen(true)}
+                  className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
                   <Settings className="w-5 h-5" />
                 </button>
               </div>
@@ -326,6 +342,126 @@ export default function Home({ onNavigate }: HomeProps) {
         isVisible={isAnalyzing} 
         onAnimationComplete={handleAnimationComplete}
       />
+
+      {/* Help Modal */}
+      <Dialog open={helpOpen} onOpenChange={setHelpOpen}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-800 flex items-center space-x-3">
+              <HelpCircle className="w-6 h-6 text-purple-600" />
+              <span>도움말 센터</span>
+            </DialogTitle>
+            <DialogDescription>
+              KidsMotion 사용법과 지원 정보를 확인하세요.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card>
+              <CardContent className="p-6">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <Phone className="w-8 h-8 mx-auto mb-2 text-purple-600" />
+                  <h4 className="font-semibold text-gray-800">전화 지원</h4>
+                  <p className="text-sm text-gray-600">010-8445-0908</p>
+                  <p className="text-xs text-gray-500">평일 09:00-18:00</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <Mail className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+                  <h4 className="font-semibold text-gray-800">이메일 지원</h4>
+                  <p className="text-sm text-gray-600">info@motionbike.co.kr</p>
+                  <p className="text-xs text-gray-500">24시간 내 답변</p>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent className="p-6">
+                <div className="text-center p-4 bg-gray-50 rounded-lg">
+                  <MapPin className="w-8 h-8 mx-auto mb-2 text-green-600" />
+                  <h4 className="font-semibold text-gray-800">방문 지원</h4>
+                  <p className="text-sm text-gray-600">서울시 강서구 금낭화로 234, GX2</p>
+                  <p className="text-xs text-gray-500">사전 예약 필수</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Settings Modal */}
+      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-800 flex items-center space-x-3">
+              <Settings className="w-6 h-6 text-purple-600" />
+              <span>시스템 설정</span>
+            </DialogTitle>
+            <DialogDescription>
+              MotionBike 시스템 정보와 업데이트 안내를 확인하세요.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">시스템 정보</h3>
+                <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-600">버전:</span>
+                    <span className="ml-2 font-semibold">v2.1.0</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">최종 업데이트:</span>
+                    <span className="ml-2 font-semibold">2025.05.26</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">측정 엔진:</span>
+                    <span className="ml-2 font-semibold">WattBike Pro</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">AI 모델:</span>
+                    <span className="ml-2 font-semibold">GPT-4o</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">개발 로드맵</h3>
+                <div className="space-y-3">
+                  <div className="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-500">
+                    <h4 className="font-semibold text-purple-800">v1.0 정식 출시 예정 (2026년 상반기)</h4>
+                    <ul className="text-sm text-purple-700 mt-1 space-y-1">
+                      <li>• 전국 의료기관 대상 베타 테스트 완료</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">개인정보 및 약관</h3>
+                <div className="space-y-2">
+                  <Button variant="outline" className="w-full justify-start">
+                    개인정보처리방침 보기
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start">
+                    서비스 이용약관 보기
+                  </Button>
+                  <Button variant="outline" className="w-full justify-start">
+                    데이터 삭제 요청
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
