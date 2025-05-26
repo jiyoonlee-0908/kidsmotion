@@ -207,13 +207,13 @@ export default function Home({ onNavigate }: HomeProps) {
                   <h3 className="text-xl font-bold">MotionBike</h3>
                 </div>
                 <div className="text-gray-300 leading-relaxed space-y-2 flex-grow">
-                  <div><strong>키즈모션</strong> - 아동 체력 분석 플랫폼</div>
-                  <div><strong>실버모션</strong> - 시니어 건강 플랫폼</div>
-                  <div><strong>휠모션</strong> - 장애인 재활 운동 플랫폼</div>
+                  <div><strong>키즈모션</strong> - 아동 체력 분석</div>
+                  <div><strong>실버모션</strong> - 시니어 건강관리</div>
+                  <div><strong>휠모션</strong> - 장애인 재활</div>
                 </div>
               </div>
               
-              <div className="hidden lg:block w-px bg-gray-600 mx-4"></div>
+              <div className="hidden lg:block w-px bg-gray-600"></div>
               
               <div className="lg:col-span-2">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
