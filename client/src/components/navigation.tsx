@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link } from "wouter";
 import { Bike, HelpCircle, Settings, Search, History, ChevronDown, X, Book, Phone, Mail, MapPin } from "lucide-react";
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Navigation() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [location, setLocation] = useLocation();
+  // const [location, setLocation] = useLocation();
 
   return (
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
@@ -111,12 +111,12 @@ export default function Navigation() {
           </div>
           <div className="flex items-center space-x-8">
             <nav className="hidden md:flex items-center space-x-8">
-              <span 
-                onClick={() => setLocation('/')}
+              <Link 
+                href="/"
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 홈
-              </span>
+              </Link>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -127,38 +127,32 @@ export default function Navigation() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                   <DropdownMenuItem>
-                    <div onClick={() => setLocation('/')} className="flex items-center space-x-2 w-full cursor-pointer">
+                    <Link href="/" className="flex items-center space-x-2 w-full">
                       <Search className="w-4 h-4" />
                       <span>측정</span>
-                    </div>
+                    </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <div onClick={() => setLocation('/records')} className="flex items-center space-x-2 w-full cursor-pointer">
+                    <Link href="/records" className="flex items-center space-x-2 w-full">
                       <History className="w-4 h-4" />
                       <span>기록</span>
-                    </div>
+                    </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
               
-              <span 
-                onClick={() => {
-                  console.log('소개 클릭됨');
-                  window.location.href = '/about';
-                }}
+              <Link 
+                href="/about"
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
-              </span>
-              <span 
-                onClick={() => {
-                  console.log('문의 클릭됨');
-                  window.location.href = '/contact';
-                }}
+              </Link>
+              <Link 
+                href="/contact"
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의
-              </span>
+              </Link>
             </nav>
             <div className="flex items-center space-x-3">
               <button 

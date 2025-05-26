@@ -44,7 +44,7 @@ function App() {
             ) : (
               <Switch>
                 <Route path="/" component={Home} />
-                <Route path="/records" component={Records} />
+                <Route path="/records" component={() => <Records />} />
                 <Route path="/about" component={About} />
                 <Route path="/contact" component={Contact} />
                 <Route path="/report/:id" component={Home} />
