@@ -90,7 +90,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   });
 
   const onSubmit = (data: FormData) => {
-    createMeasurement.mutate(data);
+    // restingHeartRate를 기본값으로 설정 (임시 해결책)
+    const measurementData = {
+      ...data,
+      restingHeartRate: 70 // 기본값 설정
+    };
+    createMeasurement.mutate(measurementData);
   };
 
   // Auto-adjust right balance when left balance changes

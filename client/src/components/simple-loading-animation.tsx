@@ -26,13 +26,14 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
 
     const interval = setInterval(() => {
       setProgress(prev => {
-        if (prev >= 50) {
-          // 50%에서 더 이상 진행률을 올리지 않고 계속 애니메이션만 실행
-          return 50;
+        if (prev >= 100) {
+          return 100;
         }
-        return prev + 1;
+        // 0-70%는 빠르게, 70-100%는 천천히 진행
+        const increment = prev < 70 ? 2 : 0.5;
+        return Math.min(prev + increment, 100);
       });
-    }, 200);
+    }, 150);
 
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % messages.length);
@@ -46,7 +47,7 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
 
   // 외부에서 애니메이션 완료를 호출할 수 있도록
   useEffect(() => {
-    if (progress >= 50 && !isVisible) {
+    if (progress >= 100 && !isVisible) {
       onAnimationComplete?.();
     }
   }, [isVisible, progress, onAnimationComplete]);
