@@ -504,24 +504,17 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             {(measurement.power180s || measurement.power360s) && (
               <div>
                 <h4 className="font-semibold text-gray-900 mb-4">고급 체력 변화 (선택 측정)</h4>
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    {measurement.power180s && analysis.percentile180s && (
-                      <div className="text-center">
-                        <div className="text-sm text-gray-600 mb-1">근지구력 (180초)</div>
-                        <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile180s)}%</div>
-                        <div className="text-xs text-gray-500">이전: 45%</div>
-                      </div>
-                    )}
-                    {measurement.power360s && analysis.percentile360s && (
-                      <div className="text-center">
-                        <div className="text-sm text-gray-600 mb-1">심폐지구력 (360초)</div>
-                        <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
-                        <div className="text-xs text-gray-500">이전: 38%</div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <ProgressChart 
+                  currentData={[
+                    measurement.power180s && analysis.percentile180s ? Math.round(analysis.percentile180s) : 0,
+                    measurement.power360s && analysis.percentile360s ? Math.round(analysis.percentile360s) : 0
+                  ].filter(val => val > 0)}
+                  labels={[
+                    ...(measurement.power180s ? ["근지구력 (180초)"] : []),
+                    ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
+                  ]}
+                  isAdvanced={true}
+                />
               </div>
             )}
             <div>
@@ -629,7 +622,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   <User className="text-primary mr-2 w-4 h-4" />
                   지도선생님 참고
                 </p>
-                <p className="text-gray-600">중점 관리 항목: 근지구력과 좌우균형</p>
+                <p className="text-gray-600">중점 관리 항목: 근지구력 (180초)과 좌우균형</p>
               </div>
               <div>
                 <p className="font-semibold text-gray-900 mb-2 flex items-center">

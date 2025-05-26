@@ -14,9 +14,11 @@ Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, B
 
 interface ProgressChartProps {
   currentData: number[];
+  labels?: string[];
+  isAdvanced?: boolean;
 }
 
-export default function ProgressChart({ currentData }: ProgressChartProps) {
+export default function ProgressChart({ currentData, labels, isAdvanced = false }: ProgressChartProps) {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<Chart | null>(null);
   
@@ -37,7 +39,7 @@ export default function ProgressChart({ currentData }: ProgressChartProps) {
     chartInstance.current = new Chart(ctx, {
       type: "bar",
       data: {
-        labels: ["순발력 (5초)", "스프린트 파워 (15초)", "파워 지속력 (30초)", "근력 (60초)"],
+        labels: labels || ["순발력 (5초)", "스프린트 파워 (15초)", "파워 지속력 (30초)", "근력 (60초)"],
         datasets: [
           {
             label: "이전 평균",
