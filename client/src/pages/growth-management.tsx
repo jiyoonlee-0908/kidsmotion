@@ -186,7 +186,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              체계적인 데이터 추적과 분석을 통해 아이의 성장 과정을 꾸준히 관리하고, 
+              체계적인 데이터 추적과 분석을 통해 아이의 성장 과정을 꾸준히 관리하고,<br/>
               지속적인 체력 향상을 위한 맞춤형 가이드를 제공합니다.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
