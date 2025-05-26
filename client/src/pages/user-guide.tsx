@@ -154,20 +154,28 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                   </h4>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
-                      <Badge className="bg-blue-100 text-blue-700">0-5초</Badge>
-                      <span className="text-gray-700">순발력 측정 (최대 파워)</span>
+                      <Badge className="bg-blue-100 text-blue-700">5초</Badge>
+                      <span className="text-gray-700">✓ 순발력 (5초)</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <Badge className="bg-blue-100 text-blue-700">0-15초</Badge>
-                      <span className="text-gray-700">단거리 지구력</span>
+                      <Badge className="bg-blue-100 text-blue-700">15초</Badge>
+                      <span className="text-gray-700">✓ 스프린트 파워 (15초)</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <Badge className="bg-blue-100 text-blue-700">0-30초</Badge>
-                      <span className="text-gray-700">중거리 지구력</span>
+                      <Badge className="bg-blue-100 text-blue-700">30초</Badge>
+                      <span className="text-gray-700">✓ 파워 지속력 (30초)</span>
                     </div>
                     <div className="flex items-center space-x-3">
-                      <Badge className="bg-blue-100 text-blue-700">0-60초</Badge>
-                      <span className="text-gray-700">장거리 지구력</span>
+                      <Badge className="bg-blue-100 text-blue-700">60초</Badge>
+                      <span className="text-gray-700">✓ 근력 (60초)</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Badge className="bg-blue-100 text-blue-700">180초</Badge>
+                      <span className="text-gray-700">✓ 근지구력 (180초)</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <Badge className="bg-blue-100 text-blue-700">360초</Badge>
+                      <span className="text-gray-700">✓ 심폐지구력 (360초)</span>
                     </div>
                   </div>
                 </div>
