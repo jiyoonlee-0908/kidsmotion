@@ -16,7 +16,7 @@ export default function About({ onNavigate }: AboutProps) {
           <div className="text-center mb-20">
             <div className="mb-8">
               <span className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-3 rounded-full text-base font-bold shadow-lg">
-                혁신적인 아동 체력측정 솔루션
+                정량화된 체력 데이터 제공
               </span>
             </div>
             
