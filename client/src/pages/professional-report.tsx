@@ -66,7 +66,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
     },
     {
       title: "체력 측정 결과",
-      description: "스마트사이클 측정을 통한 정확한 체력 데이터",
+      description: "스마트사이클을 통한 정확한 체력 데이터",
       icon: BarChart3,
       content: ["절대 파워 (W)", "근력 및 근지구력", "순발력", "심폐지구력 점수"]
     },
