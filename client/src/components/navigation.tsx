@@ -142,13 +142,19 @@ export default function Navigation() {
               </DropdownMenu>
               
               <span 
-                onClick={() => setLocation('/about')}
+                onClick={() => {
+                  console.log('소개 클릭됨');
+                  window.location.href = '/about';
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
               </span>
               <span 
-                onClick={() => setLocation('/contact')}
+                onClick={() => {
+                  console.log('문의 클릭됨');
+                  window.location.href = '/contact';
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의

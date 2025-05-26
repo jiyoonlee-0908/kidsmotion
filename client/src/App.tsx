@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -34,23 +34,25 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Switch>
-          <Route path="/admin" component={Admin} />
-          {!isAuthenticated ? (
-            <Route>
-              <InviteCodeForm onSuccess={handleAuthSuccess} />
-            </Route>
-          ) : (
-            <Switch>
-              <Route path="/" component={Home} />
-              <Route path="/records" component={Records} />
-              <Route path="/about" component={About} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/report/:id" component={Home} />
-              <Route component={NotFound} />
-            </Switch>
-          )}
-        </Switch>
+        <Router>
+          <Switch>
+            <Route path="/admin" component={Admin} />
+            {!isAuthenticated ? (
+              <Route>
+                <InviteCodeForm onSuccess={handleAuthSuccess} />
+              </Route>
+            ) : (
+              <Switch>
+                <Route path="/" component={Home} />
+                <Route path="/records" component={Records} />
+                <Route path="/about" component={About} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/report/:id" component={Home} />
+                <Route component={NotFound} />
+              </Switch>
+            )}
+          </Switch>
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
