@@ -34,6 +34,88 @@
   --chart-5: 0 72% 51%; /* #EF4444 */
 }
 
+/* 인쇄용 스타일 - 2페이지 내로 축소 */
+@media print {
+  body {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+  
+  #results-container {
+    transform: scale(0.6) !important;
+    transform-origin: top left !important;
+    width: 166.67% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .fitness-card {
+    margin-bottom: 8px !important;
+    padding: 8px !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 8px !important;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 4px !important;
+  }
+  
+  .text-3xl {
+    font-size: 18px !important;
+  }
+  
+  .text-2xl {
+    font-size: 16px !important;
+  }
+  
+  .text-xl {
+    font-size: 14px !important;
+  }
+  
+  .text-lg {
+    font-size: 12px !important;
+  }
+  
+  .p-6, .p-8 {
+    padding: 8px !important;
+  }
+  
+  .mb-8, .mt-8 {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .mb-6, .mt-6 {
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+  }
+  
+  .mb-4, .mt-4 {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  /* 차트 크기 축소 */
+  .recharts-wrapper {
+    transform: scale(0.8) !important;
+    transform-origin: center !important;
+  }
+  
+  /* 버튼 숨기기 */
+  button {
+    display: none !important;
+  }
+  
+  /* 그리드 간격 축소 */
+  .grid {
+    gap: 4px !important;
+  }
+}
+
 .dark {
   --background: 240 10% 3.9%;
   --foreground: 0 0% 98%;
