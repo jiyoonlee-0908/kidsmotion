@@ -97,7 +97,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                 <div className="space-y-2">
                   <p className="text-lg font-medium text-teal-600">서울시 강서구</p>
                   <p className="text-lg font-medium text-teal-600">금낭화로 234, GX2</p>
-                  <p className="text-sm text-gray-500">지하철 9호선 가양역 3번 출구</p>
+                  <p className="text-sm text-gray-500">지하철 5호선 방화역 4번 출구</p>
                   <p className="text-sm text-red-500">사전 예약 필수</p>
                 </div>
                 <Button className="mt-6 w-full bg-gradient-to-r from-teal-500 to-green-500 hover:from-teal-600 hover:to-green-600">
