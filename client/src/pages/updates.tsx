@@ -50,7 +50,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
   const updates: UpdateItem[] = [
     {
       version: "v2.1.0",
-      date: "2024-01-28",
+      date: "2025-07-15",
       title: "AI 분석 고도화 및 신체균형 3D 시각화",
       description: "AI 분석 엔진을 업그레이드하고 신체균형을 3D로 시각화하는 기능을 추가했습니다.",
       type: "major",
@@ -84,7 +84,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     },
     {
       version: "v2.0.5",
-      date: "2024-01-26",
+      date: "2025-05-26",
       title: "사용자 지원 시스템 대폭 개선",
       description: "사용자 가이드, FAQ, 기술 지원 페이지를 새롭게 구성했습니다.",
       type: "minor",
@@ -112,7 +112,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     },
     {
       version: "v2.0.4",
-      date: "2024-01-25",
+      date: "2025-05-20",
       title: "성능 최적화 및 안정성 향상",
       description: "측정 정확도를 높이고 시스템 안정성을 개선했습니다.",
       type: "patch",
@@ -140,7 +140,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     },
     {
       version: "v2.0.3",
-      date: "2024-01-20",
+      date: "2025-05-15",
       title: "모바일 최적화 및 접근성 개선",
       description: "모바일 환경에서의 사용성을 크게 개선했습니다.",
       type: "minor",
@@ -168,7 +168,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     },
     {
       version: "v2.0.2",
-      date: "2024-01-15",
+      date: "2025-05-10",
       title: "AI 코칭 시스템 도입",
       description: "개인별 맞춤 운동 처방 및 AI 코칭 기능을 추가했습니다.",
       type: "major",
@@ -200,25 +200,25 @@ export default function Updates({ onNavigate }: UpdatesProps) {
     {
       title: "팀 관리 시스템",
       description: "학급/팀 단위 관리 및 집단 분석 기능",
-      timeline: "2024년 2월",
+      timeline: "2025년 8월",
       priority: "high"
     },
     {
       title: "게이미피케이션",
       description: "성취 배지, 리더보드, 도전과제 시스템",
-      timeline: "2024년 3월",
+      timeline: "2025년 10월",
       priority: "medium"
     },
     {
       title: "부모/교사 대시보드",
       description: "아이들의 체력 변화 모니터링 전용 인터페이스",
-      timeline: "2024년 4월",
+      timeline: "2025년 12월",
       priority: "high"
     },
     {
       title: "영양 관리 연동",
       description: "체력 데이터와 연계한 영양 상태 분석",
-      timeline: "2024년 5월",
+      timeline: "2026년 2월",
       priority: "low"
     }
   ];
