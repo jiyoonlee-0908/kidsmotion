@@ -142,13 +142,29 @@ export default function Navigation() {
               </DropdownMenu>
               
               <span 
-                onClick={() => setLocation('/about')}
+                onClick={() => {
+                  setLocation('/about');
+                  // 강제 리렌더링을 위한 타임아웃
+                  setTimeout(() => {
+                    if (location !== '/about') {
+                      window.location.href = '/about';
+                    }
+                  }, 100);
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
               </span>
               <span 
-                onClick={() => setLocation('/contact')}
+                onClick={() => {
+                  setLocation('/contact');
+                  // 강제 리렌더링을 위한 타임아웃
+                  setTimeout(() => {
+                    if (location !== '/contact') {
+                      window.location.href = '/contact';
+                    }
+                  }, 100);
+                }}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의
