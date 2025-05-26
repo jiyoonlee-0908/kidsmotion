@@ -203,7 +203,12 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="flex flex-col h-full">
                 <h4 className="text-xl font-bold mb-4">서비스</h4>
                 <ul className="space-y-2 text-gray-300 flex-grow">
-                  <li>AI 기반 운동 처방</li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('ai-exercise-prescription')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    AI 기반 운동 처방
+                  </li>
                   <li>지속적 성장 관리</li>
                   <li>간편한 결과 공유</li>
                   <li>전문 리포트 생성</li>
