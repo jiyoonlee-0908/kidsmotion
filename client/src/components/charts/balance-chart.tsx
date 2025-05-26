@@ -31,57 +31,58 @@ export default function BalanceChart({ leftBalance, rightBalance, status }: Bala
   };
 
   const getBalanceBarColor = (side: 'left' | 'right') => {
-    if (balanceDiff <= 5) return "bg-green-500"; // 균형 상태
-    if (side === 'left' && isLeftHeavy) return "bg-red-500"; // 왼쪽이 무거움
-    if (side === 'right' && !isLeftHeavy) return "bg-red-500"; // 오른쪽이 무거움
-    return "bg-blue-400"; // 가벼운 쪽
+    if (side === 'left' && isLeftHeavy) return "bg-gradient-to-t from-red-500 to-red-400 shadow-red-200"; 
+    if (side === 'right' && !isLeftHeavy) return "bg-gradient-to-t from-red-500 to-red-400 shadow-red-200"; 
+    return "bg-gradient-to-t from-blue-500 to-blue-400 shadow-blue-200"; 
   };
 
   return (
-    <div className="relative w-64 h-48 flex items-center justify-center">
-      {/* 시소 받침대 */}
-      <div className="absolute bottom-8">
-        <div className="w-4 h-16 bg-gray-600 rounded-t-lg relative">
+    <div className="relative w-80 h-56 flex items-center justify-center">
+      {/* 시소 받침대 - 더 세련되게 */}
+      <div className="absolute bottom-12">
+        <div className="w-6 h-20 bg-gradient-to-t from-gray-700 to-gray-600 rounded-t-xl relative shadow-lg">
           {/* 받침대 상단 삼각형 */}
-          <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-600"></div>
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-6 border-r-6 border-b-6 border-transparent border-b-gray-600"></div>
         </div>
       </div>
 
-      {/* 시소 막대 */}
+      {/* 시소 막대 - 더 길고 두껍게 */}
       <div 
-        className={`absolute w-48 h-3 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full shadow-lg transition-transform duration-1000 ease-out ${isAnimated ? '' : 'rotate-0'}`}
+        className={`absolute w-72 h-4 bg-gradient-to-r from-purple-500 via-purple-600 to-purple-500 rounded-full shadow-2xl transition-transform duration-1000 ease-out border-2 border-purple-300`}
         style={{ 
           transform: isAnimated ? `rotate(${rotation}deg)` : 'rotate(0deg)',
-          bottom: '88px'
+          bottom: '112px'
         }}
       >
-        {/* 시소 중심점 */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-gray-700 rounded-full"></div>
+        {/* 시소 중심점 - 더 크고 세련되게 */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-gradient-to-br from-gray-600 to-gray-800 rounded-full border-2 border-white shadow-lg"></div>
         
-        {/* 왼쪽 무게 표시 */}
+        {/* 왼쪽 무게 표시 - 더 큰 원형 무게추 */}
         <div 
-          className={`absolute -top-8 left-4 transform transition-all duration-1000 ease-out ${getBalanceBarColor('left')} rounded-lg shadow-lg`}
+          className={`absolute -top-12 left-8 transform transition-all duration-1000 ease-out`}
           style={{ 
-            width: '20px',
-            height: `${Math.max(leftBalance * 0.8, 10)}px`,
-            transform: isAnimated ? `translateY(${isLeftHeavy ? '10px' : '0px'})` : 'translateY(0px)'
+            transform: isAnimated ? `translateY(${isLeftHeavy ? '12px' : '0px'})` : 'translateY(0px)'
           }}
         >
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-700">
+          <div className={`w-8 h-8 ${getBalanceBarColor('left')} rounded-full shadow-xl border-2 border-white flex items-center justify-center`}>
+            <div className="text-xs font-bold text-white">L</div>
+          </div>
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm font-bold text-gray-700 bg-white px-2 py-1 rounded-full shadow-md">
             {leftBalance}%
           </div>
         </div>
 
-        {/* 오른쪽 무게 표시 */}
+        {/* 오른쪽 무게 표시 - 더 큰 원형 무게추 */}
         <div 
-          className={`absolute -top-8 right-4 transform transition-all duration-1000 ease-out ${getBalanceBarColor('right')} rounded-lg shadow-lg`}
+          className={`absolute -top-12 right-8 transform transition-all duration-1000 ease-out`}
           style={{ 
-            width: '20px',
-            height: `${Math.max(rightBalance * 0.8, 10)}px`,
-            transform: isAnimated ? `translateY(${!isLeftHeavy ? '10px' : '0px'})` : 'translateY(0px)'
+            transform: isAnimated ? `translateY(${!isLeftHeavy ? '12px' : '0px'})` : 'translateY(0px)'
           }}
         >
-          <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-700">
+          <div className={`w-8 h-8 ${getBalanceBarColor('right')} rounded-full shadow-xl border-2 border-white flex items-center justify-center`}>
+            <div className="text-xs font-bold text-white">R</div>
+          </div>
+          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-sm font-bold text-gray-700 bg-white px-2 py-1 rounded-full shadow-md">
             {rightBalance}%
           </div>
         </div>
