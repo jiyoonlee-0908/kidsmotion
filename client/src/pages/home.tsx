@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
+import BikeLoadingAnimation from "@/components/bike-loading-animation";
 import MobileAppIntegration from "@/components/mobile-app-integration";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
@@ -28,6 +29,7 @@ export default function Home({ onNavigate }: HomeProps) {
   const [location] = useLocation();
   const [showResults, setShowResults] = useState(false);
   const [measurementData, setMeasurementData] = useState<MeasurementResponse | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // 홈 페이지로 돌아올 때 상태 리셋
   useEffect(() => {
@@ -40,6 +42,7 @@ export default function Home({ onNavigate }: HomeProps) {
   const handleMeasurementComplete = (data: MeasurementResponse) => {
     setMeasurementData(data);
     setShowResults(true);
+    setIsAnalyzing(false);
     
     // Smooth scroll to results
     setTimeout(() => {
@@ -48,6 +51,15 @@ export default function Home({ onNavigate }: HomeProps) {
         resultsElement.scrollIntoView({ behavior: 'smooth' });
       }
     }, 100);
+  };
+
+  const handleMeasurementStart = () => {
+    setIsAnalyzing(true);
+  };
+
+  const handleAnimationComplete = () => {
+    // 애니메이션이 완료되면 실제 분석 결과를 보여줌
+    // 실제로는 분석이 완료되었을 때 handleMeasurementComplete가 호출됨
   };
 
   const handleNewMeasurement = () => {
@@ -177,7 +189,10 @@ export default function Home({ onNavigate }: HomeProps) {
             </section>
             
             <div id="analysis">
-              <MeasurementForm onComplete={handleMeasurementComplete} />
+              <MeasurementForm 
+                onComplete={handleMeasurementComplete} 
+                onStart={handleMeasurementStart}
+              />
             </div>
 
 
