@@ -127,3 +127,12 @@
     box-shadow: 0 12px 35px rgba(139, 92, 246, 0.35);
   }
 }
+
+/* 로고 클릭 강제 설정 */
+.logo-clickable {
+  cursor: pointer !important;
+}
+
+.logo-clickable * {
+  cursor: pointer !important;
+}

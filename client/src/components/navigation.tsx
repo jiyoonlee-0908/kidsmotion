@@ -49,12 +49,12 @@ export default function Navigation() {
             }}
             style={{ 
               zIndex: 9999, 
-              cursor: 'pointer',
+              cursor: 'pointer !important',
               userSelect: 'none',
               WebkitUserSelect: 'none',
               pointerEvents: 'auto'
             }}
-            className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity relative select-none"
+            className="logo-clickable flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity relative select-none"
           >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
               <Bike className="text-white w-8 h-8" />
