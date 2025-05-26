@@ -7,6 +7,7 @@ import Home from "@/pages/home";
 import Records from "@/pages/records";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
+import UserGuide from "@/pages/user-guide";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -28,6 +29,7 @@ function App() {
     if (path === '/about') setCurrentPage('about');
     else if (path === '/contact') setCurrentPage('contact');
     else if (path === '/records') setCurrentPage('records');
+    else if (path === '/user-guide') setCurrentPage('user-guide');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -73,6 +75,8 @@ function App() {
         return <Contact onNavigate={navigateTo} />;
       case 'records':
         return <Records onNavigate={navigateTo} />;
+      case 'user-guide':
+        return <UserGuide onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }
