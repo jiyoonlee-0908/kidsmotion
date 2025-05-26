@@ -208,8 +208,8 @@ export default function Home({ onNavigate }: HomeProps) {
                 </div>
                 <div className="text-gray-300 leading-relaxed space-y-1">
                   <div><strong>키즈모션</strong> - 아동 체력 분석 플랫폼</div>
-                  <div><strong>실버모션</strong> - 시니어 맞춤 건강케어</div>
-                  <div><strong>휠모션</strong> - 장애인 전용 재활운동</div>
+                  <div><strong>실버모션</strong> - 시니어 체력 관리 플랫폼</div>
+                  <div><strong>휠모션</strong> - 장애인 재활 운동 플랫폼</div>
                 </div>
               </div>
               
