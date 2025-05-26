@@ -26,7 +26,6 @@ const formSchema = insertMeasurementSchema.extend({
   // 필수 심박수 필드들
   maxHeartRate: z.number().min(60).max(220),
   avgHeartRate: z.number().min(50).max(200),
-  restingHeartRate: z.number().min(40).max(120),
 }).refine((data) => {
   return Math.abs((data.leftBalance + data.rightBalance) - 100) < 0.1;
 }, {
@@ -64,7 +63,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       rightBalance: 50,
       maxHeartRate: 0,
       avgHeartRate: 0,
-      restingHeartRate: 0,
     },
   });
 
@@ -419,7 +417,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 <Heart className="text-primary mr-2" />
                 심박수 측정
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
                   name="maxHeartRate"
@@ -460,25 +458,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                   )}
                 />
                 
-                <FormField
-                  control={form.control}
-                  name="restingHeartRate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">안정시 심박수 (BPM)</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="number"
-                          placeholder="예: 65"
-                          className="bg-white"
-                          {...field}
-                          onChange={e => field.onChange(Number(e.target.value))}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+
               </div>
             </div>
 
