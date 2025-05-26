@@ -24,7 +24,13 @@ export default function Navigation() {
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
-          <div onClick={() => window.location.href = '/'} className="flex items-center space-x-5 cursor-pointer">
+          <div 
+            onClick={() => {
+              console.log('Logo clicked - navigating to home');
+              window.location.assign('/');
+            }} 
+            className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity"
+          >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
               <Bike className="text-white w-8 h-8" />
             </div>
