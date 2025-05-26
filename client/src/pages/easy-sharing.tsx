@@ -34,7 +34,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
     {
       icon: QrCode,
       title: "QR 코드 스캔",
-      description: "QR 코드 하나로 누구든지 쉽게 결과 확인",
+      description: "QR 코드 하나로 누구든지 쉽게 확인",
       color: "blue",
       features: ["즉시 생성", "스마트폰 스캔", "링크 자동 연결", "보안 암호화"]
     },
@@ -178,7 +178,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              체력 측정 결과를 가족, 선생님, 친구들과 쉽고 빠르게 공유하세요. 
+              체력 측정 결과를 가족, 선생님, 친구들과 쉽고 빠르게 공유하세요.<br />
               다양한 공유 방식으로 누구나 편리하게 결과를 확인할 수 있습니다.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -421,7 +421,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
                 <p className="text-xl mb-8 opacity-90">
                   체력 측정 후 가족, 친구들과 성과를 나누고 함께 성장하세요
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <Button 
                     size="lg" 
                     className="bg-white text-green-600 hover:bg-gray-100"
@@ -429,14 +429,6 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
                   >
                     체력 측정 시작하기
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white/10"
-                    onClick={() => onNavigate && onNavigate('contact')}
-                  >
-                    공유 방법 문의
                   </Button>
                 </div>
               </CardContent>
