@@ -122,7 +122,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
     {
       icon: Bell,
       title: "스마트 알림",
-      description: "개인 스케줄에 맞춘 운동 및 자동 측정 알림 시스템\n최적의 운동 타이밍과 재측정 일정을 자동으로 알려드립니다",
+      description: "개인 스케줄에 맞춘 운동 및 자동 측정 알림 시스템",
       features: ["운동 알림", "측정 일정", "목표 리마인드", "격려 메시지"]
     },
     {
