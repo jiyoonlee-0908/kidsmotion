@@ -198,7 +198,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {!showResults && (
         <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="flex flex-col h-full">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="fitness-icon">
@@ -214,43 +214,47 @@ export default function Home({ onNavigate }: HomeProps) {
               </div>
               
               <div className="flex flex-col h-full">
-                <h4 className="text-xl font-bold mb-4">서비스</h4>
-                <ul className="space-y-2 text-gray-300 flex-grow">
-                  <li>체력 측정 및 분석</li>
-                  <li>AI 기반 운동 처방</li>
-                  <li>진도 상황 관리</li>
-                  <li>전문 리포트 생성</li>
-                </ul>
-              </div>
-              
-              <div className="flex flex-col h-full">
-                <h4 className="text-xl font-bold mb-4">지원</h4>
-                <ul className="space-y-2 text-gray-300 flex-grow">
-                  <li 
-                    onClick={() => onNavigate && onNavigate('user-guide')}
-                    className="cursor-pointer hover:text-white transition-colors"
-                  >
-                    사용자 가이드
-                  </li>
-                  <li 
-                    onClick={() => onNavigate && onNavigate('faq')}
-                    className="cursor-pointer hover:text-white transition-colors"
-                  >
-                    FAQ
-                  </li>
-                  <li 
-                    onClick={() => onNavigate && onNavigate('tech-support')}
-                    className="cursor-pointer hover:text-white transition-colors"
-                  >
-                    기술 지원
-                  </li>
-                  <li 
-                    onClick={() => onNavigate && onNavigate('updates')}
-                    className="cursor-pointer hover:text-white transition-colors"
-                  >
-                    업데이트 안내
-                  </li>
-                </ul>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="text-xl font-bold mb-4">서비스</h4>
+                    <ul className="space-y-2 text-gray-300">
+                      <li>체력 측정 및 분석</li>
+                      <li>AI 기반 운동 처방</li>
+                      <li>진도 상황 관리</li>
+                      <li>전문 리포트 생성</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-xl font-bold mb-4">지원</h4>
+                    <ul className="space-y-2 text-gray-300">
+                      <li 
+                        onClick={() => onNavigate && onNavigate('user-guide')}
+                        className="cursor-pointer hover:text-white transition-colors"
+                      >
+                        사용자 가이드
+                      </li>
+                      <li 
+                        onClick={() => onNavigate && onNavigate('faq')}
+                        className="cursor-pointer hover:text-white transition-colors"
+                      >
+                        FAQ
+                      </li>
+                      <li 
+                        onClick={() => onNavigate && onNavigate('tech-support')}
+                        className="cursor-pointer hover:text-white transition-colors"
+                      >
+                        기술 지원
+                      </li>
+                      <li 
+                        onClick={() => onNavigate && onNavigate('updates')}
+                        className="cursor-pointer hover:text-white transition-colors"
+                      >
+                        업데이트 안내
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               
               <div className="flex flex-col h-full">
