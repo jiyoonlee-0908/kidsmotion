@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
-import BikeLoadingAnimation from "@/components/bike-loading-animation";
+import SimpleLoadingAnimation from "@/components/simple-loading-animation";
 import MobileAppIntegration from "@/components/mobile-app-integration";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
@@ -320,8 +320,8 @@ export default function Home({ onNavigate }: HomeProps) {
         </footer>
       )}
 
-      {/* Bike Loading Animation */}
-      <BikeLoadingAnimation 
+      {/* Simple Loading Animation */}
+      <SimpleLoadingAnimation 
         isVisible={isAnalyzing} 
         onAnimationComplete={handleAnimationComplete}
       />
