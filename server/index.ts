@@ -1,8 +1,13 @@
 import express, { type Request, Response, NextFunction } from "express";
+import path from "path";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// 정적 파일 우선 제공 (프로덕션 사이트 문제 해결)
+app.use(express.static(path.join(process.cwd(), 'public')));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
