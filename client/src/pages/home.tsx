@@ -207,10 +207,9 @@ export default function Home({ onNavigate }: HomeProps) {
                   <h3 className="text-xl font-bold">MotionBike</h3>
                 </div>
                 <p className="text-gray-300 leading-relaxed">
-                  🧒 <strong>키즈모션</strong> - 아동 체력 분석의 새로운 표준<br/>
-                  👨‍💼 <strong>성인모션</strong> - 직장인 건강관리 솔루션<br/>
-                  👴 <strong>실버모션</strong> - 시니어 맞춤 건강케어 (출시예정)<br/>
-                  ♿ <strong>휠모션</strong> - 장애인 전용 재활운동 (출시예정)
+                  <strong>키즈모션</strong> - 아동 체력 분석의 새로운 표준<br/>
+                  <strong>실버모션</strong> - 시니어 맞춤 건강케어 (출시예정)<br/>
+                  <strong>휠모션</strong> - 장애인 전용 재활운동 (출시예정)
                 </p>
               </div>
               
