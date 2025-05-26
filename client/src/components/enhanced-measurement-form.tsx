@@ -257,7 +257,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                     />
                   </FormControl>
                   <FormMessage />
-                  <p className="text-xs text-gray-500">ATP-PC 시스템</p>
+                  <p className="text-xs text-gray-500">순간 최대 파워</p>
                 </FormItem>
               )}
             />

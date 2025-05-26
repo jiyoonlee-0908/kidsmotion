@@ -117,28 +117,28 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   
   const fitnessItems = [
     {
-      title: "순발력/폭발력 (5초)",
+      title: "순발력 (5초)",
       power: measurement.power5s,
       percentile: Math.round(analysis.percentile5s),
       explanation: analysis.explanation5s,
       category: "power"
     },
     {
-      title: "무산소 파워 (15초)",
+      title: "근력 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
       explanation: analysis.explanation15s,
       category: "strength"
     },
     {
-      title: "무산소성 지구력 (30초)",
+      title: "근지구력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
       explanation: analysis.explanation30s,
       category: "endurance"
     },
     {
-      title: "혼합 지구력 (60초)",
+      title: "심폐지구력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
       explanation: analysis.explanation60s,
