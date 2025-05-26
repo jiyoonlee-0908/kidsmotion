@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Settings, HelpCircle, Menu, Home, FileText, Users, Phone } from "lucide-react";
 import {
@@ -14,15 +15,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { PageType } from "@/App";
 
-interface NavigationProps {
-  onNavigate: (page: PageType) => void;
-}
-
-export default function Navigation({ onNavigate }: NavigationProps) {
+export default function Navigation() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [location, setLocation] = useLocation();
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 fixed top-0 left-0 right-0 z-50">
@@ -31,10 +28,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           {/* Logo */}
           <div className="flex items-center">
             <div 
-              onClick={() => {
-                console.log('Logo clicked - navigating to home');
-                onNavigate('home');
-              }}
+              onClick={() => setLocation('/')}
               className="flex items-center cursor-pointer"
             >
               <h1 className="text-2xl font-black">
@@ -52,7 +46,7 @@ export default function Navigation({ onNavigate }: NavigationProps) {
           <div className="hidden md:block">
             <nav className="flex items-center space-x-8">
               <span 
-                onClick={() => onNavigate('home')}
+                onClick={() => setLocation('/')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 홈
@@ -66,14 +60,14 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                   <DropdownMenuItem 
-                    onClick={() => onNavigate('home')}
+                    onClick={() => setLocation('/')}
                     className="cursor-pointer"
                   >
                     <FileText className="mr-2 h-4 w-4" />
                     새 측정하기
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => onNavigate('records')}
+                    onClick={() => setLocation('/records')}
                     className="cursor-pointer"
                   >
                     <Users className="mr-2 h-4 w-4" />
@@ -83,19 +77,13 @@ export default function Navigation({ onNavigate }: NavigationProps) {
               </DropdownMenu>
               
               <span 
-                onClick={() => {
-                  console.log('소개 클릭됨');
-                  onNavigate('about');
-                }}
+                onClick={() => setLocation('/about')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
               </span>
               <span 
-                onClick={() => {
-                  console.log('문의 클릭됨');
-                  onNavigate('contact');
-                }}
+                onClick={() => setLocation('/contact')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의
@@ -126,19 +114,19 @@ export default function Navigation({ onNavigate }: NavigationProps) {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem onClick={() => onNavigate('home')}>
+                <DropdownMenuItem onClick={() => setLocation('/')}>
                   <Home className="mr-2 h-4 w-4" />
                   홈
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('records')}>
+                <DropdownMenuItem onClick={() => setLocation('/records')}>
                   <FileText className="mr-2 h-4 w-4" />
                   기록 조회
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('about')}>
+                <DropdownMenuItem onClick={() => setLocation('/about')}>
                   <Users className="mr-2 h-4 w-4" />
                   소개
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onNavigate('contact')}>
+                <DropdownMenuItem onClick={() => setLocation('/contact')}>
                   <Phone className="mr-2 h-4 w-4" />
                   문의
                 </DropdownMenuItem>
