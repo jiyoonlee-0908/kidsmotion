@@ -33,25 +33,25 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
     {
       icon: LineChart,
       title: "체력 변화 추적",
-      description: "매회 측정 결과를 비교하여 체력 향상도를 시각적으로 확인",
+      description: "매회 측정 결과를 비교하여\n체력 향상도를 시각적으로 확인",
       color: "blue"
     },
     {
       icon: Target,
       title: "목표 설정 관리",
-      description: "개인별 체력 목표를 설정하고 달성도를 실시간 모니터링",
+      description: "개인별 체력 목표를 설정하고\n달성도를 실시간 모니터링",
       color: "green"
     },
     {
       icon: Calendar,
       title: "주기적 평가",
-      description: "정기적인 재측정을 통한 지속적인 성장 상태 점검",
+      description: "정기적인 재측정을 통한\n지속적인 성장 상태 점검",
       color: "purple"
     },
     {
       icon: Bell,
       title: "맞춤 알림",
-      description: "운동 시기, 재측정 일정 등 개인 맞춤 알림 서비스",
+      description: "운동 시기, 재측정 일정 등\n개인 맞춤 알림 서비스",
       color: "orange"
     }
   ];
@@ -225,7 +225,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                         <IconComponent className="w-8 h-8" />
                       </div>
                       <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 text-sm">{feature.description}</p>
+                      <p className="text-gray-600 text-sm whitespace-pre-line">{feature.description}</p>
                     </CardContent>
                   </Card>
                 );
