@@ -307,7 +307,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
                 <p className="text-xl mb-8 opacity-90">
                   5분 체력 측정으로 나만의 맞춤형 운동 프로그램을 받아보세요
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <Button 
                     size="lg" 
                     className="bg-white text-purple-600 hover:bg-gray-100"
@@ -315,14 +315,6 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
                   >
                     체력 측정 시작하기
                     <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white/10"
-                    onClick={() => onNavigate && onNavigate('contact')}
-                  >
-                    상담 문의하기
                   </Button>
                 </div>
               </CardContent>
