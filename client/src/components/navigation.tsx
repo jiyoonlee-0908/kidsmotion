@@ -25,7 +25,7 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           <div 
-            onClick={(e) => {
+            onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
               console.log('Logo clicked - navigating to home');
@@ -36,9 +36,25 @@ export default function Navigation() {
                 // 다른 페이지라면 홈으로 이동
                 window.location.assign('/');
               }
-            }} 
-            style={{ zIndex: 50 }}
-            className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity relative"
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              console.log('Logo touched - navigating to home');
+              if (window.location.pathname === '/') {
+                window.location.reload();
+              } else {
+                window.location.assign('/');
+              }
+            }}
+            style={{ 
+              zIndex: 9999, 
+              cursor: 'pointer',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              pointerEvents: 'auto'
+            }}
+            className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity relative select-none"
           >
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
               <Bike className="text-white w-8 h-8" />
