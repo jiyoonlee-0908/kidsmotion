@@ -483,6 +483,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // SPA 폴백 라우팅: 모든 비API 경로를 index.html로 리디렉션
+  app.get('*', (req, res, next) => {
+    // API 경로는 제외
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    
+    // 정적 파일 요청은 제외 (js, css, png, jpg 등)
+    if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)) {
+      return next();
+    }
+    
+    // 모든 SPA 라우트를 index.html로 서빙
+    res.sendFile('index.html', { root: 'dist' });
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
