@@ -202,9 +202,7 @@ export default function About({ onNavigate }: AboutProps) {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-3">전문적 처방</h4>
-                    <p className="text-gray-600 mb-4">
-                      운동생리학과 스포츠과학 기반의 전문적인 운동 처방을 AI가 자동으로 생성합니다.
-                    </p>
+                    <p className="text-gray-600 mb-4">운동생리학과 스포츠과학 기반의 전문적인 운동 처방을 AI가 자동으로 생성합니다.</p>
                     <ul className="text-sm text-gray-600 space-y-1">
                       <li>• 체력 요소별 맞춤 운동법</li>
                       <li>• 단계별 훈련 프로그램</li>
