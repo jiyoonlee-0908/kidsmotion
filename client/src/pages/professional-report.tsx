@@ -100,7 +100,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
     {
       icon: FileText,
       title: "PDF 리포트",
-      description: "인쇄&보관이 용이한 고품질 PDF 문서",
+      description: "인쇄&보관이 쉬운 고품질 PDF 문서",
       features: ["A4 사이즈 최적화", "고해상도 차트", "전문적 디자인", "인쇄 친화적"],
       color: "red"
     },
