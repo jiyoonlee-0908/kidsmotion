@@ -20,7 +20,8 @@ export default function BalanceChart({ leftBalance, rightBalance, status }: Bala
   const isLeftHeavy = leftBalance > rightBalance;
   
   // 시소 기울기 각도 계산 (최대 25도)
-  const tiltAngle = Math.min(balanceDiff * 0.5, 25);
+  // 차이가 5% 이하면 완전히 수평
+  const tiltAngle = balanceDiff <= 5 ? 0 : Math.min(balanceDiff * 0.4, 20);
   const rotation = isLeftHeavy ? -tiltAngle : tiltAngle;
 
   // 상태에 따른 색상
@@ -61,7 +62,7 @@ export default function BalanceChart({ leftBalance, rightBalance, status }: Bala
         <div 
           className={`absolute -top-12 left-8 transform transition-all duration-1000 ease-out`}
           style={{ 
-            transform: isAnimated ? `translateY(${isLeftHeavy ? '12px' : '0px'})` : 'translateY(0px)'
+            transform: isAnimated ? `translateY(${balanceDiff <= 5 ? '0px' : (isLeftHeavy ? '8px' : '-4px')})` : 'translateY(0px)'
           }}
         >
           <div className={`w-8 h-8 ${getBalanceBarColor('left')} rounded-full shadow-xl border-2 border-white flex items-center justify-center`}>
@@ -76,7 +77,7 @@ export default function BalanceChart({ leftBalance, rightBalance, status }: Bala
         <div 
           className={`absolute -top-12 right-8 transform transition-all duration-1000 ease-out`}
           style={{ 
-            transform: isAnimated ? `translateY(${!isLeftHeavy ? '12px' : '0px'})` : 'translateY(0px)'
+            transform: isAnimated ? `translateY(${balanceDiff <= 5 ? '0px' : (!isLeftHeavy ? '8px' : '-4px')})` : 'translateY(0px)'
           }}
         >
           <div className={`w-8 h-8 ${getBalanceBarColor('right')} rounded-full shadow-xl border-2 border-white flex items-center justify-center`}>
