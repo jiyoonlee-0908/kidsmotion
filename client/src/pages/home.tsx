@@ -198,7 +198,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {!showResults && (
         <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
               <div className="flex flex-col h-full">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="fitness-icon">
@@ -213,11 +213,13 @@ export default function Home({ onNavigate }: HomeProps) {
                 </div>
               </div>
               
-              <div className="flex flex-col h-full">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  <div>
+              <div className="hidden lg:block w-px bg-gray-600 mx-4"></div>
+              
+              <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="flex flex-col h-full">
                     <h4 className="text-xl font-bold mb-4">서비스</h4>
-                    <ul className="space-y-2 text-gray-300">
+                    <ul className="space-y-2 text-gray-300 flex-grow">
                       <li>체력 측정 및 분석</li>
                       <li>AI 기반 운동 처방</li>
                       <li>진도 상황 관리</li>
@@ -225,9 +227,9 @@ export default function Home({ onNavigate }: HomeProps) {
                     </ul>
                   </div>
                   
-                  <div>
+                  <div className="flex flex-col h-full">
                     <h4 className="text-xl font-bold mb-4">지원</h4>
-                    <ul className="space-y-2 text-gray-300">
+                    <ul className="space-y-2 text-gray-300 flex-grow">
                       <li 
                         onClick={() => onNavigate && onNavigate('user-guide')}
                         className="cursor-pointer hover:text-white transition-colors"
@@ -254,23 +256,23 @@ export default function Home({ onNavigate }: HomeProps) {
                       </li>
                     </ul>
                   </div>
-                </div>
-              </div>
-              
-              <div className="flex flex-col h-full">
-                <h4 className="text-xl font-bold mb-4">연락처</h4>
-                <div className="space-y-3 text-gray-300 flex-grow">
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-4 h-4" />
-                    <span>010-8445-0908</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-4 h-4" />
-                    <span>support@motionbike.co.kr</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <MapPin className="w-4 h-4" />
-                    <span>서울시 강서구 금낭화로 234, GX2</span>
+                  
+                  <div className="flex flex-col h-full">
+                    <h4 className="text-xl font-bold mb-4">연락처</h4>
+                    <div className="space-y-3 text-gray-300 flex-grow">
+                      <div className="flex items-center space-x-3">
+                        <Phone className="w-4 h-4" />
+                        <span>010-8445-0908</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <Mail className="w-4 h-4" />
+                        <span>support@motionbike.co.kr</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <MapPin className="w-4 h-4" />
+                        <span>서울시 강서구 금낭화로 234, GX2</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
