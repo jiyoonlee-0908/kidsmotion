@@ -319,6 +319,12 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
         </footer>
       )}
+
+      {/* Bike Loading Animation */}
+      <BikeLoadingAnimation 
+        isVisible={isAnalyzing} 
+        onAnimationComplete={handleAnimationComplete}
+      />
     </div>
   );
 }

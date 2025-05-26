@@ -38,9 +38,10 @@ type FormData = z.infer<typeof formSchema>;
 
 interface MeasurementFormProps {
   onComplete: (data: any) => void;
+  onStart?: () => void;
 }
 
-export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
+export default function MeasurementForm({ onComplete, onStart }: MeasurementFormProps) {
   const { toast } = useToast();
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showHeartRate, setShowHeartRate] = useState(false);
@@ -69,6 +70,8 @@ export default function MeasurementForm({ onComplete }: MeasurementFormProps) {
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
+      // 로딩 애니메이션 시작
+      onStart?.();
       const response = await apiRequest("POST", "/api/measurements", data);
       return response.json();
     },
