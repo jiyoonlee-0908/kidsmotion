@@ -236,21 +236,40 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Growth Phases */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 관리 단계</h2>
-            <div className="max-w-4xl mx-auto mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
-              <h3 className="text-lg font-semibold text-blue-800 mb-3">📊 데이터 비교 분석 방식</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span><strong>직전 데이터 vs 현재 데이터</strong> 비교</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span><strong>직전 평균 데이터 vs 현재 데이터</strong> 비교</span>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <Card className="hover:shadow-lg transition-all border-blue-200">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <BarChart3 className="w-8 h-8 text-blue-600" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-blue-800">직전 데이터 vs 현재 데이터</h3>
+                  <p className="text-gray-600 text-sm">
+                    가장 최근 측정값과 현재 측정값을 직접 비교하여 즉각적인 변화 추이를 파악합니다.
+                  </p>
+                </CardContent>
+              </Card>
+              
+              <Card className="hover:shadow-lg transition-all border-green-200">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <TrendingUp className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-green-800">직전 평균 데이터 vs 현재 데이터</h3>
+                  <p className="text-gray-600 text-sm">
+                    이전 측정값들의 평균과 현재 데이터를 비교하여 안정적인 성장 패턴을 분석합니다.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+            
+            <div className="max-w-4xl mx-auto mb-8 p-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200">
+              <div className="text-center">
+                <h3 className="text-lg font-semibold text-gray-800 mb-3">📊 종합적인 비교 분석</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">
+                  정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한<br/>
+                  종합적인 비교 분석을 제공합니다.
+                </p>
               </div>
-              <p className="mt-3 text-blue-600 text-sm">
-                정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한 종합적인 비교 분석을 제공합니다.
-              </p>
             </div>
 
           </section>
