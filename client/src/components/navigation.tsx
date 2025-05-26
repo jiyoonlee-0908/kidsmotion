@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Bike, HelpCircle, Settings, Search, History, ChevronDown, X, Book, Phone, Mail, MapPin } from "lucide-react";
 import {
   DropdownMenu,
@@ -19,6 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Navigation() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [location, setLocation] = useLocation();
 
   return (
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
@@ -110,7 +112,7 @@ export default function Navigation() {
           <div className="flex items-center space-x-8">
             <nav className="hidden md:flex items-center space-x-8">
               <span 
-                onClick={() => window.location.href = '/'}
+                onClick={() => setLocation('/')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 홈
@@ -125,13 +127,13 @@ export default function Navigation() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48">
                   <DropdownMenuItem>
-                    <div onClick={() => window.location.href = '/'} className="flex items-center space-x-2 w-full cursor-pointer">
+                    <div onClick={() => setLocation('/')} className="flex items-center space-x-2 w-full cursor-pointer">
                       <Search className="w-4 h-4" />
                       <span>측정</span>
                     </div>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <div onClick={() => window.location.href = '/records'} className="flex items-center space-x-2 w-full cursor-pointer">
+                    <div onClick={() => setLocation('/records')} className="flex items-center space-x-2 w-full cursor-pointer">
                       <History className="w-4 h-4" />
                       <span>기록</span>
                     </div>
@@ -140,13 +142,13 @@ export default function Navigation() {
               </DropdownMenu>
               
               <span 
-                onClick={() => window.location.href = '/about'}
+                onClick={() => setLocation('/about')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 소개
               </span>
               <span 
-                onClick={() => window.location.href = '/contact'}
+                onClick={() => setLocation('/contact')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
                 문의
