@@ -40,7 +40,8 @@ app.use((req, res, next) => {
   // Register API routes FIRST, before Vite middleware
   const server = await registerRoutes(app);
 
-  // 개발/프로덕션 환경 모두에서 Vite 설정 사용
+  // 모든 환경에서 Vite 개발 서버 사용 (프로덕션 사이트 문제 해결)
+  process.env.NODE_ENV = "development";
   await setupVite(app, server);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
