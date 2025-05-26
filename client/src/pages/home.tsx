@@ -53,7 +53,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gray-50">
       {showResults && measurementData ? (
         <ResultsDisplay 
           data={measurementData} 
@@ -61,201 +61,148 @@ export default function Home() {
         />
       ) : (
         <>
-          {/* Modern Header */}
-          <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
+          {/* Header */}
+          <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-6">
-                <div className="flex items-center space-x-5">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
-                    <Bike className="text-white w-8 h-8" />
-                  </div>
+              <div className="flex items-center justify-between h-16">
+                {/* Logo */}
+                <div className="flex items-center">
                   <div 
                     onClick={() => {
                       setShowResults(false);
                       setMeasurementData(null);
                     }}
-                    className="cursor-pointer"
+                    className="flex items-center cursor-pointer"
                   >
-                    <h1 className="text-3xl font-black tracking-tight">
-                      <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                        KidsMotion
-                      </span>
-                      <span className="text-slate-700 ml-3 text-xl font-normal">
-                        | MotionBike
-                      </span>
+                    <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center mr-3">
+                      <Bike className="text-white w-5 h-5" />
+                    </div>
+                    <h1 className="text-xl font-bold">
+                      <span className="text-purple-600">KidsBike</span>
+                      <span className="text-gray-600 ml-2 font-normal">MotionBike</span>
                     </h1>
                   </div>
                 </div>
                 
                 {/* Navigation */}
-                <nav className="hidden lg:flex items-center space-x-8">
-                  <span className="text-lg font-semibold text-violet-600 border-b-2 border-violet-500 pb-1">홈</span>
+                <nav className="hidden md:flex items-center space-x-8">
+                  <Link href="/" className="text-gray-700 hover:text-purple-600 font-medium">홈</Link>
                   
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <span className="text-lg font-semibold text-slate-700 hover:text-violet-600 transition-colors cursor-pointer px-3 py-2 rounded-xl hover:bg-violet-50">
-                        분석 <ChevronDown className="inline w-4 h-4 ml-1" />
+                      <span className="text-gray-700 hover:text-purple-600 font-medium cursor-pointer flex items-center">
+                        분석 <ChevronDown className="ml-1 w-4 h-4" />
                       </span>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" className="w-48">
-                      <DropdownMenuItem asChild>
-                        <a href="#measurement" className="flex items-center space-x-2 w-full cursor-pointer">
-                          <Search className="w-4 h-4" />
-                          <span>측정</span>
-                        </a>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem>
+                        <Search className="mr-2 h-4 w-4" />
+                        새 측정하기
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
-                        <Link href="/records" className="flex items-center space-x-2 w-full cursor-pointer">
-                          <History className="w-4 h-4" />
-                          <span>기록</span>
+                        <Link href="/records">
+                          <History className="mr-2 h-4 w-4" />
+                          기록 조회
                         </Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                   
-                  <Link href="/about" className="text-lg font-semibold text-slate-700 hover:text-violet-600 transition-colors px-3 py-2 rounded-xl hover:bg-violet-50">소개</Link>
-                  <Link href="/contact" className="text-lg font-semibold text-slate-700 hover:text-violet-600 transition-colors px-3 py-2 rounded-xl hover:bg-violet-50">문의</Link>
+                  <Link href="/about" className="text-gray-700 hover:text-purple-600 font-medium">소개</Link>
+                  <Link href="/contact" className="text-gray-700 hover:text-purple-600 font-medium">문의</Link>
                 </nav>
-                <div className="flex items-center space-x-3">
-                  <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-slate-700 hover:text-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    <HelpCircle className="w-6 h-6" />
-                  </button>
-                  <button className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-slate-700 hover:text-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    <Settings className="w-6 h-6" />
-                  </button>
-                </div>
                 
-                {/* Mobile menu button */}
-                <div className="lg:hidden">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="p-2 rounded-lg bg-white/60 hover:bg-white/80 text-slate-700 hover:text-violet-600 transition-colors">
-                        <BarChart className="h-6 w-6" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem>
-                        <Scale className="mr-2 h-4 w-4" />
-                        홈
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Bike className="mr-2 h-4 w-4" />
-                        기록 조회
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Users className="mr-2 h-4 w-4" />
-                        소개
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Phone className="mr-2 h-4 w-4" />
-                        문의
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                <div className="flex items-center space-x-3">
+                  <button className="p-2 text-gray-600 hover:text-purple-600 rounded-lg transition-colors">
+                    <HelpCircle className="w-5 h-5" />
+                  </button>
+                  <button className="p-2 text-gray-600 hover:text-purple-600 rounded-lg transition-colors">
+                    <Settings className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
             </div>
           </header>
 
-          {/* Hero Section */}
-          <main className="relative overflow-hidden pt-16 pb-32">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Hero Content */}
-              <div className="text-center space-y-12 mb-20">
-                <div className="space-y-8">
-                  <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold shadow-lg">
-                    ⚡ AI 체력분석 시스템
-                  </div>
-                  
-                  <h1 className="text-6xl md:text-8xl font-black text-slate-900 leading-none tracking-tighter">
-                    우리 아이의
-                    <br />
-                    <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                      체력을
-                    </span>
-                    <br />
-                    과학적으로
-                  </h1>
-                  
-                  <p className="text-2xl md:text-3xl text-slate-600 font-medium max-w-4xl mx-auto leading-relaxed">
-                    5분 측정으로 완벽한 분석 리포트와<br />
-                    <span className="text-violet-600 font-bold">맞춤 운동처방</span>을 받아보세요
-                  </p>
-                </div>
-
-                {/* Feature Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                  <Card className="bg-white/70 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center">
-                        <BarChart className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">정밀 측정</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        의료급 센서로<br />
-                        정확한 데이터 수집
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-white/70 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                        <Star className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">AI 분석</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        개인별 맞춤<br />
-                        운동 처방
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-white/70 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-                        <Shield className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">안전성</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        검증된 측정법으로<br />
-                        안전한 평가
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="bg-white/70 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <CardContent className="p-8 text-center">
-                      <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                        <Smartphone className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-xl font-bold text-slate-900 mb-3">간편성</h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        5분 측정으로<br />
-                        즉시 결과 확인
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
+          {/* Main Content */}
+          <main className="py-12">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Title */}
+              <div className="text-center mb-12">
+                <h1 className="text-4xl font-bold text-gray-900 mb-4">AI 기반 아동 체력 분석</h1>
+                <p className="text-lg text-gray-600">
+                  정확한 측정 데이터를 통해 알맞은 운동을 분석 아이의 체력을 과학적으로 평가하고 맞춤형 운동을 제공받습니다
+                </p>
               </div>
 
-              {/* Measurement Form Section */}
-              <div id="measurement-section" className="max-w-4xl mx-auto">
-                <Card className="bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
-                  <div className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 text-white p-8 rounded-t-3xl">
-                    <div className="text-center">
-                      <h2 className="text-3xl font-bold mb-4">체력 측정 시작하기</h2>
-                      <p className="text-violet-100 text-lg">
-                        학생 정보를 입력하고 5분 만에 완벽한 체력 분석 리포트를 받아보세요
-                      </p>
+              {/* Feature Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+                <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-purple-100 flex items-center justify-center">
+                      <BarChart className="w-6 h-6 text-purple-600" />
                     </div>
-                  </div>
-                  
-                  <CardContent className="p-8">
-                    <MeasurementForm onComplete={handleMeasurementComplete} />
+                    <h3 className="font-semibold text-gray-900 mb-2">최첨 별헌스</h3>
+                    <p className="text-sm text-gray-600">
+                      최첨 고성능 냥력을 통해거거<br />
+                      측정이차 오로젠과 체크
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
+                      <Star className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">정밀 분석</h3>
+                    <p className="text-sm text-gray-600">
+                      4가지 요소를 모두 정밀하게<br />
+                      측정하여 제공하는 정확성 및 평가
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+                      <Shield className="w-6 h-6 text-green-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">AI 코칭</h3>
+                    <p className="text-sm text-gray-600">
+                      개인의 측정 성능을 맞춤 운동방<br />
+                      법을 적용하여 가이 발전 제시
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-white border border-gray-200 hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center">
+                      <Users className="w-6 h-6 text-orange-600" />
+                    </div>
+                    <h3 className="font-semibold text-gray-900 mb-2">전문 리포트</h3>
+                    <p className="text-sm text-gray-600">
+                      보조식이 자료셰고 제고다 업하<br />
+                      성각 분석 건계 요법적된 책정
+                    </p>
                   </CardContent>
                 </Card>
               </div>
+
+              {/* Measurement Form */}
+              <Card className="bg-white border border-gray-200 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center mr-3">
+                      <Scale className="text-white w-5 h-5" />
+                    </div>
+                    <h2 className="text-xl font-bold text-gray-900">측정 정보 입력</h2>
+                  </div>
+                  
+                  <MeasurementForm onComplete={handleMeasurementComplete} />
+                </CardContent>
+              </Card>
             </div>
           </main>
 
