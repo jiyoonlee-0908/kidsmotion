@@ -120,12 +120,6 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
       features: ["그래프 차트", "진도율 표시", "비교 분석", "트렌드 예측"]
     },
     {
-      icon: BookOpen,
-      title: "성장 일지",
-      description: "일일 운동 기록과 체감 변화를 기록하는 디지털 일지",
-      features: ["운동 기록", "컨디션 체크", "목표 달성도", "메모 기능"]
-    },
-    {
       icon: Bell,
       title: "스마트 알림",
       description: "개인 스케줄에 맞춘 운동 및 측정 알림 시스템",
@@ -236,7 +230,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Growth Phases */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 관리 단계</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card className="hover:shadow-lg transition-all border-blue-200">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -260,16 +254,18 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                   </p>
                 </CardContent>
               </Card>
-            </div>
-            
-            <div className="max-w-4xl mx-auto mb-8 p-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg border border-blue-200">
-              <div className="text-center">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">📊 종합적인 비교 분석</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한<br/>
-                  종합적인 비교 분석을 제공합니다.
-                </p>
-              </div>
+
+              <Card className="hover:shadow-lg transition-all border-purple-200">
+                <CardContent className="p-6 text-center">
+                  <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                    <Activity className="w-8 h-8 text-purple-600" />
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-purple-800">📊 종합적인 비교 분석</h3>
+                  <p className="text-gray-600 text-sm">
+                    정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한 종합적인 비교 분석을 제공합니다.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
 
           </section>
@@ -376,7 +372,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Management Tools */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">관리 도구</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {managementTools.map((tool, index) => {
                 const IconComponent = tool.icon;
                 return (
