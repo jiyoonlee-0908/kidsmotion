@@ -272,7 +272,13 @@ export default function Home({ onNavigate }: HomeProps) {
                     className="cursor-pointer hover:text-white transition-colors underline"
                   >
                     개인정보처리방침
-                  </span> | 이용약관</p>
+                  </span> | 
+                  <span 
+                    onClick={() => onNavigate && onNavigate('terms-of-service')}
+                    className="cursor-pointer hover:text-white transition-colors underline"
+                  >
+                    이용약관
+                  </span></p>
               </div>
             </div>
           </div>
