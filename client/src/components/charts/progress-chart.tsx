@@ -23,7 +23,9 @@ export default function ProgressChart({ currentData, labels, isAdvanced = false 
   const chartInstance = useRef<Chart | null>(null);
   
   // Mock previous data for comparison
-  const previousData = [85, 70, 58, 50];
+  const previousData = isAdvanced ? 
+    (currentData.length === 2 ? [45, 38] : currentData.length === 1 ? [45] : [85, 70, 58, 50]) : 
+    [85, 70, 58, 50];
 
   useEffect(() => {
     if (!chartRef.current) return;
@@ -73,6 +75,8 @@ export default function ProgressChart({ currentData, labels, isAdvanced = false 
             position: "top",
           },
         },
+        categoryPercentage: 0.8,
+        barPercentage: 0.6,
       },
     });
 
