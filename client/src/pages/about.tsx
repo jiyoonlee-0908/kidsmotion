@@ -69,7 +69,7 @@ export default function About({ onNavigate }: AboutProps) {
           {/* Main Features */}
           <div className="mb-16">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+              <h2 className="text-4xl md:text-5xl font-black text-gray-900 mb-6" style={{ lineHeight: '1.3' }}>
                 <span className="text-purple-600">키즈모션</span>의<br/>
                 핵심 기능과 특징
               </h2>
