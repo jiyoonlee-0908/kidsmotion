@@ -30,10 +30,10 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
           return 100;
         }
         // 0-70%는 빠르게, 70-100%는 천천히 진행
-        const increment = prev < 70 ? 2 : 0.5;
+        const increment = prev < 70 ? 1 : 0.25;
         return Math.min(prev + increment, 100);
       });
-    }, 150);
+    }, 300);
 
     const messageInterval = setInterval(() => {
       setCurrentMessage(prev => (prev + 1) % messages.length);
