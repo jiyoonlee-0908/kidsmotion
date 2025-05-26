@@ -487,9 +487,9 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">신체 변화 비교</h3>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-6">
             <div>
-              <h4 className="font-semibold text-gray-900 mb-4">체력 변화</h4>
+              <h4 className="font-semibold text-gray-900 mb-4">기본 체력 변화 (필수 측정)</h4>
               <ProgressChart 
                 currentData={[
                   Math.round(analysis.percentile5s),
@@ -499,6 +499,31 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 ]}
               />
             </div>
+            
+            {/* 고급 측정 항목이 있는 경우 */}
+            {(measurement.power180s || measurement.power360s) && (
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-4">고급 체력 변화 (선택 측정)</h4>
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    {measurement.power180s && analysis.percentile180s && (
+                      <div className="text-center">
+                        <div className="text-sm text-gray-600 mb-1">근지구력 (180초)</div>
+                        <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile180s)}%</div>
+                        <div className="text-xs text-gray-500">이전: 45%</div>
+                      </div>
+                    )}
+                    {measurement.power360s && analysis.percentile360s && (
+                      <div className="text-center">
+                        <div className="text-sm text-gray-600 mb-1">심폐지구력 (360초)</div>
+                        <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
+                        <div className="text-xs text-gray-500">이전: 38%</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
               <div className="bg-gray-50 rounded-lg p-4">
