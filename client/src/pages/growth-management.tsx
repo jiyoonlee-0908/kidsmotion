@@ -236,6 +236,22 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Growth Phases */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 관리 단계</h2>
+            <div className="max-w-4xl mx-auto mb-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
+              <h3 className="text-lg font-semibold text-blue-800 mb-3">📊 데이터 비교 분석 방식</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-700">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span><strong>직전 데이터 vs 현재 데이터</strong> 비교</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span><strong>직전 평균 데이터 vs 현재 데이터</strong> 비교</span>
+                </div>
+              </div>
+              <p className="mt-3 text-blue-600 text-sm">
+                정확한 성장 패턴 분석을 위해 개별 측정값과 평균값을 모두 활용한 종합적인 비교 분석을 제공합니다.
+              </p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {growthPhases.map((phase, index) => {
                 const IconComponent = phase.icon;
