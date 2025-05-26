@@ -378,15 +378,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">최대 심박수</h4>
                   <p className="text-sm text-gray-600">
-                    예상 최대: {220 - analysis.age}
+                    해당 나이 평균 최대심박수: {220 - analysis.age}
                   </p>
-                  <Badge className={`mt-2 ${
-                    Math.abs(analysis.maxBpm - (220 - analysis.age)) < 10 ? "bg-emerald-500" :
-                    Math.abs(analysis.maxBpm - (220 - analysis.age)) < 20 ? "bg-blue-500" : "bg-yellow-500"
-                  } text-white`}>
-                    {Math.abs(analysis.maxBpm - (220 - analysis.age)) < 10 ? "적절" :
-                     Math.abs(analysis.maxBpm - (220 - analysis.age)) < 20 ? "양호" : "확인필요"}
-                  </Badge>
                 </div>
               )}
               
