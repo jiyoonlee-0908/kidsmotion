@@ -34,25 +34,25 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
     {
       icon: BarChart3,
       title: "상세 데이터 분석",
-      description: "체력 측정 결과를 다각도로 분석한 전문가급 리포트",
+      description: "체력 측정 결과를 다각도로 분석한<br />전문가급 리포트",
       color: "blue"
     },
     {
       icon: TrendingUp,
       title: "시각적 차트",
-      description: "이해하기 쉬운 그래프와 차트로 구성된 시각적 분석",
+      description: "이해하기 쉬운 그래프와 차트로<br />구성된 시각적 분석",
       color: "green"
     },
     {
       icon: Target,
       title: "맞춤형 권장사항",
-      description: "개인별 체력 상태에 따른 구체적인 개선 방안 제시",
+      description: "개인별 체력 상태에 따른<br />구체적인 개선 방안 제시",
       color: "purple"
     },
     {
       icon: Award,
       title: "전문가 인증",
-      description: "스포츠 과학 기반의 신뢰할 수 있는 전문 분석 리포트",
+      description: "스포츠 과학 기반의 신뢰할 수 있는<br />전문 분석 리포트",
       color: "orange"
     }
   ];
@@ -66,15 +66,15 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
     },
     {
       title: "체력 측정 결과",
-      description: "와트바이크 측정을 통한 정확한 체력 데이터",
+      description: "스마트사이클 측정을 통한 정확한 체력 데이터",
       icon: BarChart3,
-      content: ["절대 파워 (W)", "우리회사기밀", "근력 및 근지구력", "심폐지구력 점수"]
+      content: ["절대 파워 (W)", "근력 및 근지구력", "순발력", "심폐지구력 점수"]
     },
     {
       title: "백분위 및 등급 분석",
       description: "또래 대비 체력 수준 및 5단계 등급 평가",
       icon: PieChart,
-      content: ["연령별 백분위", "5등급 체력 평가", "강점 및 약점 분석", "균형감각 평가"]
+      content: ["연령별 백분위", "5등급 체력 평가", "강점 및 약점 분석", "좌우밸런스 평가"]
     },
     {
       title: "AI 기반 종합 분석",
@@ -100,7 +100,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
     {
       icon: FileText,
       title: "PDF 리포트",
-      description: "인쇄 및 보관이 용이한 고품질 PDF 문서",
+      description: "인쇄&보관이 용이한 고품질 PDF 문서",
       features: ["A4 사이즈 최적화", "고해상도 차트", "전문적 디자인", "인쇄 친화적"],
       color: "red"
     },
@@ -200,7 +200,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
                         <IconComponent className="w-8 h-8" />
                       </div>
                       <h3 className="font-bold text-lg mb-2">{feature.title}</h3>
-                      <p className="text-gray-600 text-sm">{feature.description}</p>
+                      <p className="text-gray-600 text-sm" dangerouslySetInnerHTML={{ __html: feature.description }}></p>
                     </CardContent>
                   </Card>
                 );
