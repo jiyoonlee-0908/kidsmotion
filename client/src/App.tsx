@@ -16,6 +16,7 @@ import TermsOfService from "@/pages/terms-of-service";
 import AIExercisePrescription from "@/pages/ai-exercise-prescription";
 import GrowthManagement from "@/pages/growth-management";
 import ProfessionalReport from "@/pages/professional-report";
+import EasySharing from "@/pages/easy-sharing";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -46,6 +47,7 @@ function App() {
     else if (path === '/ai-exercise-prescription') setCurrentPage('ai-exercise-prescription');
     else if (path === '/growth-management') setCurrentPage('growth-management');
     else if (path === '/professional-report') setCurrentPage('professional-report');
+    else if (path === '/easy-sharing') setCurrentPage('easy-sharing');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -111,6 +113,8 @@ function App() {
         return <GrowthManagement onNavigate={navigateTo} />;
       case 'professional-report':
         return <ProfessionalReport onNavigate={navigateTo} />;
+      case 'easy-sharing':
+        return <EasySharing onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }

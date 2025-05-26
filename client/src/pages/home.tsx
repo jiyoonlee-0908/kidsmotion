@@ -221,7 +221,12 @@ export default function Home({ onNavigate }: HomeProps) {
                   >
                     전문 리포트 생성
                   </li>
-                  <li>간편한 결과 공유</li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('easy-sharing')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    간편한 결과 공유
+                  </li>
                 </ul>
               </div>
               
