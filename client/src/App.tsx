@@ -12,18 +12,7 @@ import NotFound from "@/pages/not-found";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/records" component={Records} />
-      <Route path="/about" component={About} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/report/:id" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,14 +36,19 @@ function App() {
         <Toaster />
         <Switch>
           <Route path="/admin" component={Admin} />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
           {!isAuthenticated ? (
             <Route>
               <InviteCodeForm onSuccess={handleAuthSuccess} />
             </Route>
           ) : (
-            <Router />
+            <Switch>
+              <Route path="/" component={Home} />
+              <Route path="/records" component={Records} />
+              <Route path="/about" component={About} />
+              <Route path="/contact" component={Contact} />
+              <Route path="/report/:id" component={Home} />
+              <Route component={NotFound} />
+            </Switch>
           )}
         </Switch>
       </TooltipProvider>
