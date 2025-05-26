@@ -44,6 +44,8 @@ function App() {
   const navigateTo = (page: string) => {
     setCurrentPage(page);
     window.history.pushState({}, '', `/${page === 'home' ? '' : page}`);
+    // 페이지 전환 시 맨 위로 스크롤
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Admin page can be accessed without authentication
