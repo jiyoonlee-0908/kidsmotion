@@ -326,7 +326,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                         </div>
                         <div>
                           <span className="text-gray-600">최종 업데이트:</span>
-                          <span className="ml-2 font-semibold">2024.12.15</span>
+                          <span className="ml-2 font-semibold">2025.05.26</span>
                         </div>
                         <div>
                           <span className="text-gray-600">측정 엔진:</span>
