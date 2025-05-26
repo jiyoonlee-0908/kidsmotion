@@ -215,8 +215,13 @@ export default function Home({ onNavigate }: HomeProps) {
                   >
                     지속적 성장 관리
                   </li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('professional-report')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    전문 리포트 생성
+                  </li>
                   <li>간편한 결과 공유</li>
-                  <li>전문 리포트 생성</li>
                 </ul>
               </div>
               
