@@ -14,6 +14,7 @@ import Updates from "@/pages/updates";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import AIExercisePrescription from "@/pages/ai-exercise-prescription";
+import GrowthManagement from "@/pages/growth-management";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -42,6 +43,7 @@ function App() {
     else if (path === '/privacy-policy') setCurrentPage('privacy-policy');
     else if (path === '/terms-of-service') setCurrentPage('terms-of-service');
     else if (path === '/ai-exercise-prescription') setCurrentPage('ai-exercise-prescription');
+    else if (path === '/growth-management') setCurrentPage('growth-management');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -103,6 +105,8 @@ function App() {
         return <TermsOfService onNavigate={navigateTo} />;
       case 'ai-exercise-prescription':
         return <AIExercisePrescription onNavigate={navigateTo} />;
+      case 'growth-management':
+        return <GrowthManagement onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }

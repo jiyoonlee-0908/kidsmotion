@@ -209,7 +209,12 @@ export default function Home({ onNavigate }: HomeProps) {
                   >
                     AI 기반 운동 처방
                   </li>
-                  <li>지속적 성장 관리</li>
+                  <li 
+                    onClick={() => onNavigate && onNavigate('growth-management')}
+                    className="cursor-pointer hover:text-white transition-colors"
+                  >
+                    지속적 성장 관리
+                  </li>
                   <li>간편한 결과 공유</li>
                   <li>전문 리포트 생성</li>
                 </ul>
