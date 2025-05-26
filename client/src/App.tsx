@@ -1,4 +1,3 @@
-import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,21 +7,28 @@ import Home from "@/pages/home";
 import Records from "@/pages/records";
 import About from "@/pages/about";
 import Contact from "@/pages/contact";
-import NotFound from "@/pages/not-found";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
-
+export type PageType = 'home' | 'records' | 'about' | 'contact' | 'admin';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [currentPage, setCurrentPage] = useState<PageType>('home');
 
-  // Check if user was previously authenticated
   useEffect(() => {
     const auth = localStorage.getItem('kidsmotion_authenticated');
     if (auth === 'true') {
       setIsAuthenticated(true);
     }
+    
+    // URL에 따라 현재 페이지 설정
+    const path = window.location.pathname;
+    if (path === '/admin') setCurrentPage('admin');
+    else if (path === '/about') setCurrentPage('about');
+    else if (path === '/contact') setCurrentPage('contact');
+    else if (path === '/records') setCurrentPage('records');
+    else setCurrentPage('home');
   }, []);
 
   const handleAuthSuccess = () => {
@@ -30,27 +36,38 @@ function App() {
     setIsAuthenticated(true);
   };
 
+  const navigateToPage = (page: PageType) => {
+    setCurrentPage(page);
+    const path = page === 'home' ? '/' : `/${page}`;
+    window.history.pushState({}, '', path);
+  };
+
+  const renderCurrentPage = () => {
+    if (currentPage === 'admin') {
+      return <Admin />;
+    }
+    
+    if (!isAuthenticated) {
+      return <InviteCodeForm onSuccess={handleAuthSuccess} />;
+    }
+
+    switch (currentPage) {
+      case 'records':
+        return <Records onNavigate={navigateToPage} />;
+      case 'about':
+        return <About onNavigate={navigateToPage} />;
+      case 'contact':
+        return <Contact onNavigate={navigateToPage} />;
+      default:
+        return <Home onNavigate={navigateToPage} />;
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Switch>
-          <Route path="/admin" component={Admin} />
-          {!isAuthenticated ? (
-            <Route>
-              <InviteCodeForm onSuccess={handleAuthSuccess} />
-            </Route>
-          ) : (
-            <Switch>
-              <Route path="/" component={Home} />
-              <Route path="/records" component={Records} />
-              <Route path="/about" component={About} />
-              <Route path="/contact" component={Contact} />
-              <Route path="/report/:id" component={Home} />
-              <Route component={NotFound} />
-            </Switch>
-          )}
-        </Switch>
+        {renderCurrentPage()}
       </TooltipProvider>
     </QueryClientProvider>
   );

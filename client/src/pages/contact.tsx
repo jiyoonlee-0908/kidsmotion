@@ -2,11 +2,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Users, HelpCircle, Settings } from "lucide-react";
 import Navigation from "@/components/navigation";
+import type { PageType } from "@/App";
 
-export default function Contact() {
+interface ContactProps {
+  onNavigate: (page: PageType) => void;
+}
+
+export default function Contact({ onNavigate }: ContactProps) {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
+      <Navigation onNavigate={onNavigate} />
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}

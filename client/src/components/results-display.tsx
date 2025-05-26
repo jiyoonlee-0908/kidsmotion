@@ -8,7 +8,6 @@ import {
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
 import ProgressChart from "@/components/charts/progress-chart";
-import ExerciseRecommendationCarousel from "@/components/exercise-recommendation-carousel";
 import { QRCodeSVG } from "qrcode.react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
@@ -606,14 +605,6 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
         </CardContent>
       </Card>
-
-      {/* 개인화된 운동 추천 캐러셀 섹션 */}
-      <div className="mt-8">
-        <ExerciseRecommendationCarousel 
-          measurement={measurement}
-          analysis={analysis}
-        />
-      </div>
     </div>
   );
 }
