@@ -438,11 +438,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
-                <div className="text-4xl mb-4">🧠</div>
-                <h3 className="font-semibold text-lg mb-2">W/kg^0.67 공식</h3>
-                <p className="text-gray-600 mb-3">체중 보정된 상대파워로 정확한 체력 평가</p>
+                <div className="text-4xl mb-4">📋</div>
+                <h3 className="font-semibold text-lg mb-2">AI 리포트 해석</h3>
+                <p className="text-gray-600 mb-3">복잡한 숫자를 부모가 이해하는 맞춤 해석으로 변환</p>
                 <div className="bg-purple-100 p-2 rounded text-sm text-purple-700">
-                  기존: 절대파워(부정확) → MotionBike: 상대파워(정확)
+                  기존: 숫자만 제공 → MotionBike: 맞춤 해석 + 운동처방
                 </div>
               </div>
               
@@ -472,7 +472,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <h4 className="font-semibold text-red-600 mb-2">기술적 장벽</h4>
                   <ul className="space-y-1 text-gray-700 text-sm">
                     <li>• 아동 맞춤 하드웨어 설계 노하우</li>
-                    <li>• 정밀 센서 캘리브레이션 기술</li>
+                    <li>• 체력 평가 알고리즘 새로 정립</li>
                     <li>• 연령별 체력 기준 데이터베이스</li>
                   </ul>
                 </div>
