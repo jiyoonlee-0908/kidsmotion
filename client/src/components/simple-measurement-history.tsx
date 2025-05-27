@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AlertTriangle, User, Search, Trash2 } from "lucide-react";
+import { AlertTriangle, User, Search, Trash2, Trophy, BarChart3 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface SearchResult {
@@ -244,76 +244,132 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
               );
             }
             
-            // 기존 방식 (fallback)
+            // 예쁜 카드 스타일 결과창
             return (
-            <div className="space-y-8">
-              <div className="text-center">
-                <h2 className="text-3xl font-bold gradient-text mb-4">체력 분석 결과</h2>
-                <p className="text-sm text-gray-500">(저장된 완전한 리포트가 없어 기본 정보만 표시됩니다)</p>
-              </div>
+              <div className="space-y-6 max-h-[80vh] overflow-y-auto">
+                {/* 헤더 */}
+                <div className="text-center bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6">
+                  <h2 className="text-3xl font-bold gradient-text mb-2">체력 분석 결과</h2>
+                  <div className="flex items-center justify-center gap-2 text-green-600">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium">측정 완료</span>
+                  </div>
+                </div>
 
-              <div className="bg-white rounded-lg p-6 border">
-                <div className="text-center mb-4">
-                  <h3 className="text-2xl font-bold text-gray-900">{selectedMeasurement.studentName}</h3>
+                {/* 기본 정보 카드 */}
+                <div className="fitness-card">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="flex items-center space-x-4">
+                      <div className="fitness-icon">
+                        <User className="text-white w-6 h-6" />
+                      </div>
+                      <h3 className="text-2xl font-bold gradient-text">{selectedMeasurement.studentName}</h3>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      ID: {selectedMeasurement.id}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">측정일</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.measureDate}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">소속</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.affiliation}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">생년월일</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.birthDate}</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">키/체중</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.height}cm / {selectedMeasurement.weight}kg</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-sm text-gray-600">BMI</p>
+                      <p className="font-semibold text-gray-900">{analysis?.bmi?.toFixed(1) || "N/A"}</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
-                  <div>
-                    <p className="text-sm text-gray-600">측정일</p>
-                    <p className="font-semibold">{selectedMeasurement.measureDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">소속</p>
-                    <p className="font-semibold">{selectedMeasurement.affiliation}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">생년월일</p>
-                    <p className="font-semibold">{selectedMeasurement.birthDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">키/체중</p>
-                    <p className="font-semibold">{selectedMeasurement.height}cm / {selectedMeasurement.weight}kg</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">BMI</p>
-                    <p className="font-semibold">{analysis?.bmi?.toFixed(1) || "N/A"}</p>
-                  </div>
-                </div>
-              </div>
 
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">체력 요약</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-purple-600 mb-2">{Math.round(analysis?.overallPercentile || 0)}</div>
-                    <div className="text-sm text-gray-600">종합 백분위</div>
+                {/* 체력 요약 카드 */}
+                <div className="fitness-card">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                      <Trophy className="text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">체력 요약</h3>
                   </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">강점</span>
-                      <p className="font-semibold text-green-600">
-                        {analysis?.strengths || "집중 훈련이 필요합니다"}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="text-center bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-4">
+                      <div className="text-3xl font-bold text-purple-600 mb-2">
+                        {Math.round(analysis?.overallPercentile || 0)}%
+                      </div>
+                      <div className="text-sm text-gray-600 font-medium">종합 백분위</div>
+                    </div>
+                    <div className="bg-green-50 rounded-xl p-4">
+                      <h4 className="text-sm font-semibold text-gray-600 mb-2">💪 주요 강점</h4>
+                      <p className="font-semibold text-green-700 text-sm leading-relaxed">
+                        {analysis?.strengths || "더 많은 측정이 필요합니다"}
                       </p>
                     </div>
-                  </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">보완점</span>
-                      <p className="font-semibold text-orange-600">
-                        {analysis?.improvements || "측정 필요"}
+                    <div className="bg-orange-50 rounded-xl p-4">
+                      <h4 className="text-sm font-semibold text-gray-600 mb-2">🎯 개선 항목</h4>
+                      <p className="font-semibold text-orange-700 text-sm leading-relaxed">
+                        {analysis?.improvements || "추가 측정 후 분석"}
                       </p>
                     </div>
-                  </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">한줄 요약</span>
-                      <p className="text-sm text-gray-700">
-                        {analysis?.aiSummary || "분석 결과를 확인하세요"}
+                    <div className="bg-blue-50 rounded-xl p-4">
+                      <h4 className="text-sm font-semibold text-gray-600 mb-2">📋 한줄 요약</h4>
+                      <p className="text-blue-700 text-sm leading-relaxed">
+                        {analysis?.aiSummary || "종합적인 체력 분석 결과입니다"}
                       </p>
                     </div>
                   </div>
                 </div>
+
+                {/* 상세 측정 결과 카드 */}
+                <div className="fitness-card">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <BarChart3 className="text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">상세 측정 결과</h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[
+                      { name: "순발력 (5초)", value: selectedMeasurement.power5s, percentile: analysis?.percentile5s },
+                      { name: "스프린트 파워 (15초)", value: selectedMeasurement.power15s, percentile: analysis?.percentile15s },
+                      { name: "파워 지속력 (30초)", value: selectedMeasurement.power30s, percentile: analysis?.percentile30s },
+                      { name: "근력 (60초)", value: selectedMeasurement.power60s, percentile: analysis?.percentile60s },
+                      { name: "근지구력 (180초)", value: selectedMeasurement.power180s, percentile: analysis?.percentile180s },
+                      { name: "심폐지구력 (360초)", value: selectedMeasurement.power360s, percentile: analysis?.percentile360s },
+                    ].filter(item => item.value !== null && item.value !== undefined).map((item, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-4">
+                        <h4 className="font-semibold text-gray-900 text-sm mb-2">{item.name}</h4>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-lg font-bold text-purple-600">{item.value}W</span>
+                          <span className="text-sm text-gray-600">{Math.round(item.percentile || 0)}%</span>
+                        </div>
+                        <div className="progress-bar">
+                          <div 
+                            className="progress-fill bg-purple-500"
+                            style={{ width: `${Math.round(item.percentile || 0)}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 하단 안내 */}
+                <div className="text-center bg-yellow-50 rounded-xl p-4 border border-yellow-200">
+                  <p className="text-sm text-yellow-700">
+                    📝 완전한 10개 섹션 리포트를 보려면 새로운 측정을 진행해주세요
+                  </p>
+                </div>
               </div>
-            </div>
             );
           })()}
         </DialogContent>
