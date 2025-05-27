@@ -45,9 +45,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
+                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 5분 측정으로 6가지 체력 지표 정량 데이터 제공
+                      → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
                     </div>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
@@ -57,9 +57,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
+                    <p className="text-gray-700 mb-2">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
+                      → 5분 측정으로 6가지 체력 지표 정량 데이터 제공
                     </div>
                   </div>
                 </div>
@@ -67,6 +67,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">현재 검진의 한계</h3>
                 <div className="space-y-3">
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                    <p className="text-sm text-red-600 mb-1">초등체력장의 문제점</p>
+                    <p className="text-gray-700">• 아날로그식 측정으로 정확도 한계</p>
+                    <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
+                    <p className="text-gray-700">• 숫자 세는 사람의 실수로 부정확한 결과</p>
+                    <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
+                  </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">영유아검진 설문 방식</p>
                     <p className="text-gray-700">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 동그라미 1,2,3,4</p>
