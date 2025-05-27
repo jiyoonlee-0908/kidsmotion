@@ -139,7 +139,7 @@ function App() {
                 {/* 서비스 */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">서비스</h3>
-                  <ul className="space-y-2 text-sm text-gray-300">
+                  <ul className="space-y-2 text-base text-gray-300">
                     <li>AI 기반 운동 처방</li>
                     <li>지속적 성장 관리</li>
                     <li>전문 리포트 생성</li>
@@ -150,7 +150,7 @@ function App() {
                 {/* 지원 */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">지원</h3>
-                  <ul className="space-y-2 text-sm text-gray-300">
+                  <ul className="space-y-2 text-base text-gray-300">
                     <li>사용자 가이드</li>
                     <li>FAQ</li>
                     <li>기술 지원</li>
@@ -161,7 +161,7 @@ function App() {
                 {/* 연락처 */}
                 <div>
                   <h3 className="text-lg font-semibold mb-4">연락처</h3>
-                  <div className="space-y-2 text-sm text-gray-300">
+                  <div className="space-y-2 text-base text-gray-300">
                     <div className="flex items-center">
                       <span className="mr-2">📞</span>
                       <span>010-8445-0908</span>
@@ -179,10 +179,10 @@ function App() {
               </div>
               
               {/* 회사 정보 */}
-              <div className="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
+              <div className="border-t border-gray-700 mt-8 pt-6 text-center text-base text-gray-400">
                 <p>MotionBike 가족으로 - 아동 체력 분석 | 실버모션 - 시니어 건강관리 | 휠모션 - 장애인 재활</p>
                 <p className="mt-2">© 2025 MotionBike. All rights reserved. | 개인정보처리방침 | 이용약관</p>
-                <p className="mt-1 text-xs">
+                <p className="mt-1 text-sm">
                   [권장] 으로 이동하여 Windows를 정품 인증할 수 있습니다.
                 </p>
               </div>
