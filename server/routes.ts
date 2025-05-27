@@ -304,14 +304,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
           percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
         }
         
-        // 백분위순으로 정렬
-        const sorted = [...percentileData].sort((a, b) => b.value - a.value);
+        let strengths = [];
+        let improvements = [];
         
-        // 상위 2개는 강점
-        const strengths = sorted.slice(0, 2).map(item => item.name);
+        // 1등급(80% 이상)은 무조건 강점
+        const grade1Items = percentileData.filter(item => item.value >= 80);
+        strengths.push(...grade1Items.map(item => item.name));
         
-        // 하위 2개는 보완점
-        const improvements = sorted.slice(-2).map(item => item.name);
+        // 5등급(20% 미만)은 무조건 보완점
+        const grade5Items = percentileData.filter(item => item.value < 20);
+        improvements.push(...grade5Items.map(item => item.name));
+        
+        // 1등급, 5등급이 아닌 나머지 항목들
+        const middleItems = percentileData.filter(item => item.value >= 20 && item.value < 80);
+        
+        if (middleItems.length > 0) {
+          // 백분위순으로 정렬 (높은 순)
+          const sorted = [...middleItems].sort((a, b) => b.value - a.value);
+          
+          // 상위 2개 중에서 이미 강점에 없는 것들 추가
+          let strengthsToAdd = 2 - strengths.length;
+          if (strengthsToAdd > 0) {
+            const topItems = sorted.slice(0, strengthsToAdd);
+            strengths.push(...topItems.map(item => item.name));
+          }
+          
+          // 하위 2개 중에서 이미 보완점에 없는 것들 추가
+          let improvementsToAdd = 2 - improvements.length;
+          if (improvementsToAdd > 0) {
+            const bottomItems = sorted.slice(-improvementsToAdd);
+            improvements.push(...bottomItems.map(item => item.name));
+          }
+        }
+        
+        // 강점이 없으면 기본 상위 2개
+        if (strengths.length === 0) {
+          const sorted = [...percentileData].sort((a, b) => b.value - a.value);
+          strengths = sorted.slice(0, 2).map(item => item.name);
+        }
+        
+        // 보완점이 없으면 기본 하위 2개
+        if (improvements.length === 0) {
+          const sorted = [...percentileData].sort((a, b) => b.value - a.value);
+          improvements = sorted.slice(-2).map(item => item.name);
+        }
         
         return {
           strengths: strengths.join(", "),
