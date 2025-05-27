@@ -481,7 +481,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
-              🎯 450만 데이터로 입증하는 시장 검증력
+              🔥🎯 파일럿부터 검증하는 확실한 성공 공식
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -534,7 +534,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Users className="w-6 h-6 mr-3 text-pink-600" />
-              💡 기관 매출 30% 증가하는 비밀 무기
+              🚀💡 기관 수익 극대화하는 게임체인저
             </CardTitle>
           </CardHeader>
           <CardContent>
