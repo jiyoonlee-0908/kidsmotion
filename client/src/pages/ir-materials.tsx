@@ -105,34 +105,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 정부 정책 기회 */}
-        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-blue-700 mb-4">🏛️ 정부 정책: 국민건강 데이터화 추진</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">국민체력100의 한계</h3>
-                <div className="space-y-3">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-red-600 mb-2">현재 측정 방식 (아날로그)</p>
-                    <p className="text-gray-700">• 제자리 멀리뛰기 → 줄자로 측정</p>
-                    <p className="text-gray-700">• 윗몸말아올리기 → 사람이 카운트</p>
-                    <p className="text-gray-700">• 왕복오래달리기 → 수동 기록</p>
-                  </div>
-                  <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
-                    <p className="text-gray-600 mb-2">결과</p>
-                    <p className="text-gray-700">• 정확성 부족</p>
-                    <p className="text-gray-700">• 데이터 축적 어려움</p>
-                    <p className="text-gray-700">• 국민건강 빅데이터 구축 불가</p>
-                  </div>
-                </div>
-              </div>
 
-            </div>
-          </CardContent>
-        </Card>
 
         {/* 정부 정책: 국민건강 데이터화 추진 */}
         <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
