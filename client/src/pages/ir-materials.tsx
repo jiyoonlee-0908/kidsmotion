@@ -353,7 +353,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">⚡ 에어 저항 시스템</h4>
+                    <h4 className="font-semibold text-gray-800 mb-2">⚡ 공기 저항 시스템</h4>
                     <p className="text-gray-700">• 페달링 강도에 따른 자동 저항 조절</p>
                     <p className="text-gray-700">• 정확한 파워 측정을 위한 정밀 센서</p>
                     <p className="text-gray-700">• 좌우 독립 측정으로 밸런스 분석</p>
