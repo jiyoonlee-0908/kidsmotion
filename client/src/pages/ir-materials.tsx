@@ -567,11 +567,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="font-semibold text-gray-800 mb-2">Q: "현재 개발 상황은 어떻게 되나요?"</p>
                     <div className="text-gray-700 text-sm">
                       <p className="mb-2">A: 웹 MVP와 하드웨어 프로토타입이 모두 완성되었습니다.</p>
-                      <p className="text-gray-600 text-xs mb-3">(보안상 이유로 하드웨어 사진은 미팅 시 별도 공개)</p>
-                      <div className="bg-yellow-50 p-3 rounded-lg">
-                        <p className="font-medium text-yellow-800 mb-1">단계별 진출 계획:</p>
-                        <p className="text-yellow-700">2026년 스포츠학원 시작 → 2027년 의료기기 신청 → 2028년 인증완료 → 2029년 의료기관 진출</p>
-                      </div>
+                      <p className="text-gray-600 text-xs mb-2">(보안상 이유로 하드웨어 사진은 미팅 시 별도 공개)</p>
+                      <p className="text-gray-700">단계별 진출 계획: 2026년 스포츠학원 시작 → 2027년 의료기기 신청 → 2028년 인증완료 → 2029년 의료기관 진출</p>
                     </div>
                   </div>
                   <div>
