@@ -150,130 +150,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 💰 시장 규모 및 투자 기회 - 정부 정책 바로 다음 */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <TrendingUp className="w-6 h-6 mr-3 text-green-600" />
-              시장 규모 및 투자 기회
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="text-center bg-green-50 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-green-600 mb-2">249만명</div>
-                <p className="text-gray-600 mb-4">전국 초등학생 수 (2024년 기준)</p>
-                <div className="bg-white p-3 rounded-lg">
-                  <p className="text-sm text-green-700">연간 영유아 건강검진 수검인원</p>
-                  <p className="text-lg font-bold text-green-800">177만명 (2023년 기준)</p>
-                </div>
-              </div>
-              <div className="text-center bg-red-50 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
-                <p className="text-gray-600 mb-4">전국 소아·청소년과 전문 진료기관</p>
-                <div className="bg-white p-3 rounded-lg">
-                  <p className="text-sm text-red-700">의원급(1차 의료기관): 2,147개소</p>
-                  <p className="text-sm text-red-700">전국 보건소: 261개소</p>
-                </div>
-              </div>
-              <div className="text-center bg-purple-50 p-6 rounded-lg">
-                <div className="text-4xl font-bold text-purple-600 mb-2">24,000개+</div>
-                <p className="text-gray-600 mb-4">전국 아동 스포츠 학원</p>
-                <div className="bg-white p-3 rounded-lg">
-                  <p className="text-sm text-purple-700">축구교실, 수영장, 체조교실, 태권도장 등</p>
-                  <p className="text-sm text-purple-700">체력 측정 및 맞춤 훈련 수요</p>
-                </div>
-              </div>
-            </div>
 
-            {/* 해외 시장 기회 */}
-            <div className="mt-8 bg-gradient-to-r from-blue-100 to-indigo-100 p-6 rounded-lg border border-blue-200">
-              <h3 className="text-xl font-bold text-blue-800 mb-4">🌍 글로벌 시장 기회</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center bg-white p-4 rounded-lg shadow">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">$218억</div>
-                  <p className="text-gray-600 mb-2">글로벌 아동 스포츠 장비 시장 (2022년)</p>
-                  <p className="text-sm text-blue-700">약 29조 원 규모</p>
-                </div>
-                <div className="text-center bg-white p-4 rounded-lg shadow">
-                  <div className="text-3xl font-bold text-indigo-600 mb-2">$306억</div>
-                  <p className="text-gray-600 mb-2">2030년 전망 시장 규모</p>
-                  <p className="text-sm text-indigo-700">약 41조 원 (CAGR 4.4%)</p>
-                </div>
-                <div className="text-center bg-white p-4 rounded-lg shadow">
-                  <div className="text-3xl font-bold text-teal-600 mb-2">5.5%</div>
-                  <p className="text-gray-600 mb-2">피트니스 장비 부문 연평균 성장률</p>
-                  <p className="text-sm text-teal-700">가장 빠른 성장세</p>
-                </div>
-              </div>
-              
-              {/* 출처 정보 */}
-              <div className="mt-4 bg-white/50 p-3 rounded-lg border border-blue-200">
-                <p className="text-xs text-gray-600">
-                  <strong>출처:</strong> Grand View Research, "Kids Sports Equipment Market Size & Share Analysis Report 2023-2030"<br/>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research And Markets, "Global Youth Sports Equipment Market Report 2023"
-                </p>
-              </div>
-            </div>
-
-            {/* 투자 포인트 */}
-            <div className="mt-8 bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-lg border border-purple-200">
-              <h3 className="text-xl font-bold text-purple-800 mb-4">💡 투자 포인트</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-purple-700 mb-3">시장 성장 동력</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• 저출산으로 한 자녀당 투자 증가</li>
-                    <li>• 부모들의 성장 관련 민감도 증가</li>
-                    <li>• 정부의 국민건강 데이터화 정책</li>
-                    <li>• 디지털 헬스케어 확산</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-purple-700 mb-3">선점 효과</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• 아동 운동발달 정량화 최초 시스템</li>
-                    <li>• B2B/B2G 시장 진입 용이성</li>
-                    <li>• 데이터 누적으로 AI 성능 향상</li>
-                    <li>• 의료기관 표준화 가능성</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* 부유층 트렌드세팅 효과 */}
-              <div className="mt-6 bg-gradient-to-r from-amber-100 to-yellow-100 p-4 rounded-lg border border-amber-200">
-                <h4 className="font-semibold text-amber-800 mb-3">🥇 부유층 트렌드세팅 전략</h4>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-white p-3 rounded-lg">
-                    <h5 className="font-semibold text-amber-700 mb-2">조기 어답터 타겟</h5>
-                    <ul className="space-y-1 text-gray-700 text-xs">
-                      <li>• <strong>프리미엄 스포츠 학원:</strong> 하키, 펜싱, 골프</li>
-                      <li>• <strong>사립 체육시설:</strong> 강남, 분당, 일산 등</li>
-                      <li>• <strong>국제학교 연계:</strong> 해외 진학 준비생</li>
-                      <li>• <strong>전문 운동선수 양성:</strong> 조기 재능 발굴</li>
-                    </ul>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg">
-                    <h5 className="font-semibold text-amber-700 mb-2">확산 효과 기대</h5>
-                    <ul className="space-y-1 text-gray-700 text-xs">
-                      <li>• <strong>SNS 확산:</strong> "우리 아이 체력 측정 결과"</li>
-                      <li>• <strong>학부모 커뮤니티:</strong> 입소문 마케팅</li>
-                      <li>• <strong>교육열 확산:</strong> 일반 가정으로 전파</li>
-                      <li>• <strong>표준화 인식:</strong> "체력측정은 필수"</li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div className="mt-3 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-                  <p className="text-sm text-yellow-800">
-                    <strong>💡 전략적 시사점:</strong> 부유층이 먼저 도입하면 "프리미엄 육아 트렌드"가 되어 
-                    일반 가정으로 확산됩니다. 명품 유모차, 프리미엄 분유처럼 "우리 아이에게 최고를" 심리를 자극할 수 있어요.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* 하드웨어 혁신 */}
         <Card className="mb-16">
@@ -589,12 +466,31 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 시장 진입 전략 */}
+        {/* 통합된 시장 분석 & 진입 전략 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-green-700 mb-4">💰 B2B/B2G 시장 진입 전략</CardTitle>
+            <CardTitle className="text-2xl text-green-700 mb-4">📊 타겟 시장 & 진입 전략</CardTitle>
           </CardHeader>
           <CardContent>
+            {/* 시장 규모 추가 */}
+            <div className="mb-8 bg-white p-6 rounded-lg border border-emerald-200">
+              <h3 className="text-xl font-bold text-emerald-800 mb-4">💰 시장 규모</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center bg-emerald-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-emerald-600 mb-2">249만명</div>
+                  <p className="text-gray-600 text-sm">전국 초등학생 수<br/>(2024년 기준)</p>
+                </div>
+                <div className="text-center bg-red-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-red-600 mb-2">3,302개소</div>
+                  <p className="text-gray-600 text-sm">소아·청소년과<br/>전문 진료기관</p>
+                </div>
+                <div className="text-center bg-blue-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">2만4천개+</div>
+                  <p className="text-gray-600 text-sm">아동 스포츠 학원<br/>(축구·태권도·수영 등)</p>
+                </div>
+              </div>
+            </div>
+
             <div className="grid md:grid-cols-3 gap-8">
               
               {/* 의료기관 */}
