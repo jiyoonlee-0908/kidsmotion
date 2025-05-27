@@ -26,6 +26,7 @@ import {
   Globe
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface TechSupportProps {
   onNavigate?: (page: string) => void;
@@ -499,6 +500,8 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
           </Card>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

@@ -14,6 +14,7 @@ import {
   Activity
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface UserGuideProps {
   onNavigate?: (page: string) => void;
@@ -373,6 +374,8 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
           </Card>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

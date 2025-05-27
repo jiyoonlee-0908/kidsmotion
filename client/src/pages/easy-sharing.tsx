@@ -24,6 +24,7 @@ import {
   Send
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface EasySharingProps {
   onNavigate?: (page: string) => void;
@@ -436,6 +437,8 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
           </section>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

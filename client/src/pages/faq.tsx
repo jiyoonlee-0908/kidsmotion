@@ -17,6 +17,7 @@ import {
   Mail
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface FAQProps {
   onNavigate?: (page: string) => void;
@@ -344,6 +345,8 @@ export default function FAQ({ onNavigate }: FAQProps) {
           </div>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }
