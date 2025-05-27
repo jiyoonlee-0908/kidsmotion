@@ -485,7 +485,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <h4 className="font-semibold mb-2">밸런스 상태</h4>
                       <p className="text-sm text-gray-700">
                         좌우 밸런스 차이: {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
-                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (정상 범위)" : " (주의 필요)"}
+                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? " (정상 범위)" : 
+                         Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (주의 필요)" : " (교정 필요)"}
                       </p>
                     </div>
                   </div>
