@@ -258,7 +258,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   setSearchAffiliation('');
                   setSearchBirthDate('');
                   setSearchGender('');
-                  setMeasurements([auroraData]);
+                  handleSearch();
                 }}
               >
                 초기화
@@ -379,11 +379,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               {/* 헤더 */}
               <div className="text-center">
                 <h2 className="text-3xl font-bold gradient-text mb-4">체력 분석 결과</h2>
-                <div className="flex justify-center space-x-4">
-                  <Button variant="outline" className="text-purple-600 border-purple-300">
-                    새 측정
-                  </Button>
-                </div>
               </div>
 
               {/* 기본 정보 섹션 */}
@@ -467,8 +462,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       </div>
                     </div>
                     <div className="bg-gray-50 rounded p-4">
-                      <h4 className="font-semibold mb-2">AI 코멘트</h4>
-                      <p className="text-sm text-gray-700">{selectedMeasurement.balanceComment}</p>
+                      <h4 className="font-semibold mb-2">밸런스 상태</h4>
+                      <p className="text-sm text-gray-700">
+                        좌우 밸런스 차이: {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
+                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (정상 범위)" : " (주의 필요)"}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -495,7 +493,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className={`progress-fill ${selectedMeasurement.percentile5s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
                     </div>
-                    <p className="text-sm text-gray-700">{selectedMeasurement.explanation5s}</p>
+                    <p className="text-sm text-gray-700">
+                      {selectedMeasurement.percentile5s >= 80 ? "우수한 순발력을 보여줍니다." :
+                       selectedMeasurement.percentile5s >= 60 ? "양호한 순발력입니다." :
+                       selectedMeasurement.percentile5s >= 40 ? "평균적인 순발력입니다." :
+                       selectedMeasurement.percentile5s >= 20 ? "순발력 향상이 필요합니다." :
+                       "순발력 집중 훈련이 권장됩니다."}
+                    </p>
                   </div>
 
                   <div className="fitness-item">
@@ -515,7 +519,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className={`progress-fill ${selectedMeasurement.percentile15s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
                     </div>
-                    <p className="text-sm text-gray-700">{selectedMeasurement.explanation15s}</p>
+                    <p className="text-sm text-gray-700">
+                      {selectedMeasurement.percentile15s >= 80 ? "우수한 스프린트 파워를 보여줍니다." :
+                       selectedMeasurement.percentile15s >= 60 ? "양호한 스프린트 파워입니다." :
+                       selectedMeasurement.percentile15s >= 40 ? "평균적인 스프린트 파워입니다." :
+                       selectedMeasurement.percentile15s >= 20 ? "스프린트 파워 향상이 필요합니다." :
+                       "스프린트 파워 집중 훈련이 권장됩니다."}
+                    </p>
                   </div>
 
                   <div className="fitness-item">
@@ -584,69 +594,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 </div>
               )}
 
-              {/* 체력 종합 분석 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">체력 종합 분석</h3>
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold mb-2">AI 종합 해설</h4>
-                    <div className="text-sm text-gray-700 space-y-2">
-                      {selectedMeasurement.comprehensiveAnalysis?.split(' | ').map((point, index) => (
-                        <p key={index}>• {point}</p>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <h4 className="font-semibold text-green-600">최고 항목</h4>
-                      <p className="text-sm">근력 (60초)</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-orange-600">개선 항목</h4>
-                      <p className="text-sm">순발력 (5초)</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* 신체 변화 비교 - 임시 데이터 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">신체 변화 비교</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-2">체력 변화</h4>
-                    <p className="text-sm text-gray-600">이전 측정 데이터가 있으면 여기에 표시됩니다.</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">좌우 밸런스 변화</h4>
-                    <div className="text-sm">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="text-xs text-gray-600">
-                            <th>날짜</th><th>좌</th><th>우</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="text-xs">
-                            <td>이전 측정</td><td>-</td><td>-</td>
-                          </tr>
-                          <tr className="text-xs">
-                            <td>{selectedMeasurement.measureDate}</td>
-                            <td>{selectedMeasurement.leftBalance}%</td>
-                            <td>{selectedMeasurement.rightBalance}%</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 종합 평가 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">종합 평가</h3>
-                <p className="text-sm text-gray-700">{selectedMeasurement.overallAssessment}</p>
-              </div>
 
               {/* 다음 측정 및 이력 안내 */}
               <div className="bg-white rounded-lg p-6 border">
