@@ -281,8 +281,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <div className="text-xs text-gray-500">스마트 사이클</div>
                   </div>
                 </div>
-                <p className="text-sm text-gray-600 text-center italic">
-                  * 실사 KidsMotion으로 대체 예정
+                <p className="text-sm text-gray-600 text-center bg-gray-50 p-2 rounded">
+                  * 보안상 실제 하드웨어 사진은 미팅 시 별도 공개
                 </p>
               </div>
             </div>
