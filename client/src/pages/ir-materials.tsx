@@ -123,7 +123,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
                     <p className="text-gray-600 mb-2">결과</p>
-                    <p className="text-gray-700">• 정확성 부족, 데이터 축적 어려움</p>
+                    <p className="text-gray-700">• 정확성 부족</p>
+                    <p className="text-gray-700">• 데이터 축적 어려움</p>
                     <p className="text-gray-700">• 국민건강 빅데이터 구축 불가</p>
                   </div>
                 </div>
