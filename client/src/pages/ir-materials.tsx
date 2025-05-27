@@ -66,29 +66,29 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">현재 검진의 한계</h3>
-                <div className="space-y-3">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
-                    <p className="text-sm text-yellow-600 mb-1">영유아검진의 대근육운동발달 항목의 한계</p>
-                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④</p>
-                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④</p>
+                <div className="space-y-5">
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-yellow-500">
+                    <p className="text-sm text-yellow-600 mb-2">영유아검진의 대근육운동발달 항목의 한계</p>
+                    <p className="text-gray-700 mb-1">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④</p>
+                    <p className="text-gray-700 mb-1">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④</p>
                     <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-sm text-red-600 mb-1">초등체력장의 한계</p>
-                    <p className="text-gray-700">• 아날로그식 측정으로 정확도 한계</p>
-                    <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
-                    <p className="text-gray-700">• 숫자 세는 사람의 실수로 부정확한 결과</p>
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-red-500">
+                    <p className="text-sm text-red-600 mb-2">초등체력장의 한계</p>
+                    <p className="text-gray-700 mb-1">• 아날로그식 측정으로 정확도 한계</p>
+                    <p className="text-gray-700 mb-1">• 날씨, 공간에 따른 측정 편차 발생</p>
+                    <p className="text-gray-700 mb-1">• 숫자 세는 사람의 실수로 부정확한 결과</p>
                     <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
-                    <p className="text-sm text-blue-600 mb-1">국민체육진흥공단 국민체력100의 한계</p>
-                    <p className="text-gray-700">• 악력기로 근력 체크 → 전신근력이 아닌 부분근력만 측정</p>
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-blue-500">
+                    <p className="text-sm text-blue-600 mb-2">국민체육진흥공단 국민체력100의 한계</p>
+                    <p className="text-gray-700 mb-1">• 악력기로 근력 체크 → 전신근력이 아닌 부분근력만 측정</p>
                     <p className="text-gray-700">• 국가 주관 평가임에도 정량 데이터 제공 안됨</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
-                    <p className="text-sm text-gray-600 mb-1">종합 결과</p>
-                    <p className="text-gray-700">• 정량적 데이터 부재로 조기발견 실패</p>
-                    <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
+                  <div className="bg-gray-50 p-5 rounded-lg border-l-4 border-gray-400">
+                    <p className="text-sm text-gray-600 mb-2">종합 결과</p>
+                    <p className="text-gray-700 mb-1">• 정량적 데이터 부재로 조기발견 실패</p>
+                    <p className="text-gray-700 mb-1">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
                     <p className="text-gray-700">• 개인별 맞춤 개선 방안 제시 불가</p>
                   </div>
                 </div>
