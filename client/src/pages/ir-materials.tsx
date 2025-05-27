@@ -92,6 +92,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">• 국가 주관 평가임에도 정량 데이터 제공 안됨</p>
                   </div>
 
+
                   <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
                     <p className="text-gray-600 mb-2">종합 결과</p>
                     <p className="text-gray-700">• 정량적 데이터 부재로 조기발견 실패</p>
