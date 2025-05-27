@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { BarChart, Star, Bike, Phone, Mail, MapPin } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface AboutProps {
   onNavigate?: (page: string) => void;
@@ -281,6 +282,7 @@ export default function About({ onNavigate }: AboutProps) {
           </div>
         </div>
       </main>
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

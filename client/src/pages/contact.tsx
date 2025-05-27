@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, MessageCircle, Users, HelpCircle, Settings } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface ContactProps {
   onNavigate?: (page: string) => void;
@@ -258,6 +259,7 @@ export default function Contact({ onNavigate }: ContactProps) {
           </Card>
         </div>
       </main>
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }
