@@ -59,7 +59,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 5분 측정으로 6가지 체력 지표 정량 데이터 제공
+                      → 조기 개입 가능: 5등급, 하위 4% 바로 확인하여 즉시 대응
                     </div>
                   </div>
                 </div>
