@@ -37,7 +37,8 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
-          <div 
+          <div className="flex items-center space-x-4">
+            <div 
             onMouseDown={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -120,10 +121,12 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               </span>
             </div>
             
+          </div>
+            
             {/* IR자료 버튼 */}
             <Button
               onClick={() => handleNavigation('ir-materials')}
-              className="ml-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white px-3 py-1.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 font-medium text-sm whitespace-nowrap"
+              className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 font-medium text-sm whitespace-nowrap"
             >
               IR자료
             </Button>
