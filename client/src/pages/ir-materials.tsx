@@ -86,6 +86,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
                     <p className="text-gray-700">• 개인별 맞춤 개선 방안 제시 불가</p>
                   </div>
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                    <p className="text-sm text-blue-600 mb-1">국민체력 100의 한계</p>
+                    <p className="text-gray-700">• 성인 위주 설계로 아동 특성 미반영</p>
+                    <p className="text-gray-700">• 복잡한 측정 절차로 접근성 제한</p>
+                    <p className="text-gray-700">• 즉석 결과 제공 불가</p>
+                    <p className="text-gray-700">• 개인별 맞춤 운동 처방 부재</p>
+                  </div>
                 </div>
               </div>
             </div>
