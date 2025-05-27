@@ -566,8 +566,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         measurement,
         analysis: analysisResult,
-        strengths,
-        improvements
+        strengths: strengthsText.split(", "),
+        improvements: improvementsText.split(", ")
       });
       
     } catch (error) {
