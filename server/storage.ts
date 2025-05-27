@@ -1,4 +1,6 @@
 import { measurements, analysisResults, inviteCodes, type Measurement, type InsertMeasurement, type AnalysisResult, type InsertAnalysisResult, users, type User, type InsertUser, type InviteCode, type InsertInviteCode } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -201,4 +203,105 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async createMeasurement(insertMeasurement: InsertMeasurement): Promise<Measurement> {
+    const [measurement] = await db
+      .insert(measurements)
+      .values(insertMeasurement)
+      .returning();
+    return measurement;
+  }
+
+  async getMeasurement(id: number): Promise<Measurement | undefined> {
+    const [measurement] = await db.select().from(measurements).where(eq(measurements.id, id));
+    return measurement || undefined;
+  }
+
+  async getAllMeasurements(): Promise<Measurement[]> {
+    return await db.select().from(measurements);
+  }
+
+  async deleteMeasurement(id: number): Promise<void> {
+    await db.delete(measurements).where(eq(measurements.id, id));
+  }
+
+  async createAnalysisResult(insertResult: InsertAnalysisResult): Promise<AnalysisResult> {
+    const [result] = await db
+      .insert(analysisResults)
+      .values(insertResult)
+      .returning();
+    return result;
+  }
+
+  async getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined> {
+    const [result] = await db.select().from(analysisResults).where(eq(analysisResults.measurementId, measurementId));
+    return result || undefined;
+  }
+
+  async getMeasurementsByStudent(studentName: string): Promise<Measurement[]> {
+    return await db.select().from(measurements).where(eq(measurements.studentName, studentName));
+  }
+
+  async searchMeasurements(criteria: {
+    studentName?: string;
+    affiliation?: string;
+    birthDate?: string;
+    gender?: string;
+  }): Promise<Measurement[]> {
+    let query = db.select().from(measurements);
+    
+    if (criteria.studentName) {
+      query = query.where(eq(measurements.studentName, criteria.studentName));
+    }
+    if (criteria.affiliation) {
+      query = query.where(eq(measurements.affiliation, criteria.affiliation));
+    }
+    if (criteria.birthDate) {
+      query = query.where(eq(measurements.birthDate, criteria.birthDate));
+    }
+    if (criteria.gender) {
+      query = query.where(eq(measurements.gender, criteria.gender));
+    }
+
+    return await query;
+  }
+
+  async createInviteCode(insertInviteCode: InsertInviteCode): Promise<InviteCode> {
+    const [inviteCode] = await db
+      .insert(inviteCodes)
+      .values(insertInviteCode)
+      .returning();
+    return inviteCode;
+  }
+
+  async getInviteCode(code: string): Promise<InviteCode | undefined> {
+    const [inviteCode] = await db.select().from(inviteCodes).where(eq(inviteCodes.code, code));
+    return inviteCode || undefined;
+  }
+
+  async markInviteCodeAsUsed(code: string): Promise<void> {
+    await db.update(inviteCodes)
+      .set({ isUsed: "true", usedAt: new Date() })
+      .where(eq(inviteCodes.code, code));
+  }
+}
+
+export const storage = new MemStorage();
