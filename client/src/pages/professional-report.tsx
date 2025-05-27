@@ -24,6 +24,7 @@ import {
   FileCheck
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface ProfessionalReportProps {
   onNavigate?: (page: string) => void;
@@ -380,6 +381,8 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
           </section>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

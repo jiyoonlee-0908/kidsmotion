@@ -23,6 +23,7 @@ import {
   Lightbulb
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface GrowthManagementProps {
   onNavigate?: (page: string) => void;
@@ -444,6 +445,8 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           </section>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }

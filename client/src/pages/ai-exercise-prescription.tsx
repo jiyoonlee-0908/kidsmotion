@@ -19,6 +19,7 @@ import {
   Lightbulb
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface AIExercisePrescriptionProps {
   onNavigate?: (page: string) => void;
@@ -322,6 +323,8 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
           </section>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }
