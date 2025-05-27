@@ -28,7 +28,7 @@ export const measurements = pgTable("measurements", {
   avgHeartRate: real("avg_heart_rate").notNull(),
   // 고급 측정 (선택사항)
   power180s: real("power_180s"),
-  power360s: real("power_360s"),
+  power300s: real("power_300s"), // 5분 심폐지구력 (기존 360초에서 변경)
   createdAt: timestamp("created_at").defaultNow(),
 });
 

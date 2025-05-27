@@ -9,9 +9,9 @@ import OpenAI from "openai";
 // Constants
 const POWER_EXPONENT = 0.67;
 
-// 와트바이크 파워표와 표준 신장/체중 기반 정확한 기준값 사용
-import { correctWattbikeCutoffs } from "./correct-wattbike-cutoffs";
-const cutoffData = correctWattbikeCutoffs;
+// 최종 와트바이크 파워표 + 로그선형내삽 + 300초(5분) 기준값 사용
+import { finalWattbikeCutoffs } from "./final-wattbike-cutoffs";
+const cutoffData = finalWattbikeCutoffs;
 
 console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
 
