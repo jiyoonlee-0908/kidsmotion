@@ -729,10 +729,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <h4 className="font-semibold">2027년: 의료기기 신청</h4>
                     <p className="text-sm">임상시험 진행, 하드웨어 판매 확대</p>
                   </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2028년: 인증 완료</h4>
-                    <p className="text-sm">의료기기 인증 취득, 신뢰도 확보</p>
-                  </div>
+
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">2029년: 의료기관 진출</h4>
                     <p className="text-sm">병원 + 보건소 진입으로 100억 매출</p>
