@@ -78,7 +78,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     📊 체력 측정
                   </DropdownMenuItem>
                   <DropdownMenuItem 
-                    onClick={() => handleNavigation('measurement-history')}
+                    onClick={() => handleNavigation('records')}
                     className="cursor-pointer hover:bg-primary/10"
                   >
                     📈 측정 기록
