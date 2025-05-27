@@ -36,16 +36,19 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">현재 부모들의 고민</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-800">현재 부모들의 절박한 고민</h3>
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"우리 아이 좌우가 틀어진 것 같은데 성장에 문제가 있을까?"</p>
+                    <p className="text-gray-700">"큰일났다! 우리 아이 좌우가 틀어진 것 같은데 성장에 문제가 생기는 건 아니겠지?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"체력이 또래보다 떨어지는 것 같은데 정확히 어느 정도인지 모르겠다"</p>
+                    <p className="text-gray-700">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"병원에서도 설문만 하고 정확한 측정은 안 해준다"</p>
+                    <p className="text-gray-700">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700">"우리 아이만 뒤처지는 건 아닐까? 지금 조치를 안 하면 더 늦을까봐 걱정돼..."</p>
                   </div>
                 </div>
               </div>
