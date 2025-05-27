@@ -97,7 +97,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 </span>
                 <span 
                   onClick={() => onNavigate && onNavigate('ir-materials')}
-                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors"
+                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors border-2 border-purple-400 px-3 py-1 rounded-lg hover:border-purple-600 hover:bg-purple-50"
                 >
                   IR자료
                 </span>
