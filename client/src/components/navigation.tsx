@@ -164,6 +164,13 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               </DropdownMenu>
               
               <span 
+                onClick={() => handleNavigation('ir-materials')}
+                className="text-lg font-semibold bg-gradient-to-r from-violet-600 to-purple-600 bg-clip-text text-transparent hover:from-violet-700 hover:to-purple-700 px-3 py-2 rounded-lg hover:bg-purple-50 cursor-pointer transition-all duration-200 border border-purple-200"
+              >
+                IR자료
+              </span>
+              
+              <span 
                 onClick={() => handleNavigation('about')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
               >
