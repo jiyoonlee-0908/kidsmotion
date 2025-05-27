@@ -312,6 +312,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         overallAssessment: aiAnalysis.overallAssessment
       });
       
+      console.log("측정 데이터 저장 완료:", measurement.id, measurement.studentName);
+      
       res.json({
         measurement,
         analysis: analysisResult,
@@ -381,33 +383,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Search measurements endpoint
+  // 모든 측정 데이터 조회 (새로운 엔드포인트)
+  app.get("/api/measurements/all", async (req, res) => {
+    try {
+      console.log("=== 모든 측정 데이터 조회 요청 ===");
+      const measurements = await storage.getAllMeasurements();
+      console.log("저장된 측정 데이터 개수:", measurements.length);
+      
+      if (measurements.length === 0) {
+        console.log("저장된 데이터가 없음");
+        return res.json([]);
+      }
+      
+      // 각 측정에 대한 분석 결과 가져오기
+      const results = await Promise.all(
+        measurements.map(async (measurement) => {
+          const analysis = await storage.getAnalysisResult(measurement.id);
+          return {
+            measurement,
+            analysis
+          };
+        })
+      );
+      
+      console.log("분석 결과 포함한 데이터 개수:", results.length);
+      res.json(results);
+      
+    } catch (error) {
+      console.error("모든 데이터 조회 오류:", error);
+      res.status(500).json({ error: "Failed to retrieve all measurements" });
+    }
+  });
+
+  // Search measurements endpoint (수정된 버전)
   app.get("/api/measurements/search", async (req, res) => {
     try {
       const { studentName, affiliation, birthDate, gender } = req.query;
       
-      console.log("검색 요청:", { studentName, affiliation, birthDate, gender });
+      console.log("=== 검색 요청 ===", { studentName, affiliation, birthDate, gender });
       
-      // 빈 이름이거나 ALL_DATA면 모든 데이터 반환
-      let measurements;
+      // 검색 조건이 없으면 모든 데이터 반환
       if (!studentName || studentName === '' || studentName === 'ALL_DATA') {
-        measurements = await storage.getAllMeasurements();
-        console.log("모든 측정 데이터:", measurements.length + "개");
-      } else {
-        measurements = await storage.searchMeasurements({
-          studentName: studentName as string,
-          affiliation: affiliation as string,
-          birthDate: birthDate as string,
-          gender: gender as string
-        });
-        console.log("검색 결과:", measurements.length + "개");
+        console.log("모든 데이터 반환 모드");
+        const response = await fetch(`http://localhost:${process.env.PORT || 5000}/api/measurements/all`);
+        const data = await response.json();
+        return res.json(data);
       }
+      
+      // 실제 검색 수행
+      const measurements = await storage.searchMeasurements({
+        studentName: studentName as string,
+        affiliation: affiliation as string,
+        birthDate: birthDate as string,
+        gender: gender as string
+      });
+      
+      console.log("검색 결과:", measurements.length + "개");
       
       if (measurements.length === 0) {
-        return res.status(404).json({ error: "Measurement not found" });
+        return res.json([]); // 404 대신 빈 배열 반환
       }
       
-      // Get analysis results for each measurement
+      // 분석 결과 추가
       const results = await Promise.all(
         measurements.map(async (measurement) => {
           const analysis = await storage.getAnalysisResult(measurement.id);
