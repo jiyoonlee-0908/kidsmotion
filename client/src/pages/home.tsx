@@ -191,7 +191,7 @@ export default function Home({ onNavigate }: HomeProps) {
                     <div className="fitness-icon mx-auto mb-6">
                       <Shield className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">AI 코칭</h3>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">개인별 피드백</h3>
                     <p className="text-gray-600 leading-relaxed">개인별 특성에 맞는 맞춤형<br />운동 처방과 개선 방안 제시</p>
                   </div>
                   <div className="fitness-card text-center group">
