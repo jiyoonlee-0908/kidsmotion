@@ -129,23 +129,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">정부 정책: 국민건강 데이터화 추진</h3>
-                <div className="space-y-3">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <p className="text-green-600 mb-2">디지털 전환 필요성</p>
-                    <p className="text-gray-700">• <strong>정량적 데이터</strong> 수집 시스템</p>
-                    <p className="text-gray-700">• <strong>국민체력 빅데이터</strong> 구축</p>
-                    <p className="text-gray-700">• <strong>객관적 평가</strong>로 정책 수립</p>
-                    <p className="text-gray-700">• <strong>비만 예방</strong> 조기 개입</p>
-                  </div>
-                  <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
-                    <p className="text-green-600 mb-2">해결책</p>
-                    <p className="text-gray-700">• KidsMotion으로 디지털 체력측정 실현</p>
-                    <p className="text-gray-700">• 정확한 데이터로 정책 수립 지원</p>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </CardContent>
         </Card>
