@@ -355,6 +355,81 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                   </div>
                 </div>
 
+                {/* 좌우 밸런스 분석 */}
+                <div className="fitness-card">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM18 10a2 2 0 11-4 0 2 2 0 014 0zM10 4a2 2 0 100 4 2 2 0 000-4z"/>
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">좌우 밸런스 분석</h3>
+                  </div>
+                  
+                  <div className="bg-gray-50 rounded-lg p-6">
+                    <div className="text-center mb-4">
+                      <div className="text-3xl font-bold text-gray-900 mb-2">
+                        {analysis?.balanceStatus || "이상적"}
+                      </div>
+                      <div className="text-sm text-gray-600">
+                        좌: {selectedMeasurement.leftBalance || 50}% | 우: {selectedMeasurement.rightBalance || 50}%
+                      </div>
+                    </div>
+                    
+                    {/* 밸런스 시각화 */}
+                    <div className="relative h-8 bg-gray-200 rounded-full overflow-hidden mb-4">
+                      <div 
+                        className="absolute left-0 top-0 h-full bg-blue-500 flex items-center justify-center text-white text-xs font-semibold"
+                        style={{ width: `${selectedMeasurement.leftBalance || 50}%` }}
+                      >
+                        좌
+                      </div>
+                      <div 
+                        className="absolute right-0 top-0 h-full bg-red-500 flex items-center justify-center text-white text-xs font-semibold"
+                        style={{ width: `${selectedMeasurement.rightBalance || 50}%` }}
+                      >
+                        우
+                      </div>
+                    </div>
+                    
+                    <div className="text-sm text-gray-600 text-center">
+                      {Math.abs((selectedMeasurement.leftBalance || 50) - (selectedMeasurement.rightBalance || 50))}% 차이
+                    </div>
+                  </div>
+                </div>
+
+                {/* 심박수 분석 */}
+                <div className="fitness-card">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                      <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"/>
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">심박수 분석</h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {[
+                      { name: "최대 심박수", value: analysis?.maxBpm, unit: "bpm", color: "bg-red-500" },
+                      { name: "평균 심박수", value: analysis?.avgBpm, unit: "bpm", color: "bg-orange-500" },
+                      { name: "안정시 심박수", value: analysis?.restingBpm, unit: "bpm", color: "bg-green-500" }
+                    ].map((item, index) => (
+                      <div key={index} className="bg-gray-50 rounded-lg p-4 text-center">
+                        <div className={`w-12 h-12 ${item.color} rounded-full mx-auto mb-3 flex items-center justify-center`}>
+                          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"/>
+                          </svg>
+                        </div>
+                        <h4 className="font-semibold text-gray-900 text-sm mb-2">{item.name}</h4>
+                        <div className="text-2xl font-bold text-gray-900">
+                          {item.value || "N/A"}<span className="text-sm text-gray-600 ml-1">{item.unit}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {/* 하단 안내 */}
                 <div className="text-center bg-yellow-50 rounded-xl p-4 border border-yellow-200">
                   <p className="text-sm text-yellow-700">
