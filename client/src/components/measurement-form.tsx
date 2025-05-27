@@ -541,7 +541,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
                             <Timer className="w-4 h-4 text-green-600" />
-                            360초 심폐지구력 (W)
+                            300초 심폐지구력 (W)
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -552,7 +552,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                             />
                           </FormControl>
-                          <p className="text-xs text-gray-500">6분간 유산소 영역</p>
+                          <p className="text-xs text-gray-500">5분간 유산소 영역</p>
                           <FormMessage />
                         </FormItem>
                       )}
