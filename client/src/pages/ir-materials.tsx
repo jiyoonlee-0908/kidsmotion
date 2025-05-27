@@ -315,21 +315,16 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
 
             {/* 수익 구조 */}
-            <div className="mt-8 grid md:grid-cols-3 gap-6">
+            <div className="mt-8 grid md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-lg text-center border-2 border-green-200">
                 <h4 className="text-lg font-bold text-green-700 mb-2">하드웨어 판매</h4>
-                <div className="text-2xl font-bold text-green-600 mb-2">2,500만원</div>
+                <div className="text-3xl font-bold text-green-600 mb-2">550만원</div>
                 <p className="text-sm text-gray-600">장비당 일시 수익</p>
               </div>
               <div className="bg-white p-6 rounded-lg text-center border-2 border-blue-200">
                 <h4 className="text-lg font-bold text-blue-700 mb-2">소프트웨어 구독</h4>
-                <div className="text-2xl font-bold text-blue-600 mb-2">월 50만원</div>
-                <p className="text-sm text-gray-600">AI 분석 및 업데이트</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg text-center border-2 border-purple-200">
-                <h4 className="text-lg font-bold text-purple-700 mb-2">데이터 서비스</h4>
-                <div className="text-2xl font-bold text-purple-600 mb-2">월 30만원</div>
-                <p className="text-sm text-gray-600">빅데이터 분석 리포트</p>
+                <div className="text-3xl font-bold text-blue-600 mb-2">월 5만원</div>
+                <p className="text-sm text-gray-600">AI 분석 • 누적데이터 통계 • 백분위 업데이트 • 분석리포트</p>
               </div>
             </div>
           </CardContent>
