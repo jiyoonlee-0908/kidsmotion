@@ -337,47 +337,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
             
-            {/* 과학적 근거 */}
-            <div className="mt-8 bg-gradient-to-r from-cyan-100 to-blue-100 p-6 rounded-lg border border-cyan-200">
-              <h3 className="text-xl font-bold text-cyan-800 mb-4">🔬 측정의 과학적 근거</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-cyan-700 mb-3">⚡ 5분 측정의 신뢰성</h4>
-                  <div className="bg-white p-4 rounded-lg">
-                    <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>5초 순발력:</strong> 순간 최대 파워 측정</li>
-                      <li>• <strong>15초 스프린트:</strong> 무산소 능력 평가</li>
-                      <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
-                      <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
-                      <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
-                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
-                    </ul>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-cyan-700 mb-3">📊 데이터 수집 정확도</h4>
-                  <div className="bg-white p-4 rounded-lg">
-                    <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>샘플링 주파수:</strong> 초당 50회 데이터 수집</li>
-                      <li>• <strong>총 데이터 포인트:</strong> 5분 = 15,000개 데이터</li>
-                      <li>• <strong>좌우 밸런스:</strong> 실시간 독립 측정</li>
-                      <li>• <strong>심박수 연동:</strong> 운동 강도 정확 측정</li>
-                      <li>• <strong>RPE 보정:</strong> 주관적 피로도 객관화</li>
-                      <li>• <strong>환경 보정:</strong> 온도/습도 자동 보정</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="mt-6 bg-white p-4 rounded-lg border-l-4 border-cyan-500">
-                <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
-                <p className="text-gray-700 text-sm">
-                  사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
-                  <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
-                  올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
-                </p>
-              </div>
-            </div>
+
 
             {/* 하드웨어 상세 설명 */}
             <div className="border-t pt-8">
@@ -454,6 +414,46 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   기존: 일반적 조언<br/>
                   → MotionBike: 개인 맞춤
                 </div>
+              </div>
+            </div>
+
+            {/* 과학적 근거 추가 */}
+            <div className="mt-8 bg-gradient-to-r from-cyan-100 to-blue-100 p-6 rounded-lg border border-cyan-200">
+              <h3 className="text-xl font-bold text-cyan-800 mb-4">🔬 측정의 과학적 신뢰성</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-cyan-700 mb-3">⚡ 5분 측정의 정확성</h4>
+                  <div className="bg-white p-4 rounded-lg">
+                    <ul className="space-y-2 text-gray-700 text-sm">
+                      <li>• <strong>5초 순발력:</strong> 순간 최대 파워 측정</li>
+                      <li>• <strong>15초 스프린트:</strong> 무산소 능력 평가</li>
+                      <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
+                      <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
+                      <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
+                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-cyan-700 mb-3">📊 데이터 수집 정확도</h4>
+                  <div className="bg-white p-4 rounded-lg">
+                    <ul className="space-y-2 text-gray-700 text-sm">
+                      <li>• <strong>샘플링 주파수:</strong> 초당 50회 데이터 수집</li>
+                      <li>• <strong>총 데이터 포인트:</strong> 5분 = 15,000개 데이터</li>
+                      <li>• <strong>좌우 밸런스:</strong> 실시간 독립 측정</li>
+                      <li>• <strong>심박수 연동:</strong> 운동 강도 정확 측정</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-4 bg-white p-4 rounded-lg border-l-4 border-cyan-500">
+                <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
+                <p className="text-gray-700 text-sm">
+                  사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
+                  <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
+                  올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
+                </p>
               </div>
             </div>
 
