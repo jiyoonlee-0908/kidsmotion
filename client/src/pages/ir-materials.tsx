@@ -140,52 +140,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 💰 시장 규모 및 기회 - 정책 바로 다음 */}
-        <Card className="mb-8 bg-gradient-to-r from-green-500 to-emerald-600 text-white">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center text-white">
-              💰 시장 규모 & 투자 기회
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-white">📊 국내 시장 현황</h3>
-                <div className="space-y-3">
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2.49M 초등학생</h4>
-                    <p className="text-sm opacity-90">연간 체력 측정 의무화 대상</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">1.77M 소아 건강검진</h4>
-                    <p className="text-sm opacity-90">연간 소아청소년과 방문</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">3,302개 소아청소년과</h4>
-                    <p className="text-sm opacity-90">잠재 고객 의료기관</p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-white">🌍 글로벌 시장 전망</h3>
-                <div className="space-y-3">
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">$21.8B → $30.6B</h4>
-                    <p className="text-sm opacity-90">2022년 → 2030년 (4.4% CAGR)</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">아동 헬스케어 급성장</h4>
-                    <p className="text-sm opacity-90">디지털 헬스 + 예방의학 트렌드</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">국내 시장 1% 점유시</h4>
-                    <p className="text-sm opacity-90">연 300억원 매출 가능</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+
 
         {/* 하드웨어 혁신 */}
         <Card className="mb-16">
