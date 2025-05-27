@@ -498,14 +498,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         let strengths = [];
         let improvements = [];
         
-        // 1순위: 96% 이상 → 무조건 강점
+        // 1순위: 96% 이상 → 무조건 강점 (모든 항목)
         for (const item of allItems) {
           if (item.value >= 96) {
             strengths.push(item.name);
           }
         }
         
-        // 2순위: 4% 미만 → 무조건 보완점
+        // 2순위: 4% 미만 → 무조건 보완점 (모든 항목)
         for (const item of allItems) {
           if (item.value < 4) {
             improvements.push(item.name);
@@ -515,9 +515,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // 3순위: 위 조건에 해당하지 않을 때만 상위2개/하위2개 규칙 적용
         const excellentItems = allItems.filter(item => item.value >= 96);
         const poorItems = allItems.filter(item => item.value < 4);
-        const needsDefaultRule = excellentItems.length === 0 && poorItems.length === 0;
+        const hasSpecialCases = excellentItems.length > 0 || poorItems.length > 0;
         
-        if (needsDefaultRule) {
+        if (!hasSpecialCases) {
           // 상위 2개 강점 (동점 포함)
           if (allItems.length >= 2) {
             const secondHighest = allItems[1].value;
@@ -534,6 +534,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
             for (const item of allItems) {
               if (item.value <= secondLowest && !improvements.includes(item.name)) {
                 improvements.push(item.name);
+              }
+            }
+          }
+        } else {
+          // 특수 케이스가 있을 때도 상위2개/하위2개 보완 적용
+          // 96% 이상/4% 미만이 아닌 나머지 중에서 상위2개/하위2개 선택
+          const remainingItems = allItems.filter(item => item.value < 96 && item.value >= 4);
+          
+          if (remainingItems.length >= 2) {
+            remainingItems.sort((a, b) => b.value - a.value);
+            
+            // 나머지 중 상위 항목들을 강점에 추가 (부족한 만큼만)
+            if (strengths.length < 2) {
+              const needed = Math.min(2 - strengths.length, remainingItems.length);
+              for (let i = 0; i < needed; i++) {
+                if (!strengths.includes(remainingItems[i].name)) {
+                  strengths.push(remainingItems[i].name);
+                }
+              }
+            }
+            
+            // 나머지 중 하위 항목들을 보완점에 추가 (부족한 만큼만)
+            if (improvements.length < 2) {
+              const needed = Math.min(2 - improvements.length, remainingItems.length);
+              for (let i = remainingItems.length - needed; i < remainingItems.length; i++) {
+                if (i >= 0 && !improvements.includes(remainingItems[i].name)) {
+                  improvements.push(remainingItems[i].name);
+                }
               }
             }
           }
