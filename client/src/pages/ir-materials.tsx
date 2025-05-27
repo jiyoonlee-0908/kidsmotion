@@ -479,6 +479,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div>
                   <h4 className="font-semibold text-red-600 mb-2">시장 진입 장벽</h4>
                   <ul className="space-y-1 text-gray-700 text-sm">
+                    <li>• 2종의료기기 인증 진행 중</li>
                     <li>• 의료기관 인증 및 승인 과정</li>
                     <li>• B2B 영업 네트워크 구축</li>
                     <li>• 사용자 데이터 누적 필요</li>
@@ -519,6 +520,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">1년차: 의료기관 진입</h4>
                     <p className="text-sm">100개 병원 × 2,500만원 = 25억 매출</p>
+                  </div>
+                  <div className="bg-white/20 p-3 rounded">
+                    <h4 className="font-semibold">2년차: 2종의료기기 인증</h4>
+                    <p className="text-sm">인증 취득을 목표로 신뢰도 확보</p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">3년차: B2G 확산</h4>
