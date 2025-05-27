@@ -131,7 +131,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
                     <p className="text-green-600 mb-2">해결책</p>
-                    <p className="text-gray-700">• MotionBike로 디지털 체력측정 실현</p>
+                    <p className="text-gray-700">• KidsMotion으로 디지털 체력측정 실현</p>
                     <p className="text-gray-700">• 정확한 데이터로 정책 수립 지원</p>
                   </div>
                 </div>
