@@ -387,6 +387,113 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
+        {/* 실제 검증 사례 & 타겟별 가치 제안 */}
+        <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
+              🔬 실제 검증 계획 & 차별화 가치
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* 파일럿 테스트 */}
+            <div className="mb-8 bg-white p-6 rounded-lg border border-green-200">
+              <h3 className="text-xl font-bold text-green-800 mb-4">2025년 파일럿 테스트</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-green-700 mb-3">검증 계획</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• <strong>사이클아카데미</strong>에서 100명 아동 데이터 수집</li>
+                    <li>• 기존 운영 중인 유소년 스포츠단 대상</li>
+                    <li>• 1년간 무료 제공 후 성과 측정</li>
+                    <li>• 실제 체력 개선 효과 검증</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-green-700 mb-3">기대 성과</h4>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• 한국 아동 체력 기준 데이터 최초 구축</li>
+                    <li>• AI 분석 정확도 개선</li>
+                    <li>• 실제 운동 효과 사례 확보</li>
+                    <li>• 기관별 수요 검증</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* 타겟별 가치 제안 */}
+            <div className="grid md:grid-cols-3 gap-6">
+              
+              {/* 스포츠학원 */}
+              <div className="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
+                <div className="text-center mb-4">
+                  <div className="text-4xl mb-2">🏃‍♂️</div>
+                  <h3 className="font-bold text-lg text-blue-800">스포츠학원</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-blue-700 text-sm">핵심 가치</h4>
+                    <p className="text-blue-600 text-xs">"우리 학원 효과 수치로 증명"</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-blue-700 text-sm">차별화 포인트</h4>
+                    <p className="text-blue-600 text-xs">• 학생 실력 향상 데이터 제공<br/>• 학부모 만족도 증가<br/>• 타 학원 대비 경쟁력 확보</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-blue-700 text-sm">제공 서비스</h4>
+                    <p className="text-blue-600 text-xs">월 5만원으로 무제한 측정<br/>성장 리포트 자동 생성</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 병원 */}
+              <div className="bg-red-50 p-6 rounded-lg border-2 border-red-200">
+                <div className="text-center mb-4">
+                  <div className="text-4xl mb-2">🏥</div>
+                  <h3 className="font-bold text-lg text-red-800">소아과/병원</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-red-700 text-sm">핵심 가치</h4>
+                    <p className="text-red-600 text-xs">"영유아검진 프리미엄 서비스"</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-red-700 text-sm">차별화 포인트</h4>
+                    <p className="text-red-600 text-xs">• 다른 병원과 차별화<br/>• 환자 만족도 향상<br/>• 재방문율 증가</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-red-700 text-sm">제공 서비스</h4>
+                    <p className="text-red-600 text-xs">체력 현황 의료진 리포트<br/>성장 발달 추적 서비스</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 보건소 */}
+              <div className="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
+                <div className="text-center mb-4">
+                  <div className="text-4xl mb-2">🏛️</div>
+                  <h3 className="font-bold text-lg text-purple-800">보건소/공공기관</h3>
+                </div>
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-purple-700 text-sm">핵심 가치</h4>
+                    <p className="text-purple-600 text-xs">"지역 아동 건강 빅데이터"</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-purple-700 text-sm">차별화 포인트</h4>
+                    <p className="text-purple-600 text-xs">• 정부 정책 데이터 제공<br/>• 지역 건강 통계 구축<br/>• 예산 효율성 증명</p>
+                  </div>
+                  <div className="bg-white p-3 rounded">
+                    <h4 className="font-semibold text-purple-700 text-sm">제공 서비스</h4>
+                    <p className="text-purple-600 text-xs">지역별 아동 체력 통계<br/>정책 수립 기초 자료</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </CardContent>
+        </Card>
+
         {/* 시장 진입 전략 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>
@@ -501,6 +608,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="font-semibold text-gray-800 mb-2">Q: "글로벌 시장에서 몇 % 점유할 건가요?"</p>
                     <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국에서만 연 100억 달성 후 해외 진출 계획입니다.</p>
                   </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "월 5만원 구독료가 너무 비싸지 않나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 단순 데이터 제공이 아닌 종합 솔루션입니다. AI 분석 리포트 + 성장 추적 서비스 + 운동 가이드를 포함한 가격으로, 아동 1명당 월 5만원은 태권도/수영 학원비와 비슷한 수준입니다. 기관 입장에서는 차별화 서비스로 더 많은 회원 유치가 가능합니다.</p>
+                  </div>
                 </div>
               </div>
 
@@ -554,7 +665,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "5년차 500억 근거가 있나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 보수적 계산입니다. 스포츠학원 1,000개(연 6억) + 하드웨어 1,000대(55억) + 공공기관 500개(연 3억) = 연 64억. 정부지원 효과까지 고려하면 충분히 달성 가능합니다.</p>
+                    <p className="text-gray-700 text-sm">A: 2025년 파일럿 테스트(사이클아카데미에서 100명 데이터 검증)를 바탕으로 한 보수적 계산입니다. 스포츠학원 1,000개(연 6억) + 하드웨어 1,000대(55억) + 공공기관 500개(연 3억) = 연 64억. 실제 검증된 수요를 기반으로 한 현실적 목표입니다.</p>
                   </div>
                 </div>
               </div>
@@ -611,7 +722,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">2026년: 스포츠학원 진입</h4>
-                    <p className="text-sm">100개 학원 × 월 5만원 × 12개월 = 6억 매출</p>
+                    <p className="text-sm">파일럿 검증 완료 후 100개 학원 × 월 5만원 = 연 6억 매출<br/>
+                    <span className="text-xs opacity-90">+ 하드웨어 판매 100대 × 550만원 = 5.5억</span></p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">2027년: 의료기기 신청</h4>
