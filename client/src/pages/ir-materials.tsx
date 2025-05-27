@@ -163,7 +163,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 통합된 시장 분석 & 진입 전략 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-green-700 mb-4">🚀 100억 시장 진입을 위한 3단계 전략</CardTitle>
+            <CardTitle className="text-2xl text-green-700 mb-4">🎯 타겟 시장 분석과 진입 전략</CardTitle>
           </CardHeader>
           <CardContent>
             {/* 시장 규모 추가 */}
