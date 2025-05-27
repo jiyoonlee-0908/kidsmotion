@@ -530,7 +530,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
           <CardHeader>
             <CardTitle className="text-2xl">
-              💡 기관 매출 30% 증가하는 비밀 무기
+              📈 기관 도입 시 예상 효과
             </CardTitle>
           </CardHeader>
           <CardContent>
