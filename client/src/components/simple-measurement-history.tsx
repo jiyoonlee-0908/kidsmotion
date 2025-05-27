@@ -469,6 +469,82 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 </div>
               </div>
 
+              {/* 항목별 세부평가 */}
+              <div className="bg-white rounded-lg p-6 border">
+                <h3 className="text-xl font-bold mb-4">항목별 세부평가</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <div>
+                      <span className="font-medium">순발력 (5초)</span>
+                      <div className="text-sm text-gray-600">{selectedMeasurement.power5s}W</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg">{selectedMeasurement.percentile5s}%</div>
+                      <div className="text-sm text-gray-600">백분위</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <div>
+                      <span className="font-medium">스프린트 파워 (15초)</span>
+                      <div className="text-sm text-gray-600">{selectedMeasurement.power15s}W</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg">{selectedMeasurement.percentile15s}%</div>
+                      <div className="text-sm text-gray-600">백분위</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <div>
+                      <span className="font-medium">파워 지속력 (30초)</span>
+                      <div className="text-sm text-gray-600">{selectedMeasurement.power30s}W</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg">{selectedMeasurement.percentile30s}%</div>
+                      <div className="text-sm text-gray-600">백분위</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                    <div>
+                      <span className="font-medium">근력 (60초)</span>
+                      <div className="text-sm text-gray-600">{selectedMeasurement.power60s}W</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg">{selectedMeasurement.percentile60s}%</div>
+                      <div className="text-sm text-gray-600">백분위</div>
+                    </div>
+                  </div>
+                  
+                  {selectedMeasurement.power180s && selectedMeasurement.power180s > 0 && (
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                      <div>
+                        <span className="font-medium">근지구력 (180초)</span>
+                        <div className="text-sm text-gray-600">{selectedMeasurement.power180s}W</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-lg">{selectedMeasurement.percentile180s}%</div>
+                        <div className="text-sm text-gray-600">백분위</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {selectedMeasurement.power360s && selectedMeasurement.power360s > 0 && (
+                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded">
+                      <div>
+                        <span className="font-medium">심폐지구력 (360초)</span>
+                        <div className="text-sm text-gray-600">{selectedMeasurement.power360s}W</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-lg">{selectedMeasurement.percentile360s}%</div>
+                        <div className="text-sm text-gray-600">백분위</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
               {/* 좌우 밸런스 분석 */}
               <div className="bg-white rounded-lg p-6 border">
                 <h3 className="text-xl font-bold mb-4">좌우 밸런스 분석</h3>
