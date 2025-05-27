@@ -162,20 +162,35 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
               
               {searchResults.map((result: SearchResult) => (
                 <div key={result.measurement.id} 
-                     className="border rounded-lg p-4 hover:bg-gray-50 cursor-pointer"
+                     className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-purple-300"
                      onClick={() => setSelectedMeasurement(result.measurement)}>
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="text-sm">
-                        <span className="font-bold text-lg text-gray-900">{result.measurement.studentName}</span>
-                        <span className="text-gray-600 ml-3">측정: {result.measurement.measureDate}</span>
-                        <span className="text-gray-600 ml-3">{result.measurement.affiliation}</span>
-                        <span className="text-gray-600 ml-3">생년: {result.measurement.birthDate}</span>
-                        <span className="text-gray-600 ml-3">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
-                        <span className="text-purple-600 ml-3 font-semibold">종합: {Math.round(result.analysis?.overallPercentile || 0)}%</span>
+                      <div className="flex items-center gap-4 mb-3">
+                        <h3 className="text-xl font-bold text-gray-900">{result.measurement.studentName}</h3>
+                        <div className="flex items-center bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-semibold">
+                          <span>종합 {Math.round(result.analysis?.overallPercentile || 0)}%</span>
+                        </div>
                       </div>
                       
-
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500">📅 측정일</span>
+                          <span className="text-gray-700 font-medium">{result.measurement.measureDate}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500">🏢 소속</span>
+                          <span className="text-gray-700 font-medium">{result.measurement.affiliation}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500">🎂 생년</span>
+                          <span className="text-gray-700 font-medium">{result.measurement.birthDate}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500">👤 성별</span>
+                          <span className="text-gray-700 font-medium">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
+                        </div>
+                      </div>
                     </div>
                     
                     <Button
@@ -186,7 +201,7 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                         setSelectedMeasurement(result.measurement);
                         setDeleteConfirmOpen(true);
                       }}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 border-red-200 hover:bg-red-50 hover:border-red-300"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
