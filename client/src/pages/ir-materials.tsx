@@ -105,27 +105,35 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">국민체력100의 한계</h3>
-                <div className="bg-white p-6 rounded-lg">
-                  <h4 className="font-semibold mb-3 text-blue-600">현재 측정 방식 (아날로그)</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• 제자리 멀리뛰기 → 줄자로 측정</li>
-                    <li>• 윗몸말아올리기 → 사람이 카운트</li>
-                    <li>• 왕복오래달리기 → 수동 기록</li>
-                  </ul>
-                  <p className="text-red-600 mt-3 font-medium">→ 정확성 부족, 데이터 축적 어려움</p>
+                <div className="space-y-3">
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                    <p className="text-red-600 mb-2">현재 측정 방식 (아날로그)</p>
+                    <p className="text-gray-700">• 제자리 멀리뛰기 → 줄자로 측정</p>
+                    <p className="text-gray-700">• 윗몸말아올리기 → 사람이 카운트</p>
+                    <p className="text-gray-700">• 왕복오래달리기 → 수동 기록</p>
+                  </div>
+                  <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
+                    <p className="text-gray-600 mb-2">결과</p>
+                    <p className="text-gray-700">• 정확성 부족, 데이터 축적 어려움</p>
+                    <p className="text-gray-700">• 국민건강 빅데이터 구축 불가</p>
+                  </div>
                 </div>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">정부가 원하는 것</h3>
-                <div className="bg-white p-6 rounded-lg">
-                  <h4 className="font-semibold mb-3 text-green-600">디지털 전환 필요성</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• <strong>정량적 데이터</strong> 수집 시스템</li>
-                    <li>• <strong>국민체력 빅데이터</strong> 구축</li>
-                    <li>• <strong>객관적 평가</strong>로 정책 수립</li>
-                    <li>• <strong>비만 예방</strong> 조기 개입</li>
-                  </ul>
-                  <p className="text-green-600 mt-3 font-medium">→ MotionBike가 해결책!</p>
+                <div className="space-y-3">
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                    <p className="text-green-600 mb-2">디지털 전환 필요성</p>
+                    <p className="text-gray-700">• <strong>정량적 데이터</strong> 수집 시스템</p>
+                    <p className="text-gray-700">• <strong>국민체력 빅데이터</strong> 구축</p>
+                    <p className="text-gray-700">• <strong>객관적 평가</strong>로 정책 수립</p>
+                    <p className="text-gray-700">• <strong>비만 예방</strong> 조기 개입</p>
+                  </div>
+                  <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                    <p className="text-green-600 mb-2">해결책</p>
+                    <p className="text-gray-700">• MotionBike로 디지털 체력측정 실현</p>
+                    <p className="text-gray-700">• 정확한 데이터로 정책 수립 지원</p>
+                  </div>
                 </div>
               </div>
             </div>
