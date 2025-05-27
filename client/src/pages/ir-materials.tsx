@@ -398,26 +398,39 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-green-600 mb-2">520만명</div>
-                <p className="text-gray-600 mb-4">국내 초등학생 인구</p>
-                <div className="bg-green-50 p-4 rounded-lg">
-                  <p className="text-sm text-green-700">연간 영유아검진 대상자만 70만명</p>
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div className="space-y-6">
+                <div className="text-center bg-green-50 p-6 rounded-lg">
+                  <div className="text-4xl font-bold text-green-600 mb-2">249만명</div>
+                  <p className="text-gray-600 mb-4">전국 초등학생 수 (2024년 기준)</p>
+                  <div className="bg-white p-3 rounded-lg">
+                    <p className="text-sm text-green-700">연간 영유아 건강검진 수검인원</p>
+                    <p className="text-lg font-bold text-green-800">177만명 (2023년 기준)</p>
+                  </div>
+                </div>
+                <div className="text-center bg-red-50 p-6 rounded-lg">
+                  <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
+                  <p className="text-gray-600 mb-4">전국 소아·청소년과 전문 진료기관</p>
+                  <div className="bg-white p-3 rounded-lg">
+                    <p className="text-sm text-red-700">의원급(1차 의료기관): 2,147개소</p>
+                    <p className="text-sm text-red-700">전국 보건소: 261개소</p>
+                  </div>
                 </div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">15,000개</div>
-                <p className="text-gray-600 mb-4">전국 소아청소년과</p>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-blue-700">성장클리닉 운영 증가 추세</p>
+              <div className="space-y-6">
+                <div className="text-center bg-blue-50 p-6 rounded-lg">
+                  <div className="text-4xl font-bold text-blue-600 mb-2">9,000개</div>
+                  <p className="text-gray-600 mb-4">전국 태권도장 수</p>
+                  <div className="bg-white p-3 rounded-lg">
+                    <p className="text-sm text-blue-700">좌우 밸런스 측정 수요 높음</p>
+                  </div>
                 </div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-purple-600 mb-2">3,500개</div>
-                <p className="text-gray-600 mb-4">전국 보건소</p>
-                <div className="bg-purple-50 p-4 rounded-lg">
-                  <p className="text-sm text-purple-700">국민체력100 확산 정책</p>
+                <div className="text-center bg-purple-50 p-6 rounded-lg">
+                  <div className="text-4xl font-bold text-purple-600 mb-2">15,000개+</div>
+                  <p className="text-gray-600 mb-4">기타 아동 스포츠 학원</p>
+                  <div className="bg-white p-3 rounded-lg">
+                    <p className="text-sm text-purple-700">축구교실, 수영장, 체조교실 등</p>
+                  </div>
                 </div>
               </div>
             </div>
