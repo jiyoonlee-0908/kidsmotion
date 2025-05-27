@@ -484,7 +484,7 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
                     <Mail className="w-8 h-8 text-blue-600" />
                   </div>
                   <h4 className="font-semibold text-blue-800 mb-2">이메일 지원</h4>
-                  <p className="text-blue-700 font-medium">tech@motionbike.co.kr</p>
+                  <p className="text-blue-700 font-medium">dayinj@naver.com</p>
                   <p className="text-sm text-blue-600 mt-1">24시간 접수</p>
                 </div>
                 <div className="text-center">
