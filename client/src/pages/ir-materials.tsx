@@ -660,7 +660,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">1년차: 의료기관 진입</h4>
-                    <p className="text-sm">100개 병원 × 2,500만원 = 25억 매출</p>
+                    <p className="text-sm">100개 병원 × 550만원 = 5.5억 매출</p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">2년차: 2종의료기기 인증</h4>
