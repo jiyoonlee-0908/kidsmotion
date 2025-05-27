@@ -514,7 +514,17 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "자전거만 측정? 다양한 운동은 언제 하나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 자전거가 유일하게 모든 조건을 만족합니다. ✅좌우밸런스 정량측정 ✅시공간 제약없음 ✅전신체력 데이터. 달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 종합적 측정이 가능합니다.</p>
+                    <div className="text-gray-700 text-sm">
+                      <p className="mb-2">A: 자전거가 유일하게 모든 조건을 만족합니다.</p>
+                      <div className="mb-2">
+                        <span className="text-green-600">✅ 좌우밸런스 정량측정</span> | 
+                        <span className="text-blue-600"> ✅ 시공간 제약없음</span> | 
+                        <span className="text-purple-600"> ✅ 전신체력 데이터</span>
+                      </div>
+                      <p className="text-gray-600">
+                        달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 종합적 측정이 가능합니다.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
