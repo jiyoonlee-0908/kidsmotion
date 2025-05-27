@@ -378,7 +378,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <Mail className="w-8 h-8 mx-auto mb-2 text-blue-600" />
                   <h4 className="font-semibold text-gray-800">이메일 지원</h4>
-                  <p className="text-sm text-gray-600">info@motionbike.co.kr</p>
+                  <p className="text-sm text-gray-600">dayinj@naver.com</p>
                   <p className="text-xs text-gray-500">24시간 내 답변</p>
                 </div>
               </CardContent>
