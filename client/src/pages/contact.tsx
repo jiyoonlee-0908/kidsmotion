@@ -75,7 +75,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                   <Mail className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">이메일 문의</h3>
-                <p className="text-gray-600 mb-6">자세한 문의사항을 남겨주시면 신속히 답변드립니다</p>
+                <p className="text-gray-600 mb-6">문의사항을 남겨주시면 신속히 답변드립니다</p>
                 <div className="space-y-2 flex-grow">
                   <p className="text-xl font-semibold text-blue-600">dayinj@naver.com</p>
                   <p className="text-sm text-gray-500">24시간 내 답변 보장</p>
