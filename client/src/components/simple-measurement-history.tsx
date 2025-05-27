@@ -186,7 +186,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">소속 기관</label>
                 <Input
-                  placeholder="어린이집, 유치원, 학교명 입력"
+                  placeholder="병원, 센터, 학교, 유치원명 입력"
                   value={searchAffiliation}
                   onChange={(e) => setSearchAffiliation(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
