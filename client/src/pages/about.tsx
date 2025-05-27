@@ -261,20 +261,13 @@ export default function About({ onNavigate }: AboutProps) {
                 <p className="text-purple-100 mb-6">
                   MotionBike 팀이 언제든지 도움을 드릴 준비가 되어있습니다.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="flex justify-center">
                   <a 
                     href="tel:010-8445-0908"
                     className="inline-flex items-center px-6 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     전화 상담: 010-8445-0908
-                  </a>
-                  <a 
-                    href="mailto:info@motionbike.co.kr"
-                    className="inline-flex items-center px-6 py-3 bg-white/20 text-white border border-white/30 rounded-lg font-semibold hover:bg-white/30 transition-colors"
-                  >
-                    <Mail className="w-5 h-5 mr-2" />
-                    이메일 문의
                   </a>
                 </div>
               </CardContent>
