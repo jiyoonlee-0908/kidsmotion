@@ -234,15 +234,7 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
           {selectedMeasurement && (() => {
             const analysis = getSelectedAnalysis();
             
-            // 저장된 전체 리포트 HTML이 있으면 그것을 표시
-            if (analysis?.fullReportHtml) {
-              return (
-                <div 
-                  className="complete-report-viewer"
-                  dangerouslySetInnerHTML={{ __html: analysis.fullReportHtml }}
-                />
-              );
-            }
+            // 항상 예쁜 카드 스타일로 표시 (HTML 대신)
             
             // 예쁜 카드 스타일 결과창
             return (
