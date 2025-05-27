@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar } from "lucide-react";
+import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
@@ -47,6 +47,9 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [searchName, setSearchName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMeasurement, setSelectedMeasurement] = useState<MeasurementData | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
+  const [adminPassword, setAdminPassword] = useState('');
   const { toast } = useToast();
 
   // 오로라 데이터 (실제 저장된 데이터)
@@ -94,15 +97,23 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     }
   };
 
-  const handleDelete = (id: number) => {
-    const password = prompt('관리자 비밀번호를 입력하세요:');
-    if (password === '263910') {
-      setMeasurements(measurements.filter(m => m.id !== id));
+  const handleDeleteClick = (id: number) => {
+    setDeleteTargetId(id);
+    setDeleteConfirmOpen(true);
+    setAdminPassword('');
+  };
+
+  const handleDeleteConfirm = () => {
+    if (adminPassword === '263910') {
+      setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
+      setDeleteConfirmOpen(false);
+      setDeleteTargetId(null);
+      setAdminPassword('');
       toast({
         title: "삭제 완료",
         description: "측정 기록이 삭제되었습니다.",
       });
-    } else if (password !== null) {
+    } else {
       toast({
         title: "삭제 실패",
         description: "비밀번호가 올바르지 않습니다.",
@@ -220,7 +231,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handleDelete(measurement.id)}
+                      onClick={() => handleDeleteClick(measurement.id)}
                       className="text-red-600 hover:text-red-700 ml-4"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -405,6 +416,50 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               </Card>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* 삭제 확인 모달 */}
+      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-red-600" />
+              관리자 인증
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-gray-600">
+              측정 기록을 삭제하려면 관리자 비밀번호를 입력하세요.
+            </p>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">비밀번호</label>
+              <Input
+                type="password"
+                value={adminPassword}
+                onChange={(e) => setAdminPassword(e.target.value)}
+                placeholder="관리자 비밀번호 입력"
+                onKeyPress={(e) => e.key === 'Enter' && handleDeleteConfirm()}
+              />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setDeleteConfirmOpen(false);
+                  setAdminPassword('');
+                }}
+              >
+                취소
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleDeleteConfirm}
+              >
+                삭제
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
