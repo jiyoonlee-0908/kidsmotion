@@ -24,6 +24,7 @@ import {
   Rocket
 } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface UpdatesProps {
   onNavigate?: (page: string) => void;
@@ -336,6 +337,8 @@ export default function Updates({ onNavigate }: UpdatesProps) {
           </div>
         </div>
       </main>
+      
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }
