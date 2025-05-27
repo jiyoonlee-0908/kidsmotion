@@ -95,6 +95,12 @@ export default function Home({ onNavigate }: HomeProps) {
                 <span className="text-lg font-medium text-gray-500 tracking-wide">
                   MotionBike
                 </span>
+                <span 
+                  onClick={() => onNavigate && onNavigate('ir-materials')}
+                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors"
+                >
+                  IR자료
+                </span>
               </div>
               <div className="hidden">
                 <p className="text-sm text-gray-500 font-medium tracking-wide mt-1">AI 기반 아동 체력 분석 플랫폼</p>
