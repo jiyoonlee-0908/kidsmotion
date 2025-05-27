@@ -15,6 +15,7 @@ interface MeasurementData {
   affiliation: string;
   gender: string;
   age: number;
+  birthDate: string; // 생년월일 추가
   measureDate: string;
   height: number;
   weight: number;
@@ -45,6 +46,9 @@ interface SimpleMeasurementHistoryProps {
 export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasurementHistoryProps) {
   const [measurements, setMeasurements] = useState<MeasurementData[]>([]);
   const [searchName, setSearchName] = useState('');
+  const [searchAffiliation, setSearchAffiliation] = useState('');
+  const [searchBirthDate, setSearchBirthDate] = useState('');
+  const [searchGender, setSearchGender] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMeasurement, setSelectedMeasurement] = useState<MeasurementData | null>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
@@ -60,6 +64,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     gender: "F",
     age: 6,
     measureDate: "2025-05-27",
+    birthDate: "2019-03-15", // 생년월일 추가
     height: 110,
     weight: 20,
     power5s: 200,
@@ -88,13 +93,33 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   }, []);
 
   const handleSearch = () => {
-    if (searchName === '' || searchName === '오로라') {
-      // 빈 검색 또는 오로라 검색 시 데이터 표시
-      setMeasurements([auroraData]);
-    } else {
-      // 다른 이름 검색 시 빈 결과
-      setMeasurements([]);
-    }
+    setIsLoading(true);
+    
+    // 검색 로직
+    setTimeout(() => {
+      const allData = [auroraData]; // 실제로는 서버에서 가져온 모든 데이터
+      
+      // 모든 검색 조건이 비어있으면 전체 데이터 표시
+      if (!searchName.trim() && !searchAffiliation.trim() && !searchBirthDate.trim() && !searchGender.trim()) {
+        setMeasurements(allData);
+        setIsLoading(false);
+        return;
+      }
+      
+      // 조건에 맞는 데이터 필터링
+      const filtered = allData.filter(measurement => {
+        const nameMatch = !searchName.trim() || measurement.studentName.toLowerCase().includes(searchName.toLowerCase());
+        const affiliationMatch = !searchAffiliation.trim() || measurement.affiliation.toLowerCase().includes(searchAffiliation.toLowerCase());
+        const birthDateMatch = !searchBirthDate.trim() || measurement.birthDate.includes(searchBirthDate);
+        const genderMatch = !searchGender.trim() || measurement.gender === searchGender;
+        
+        // 모든 조건을 만족하는 경우만 반환
+        return nameMatch && affiliationMatch && birthDateMatch && genderMatch;
+      });
+      
+      setMeasurements(filtered);
+      setIsLoading(false);
+    }, 300);
   };
 
   const handleDeleteClick = (id: number) => {
@@ -146,35 +171,85 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           </p>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4 items-end">
-            <div className="flex-1">
-              <label className="text-sm font-medium mb-2 block">
-                이름 <span className="text-red-500">*</span>
-              </label>
-              <Input
-                placeholder="학생 이름을 입력하세요 (빈 값으로 검색하면 모든 데이터 표시)"
-                value={searchName}
-                onChange={(e) => setSearchName(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              />
+          <div className="space-y-4">
+            {/* 첫 번째 줄: 이름, 기관 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">이름</label>
+                <Input
+                  placeholder="학생 이름 입력"
+                  value={searchName}
+                  onChange={(e) => setSearchName(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">소속 기관</label>
+                <Input
+                  placeholder="어린이집, 유치원, 학교명 입력"
+                  value={searchAffiliation}
+                  onChange={(e) => setSearchAffiliation(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                />
+              </div>
             </div>
-            <Button 
-              onClick={handleSearch}
-              disabled={isLoading}
-              className="bg-[#7B5CFF] hover:bg-[#6B4CE8]"
-            >
-              <Search className="w-4 h-4 mr-2" />
-              검색
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={() => {
-                setSearchName('');
-                setMeasurements([auroraData]);
-              }}
-            >
-              초기화
-            </Button>
+
+            {/* 두 번째 줄: 생년월일, 성별 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">생년월일</label>
+                <Input
+                  type="date"
+                  placeholder="YYYY-MM-DD"
+                  value={searchBirthDate}
+                  onChange={(e) => setSearchBirthDate(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">성별</label>
+                <select
+                  value={searchGender}
+                  onChange={(e) => setSearchGender(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                >
+                  <option value="">전체</option>
+                  <option value="M">남자</option>
+                  <option value="F">여자</option>
+                </select>
+              </div>
+            </div>
+
+            {/* 검색 버튼 */}
+            <div className="flex gap-2 justify-end">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setSearchName('');
+                  setSearchAffiliation('');
+                  setSearchBirthDate('');
+                  setSearchGender('');
+                  setMeasurements([auroraData]);
+                }}
+              >
+                초기화
+              </Button>
+              <Button 
+                onClick={handleSearch}
+                className="bg-[#7B5CFF] hover:bg-[#6B4CE8]"
+                disabled={isLoading}
+              >
+                <Search className="w-4 h-4 mr-2" />
+                {isLoading ? '검색중...' : '검색'}
+              </Button>
+            </div>
+
+            {/* 검색 안내 */}
+            <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-md">
+              <p>💡 <strong>검색 팁:</strong></p>
+              <p>• 조건을 비워두고 검색하면 전체 기록이 표시됩니다</p>
+              <p>• 여러 조건을 입력하면 모든 조건에 맞는 기록만 표시됩니다</p>
+              <p>• 이름만 입력하면 동명이인도 함께 표시됩니다</p>
+            </div>
           </div>
         </CardContent>
       </Card>
