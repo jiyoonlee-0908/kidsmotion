@@ -287,6 +287,48 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
             
+            {/* 과학적 근거 */}
+            <div className="mt-8 bg-gradient-to-r from-cyan-100 to-blue-100 p-6 rounded-lg border border-cyan-200">
+              <h3 className="text-xl font-bold text-cyan-800 mb-4">🔬 측정의 과학적 근거</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-cyan-700 mb-3">⚡ 5분 측정의 신뢰성</h4>
+                  <div className="bg-white p-4 rounded-lg">
+                    <ul className="space-y-2 text-gray-700 text-sm">
+                      <li>• <strong>5초 순발력:</strong> 순간 최대 파워 측정</li>
+                      <li>• <strong>15초 스프린트:</strong> 무산소 능력 평가</li>
+                      <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
+                      <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
+                      <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
+                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
+                    </ul>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-cyan-700 mb-3">📊 데이터 수집 정확도</h4>
+                  <div className="bg-white p-4 rounded-lg">
+                    <ul className="space-y-2 text-gray-700 text-sm">
+                      <li>• <strong>샘플링 주파수:</strong> 초당 50회 데이터 수집</li>
+                      <li>• <strong>총 데이터 포인트:</strong> 5분 = 15,000개 데이터</li>
+                      <li>• <strong>좌우 밸런스:</strong> 실시간 독립 측정</li>
+                      <li>• <strong>심박수 연동:</strong> 운동 강도 정확 측정</li>
+                      <li>• <strong>RPE 보정:</strong> 주관적 피로도 객관화</li>
+                      <li>• <strong>환경 보정:</strong> 온도/습도 자동 보정</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-6 bg-white p-4 rounded-lg border-l-4 border-cyan-500">
+                <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
+                <p className="text-gray-700 text-sm">
+                  사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
+                  <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
+                  올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
+                </p>
+              </div>
+            </div>
+
             {/* 하드웨어 상세 설명 */}
             <div className="border-t pt-8">
               <h3 className="text-xl font-bold mb-6 text-center">스마트 사이클 하드웨어 특징</h3>
@@ -582,6 +624,168 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-sm text-gray-600">AI 분석 • 누적데이터 통계 • 백분위 업데이트 • 분석리포트</p>
               </div>
             </div>
+            {/* 운영 가이드 상세화 */}
+            <div className="mt-8 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg border border-yellow-200">
+              <h3 className="text-xl font-bold text-orange-800 mb-4">🛠️ 완벽한 운영 지원 시스템</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                
+                {/* 설치 & 교육 */}
+                <div className="bg-white p-4 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-700 mb-3">📦 설치 & 교육</h4>
+                  <ul className="space-y-2 text-gray-700 text-sm">
+                    <li>• <strong>당일 설치:</strong> 전문 기사 직접 방문</li>
+                    <li>• <strong>3시간 교육:</strong> 장비 사용법 완전 숙지</li>
+                    <li>• <strong>시연 포함:</strong> 실제 아동으로 체험</li>
+                    <li>• <strong>매뉴얼 제공:</strong> 단계별 가이드북</li>
+                    <li>• <strong>온라인 교육:</strong> 추가 교육 언제든 가능</li>
+                  </ul>
+                </div>
+
+                {/* A/S & 유지보수 */}
+                <div className="bg-white p-4 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-700 mb-3">🔧 A/S & 유지보수</h4>
+                  <ul className="space-y-2 text-gray-700 text-sm">
+                    <li>• <strong>24시간 원격지원:</strong> 실시간 문제 해결</li>
+                    <li>• <strong>48시간 출동:</strong> 전국 어디든 방문</li>
+                    <li>• <strong>예방점검:</strong> 6개월마다 정기 점검</li>
+                    <li>• <strong>무료 업데이트:</strong> 소프트웨어 자동 업데이트</li>
+                    <li>• <strong>백업 장비:</strong> 고장 시 임시 대체품 제공</li>
+                  </ul>
+                </div>
+
+                {/* 공간 & 환경 */}
+                <div className="bg-white p-4 rounded-lg border border-orange-200">
+                  <h4 className="font-semibold text-orange-700 mb-3">🏢 공간 & 환경</h4>
+                  <ul className="space-y-2 text-gray-700 text-sm">
+                    <li>• <strong>최소 공간:</strong> 2m × 1.5m (3㎡)</li>
+                    <li>• <strong>전력 불필요:</strong> 자가충전으로 운영</li>
+                    <li>• <strong>소음 없음:</strong> 에어 저항 방식</li>
+                    <li>• <strong>먼지 방지:</strong> 밀폐형 디자인</li>
+                    <li>• <strong>이동 가능:</strong> 바퀴 달린 이동형</li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* 기관별 맞춤 솔루션 */}
+              <div className="mt-6 bg-white p-6 rounded-lg border border-orange-200">
+                <h4 className="font-semibold text-orange-700 mb-4">🎯 기관별 맞춤 패키지</h4>
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="text-center bg-red-50 p-4 rounded-lg">
+                    <div className="text-2xl mb-2">🏥</div>
+                    <h5 className="font-semibold text-red-700">병원 패키지</h5>
+                    <ul className="text-xs text-gray-600 mt-2">
+                      <li>• 의료진 전용 교육</li>
+                      <li>• 진료 연계 매뉴얼</li>
+                      <li>• 환자 상담 가이드</li>
+                      <li>• 의료용 리포트 양식</li>
+                    </ul>
+                  </div>
+                  <div className="text-center bg-blue-50 p-4 rounded-lg">
+                    <div className="text-2xl mb-2">🏃‍♂️</div>
+                    <h5 className="font-semibold text-blue-700">학원 패키지</h5>
+                    <ul className="text-xs text-gray-600 mt-2">
+                      <li>• 코치 교육 프로그램</li>
+                      <li>• 학부모 상담 템플릿</li>
+                      <li>• 월간 성장 리포트</li>
+                      <li>• 마케팅 지원 자료</li>
+                    </ul>
+                  </div>
+                  <div className="text-center bg-purple-50 p-4 rounded-lg">
+                    <div className="text-2xl mb-2">🏛️</div>
+                    <h5 className="font-semibold text-purple-700">보건소 패키지</h5>
+                    <ul className="text-xs text-gray-600 mt-2">
+                      <li>• 공무원 교육 과정</li>
+                      <li>• 지역 통계 리포트</li>
+                      <li>• 정책 수립 자료</li>
+                      <li>• 예산 효과 분석</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* 학부모 불안감 해소 */}
+        <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <Users className="w-6 h-6 mr-3 text-pink-600" />
+              👨‍👩‍👧‍👦 학부모님, 이런 걱정 없으세요!
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-2 gap-8">
+              
+              {/* 왼쪽: 걱정들 */}
+              <div>
+                <h3 className="text-xl font-bold text-pink-800 mb-4">😰 흔한 걱정들</h3>
+                <div className="space-y-4">
+                  <div className="bg-white p-4 rounded-lg border border-pink-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"그 돈으로 태권도 6개월 더 보내는 게 낫지 않을까?"</h4>
+                    <p className="text-gray-700 text-sm">태권도는 운동, 키즈모션은 <strong>현재 상태 정확히 파악</strong>하는 도구입니다. 어떤 운동이 우리 아이에게 맞는지 알고 나서 태권도를 보내면 더 효과적이에요!</p>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg border border-pink-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"애가 평균보다 낮게 나오면 상처받을 텐데?"</h4>
+                    <p className="text-gray-700 text-sm">평균보다 낮다고 문제가 아니에요! <strong>"우리 아이만의 성장 속도"</strong>를 찾는 게 목적입니다. 지금보다 3개월 후 얼마나 늘었는지가 더 중요해요.</p>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border border-pink-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"5분 타는 걸로 뭘 안다고?"</h4>
+                    <p className="text-gray-700 text-sm">스마트폰도 5분이면 사진 1000장 찍어요! 센서가 초당 수십 번 데이터를 수집해서 <strong>5분 = 수천 개 데이터 포인트</strong>입니다. 아이 상태를 정확히 파악하기에 충분해요.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 오른쪽: 해결책들 */}
+              <div>
+                <h3 className="text-xl font-bold text-green-800 mb-4">✅ 실제로는 이래요</h3>
+                <div className="space-y-4">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-600 mb-2">🎯 정확한 투자 방향 제시</h4>
+                    <p className="text-gray-700 text-sm">월 5만원으로 <strong>"우리 아이에게 정말 필요한 운동"</strong>을 알 수 있어요. 맞지 않는 운동에 6개월 투자하는 것보다 훨씬 경제적!</p>
+                  </div>
+                  
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-600 mb-2">💪 성장에 집중하는 긍정적 접근</h4>
+                    <p className="text-gray-700 text-sm"><strong>"지금보다 나아지고 있어요!"</strong> 방식으로 리포트를 제공합니다. 다른 아이와 비교가 아닌 우리 아이의 발전에 집중해요.</p>
+                  </div>
+
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-600 mb-2">🔬 과학적 신뢰성</h4>
+                    <p className="text-gray-700 text-sm">정량적 데이터로 <strong>"추측이 아닌 확실한 정보"</strong>를 드립니다. 부모님의 감이 맞는지 과학적으로 확인할 수 있어요.</p>
+                  </div>
+
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-600 mb-2">📱 쉽고 재미있는 경험</h4>
+                    <p className="text-gray-700 text-sm">아이들은 자전거 타는 게 재미있어해요! <strong>게임하듯 즐겁게</strong> 측정하고, 결과도 이해하기 쉽게 나와요.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 하단: 핵심 메시지 */}
+            <div className="mt-8 bg-gradient-to-r from-purple-100 to-blue-100 p-6 rounded-lg">
+              <h3 className="text-xl font-bold text-center text-purple-800 mb-4">💝 키즈모션이 드리는 진짜 가치</h3>
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl mb-2">🎯</div>
+                  <h4 className="font-semibold text-purple-700">정확한 방향성</h4>
+                  <p className="text-sm text-gray-600">우리 아이에게 맞는<br/>운동을 정확히 찾기</p>
+                </div>
+                <div>
+                  <div className="text-2xl mb-2">📈</div>
+                  <h4 className="font-semibold text-purple-700">성장의 확신</h4>
+                  <p className="text-sm text-gray-600">숫자로 확인하는<br/>우리 아이 발전 과정</p>
+                </div>
+                <div>
+                  <div className="text-2xl mb-2">💰</div>
+                  <h4 className="font-semibold text-purple-700">현명한 투자</h4>
+                  <p className="text-sm text-gray-600">효과 없는 학원비 대신<br/>확실한 성장 투자</p>
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -737,6 +941,91 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <h4 className="font-semibold">2029년: 의료기관 진출</h4>
                     <p className="text-sm">병원 + 보건소 진입으로 100억 매출</p>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ROI 계산서 구체화 */}
+            <div className="mt-8 bg-white/10 p-6 rounded-lg border border-white/20">
+              <h3 className="text-xl font-bold mb-4">📊 구체적 ROI 계산서</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                
+                {/* 스포츠학원 ROI */}
+                <div className="bg-white/20 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-3">🏃‍♂️ 스포츠학원 ROI (월 5만원)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>월 구독료:</span>
+                      <span className="font-semibold">-5만원</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>회원 증가 효과:</span>
+                      <span className="font-semibold">월 10명 추가</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>추가 수업료 수익:</span>
+                      <span className="font-semibold">+50만원</span>
+                    </div>
+                    <div className="border-t border-white/30 pt-2 flex justify-between font-bold">
+                      <span>순수익:</span>
+                      <span className="text-green-300">월 45만원</span>
+                    </div>
+                    <p className="text-xs text-white/80 mt-2">
+                      "체력 측정으로 우리 학원 효과 증명 → 학부모 만족도 ↑ → 신규 회원 유치"
+                    </p>
+                  </div>
+                </div>
+
+                {/* 병원 ROI */}
+                <div className="bg-white/20 p-4 rounded-lg">
+                  <h4 className="font-semibold mb-3">🏥 병원 ROI (월 5만원)</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>월 구독료:</span>
+                      <span className="font-semibold">-5만원</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>차별화 검진료:</span>
+                      <span className="font-semibold">+30만원</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>재방문 환자 증가:</span>
+                      <span className="font-semibold">+20만원</span>
+                    </div>
+                    <div className="border-t border-white/30 pt-2 flex justify-between font-bold">
+                      <span>순수익:</span>
+                      <span className="text-green-300">월 45만원</span>
+                    </div>
+                    <p className="text-xs text-white/80 mt-2">
+                      "최신 장비 도입병원 → 브랜딩 효과 → 환자 만족도 ↑ → 재방문율 증가"
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 하드웨어 ROI */}
+              <div className="mt-6 bg-white/20 p-4 rounded-lg">
+                <h4 className="font-semibold mb-3">💰 하드웨어 투자 회수 계산</h4>
+                <div className="grid md:grid-cols-3 gap-4 text-sm">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-300">550만원</div>
+                    <p>초기 하드웨어 비용</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-blue-300">12개월</div>
+                    <p>투자 회수 기간<br/>(월 45만원 순수익 기준)</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-green-300">540만원</div>
+                    <p>2년차 순수익<br/>(연 540만원)</p>
+                  </div>
+                </div>
+                
+                <div className="mt-4 bg-green-600/20 p-3 rounded-lg border border-green-500/30">
+                  <p className="text-center text-sm">
+                    <strong>결론:</strong> 1년 투자 회수 후 매년 540만원 순수익 → 
+                    <span className="text-green-300 font-bold">5년간 2,700만원 수익</span>
+                  </p>
                 </div>
               </div>
             </div>
