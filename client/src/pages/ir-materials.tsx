@@ -479,8 +479,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 실제 검증 사례 & 타겟별 가치 제안 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
+            <CardTitle className="text-2xl">
               🎯 파일럿부터 검증하는 확실한 성공 공식
             </CardTitle>
           </CardHeader>
@@ -532,8 +531,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 학부모 불안감 해소 */}
         <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Users className="w-6 h-6 mr-3 text-pink-600" />
+            <CardTitle className="text-2xl">
               🚀 기관 수익 극대화하는 게임체인저
             </CardTitle>
           </CardHeader>
@@ -610,8 +608,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 투자자 예상 질문 & 답변 */}
         <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Target className="w-6 h-6 mr-3 text-orange-600" />
+            <CardTitle className="text-2xl">
               💬 투자자가 묻기 전에 미리 답하는 FAQ
             </CardTitle>
           </CardHeader>
