@@ -594,7 +594,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const analysis = await storage.getAnalysisResult(measurement.id);
           return {
             measurement,
-            analysis
+            analysis,
+            strengths: analysis?.strengths ? analysis.strengths.split(", ") : [],
+            improvements: analysis?.improvements ? analysis.improvements.split(", ") : []
           };
         })
       );
