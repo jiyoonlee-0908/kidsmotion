@@ -119,6 +119,14 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 MotionBike
               </span>
             </div>
+            
+            {/* IR자료 버튼 */}
+            <Button
+              onClick={() => handleNavigation('ir-materials')}
+              className="ml-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 font-medium text-sm"
+            >
+              IR자료
+            </Button>
           </div>
           <div className="flex items-center space-x-8">
             <nav className="hidden md:flex items-center space-x-8">

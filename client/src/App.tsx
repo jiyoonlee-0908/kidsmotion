@@ -17,6 +17,7 @@ import AIExercisePrescription from "@/pages/ai-exercise-prescription";
 import GrowthManagement from "@/pages/growth-management";
 import ProfessionalReport from "@/pages/professional-report";
 import EasySharing from "@/pages/easy-sharing";
+import IRMaterials from "@/pages/ir-materials";
 import Admin from "@/pages/admin";
 import InviteCodeForm from "@/components/invite-code-form";
 
@@ -48,6 +49,7 @@ function App() {
     else if (path === '/growth-management') setCurrentPage('growth-management');
     else if (path === '/professional-report') setCurrentPage('professional-report');
     else if (path === '/easy-sharing') setCurrentPage('easy-sharing');
+    else if (path === '/ir-materials') setCurrentPage('ir-materials');
     else if (path === '/admin') setCurrentPage('admin');
     else setCurrentPage('home');
   }, []);
@@ -115,6 +117,8 @@ function App() {
         return <ProfessionalReport onNavigate={navigateTo} />;
       case 'easy-sharing':
         return <EasySharing onNavigate={navigateTo} />;
+      case 'ir-materials':
+        return <IRMaterials onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }
