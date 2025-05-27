@@ -457,15 +457,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
         
-        // 보완점이 2개 미만이고 모든 항목이 80% 이상이 아니면 하위 항목으로 채우기
+        // 보완점이 부족하고 모든 항목이 80% 이상이 아니면 하위 항목으로 채우기
         if (improvements.length < 2) {
           const allExcellent = sortedData.every(item => item.value >= 80);
           if (!allExcellent) {
             const remaining = sortedData.filter(item => !improvements.includes(item.name));
-            const needed = 2 - improvements.length;
+            const needed = Math.min(2 - improvements.length, remaining.length);
             const bottomRemaining = remaining.slice(-needed);
             improvements.push(...bottomRemaining.map(item => item.name));
           }
+        }
+        
+        // 하지만 실제로는 하위 항목들을 모두 보완점으로 표시해야 함
+        // 20% 미만인 모든 항목을 보완점에 추가
+        const allLowItems = sortedData.filter(item => item.value < 20 && !improvements.includes(item.name));
+        if (allLowItems.length > 0) {
+          improvements.push(...allLowItems.map(item => item.name));
         }
         
         console.log(`최종 강점: ${strengths.join(', ')}`);
