@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap } from "lucide-react";
 import Navigation from "@/components/navigation";
+import ImageGenerator from "@/components/image-generator";
 
 interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
@@ -519,6 +520,17 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-sm opacity-75 mt-4">지하철 5호선 방화역 4번 출구</p>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        {/* 이미지 생성 섹션 */}
+        <Card className="mb-16">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">KidsMotion 시스템 시각화</CardTitle>
+            <p className="text-center text-gray-600">실제 사용 모습을 고품질 이미지로 확인해보세요</p>
+          </CardHeader>
+          <CardContent>
+            <ImageGenerator />
           </CardContent>
         </Card>
 
