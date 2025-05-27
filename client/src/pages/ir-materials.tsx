@@ -765,45 +765,43 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               {/* 왼쪽: 걱정들 */}
               <div>
-                <h3 className="text-xl font-bold text-pink-800 mb-4">😰 흔한 걱정들</h3>
+                <h3 className="text-xl font-bold text-orange-800 mb-4">😰 운영상 고민들</h3>
                 <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border border-pink-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"그 돈으로 태권도 6개월 더 보내는 게 낫지 않을까?"</h4>
-                    <p className="text-gray-700 text-sm">태권도는 운동, 키즈모션은 <strong>현재 상태 정확히 파악</strong>하는 도구입니다. 어떤 운동이 우리 아이에게 맞는지 알고 나서 태권도를 보내면 더 효과적이에요!</p>
+                  <div className="bg-white p-4 rounded-lg border border-orange-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"월 5만원 구독료가 부담스럽지 않나?"</h4>
+                    <p className="text-gray-700 text-sm">학원 아동 1명당 월 15만원 받는데, 키즈모션 도입으로 <strong>'과학적 체력측정' 차별화</strong> 서비스 제공이 가능합니다. 신규 회원 유치 효과로 투자비 회수가 빠릅니다.</p>
                   </div>
                   
-                  <div className="bg-white p-4 rounded-lg border border-pink-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"애가 평균보다 낮게 나오면 상처받을 텐데?"</h4>
-                    <p className="text-gray-700 text-sm">평균보다 낮다고 문제가 아니에요! <strong>"우리 아이만의 성장 속도"</strong>를 찾는 게 목적입니다. 지금보다 3개월 후 얼마나 늘었는지가 더 중요해요.</p>
+                  <div className="bg-white p-4 rounded-lg border border-orange-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"학부모들이 정말 관심 가질까?"</h4>
+                    <p className="text-gray-700 text-sm">아동 성장에 대한 부모의 관심은 최고조입니다. <strong>"내 아이의 정확한 체력 수준"</strong>을 알고 싶어하는 니즈가 매우 높아 마케팅 포인트로 활용 가능합니다.</p>
                   </div>
 
-                  <div className="bg-white p-4 rounded-lg border border-pink-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"5분 타는 걸로 뭘 안다고?"</h4>
-                    <p className="text-gray-700 text-sm">스마트폰도 5분이면 사진 1000장 찍어요! 센서가 초당 수십 번 데이터를 수집해서 <strong>5분 = 수천 개 데이터 포인트</strong>입니다. 아이 상태를 정확히 파악하기에 충분해요.</p>
+                  <div className="bg-white p-4 rounded-lg border border-orange-200">
+                    <h4 className="font-semibold text-red-600 mb-2">"장비 운영이 복잡하지 않을까?"</h4>
+                    <p className="text-gray-700 text-sm">2m × 1.5m 공간만 있으면 설치 가능하고, 자가충전으로 전력도 불필요합니다. <strong>3시간 교육 후 바로 운영</strong> 가능한 간단한 시스템입니다.</p>
                   </div>
                 </div>
               </div>
 
               {/* 오른쪽: 해결책들 */}
               <div>
-                <h3 className="text-xl font-bold text-green-800 mb-4">✅ 실제로는 이래요</h3>
+                <h3 className="text-xl font-bold text-green-800 mb-4">✅ 실제 운영 효과</h3>
                 <div className="space-y-4">
                   <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">🎯 정확한 투자 방향 제시</h4>
-                    <p className="text-gray-700 text-sm">월 5만원으로 <strong>"우리 아이에게 정말 필요한 운동"</strong>을 알 수 있어요. 맞지 않는 운동에 6개월 투자하는 것보다 훨씬 경제적!</p>
+                    <h4 className="font-semibold text-green-600 mb-2">🎯 차별화된 경쟁력 확보</h4>
+                    <p className="text-gray-700 text-sm"><strong>"과학적 체력 분석 도입 기관"</strong>으로 브랜딩이 가능합니다. 경쟁 학원 대비 프리미엄 서비스 제공으로 회원비 인상도 가능해집니다.</p>
                   </div>
                   
                   <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">💪 성장에 집중하는 긍정적 접근</h4>
-                    <p className="text-gray-700 text-sm"><strong>"지금보다 나아지고 있어요!"</strong> 방식으로 리포트를 제공합니다. 다른 아이와 비교가 아닌 우리 아이의 발전에 집중해요.</p>
+                    <h4 className="font-semibold text-green-600 mb-2">💪 학부모 만족도 극대화</h4>
+                    <p className="text-gray-700 text-sm">객관적 데이터 제공으로 학부모 신뢰도가 높아집니다. <strong>"아이가 어떻게 발전하고 있는지"</strong> 구체적으로 보여줄 수 있어 만족도 급상승합니다.</p>
                   </div>
 
                   <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">🔬 과학적 신뢰성</h4>
-                    <p className="text-gray-700 text-sm">정량적 데이터로 <strong>"추측이 아닌 확실한 정보"</strong>를 드립니다. 부모님의 감이 맞는지 과학적으로 확인할 수 있어요.</p>
+                    <h4 className="font-semibold text-green-600 mb-2">🔬 데이터 기반 운영 가능</h4>
+                    <p className="text-gray-700 text-sm">정량적 데이터로 <strong>"이 아이에게는 이런 훈련이 필요합니다"</strong> 맞춤 지도가 가능합니다. 감에 의존하지 않는 과학적 운영으로 전문성을 인정받습니다.</p>
                   </div>
-
-
                 </div>
               </div>
             </div>
