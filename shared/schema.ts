@@ -56,6 +56,8 @@ export const analysisResults = pgTable("analysis_results", {
   explanation60s: text("explanation_60s"),
   comprehensiveAnalysis: text("comprehensive_analysis"),
   overallAssessment: text("overall_assessment"),
+  strengths: text("strengths"),
+  improvements: text("improvements"),
 });
 
 export const inviteCodes = pgTable("invite_codes", {

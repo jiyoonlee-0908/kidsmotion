@@ -116,7 +116,9 @@ export class MemStorage implements IStorage {
       explanation30s: insertResult.explanation30s || null,
       explanation60s: insertResult.explanation60s || null,
       comprehensiveAnalysis: insertResult.comprehensiveAnalysis || null,
-      overallAssessment: insertResult.overallAssessment || null
+      overallAssessment: insertResult.overallAssessment || null,
+      strengths: insertResult.strengths || null,
+      improvements: insertResult.improvements || null
     };
     this.analysisResults.set(id, result);
     return result;

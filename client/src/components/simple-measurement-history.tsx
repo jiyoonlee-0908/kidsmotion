@@ -37,6 +37,10 @@ interface MeasurementData {
   percentile60s: number;
   percentile180s?: number;
   percentile360s?: number;
+  strengths?: string;
+  improvements?: string;
+  aiSummary?: string;
+  balanceStatus?: string;
 }
 
 interface SimpleMeasurementHistoryProps {
@@ -422,16 +426,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">강점</span>
                       <p className="font-semibold text-green-600">
-                        {(() => {
-                          const strengths = [];
-                          if (selectedMeasurement.percentile5s >= 20) strengths.push("순발력 (5초)");
-                          if (selectedMeasurement.percentile15s >= 20) strengths.push("스프린트 파워 (15초)");
-                          if (selectedMeasurement.percentile30s >= 20) strengths.push("근력 (30초)");
-                          if (selectedMeasurement.percentile60s >= 20) strengths.push("근지구력 (60초)");
-                          if (selectedMeasurement.percentile180s && selectedMeasurement.percentile180s >= 20) strengths.push("심폐지구력 (180초)");
-                          if (selectedMeasurement.percentile360s && selectedMeasurement.percentile360s >= 20) strengths.push("장시간지구력 (360초)");
-                          return strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다";
-                        })()}
+                        {selectedMeasurement.strengths || "집중 훈련이 필요합니다"}
                       </p>
                     </div>
                   </div>
@@ -439,34 +434,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">보완점</span>
                       <p className="font-semibold text-orange-600">
-                        {(() => {
-                          const percentiles = [
-                            { name: "순발력 (5초)", value: selectedMeasurement.percentile5s },
-                            { name: "스프린트 파워 (15초)", value: selectedMeasurement.percentile15s },
-                            { name: "근력 (30초)", value: selectedMeasurement.percentile30s },
-                            { name: "근지구력 (60초)", value: selectedMeasurement.percentile60s }
-                          ];
-                          
-                          // 180초, 360초 데이터가 있으면 추가
-                          if (selectedMeasurement.percentile180s !== null && selectedMeasurement.percentile180s !== undefined) {
-                            percentiles.push({ name: "심폐지구력 (180초)", value: selectedMeasurement.percentile180s });
-                          }
-                          if (selectedMeasurement.percentile360s !== null && selectedMeasurement.percentile360s !== undefined) {
-                            percentiles.push({ name: "장시간지구력 (360초)", value: selectedMeasurement.percentile360s });
-                          }
-                          
-                          // 20% 미만인 항목들 찾기
-                          const weakAreas = percentiles.filter(item => item.value < 20);
-                          
-                          if (weakAreas.length >= 3) {
-                            // 대부분 영역이 약하면 모든 약한 영역 표시
-                            return weakAreas.map(item => item.name).join(", ");
-                          } else {
-                            // 일부만 약하면 가장 낮은 1-2개만 표시
-                            const lowest = percentiles.sort((a, b) => a.value - b.value);
-                            return lowest.slice(0, 2).map(item => item.name).join(", ");
-                          }
-                        })()}
+                        {selectedMeasurement.improvements || "측정 필요"}
                       </p>
                     </div>
                   </div>

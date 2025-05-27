@@ -287,6 +287,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Create analysis result
+      // 강점과 보완점 계산
+      const calculateStrengthsAndImprovements = () => {
+        const percentileData = [
+          { name: "순발력 (5초)", value: percentiles["5s"] },
+          { name: "스프린트 파워 (15초)", value: percentiles["15s"] },
+          { name: "근력 (30초)", value: percentiles["30s"] },
+          { name: "근지구력 (60초)", value: percentiles["60s"] }
+        ];
+        
+        // 180초, 360초 데이터가 있으면 추가
+        if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
+          percentileData.push({ name: "심폐지구력 (180초)", value: percentiles["180s"] });
+        }
+        if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
+          percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
+        }
+        
+        // 강점: 20% 이상인 항목들
+        const strengths = percentileData
+          .filter(item => item.value >= 20)
+          .map(item => item.name);
+        
+        // 보완점: 20% 미만인 항목들 찾기
+        const weakAreas = percentileData.filter(item => item.value < 20);
+        
+        let improvements;
+        if (weakAreas.length >= 3) {
+          // 대부분 영역이 약하면 모든 약한 영역 표시
+          improvements = weakAreas.map(item => item.name);
+        } else {
+          // 일부만 약하면 가장 낮은 1-2개만 표시
+          const sorted = [...percentileData].sort((a, b) => a.value - b.value);
+          improvements = sorted.slice(0, 2).map(item => item.name);
+        }
+        
+        return {
+          strengths: strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다",
+          improvements: improvements.join(", ")
+        };
+      };
+      
+      const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovements();
+
       const analysisResult = await storage.createAnalysisResult({
         measurementId: measurement.id,
         bmi,
@@ -309,7 +352,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         explanation30s: aiAnalysis.explanations.muscleEndurance,
         explanation60s: aiAnalysis.explanations.cardioEndurance,
         comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
-        overallAssessment: aiAnalysis.overallAssessment
+        overallAssessment: aiAnalysis.overallAssessment,
+        strengths: strengthsText,
+        improvements: improvementsText
       });
       
       console.log("=== 측정 데이터 저장 완료 ===");
