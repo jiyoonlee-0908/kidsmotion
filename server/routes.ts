@@ -446,12 +446,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`우수 항목 (96% 이상): ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
         console.log(`취약 항목 (4% 미만): ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
         
-        // 강점이 2개 미만이면 상위 항목으로 채우기
+        // 강점이 2개 미만이고 모든 항목이 20% 이상이면 상위 항목으로 채우기
         if (strengths.length < 2) {
-          const remaining = sortedData.filter(item => !strengths.includes(item.name));
-          const needed = 2 - strengths.length;
-          const topRemaining = remaining.slice(0, needed);
-          strengths.push(...topRemaining.map(item => item.name));
+          const hasDecentItems = sortedData.some(item => item.value >= 20);
+          if (hasDecentItems) {
+            const remaining = sortedData.filter(item => !strengths.includes(item.name) && item.value >= 20);
+            const needed = 2 - strengths.length;
+            const topRemaining = remaining.slice(0, needed);
+            strengths.push(...topRemaining.map(item => item.name));
+          }
         }
         
         // 보완점이 2개 미만이고 모든 항목이 80% 이상이 아니면 하위 항목으로 채우기
