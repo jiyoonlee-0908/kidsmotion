@@ -851,7 +851,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "글로벌 시장에서 몇 % 점유할 건가요?"</p>
-                    <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국에서만 연 100억 달성 후 해외 진출 계획입니다.</p>
+                    <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국 시장 안정화 후 단계적 해외 진출을 계획하고 있습니다.</p>
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "기관에서 월 5만원 구독료가 부담스럽지 않나요?"</p>
