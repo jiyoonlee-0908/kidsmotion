@@ -371,6 +371,32 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
 
+            {/* 해외 시장 기회 */}
+            <div className="mt-8 bg-gradient-to-r from-blue-100 to-indigo-100 p-6 rounded-lg border border-blue-200">
+              <h3 className="text-xl font-bold text-blue-800 mb-4">🌍 글로벌 시장 기회</h3>
+              <div className="grid md:grid-cols-2 gap-6 mb-4">
+                <div className="bg-white p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">$218억</div>
+                  <p className="text-sm text-gray-600 mb-2">글로벌 아동 스포츠 장비 시장 (2022년)</p>
+                  <p className="text-xs text-blue-700">약 29조 원 규모</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-green-600 mb-2">$306억</div>
+                  <p className="text-sm text-gray-600 mb-2">2030년 전망 시장 규모</p>
+                  <p className="text-xs text-green-700">약 41조 원 (CAGR 4.4%)</p>
+                </div>
+              </div>
+              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border border-purple-200">
+                <h4 className="font-bold text-purple-700 mb-2">💡 핵심 성장 분야</h4>
+                <p className="text-purple-700 text-sm">
+                  <strong>피트니스 장비 부문</strong>: 연평균 성장률 <strong>5.5%</strong>로 가장 빠른 성장세
+                </p>
+                <p className="text-purple-600 text-xs mt-1">
+                  * Kids Sports Equipment Market 보고서 기준
+                </p>
+              </div>
+            </div>
+
             <div className="mt-8 bg-gradient-to-r from-yellow-100 to-orange-100 p-6 rounded-lg">
               <h3 className="text-xl font-bold text-orange-800 mb-4">💡 투자 포인트</h3>
               <div className="grid md:grid-cols-2 gap-6">
