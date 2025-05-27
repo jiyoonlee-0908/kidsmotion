@@ -69,8 +69,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-3 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-yellow-600 mb-2">영유아검진의 대근육운동발달 항목의 한계</p>
-                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④</p>
-                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④</p>
+                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④
+                      <span className="text-xs text-gray-500 ml-2">(54-60개월 검진)</span>
+                    </p>
+                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④
+                      <span className="text-xs text-gray-500 ml-2">(42-48개월 검진)</span>
+                    </p>
                     <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
                   </div>
                   <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
