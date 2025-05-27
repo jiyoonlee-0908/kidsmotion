@@ -31,7 +31,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 시장 기회 - 부모 니즈 */}
         <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-red-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-red-700 mb-4">🚨 부모들이 가장 걱정하는 것: 우리 아이 성장</CardTitle>
+            <CardTitle className="text-2xl text-red-700 mb-4">🚨 부모의 고민 VS 현실: 정확한 측정의 부재</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
@@ -77,7 +77,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-red-600 mb-2">초등체력장의 한계</p>
                     <p className="text-gray-700">• 아날로그식 측정으로 정확도 한계</p>
                     <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
-                    <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
+                    <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입 가능</p>
                   </div>
                   <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
                     <p className="text-blue-600 mb-2">국가에서 하는 아동대상 체력측정의 한계</p>
