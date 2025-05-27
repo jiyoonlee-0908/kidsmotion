@@ -20,7 +20,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             Investor Relations
           </Badge>
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            💰 아동 체력 측정의 미래를 선점하세요
+            📈 아동 체력 측정의 미래를 선점하세요
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             부모의 최대 관심사인 '아이 성장'과 정부의 '국민건강' 정책을 연결하는<br/>
