@@ -164,14 +164,14 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       measured: !!(measurement.power180s && analysis.percentile180s)
     },
     {
-      title: "심폐지구력 (360초)",
-      power: measurement.power360s || null,
-      percentile: analysis.percentile360s ? Math.round(analysis.percentile360s) : null,
-      explanation: measurement.power360s && analysis.percentile360s 
-        ? `심폐지구력이 ${Math.round(analysis.percentile360s)}% 수준입니다. 360초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`
-        : "360초 심폐지구력 측정이 실시되지 않았습니다.",
+      title: "심폐지구력 (300초)",
+      power: measurement.power300s || null,
+      percentile: analysis.percentile300s ? Math.round(analysis.percentile300s) : null,
+      explanation: measurement.power300s && analysis.percentile300s 
+        ? `심폐지구력이 ${Math.round(analysis.percentile300s)}% 수준입니다. 300초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`
+        : "300초 심폐지구력 측정이 실시되지 않았습니다.",
       category: "cardio-endurance",
-      measured: !!(measurement.power360s && analysis.percentile360s)
+      measured: !!(measurement.power300s && analysis.percentile300s)
     }
   ];
 

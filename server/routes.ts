@@ -96,12 +96,12 @@ function generateFullReportHtml(measurementData: any, analysisData: any): string
         </div>
         ` : ''}
 
-        ${percentiles['360s'] !== null ? `
+        ${percentiles['300s'] !== null ? `
         <div class="score-item">
-          <h4>심폐지구력 (360초)</h4>
-          <p>${measurementData.power360s || 0}W | 환산점수: ${Math.round(percentiles['360s'])}</p>
-          <p>등급: ${getGrade(percentiles['360s'])} (${Math.round(percentiles['360s'])}%)</p>
-          <p>심폐지구력이 ${Math.round(percentiles['360s'])}% 수준입니다.</p>
+          <h4>심폐지구력 (300초)</h4>
+          <p>${measurementData.power300s || 0}W | 환산점수: ${Math.round(percentiles['300s'])}</p>
+          <p>등급: ${getGrade(percentiles['300s'])} (${Math.round(percentiles['300s'])}%)</p>
+          <p>심폐지구력이 ${Math.round(percentiles['300s'])}% 수준입니다.</p>
         </div>
         ` : ''}
       </section>

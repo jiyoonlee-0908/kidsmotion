@@ -536,7 +536,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     
                     <FormField
                       control={form.control}
-                      name="power360s"
+                      name="power300s"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
