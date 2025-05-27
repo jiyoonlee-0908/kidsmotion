@@ -121,44 +121,53 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       power: measurement.power5s,
       percentile: Math.round(analysis.percentile5s),
       explanation: `순발력이 ${Math.round(analysis.percentile5s)}% 수준입니다. 짧은 시간 안에 최대 파워를 발휘하는 능력을 평가합니다.`,
-      category: "power"
+      category: "power",
+      measured: true
     },
     {
       title: "스프린트 파워 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
       explanation: `스프린트 파워가 ${Math.round(analysis.percentile15s)}% 수준입니다. 15초간 지속할 수 있는 강한 파워 발휘 능력을 평가합니다.`,
-      category: "strength"
+      category: "strength",
+      measured: true
     },
     {
       title: "파워 지속력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
       explanation: `파워 지속력이 ${Math.round(analysis.percentile30s)}% 수준입니다. 30초간 일정한 강도의 파워를 유지하는 능력을 평가합니다.`,
-      category: "endurance"
+      category: "endurance",
+      measured: true
     },
     {
       title: "근력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
       explanation: `근력이 ${Math.round(analysis.percentile60s)}% 수준입니다. 60초간 근육의 힘을 지속적으로 발휘하는 능력을 평가합니다.`,
-      category: "cardio"
+      category: "cardio",
+      measured: true
     },
-    // 180초, 360초 데이터가 있으면 추가
-    ...(measurement.power180s && analysis.percentile180s ? [{
+    {
       title: "근지구력 (180초)",
-      power: measurement.power180s,
-      percentile: Math.round(analysis.percentile180s),
-      explanation: `근지구력이 ${Math.round(analysis.percentile180s)}% 수준입니다. 180초간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다.`,
-      category: "muscular-endurance"
-    }] : []),
-    ...(measurement.power360s && analysis.percentile360s ? [{
+      power: measurement.power180s || null,
+      percentile: analysis.percentile180s ? Math.round(analysis.percentile180s) : null,
+      explanation: measurement.power180s && analysis.percentile180s 
+        ? `근지구력이 ${Math.round(analysis.percentile180s)}% 수준입니다. 180초간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다.`
+        : "180초 근지구력 측정이 실시되지 않았습니다.",
+      category: "muscular-endurance",
+      measured: !!(measurement.power180s && analysis.percentile180s)
+    },
+    {
       title: "심폐지구력 (360초)",
-      power: measurement.power360s,
-      percentile: Math.round(analysis.percentile360s),
-      explanation: `심폐지구력이 ${Math.round(analysis.percentile360s)}% 수준입니다. 360초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`,
-      category: "cardio-endurance"
-    }] : [])
+      power: measurement.power360s || null,
+      percentile: analysis.percentile360s ? Math.round(analysis.percentile360s) : null,
+      explanation: measurement.power360s && analysis.percentile360s 
+        ? `심폐지구력이 ${Math.round(analysis.percentile360s)}% 수준입니다. 360초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`
+        : "360초 심폐지구력 측정이 실시되지 않았습니다.",
+      category: "cardio-endurance",
+      measured: !!(measurement.power360s && analysis.percentile360s)
+    }
   ];
 
   const comprehensiveAnalysisPoints = analysis.comprehensiveAnalysis?.split(" | ") || [];
@@ -333,26 +342,42 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           <div className="space-y-6">
             {fitnessItems.map((item, index) => (
-              <div key={index} className="fitness-item">
+              <div key={index} className={`fitness-item ${!item.measured ? 'opacity-60' : ''}`}>
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <h4 className="font-semibold text-gray-900">{item.title}</h4>
-                    <p className="text-sm text-gray-600">{item.power}W | 환산점수: {Math.round(item.percentile)}</p>
+                    <h4 className={`font-semibold ${item.measured ? 'text-gray-900' : 'text-gray-500'}`}>{item.title}</h4>
+                    <p className="text-sm text-gray-600">
+                      {item.measured 
+                        ? `${item.power}W | 환산점수: ${Math.round(item.percentile || 0)}` 
+                        : '미측정'
+                      }
+                    </p>
                   </div>
                   <div className="text-right">
-                    <Badge className={`${getGradeColor(item.percentile)} text-white text-sm font-medium`}>
-                      {getGradeText(item.percentile)}
-                    </Badge>
-                    <p className="text-sm text-gray-600 mt-1">{item.percentile}%</p>
+                    {item.measured ? (
+                      <>
+                        <Badge className={`${getGradeColor(item.percentile || 0)} text-white text-sm font-medium`}>
+                          {getGradeText(item.percentile || 0)}
+                        </Badge>
+                        <p className="text-sm text-gray-600 mt-1">{item.percentile || 0}%</p>
+                      </>
+                    ) : (
+                      <>
+                        <Badge className="bg-gray-400 text-white text-sm font-medium">
+                          미측정
+                        </Badge>
+                        <p className="text-sm text-gray-400 mt-1">-</p>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="progress-bar mb-3">
                   <div 
-                    className={`progress-fill ${getGradeColor(item.percentile)}`}
-                    style={{ width: `${item.percentile}%` }}
+                    className={`progress-fill ${item.measured ? getGradeColor(item.percentile) : 'bg-gray-300'}`}
+                    style={{ width: item.measured ? `${item.percentile || 0}%` : '0%' }}
                   />
                 </div>
-                <p className="text-sm text-gray-700">{item.explanation}</p>
+                <p className={`text-sm ${item.measured ? 'text-gray-700' : 'text-gray-500'}`}>{item.explanation}</p>
               </div>
             ))}
           </div>
