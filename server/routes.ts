@@ -179,8 +179,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const measurementData = insertMeasurementSchema.parse(req.body);
       
-      // Create measurement
-      const measurement = await storage.createMeasurement(measurementData);
+      // 측정 결과만 계산하고 저장하지 않음 (데모용)
+      const measurement = { id: Date.now(), ...measurementData };
       
       // Calculate analysis
       const age = calculateAge(measurementData.birthDate);
@@ -330,7 +330,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovements();
 
-      const analysisResult = await storage.createAnalysisResult({
+      // 분석 결과만 생성하고 저장하지 않음 (데모용)
+      const analysisResult = {
+        id: Date.now() + 1,
         measurementId: measurement.id,
         bmi,
         age,
@@ -354,13 +356,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
         overallAssessment: aiAnalysis.overallAssessment,
         strengths: strengthsText,
-        improvements: improvementsText
-      });
+        improvements: improvementsText,
+        aiAnalysis
+      };
       
-      console.log("=== 측정 데이터 저장 완료 ===");
+      console.log("=== 측정 결과 계산 완료 (저장하지 않음) ===");
       console.log("측정 ID:", measurement.id);
       console.log("학생 이름:", measurement.studentName);
-      console.log("저장된 전체 데이터 개수:", (await storage.getAllMeasurements()).length);
       
       res.json({
         measurement,
