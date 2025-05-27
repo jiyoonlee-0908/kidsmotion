@@ -391,19 +391,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   </div>
                   <h4 className="font-semibold text-gray-900 mb-2">운동시 평균 심박수</h4>
                   <p className="text-sm text-gray-600">
-                    운동 적응도 평가
+                    {analysis.maxBpm ? `최대 심박수 대비 ${Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%로 운동` : "운동 적응도 평가"}
                   </p>
-                  <Badge className={`mt-2 ${
-                    analysis.maxBpm ? 
-                    (analysis.avgBpm / analysis.maxBpm) > 0.8 ? "bg-emerald-500" :
-                    (analysis.avgBpm / analysis.maxBpm) > 0.6 ? "bg-blue-500" : "bg-yellow-500"
-                    : "bg-blue-500"
-                  } text-white`}>
-                    {analysis.maxBpm ?
-                     (analysis.avgBpm / analysis.maxBpm) > 0.8 ? "고강도" :
-                     (analysis.avgBpm / analysis.maxBpm) > 0.6 ? "중강도" : "저강도"
-                     : "적절한 강도"}
-                  </Badge>
                 </div>
               )}
             </div>
