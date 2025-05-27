@@ -132,7 +132,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             </Button>
           </div>
           <div className="flex items-center space-x-8">
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="flex items-center space-x-8">
               <span 
                 onClick={() => handleNavigation('home')}
                 className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
