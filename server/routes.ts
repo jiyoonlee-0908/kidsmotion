@@ -417,16 +417,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const percentileData = [
           { name: "순발력 (5초)", value: percentiles["5s"] },
           { name: "스프린트 파워 (15초)", value: percentiles["15s"] },
-          { name: "근력 (30초)", value: percentiles["30s"] },
-          { name: "근지구력 (60초)", value: percentiles["60s"] }
+          { name: "파워 지속력 (30초)", value: percentiles["30s"] },
+          { name: "근력 (60초)", value: percentiles["60s"] }
         ];
         
         // 180초, 360초 데이터가 있으면 추가
         if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
-          percentileData.push({ name: "심폐지구력 (180초)", value: percentiles["180s"] });
+          percentileData.push({ name: "근지구력 (180초)", value: percentiles["180s"] });
         }
         if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
-          percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
+          percentileData.push({ name: "심폐지구력 (360초)", value: percentiles["360s"] });
         }
         
         let strengths = [];
