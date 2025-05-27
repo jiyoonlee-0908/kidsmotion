@@ -424,18 +424,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.json([]);
         }
         
-        // 각 측정에 대한 분석 결과 가져오기
+        // 각 측정에 대한 분석 결과 가져오기 및 데이터 변환
         const results = await Promise.all(
           measurements.map(async (measurement) => {
             const analysis = await storage.getAnalysisResult(measurement.id);
+            if (!analysis) return null;
+            
+            // 클라이언트가 기대하는 형태로 데이터 변환
             return {
-              measurement,
-              analysis
+              id: measurement.id,
+              studentName: measurement.studentName,
+              affiliation: measurement.affiliation,
+              gender: measurement.gender,
+              age: analysis.age,
+              birthDate: measurement.birthDate,
+              measureDate: measurement.measureDate,
+              height: measurement.height,
+              weight: measurement.weight,
+              power5s: measurement.power5s,
+              power15s: measurement.power15s,
+              power30s: measurement.power30s,
+              power60s: measurement.power60s,
+              power180s: measurement.power180s,
+              power360s: measurement.power360s,
+              leftBalance: measurement.leftBalance,
+              rightBalance: measurement.rightBalance,
+              maxHeartRate: measurement.maxHeartRate,
+              avgHeartRate: measurement.avgHeartRate,
+              overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
+                           analysis.overallPercentile >= 60 ? '우수' :
+                           analysis.overallPercentile >= 40 ? '보통' :
+                           analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+              overallPercentile: analysis.overallPercentile,
+              percentile5s: analysis.percentile5s,
+              percentile15s: analysis.percentile15s,
+              percentile30s: analysis.percentile30s,
+              percentile60s: analysis.percentile60s,
+              percentile180s: analysis.percentile180s,
+              percentile360s: analysis.percentile360s,
+              strengths: analysis.strengths,
+              improvements: analysis.improvements,
+              aiSummary: analysis.aiSummary,
+              balanceStatus: analysis.balanceStatus
             };
           })
         );
         
-        return res.json(results);
+        const filteredResults = results.filter(result => result !== null);
+        return res.json(filteredResults);
       }
       
       // 실제 검색 수행
@@ -452,18 +488,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json([]); // 404 대신 빈 배열 반환
       }
       
-      // 분석 결과 추가
+      // 분석 결과 추가 및 데이터 변환
       const results = await Promise.all(
         measurements.map(async (measurement) => {
           const analysis = await storage.getAnalysisResult(measurement.id);
+          if (!analysis) return null;
+          
+          // 클라이언트가 기대하는 형태로 데이터 변환
           return {
-            measurement,
-            analysis
+            id: measurement.id,
+            studentName: measurement.studentName,
+            affiliation: measurement.affiliation,
+            gender: measurement.gender,
+            age: analysis.age,
+            birthDate: measurement.birthDate,
+            measureDate: measurement.measureDate,
+            height: measurement.height,
+            weight: measurement.weight,
+            power5s: measurement.power5s,
+            power15s: measurement.power15s,
+            power30s: measurement.power30s,
+            power60s: measurement.power60s,
+            power180s: measurement.power180s,
+            power360s: measurement.power360s,
+            leftBalance: measurement.leftBalance,
+            rightBalance: measurement.rightBalance,
+            maxHeartRate: measurement.maxHeartRate,
+            avgHeartRate: measurement.avgHeartRate,
+            overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
+                         analysis.overallPercentile >= 60 ? '우수' :
+                         analysis.overallPercentile >= 40 ? '보통' :
+                         analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+            overallPercentile: analysis.overallPercentile,
+            percentile5s: analysis.percentile5s,
+            percentile15s: analysis.percentile15s,
+            percentile30s: analysis.percentile30s,
+            percentile60s: analysis.percentile60s,
+            percentile180s: analysis.percentile180s,
+            percentile360s: analysis.percentile360s,
+            strengths: analysis.strengths,
+            improvements: analysis.improvements,
+            aiSummary: analysis.aiSummary,
+            balanceStatus: analysis.balanceStatus
           };
         })
       );
       
-      res.json(results);
+      const filteredResults = results.filter(result => result !== null);
+      res.json(filteredResults);
       
     } catch (error) {
       console.error("검색 오류:", error);
