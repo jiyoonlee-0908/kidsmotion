@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Bike, HelpCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,12 +7,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SettingsModal from "@/components/settings-modal";
 
 interface NavigationProps {
   onNavigate?: (page: string) => void;
 }
 
 export default function Navigation({ onNavigate }: NavigationProps = {}) {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  
   const handleNavigation = (page: string) => {
     if (onNavigate) {
       onNavigate(page);
@@ -115,7 +119,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => handleNavigation('settings')}
+                onClick={() => setSettingsOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
                 <Settings className="w-5 h-5" />
@@ -124,6 +128,11 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
           </div>
         </div>
       </div>
+      
+      <SettingsModal 
+        open={settingsOpen} 
+        onOpenChange={setSettingsOpen} 
+      />
     </header>
   );
 }
