@@ -37,7 +37,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
