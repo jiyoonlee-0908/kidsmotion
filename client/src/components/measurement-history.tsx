@@ -111,6 +111,21 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
   };
 
   const deleteMeasurement = async (measurementId: number) => {
+    // 관리자 비밀번호 확인
+    const adminPassword = prompt('관리자 비밀번호를 입력하세요:');
+    if (!adminPassword) {
+      return;
+    }
+
+    if (adminPassword !== '263910') {
+      toast({
+        title: "인증 실패",
+        description: "관리자 비밀번호가 올바르지 않습니다.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!confirm('정말로 이 측정 데이터를 삭제하시겠습니까?')) {
       return;
     }
