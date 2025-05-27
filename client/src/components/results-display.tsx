@@ -412,14 +412,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-2">💓 심박수 건강 포인트</h4>
               <div className="space-y-2 text-sm text-gray-700">
-                {analysis.restingBpm && analysis.restingBpm < 70 && (
-                  <p>✅ 안정시 심박수가 좋아요! 심장이 효율적으로 뛰고 있어요.</p>
-                )}
-                {analysis.restingBpm && analysis.restingBpm >= 90 && (
-                  <p>💡 안정시 심박수가 높아요. 꾸준한 유산소 운동으로 개선할 수 있어요.</p>
-                )}
-                <p>🏃‍♀️ 규칙적인 운동으로 심장을 더 건강하게 만들어봐요!</p>
-                <p>📈 시간이 지나면서 안정시 심박수가 낮아지는 것을 목표로 해요.</p>
+                <p>🏃‍♀️ 규칙적인 운동으로 심박을 더 건강하게 만들어봐요!</p>
+                <p>📈 시간이 지나면서 운동시 평균 심박수가 낮아지는 것을 목표로 해봐요!</p>
               </div>
             </div>
           </CardContent>
