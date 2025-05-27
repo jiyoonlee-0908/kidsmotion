@@ -98,39 +98,48 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       }
       
       // 서버에서 받은 원본 데이터를 그대로 사용 (새로 계산하지 않음)
-      const formattedData: MeasurementData[] = data.map((item: any) => ({
-        id: item.id,
-        studentName: item.studentName,
-        affiliation: item.affiliation,
-        gender: item.gender,
-        age: item.age || 0,
-        measureDate: item.measureDate,
-        birthDate: item.birthDate,
-        height: item.height,
-        weight: item.weight,
-        power5s: item.power5s,
-        power15s: item.power15s,
-        power30s: item.power30s,
-        power60s: item.power60s,
-        power180s: item.power180s,
-        power360s: item.power360s,
-        leftBalance: item.leftBalance,
-        rightBalance: item.rightBalance,
-        maxHeartRate: item.maxHeartRate,
-        avgHeartRate: item.avgHeartRate,
-        overallGrade: item.overallGrade,
-        overallPercentile: item.overallPercentile || 0,
-        percentile5s: item.percentile5s || 0,
-        percentile15s: item.percentile15s || 0,
-        percentile30s: item.percentile30s || 0,
-        percentile60s: item.percentile60s || 0,
-        percentile180s: item.percentile180s || null,
-        percentile360s: item.percentile360s || null,
-        strengths: item.strengths,
-        improvements: item.improvements,
-        aiSummary: item.aiSummary,
-        balanceStatus: item.balanceStatus
-      }));
+      const formattedData: MeasurementData[] = data.map((item: any) => {
+        // 서버 응답이 {measurement: {...}, analysis: {...}} 구조인 경우 처리
+        const measurement = item.measurement || item;
+        const analysis = item.analysis || {};
+        
+        return {
+          id: measurement.id,
+          studentName: measurement.studentName,
+          affiliation: measurement.affiliation,
+          gender: measurement.gender,
+          age: analysis.age || 0,
+          measureDate: measurement.measureDate,
+          birthDate: measurement.birthDate,
+          height: measurement.height,
+          weight: measurement.weight,
+          power5s: measurement.power5s,
+          power15s: measurement.power15s,
+          power30s: measurement.power30s,
+          power60s: measurement.power60s,
+          power180s: measurement.power180s,
+          power360s: measurement.power360s,
+          leftBalance: measurement.leftBalance,
+          rightBalance: measurement.rightBalance,
+          maxHeartRate: measurement.maxHeartRate,
+          avgHeartRate: measurement.avgHeartRate,
+          overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
+                       analysis.overallPercentile >= 60 ? '우수' :
+                       analysis.overallPercentile >= 40 ? '보통' :
+                       analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+          overallPercentile: analysis.overallPercentile || 0,
+          percentile5s: analysis.percentile5s || 0,
+          percentile15s: analysis.percentile15s || 0,
+          percentile30s: analysis.percentile30s || 0,
+          percentile60s: analysis.percentile60s || 0,
+          percentile180s: analysis.percentile180s || null,
+          percentile360s: analysis.percentile360s || null,
+          strengths: analysis.strengths,
+          improvements: analysis.improvements,
+          aiSummary: analysis.aiSummary,
+          balanceStatus: analysis.balanceStatus
+        };
+      });
       
       setMeasurements(formattedData);
       
