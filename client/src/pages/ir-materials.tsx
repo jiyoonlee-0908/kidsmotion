@@ -428,10 +428,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
                 <div className="text-4xl mb-4">📋</div>
-                <h3 className="font-semibold text-lg mb-2">AI 리포트 해석</h3>
-                <p className="text-gray-600 mb-3">복잡한 숫자를 부모가 이해하는 맞춤 해석으로 변환</p>
+                <h3 className="font-semibold text-lg mb-2">AI 리포트 제공</h3>
+                <p className="text-gray-600 mb-3">복잡한 숫자, 지표를 부모가 이해하는<br/>맞춤 해석으로 변환</p>
                 <div className="bg-purple-100 p-2 rounded text-sm text-purple-700">
-                  기존: 숫자만 제공 → MotionBike: 맞춤 해석 + 운동처방
+                  기존: 숫자만 제공 → MotionBike: 숫자+맞춤 해석
                 </div>
               </div>
               
