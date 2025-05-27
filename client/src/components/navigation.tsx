@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SettingsModal from "@/components/settings-modal";
+import HelpCenterModal from "@/components/help-center-modal";
 
 interface NavigationProps {
   onNavigate?: (page: string) => void;
@@ -15,6 +16,7 @@ interface NavigationProps {
 
 export default function Navigation({ onNavigate }: NavigationProps = {}) {
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [helpCenterOpen, setHelpCenterOpen] = useState(false);
   
   const handleNavigation = (page: string) => {
     if (onNavigate) {
@@ -110,7 +112,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => handleNavigation('help')}
+                onClick={() => setHelpCenterOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
                 <HelpCircle className="w-5 h-5" />
@@ -132,6 +134,12 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
       <SettingsModal 
         open={settingsOpen} 
         onOpenChange={setSettingsOpen} 
+      />
+      
+      <HelpCenterModal 
+        open={helpCenterOpen} 
+        onOpenChange={setHelpCenterOpen}
+        onNavigate={onNavigate}
       />
     </header>
   );
