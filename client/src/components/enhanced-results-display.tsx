@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 // Import all new components
-import MeasurementHistory from "./measurement-history";
+import SimpleMeasurementHistory from "./simple-measurement-history";
 import GoalSetting from "./goal-setting";
 import ExerciseRecommendations from "./exercise-recommendations";
 import Balance3DAvatar from "./balance-3d-avatar";
@@ -251,10 +251,7 @@ export default function EnhancedResultsDisplay({ data, onNewMeasurement }: Enhan
 
         {/* History Tab */}
         <TabsContent value="history">
-          <MeasurementHistory 
-            studentName={data.measurement.studentName} 
-            currentMeasurement={data.measurement}
-          />
+          <SimpleMeasurementHistory />
         </TabsContent>
 
         {/* Goals Tab */}
