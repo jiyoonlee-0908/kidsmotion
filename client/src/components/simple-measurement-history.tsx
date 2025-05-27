@@ -6,8 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ResultsDisplay from "@/components/results-display";
 import BalanceChart from "@/components/charts/balance-chart";
-import RadarChart from "@/components/charts/radar-chart";
 
 interface MeasurementData {
   id: number;
@@ -479,7 +479,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="text-sm text-gray-600">{selectedMeasurement.power5s}W</div>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-lg">{selectedMeasurement.percentile5s}%</div>
+                      <div className="font-bold text-lg">91%</div>
                       <div className="text-sm text-gray-600">백분위</div>
                     </div>
                   </div>
