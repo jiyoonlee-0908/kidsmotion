@@ -41,7 +41,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 좌우 밸런스 85% vs 15% 정확한 수치로 측정
+                      → 좌우 밸런스 정확한 수치로 측정 및 개선방안 제시
                     </div>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
