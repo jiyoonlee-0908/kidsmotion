@@ -190,7 +190,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div className="flex flex-col items-center">
                 <img 
-                  src="/attached_assets/KakaoTalk_20250527_212636970.png" 
+                  src="attached_assets/KakaoTalk_20250527_212636970.png" 
                   alt="KidsMotion 스마트 사이클" 
                   className="w-full max-w-xs rounded-lg shadow-lg mb-4"
                 />
@@ -277,7 +277,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div className="bg-blue-50 p-3 rounded">
                     <h4 className="font-semibold text-blue-800">태권도장</h4>
-                    <p className="text-sm text-blue-700">좌우 밸런스 교정</p>
+                    <p className="text-sm text-blue-700">우리 아이 실력 정확히 파악</p>
                   </div>
                   <div className="bg-blue-50 p-3 rounded">
                     <h4 className="font-semibold text-blue-800">키즈 피트니스</h4>
