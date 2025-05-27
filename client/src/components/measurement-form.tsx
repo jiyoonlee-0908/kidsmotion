@@ -170,9 +170,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="birthDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>생년월일</FormLabel>
+                    <FormLabel>생년월일 (YYYY-MM-DD)</FormLabel>
                     <FormControl>
-                      <Input type="date" {...field} />
+                      <Input type="date" placeholder="2018-06-15" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
