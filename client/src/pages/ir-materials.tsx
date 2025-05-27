@@ -273,8 +273,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 하드웨어 혁신 */}
         <Card className="mb-16">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Zap className="w-6 h-6 mr-3 text-purple-600" />
+            <CardTitle className="text-2xl">
               ⚡ 5분 만에 모든 것을 바꾸는 혁신 솔루션
             </CardTitle>
           </CardHeader>
