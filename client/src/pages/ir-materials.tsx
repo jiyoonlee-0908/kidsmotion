@@ -807,23 +807,23 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
 
             {/* 하단: 핵심 메시지 */}
-            <div className="mt-8 bg-gradient-to-r from-purple-100 to-blue-100 p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-center text-purple-800 mb-4">💝 키즈모션이 드리는 진짜 가치</h3>
+            <div className="mt-8 bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-lg">
+              <h3 className="text-xl font-bold text-center text-blue-800 mb-4">💝 키즈모션이 기관에 드리는 진짜 가치</h3>
               <div className="grid md:grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl mb-2">🎯</div>
-                  <h4 className="font-semibold text-purple-700">정확한 방향성</h4>
-                  <p className="text-sm text-gray-600">우리 아이에게 맞는<br/>운동을 정확히 찾기</p>
+                  <h4 className="font-semibold text-blue-700">차별화 경쟁력</h4>
+                  <p className="text-sm text-gray-600">과학적 측정 도입으로<br/>프리미엄 브랜딩 가능</p>
                 </div>
                 <div>
                   <div className="text-2xl mb-2">📈</div>
-                  <h4 className="font-semibold text-purple-700">성장의 확신</h4>
-                  <p className="text-sm text-gray-600">숫자로 확인하는<br/>우리 아이 발전 과정</p>
+                  <h4 className="font-semibold text-blue-700">회원 만족도 향상</h4>
+                  <p className="text-sm text-gray-600">객관적 데이터 제공으로<br/>학부모 신뢰도 증가</p>
                 </div>
                 <div>
                   <div className="text-2xl mb-2">💰</div>
-                  <h4 className="font-semibold text-purple-700">현명한 투자</h4>
-                  <p className="text-sm text-gray-600">효과 없는 학원비 대신<br/>확실한 성장 투자</p>
+                  <h4 className="font-semibold text-blue-700">수익성 개선</h4>
+                  <p className="text-sm text-gray-600">신규 회원 유치와<br/>기존 회원 유지율 상승</p>
                 </div>
               </div>
             </div>
