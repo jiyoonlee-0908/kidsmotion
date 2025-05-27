@@ -45,7 +45,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"아이가 한쪽으로만 누워서 자는데, 뼈가 휘어지는 건 아니겠지?"</p>
+                    <p className="text-gray-700">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
@@ -310,6 +310,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <h4 className="font-semibold text-green-700 mb-2">체간 안정성 측정</h4>
                     <p className="text-gray-700 mb-2">좌우 흔들림 각도 ±3.2°</p>
                     <p className="text-green-600 text-sm">→ 협응력 수치화</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                    <h4 className="font-semibold text-green-700 mb-2">운동 재능 정량 평가</h4>
+                    <p className="text-gray-700 mb-2">백분위 95% = 상위 5% 재능 확인</p>
+                    <p className="text-green-600 text-sm">→ "우리 아이 운동시켜도 될까?" 명확한 답변</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
                     <h4 className="font-semibold text-green-700 mb-2">조기 개입 가능</h4>
