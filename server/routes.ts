@@ -429,51 +429,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
           percentileData.push({ name: "심폐지구력 (360초)", value: percentiles["360s"] });
         }
         
-        let strengths = [];
-        let improvements = [];
-        
         // 모든 데이터를 백분위 순으로 정렬 (높은 순)
         const sortedData = [...percentileData].sort((a, b) => b.value - a.value);
         
-        // 1등급(96% 이상)은 무조건 강점
+        let strengths = [];
+        let improvements = [];
+        
+        // 1. 먼저 1등급(96% 이상)은 무조건 강점
         const excellentItems = sortedData.filter(item => item.value >= 96);
         strengths.push(...excellentItems.map(item => item.name));
         
-        // 5등급(4% 미만)은 무조건 보완점  
+        // 2. 5등급(4% 미만)은 무조건 보완점  
         const poorItems = sortedData.filter(item => item.value < 4);
         improvements.push(...poorItems.map(item => item.name));
         
+        // 3. 20% 미만인 모든 항목을 보완점에 추가 (중복 제거)
+        const lowItems = sortedData.filter(item => item.value < 20);
+        for (const item of lowItems) {
+          if (!improvements.includes(item.name)) {
+            improvements.push(item.name);
+          }
+        }
+        
+        // 4. 동점 처리: 같은 점수인 최상위 항목들을 모두 강점에 추가
+        if (sortedData.length > 0) {
+          const topScore = sortedData[0].value;
+          const topItems = sortedData.filter(item => item.value === topScore);
+          for (const item of topItems) {
+            if (!strengths.includes(item.name)) {
+              strengths.push(item.name);
+            }
+          }
+        }
+        
         console.log(`우수 항목 (96% 이상): ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
         console.log(`취약 항목 (4% 미만): ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        
-        // 강점이 2개 미만이고 모든 항목이 20% 이상이면 상위 항목으로 채우기
-        if (strengths.length < 2) {
-          const hasDecentItems = sortedData.some(item => item.value >= 20);
-          if (hasDecentItems) {
-            const remaining = sortedData.filter(item => !strengths.includes(item.name) && item.value >= 20);
-            const needed = 2 - strengths.length;
-            const topRemaining = remaining.slice(0, needed);
-            strengths.push(...topRemaining.map(item => item.name));
-          }
-        }
-        
-        // 보완점이 부족하고 모든 항목이 80% 이상이 아니면 하위 항목으로 채우기
-        if (improvements.length < 2) {
-          const allExcellent = sortedData.every(item => item.value >= 80);
-          if (!allExcellent) {
-            const remaining = sortedData.filter(item => !improvements.includes(item.name));
-            const needed = Math.min(2 - improvements.length, remaining.length);
-            const bottomRemaining = remaining.slice(-needed);
-            improvements.push(...bottomRemaining.map(item => item.name));
-          }
-        }
-        
-        // 하지만 실제로는 하위 항목들을 모두 보완점으로 표시해야 함
-        // 20% 미만인 모든 항목을 보완점에 추가
-        const allLowItems = sortedData.filter(item => item.value < 20 && !improvements.includes(item.name));
-        if (allLowItems.length > 0) {
-          improvements.push(...allLowItems.map(item => item.name));
-        }
+        console.log(`20% 미만 항목: ${lowItems.map(i => `${i.name}=${i.value}%`).join(', ')}`)
         
         console.log(`최종 강점: ${strengths.join(', ')}`);
         console.log(`최종 보완점: ${improvements.join(', ')}`);
