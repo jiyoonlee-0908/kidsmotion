@@ -119,6 +119,18 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               >
                 MotionBike
               </span>
+              <span 
+                onClick={() => handleNavigation('ir-materials')}
+                className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors"
+                style={{
+                  cursor: 'pointer !important',
+                  userSelect: 'none !important',
+                  WebkitUserSelect: 'none !important',
+                  pointerEvents: 'auto !important'
+                }}
+              >
+                IR자료
+              </span>
             </div>
             
           </div>
