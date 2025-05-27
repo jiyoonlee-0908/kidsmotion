@@ -43,7 +43,7 @@ export const analysisResults = pgTable("analysis_results", {
   percentile30s: real("percentile_30s").notNull(),
   percentile60s: real("percentile_60s").notNull(),
   percentile180s: real("percentile_180s"),
-  percentile360s: real("percentile_360s"),
+  percentile300s: real("percentile_300s"),
   maxBpm: real("max_bpm"),
   avgBpm: real("avg_bpm"),
   restingBpm: real("resting_bpm"),

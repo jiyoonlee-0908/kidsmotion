@@ -15,11 +15,11 @@ export interface FitnessAnalysisRequest {
     muscleEndurance: number;
     cardioEndurance: number;
     longEndurance180s?: number | null;
-    longEndurance360s?: number | null;
+    longEndurance300s?: number | null;
   };
   advancedPowerData?: {
     power180s: number;
-    power360s: number;
+    power300s: number;
     hasAdvancedData: boolean;
   };
   heartRateData?: {
@@ -66,8 +66,8 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
       if (data.percentiles.longEndurance180s) {
         measurementData += `\n- 근지구력 (180초): ${Math.round(data.percentiles.longEndurance180s)}%`;
       }
-      if (data.percentiles.longEndurance360s) {
-        measurementData += `\n- 심폐지구력 (360초): ${Math.round(data.percentiles.longEndurance360s)}%`;
+      if (data.percentiles.longEndurance300s) {
+        measurementData += `\n- 심폐지구력 (300초): ${Math.round(data.percentiles.longEndurance300s)}%`;
       }
     }
 
@@ -103,7 +103,7 @@ ${measurementData}
 - 파워 지속력 (30초) - 다른 모든 용어 금지 (무산소성 지구력 등)
 - 근력 (60초) - 다른 모든 용어 금지 (혼합 지구력, 유무산소 등)
 - 근지구력 (180초) - 다른 모든 용어 금지
-- 심폐지구력 (360초) - 다른 모든 용어 금지
+- 심폐지구력 (300초) - 다른 모든 용어 금지
 
 **백분위 표현 규칙 (절대 준수):**
 - 50% 이상인 경우: "상위 X%" (예: 82% → "상위 18%")
@@ -157,7 +157,7 @@ ${measurementData}
 - 파워 지속력 (30초) - "무산소성 지구력" 등 전문용어 사용 금지
 - 근력 (60초) - "유무산소 혼합지구력" 등 전문용어 사용 금지
 - 근지구력 (180초) - "중장거리 지구력" 등 전문용어 사용 금지
-- 심폐지구력 (360초) - "장거리 지구력" 등 전문용어 사용 금지
+- 심폐지구력 (300초) - "장거리 지구력" 등 전문용어 사용 금지
 
 **모든 분석에서 위 항목명만 사용하고, 전문적인 에너지 시스템 용어는 일반인이 이해하기 쉬운 표현으로 대체하세요.**
 `;
