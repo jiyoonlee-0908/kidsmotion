@@ -31,7 +31,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 시장 기회 - 부모 니즈 */}
         <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-red-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-red-700 mb-4">🎯 249만 부모가 공감하는 치명적 문제점</CardTitle>
+            <CardTitle className="text-2xl text-red-700 mb-4">⚠️ 현재 체력 측정의 한계와 부모들의 불안감</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
