@@ -19,6 +19,9 @@ interface SimpleMeasurementHistoryProps {
 
 export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMeasurementHistoryProps) {
   const [searchName, setSearchName] = useState("");
+  const [searchAffiliation, setSearchAffiliation] = useState("");
+  const [searchBirthDate, setSearchBirthDate] = useState("");
+  const [searchGender, setSearchGender] = useState("");
   const [selectedMeasurement, setSelectedMeasurement] = useState<any>(null);
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [adminPassword, setAdminPassword] = useState("");
@@ -27,11 +30,20 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
 
   // 검색 쿼리
   const { data: searchResults = [], isLoading } = useQuery({
-    queryKey: ['/api/measurements/search', searchName],
+    queryKey: ['/api/measurements/search', searchName, searchAffiliation, searchBirthDate, searchGender],
     queryFn: async () => {
       const params = new URLSearchParams();
       if (searchName && searchName !== '') {
         params.append('studentName', searchName);
+      }
+      if (searchAffiliation && searchAffiliation !== '') {
+        params.append('affiliation', searchAffiliation);
+      }
+      if (searchBirthDate && searchBirthDate !== '') {
+        params.append('birthDate', searchBirthDate);
+      }
+      if (searchGender && searchGender !== '') {
+        params.append('gender', searchGender);
       }
       
       const response = await fetch(`/api/measurements/search?${params}`);
@@ -83,7 +95,7 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
   };
 
   const handleSearch = () => {
-    queryClient.invalidateQueries({ queryKey: ['/api/measurements/search', searchName] });
+    queryClient.invalidateQueries({ queryKey: ['/api/measurements/search', searchName, searchAffiliation, searchBirthDate, searchGender] });
   };
 
   // 선택된 측정의 분석 결과 가져오기
@@ -102,14 +114,38 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-2 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-4">
             <Input
-              placeholder="학생 이름 검색 (전체 조회시 공백)"
+              placeholder="학생 이름"
               value={searchName}
               onChange={(e) => setSearchName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
             />
+            <Input
+              placeholder="소속 기관"
+              value={searchAffiliation}
+              onChange={(e) => setSearchAffiliation(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            />
+            <Input
+              placeholder="생년월일 (YYYY-MM-DD)"
+              value={searchBirthDate}
+              onChange={(e) => setSearchBirthDate(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+            />
+            <select
+              className="px-3 py-2 border rounded-md text-sm"
+              value={searchGender}
+              onChange={(e) => setSearchGender(e.target.value)}
+            >
+              <option value="">성별 전체</option>
+              <option value="M">남성</option>
+              <option value="F">여성</option>
+            </select>
             <Button onClick={handleSearch}>검색</Button>
+          </div>
+          <div className="text-xs text-gray-500 mb-4">
+            * 동명이인 구분을 위해 여러 조건으로 검색하세요. 전체 조회시 모든 필드를 공백으로 두세요.
           </div>
 
           {isLoading ? (
