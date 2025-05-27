@@ -69,11 +69,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-3 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-yellow-600 mb-2">영유아검진의 대근육운동발달 항목의 한계</p>
-                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④
-                      <span className="text-xs text-gray-500 ml-2">(54-60개월 검진)</span>
+                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④<br/>
+                      <span className="text-xs text-gray-500">&nbsp;&nbsp;(54-60개월 검진에서 실시)</span>
                     </p>
-                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④
-                      <span className="text-xs text-gray-500 ml-2">(42-48개월 검진)</span>
+                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④<br/>
+                      <span className="text-xs text-gray-500">&nbsp;&nbsp;(42-48개월 검진에서 실시)</span>
                     </p>
                     <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
                   </div>
@@ -199,6 +199,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <p className="text-gray-600 mb-2">피트니스 장비 부문 연평균 성장률</p>
                   <p className="text-sm text-teal-700">가장 빠른 성장세</p>
                 </div>
+              </div>
+              
+              {/* 출처 정보 */}
+              <div className="mt-4 bg-white/50 p-3 rounded-lg border border-blue-200">
+                <p className="text-xs text-gray-600">
+                  <strong>출처:</strong> Grand View Research, "Kids Sports Equipment Market Size & Share Analysis Report 2023-2030"<br/>
+                  Research And Markets, "Global Youth Sports Equipment Market Report 2023"
+                </p>
               </div>
             </div>
 
