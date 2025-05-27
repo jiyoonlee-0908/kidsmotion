@@ -131,11 +131,11 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
   ];
 
   const systemStatus = [
-    { service: '측정 시스템', status: 'operational', lastUpdate: '2024-01-26 09:00' },
-    { service: '데이터베이스', status: 'operational', lastUpdate: '2024-01-26 09:00' },
-    { service: '모바일 앱', status: 'maintenance', lastUpdate: '2024-01-26 08:30' },
-    { service: '웹 서비스', status: 'operational', lastUpdate: '2024-01-26 09:00' },
-    { service: '백업 시스템', status: 'operational', lastUpdate: '2024-01-26 09:00' }
+    { service: '측정 시스템', status: 'operational', lastUpdate: '2025-05-28 09:00' },
+    { service: '데이터베이스', status: 'operational', lastUpdate: '2025-05-28 09:00' },
+    { service: '모바일 앱', status: 'maintenance', lastUpdate: '2025-05-28 08:30' },
+    { service: '웹 서비스', status: 'operational', lastUpdate: '2025-05-28 09:00' },
+    { service: '백업 시스템', status: 'operational', lastUpdate: '2025-05-28 09:00' }
   ];
 
   const getStatusIcon = (status: string) => {
@@ -415,7 +415,7 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
                   <CheckCircle className="w-5 h-5" />
                   <span className="font-medium">모든 시스템 정상 운영 중</span>
                 </div>
-                <p className="text-gray-600">마지막 업데이트: 2024년 1월 26일 09:00</p>
+                <p className="text-gray-600">마지막 업데이트: 2025년 5월 28일 09:00</p>
               </div>
 
               <div className="grid gap-4">
@@ -451,7 +451,7 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
                     <div>
                       <h3 className="font-semibold text-blue-800 mb-2">예정된 점검 안내</h3>
                       <p className="text-blue-700">
-                        <strong>일시:</strong> 2024년 1월 28일 (일) 02:00 - 04:00<br />
+                        <strong>일시:</strong> 2025년 5월 30일 (금) 02:00 - 04:00<br />
                         <strong>대상:</strong> 모바일 앱 업데이트<br />
                         <strong>내용:</strong> 새로운 기능 추가 및 성능 개선
                       </p>
