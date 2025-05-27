@@ -156,7 +156,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="affiliation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>소속 (학교/클럽)</FormLabel>
+                    <FormLabel>소속 (학교/기관)</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="예: 서울초등학교" />
                     </FormControl>
