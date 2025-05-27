@@ -481,7 +481,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
-              🔥🎯 파일럿부터 검증하는 확실한 성공 공식
+              🎯 파일럿부터 검증하는 확실한 성공 공식
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -534,7 +534,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Users className="w-6 h-6 mr-3 text-pink-600" />
-              🚀💡 기관 수익 극대화하는 게임체인저
+              🚀 기관 수익 극대화하는 게임체인저
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -612,7 +612,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Target className="w-6 h-6 mr-3 text-orange-600" />
-              🔥 투자자가 묻기 전에 미리 답하는 FAQ
+              💬 투자자가 묻기 전에 미리 답하는 FAQ
             </CardTitle>
           </CardHeader>
           <CardContent>
