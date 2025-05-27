@@ -463,55 +463,57 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">신체 변화 비교</h3>
           </div>
-          <div>
-            <h4 className="font-semibold text-gray-900 mb-4">체력 변화</h4>
-            <ProgressChart 
-              currentData={[
-                Math.round(analysis.percentile5s),
-                Math.round(analysis.percentile15s),
-                Math.round(analysis.percentile30s),
-                Math.round(analysis.percentile60s),
-                ...(measurement.power180s && analysis.percentile180s ? [Math.round(analysis.percentile180s)] : []),
-                ...(measurement.power360s && analysis.percentile360s ? [Math.round(analysis.percentile360s)] : [])
-              ]}
-              labels={[
-                "순발력 (5초)",
-                "스프린트 파워 (15초)",
-                "파워 지속력 (30초)",
-                "근력 (60초)",
-                ...(measurement.power180s ? ["근지구력 (180초)"] : []),
-                ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
-              ]}
-            />
-          </div>
-          
-          <div className="mt-6">
-            <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-2">날짜</th>
-                    <th className="text-center py-2">좌</th>
-                    <th className="text-center py-2">우</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="py-2">이전 측정</td>
-                    <td className="text-center py-2">42%</td>
-                    <td className="text-center py-2">58%</td>
-                  </tr>
-                  <tr>
-                    <td className="py-2 font-semibold">{measurement.measureDate}</td>
-                    <td className="text-center py-2 font-semibold">{measurement.leftBalance}%</td>
-                    <td className="text-center py-2 font-semibold">{measurement.rightBalance}%</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="mt-4 flex items-center space-x-2">
-                <TrendingUp className="text-green-500" />
-                <span className="text-sm text-gray-700">밸런스가 개선되고 있습니다.</span>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2">
+              <h4 className="font-semibold text-gray-900 mb-4">체력 변화</h4>
+              <ProgressChart 
+                currentData={[
+                  Math.round(analysis.percentile5s),
+                  Math.round(analysis.percentile15s),
+                  Math.round(analysis.percentile30s),
+                  Math.round(analysis.percentile60s),
+                  ...(measurement.power180s && analysis.percentile180s ? [Math.round(analysis.percentile180s)] : []),
+                  ...(measurement.power360s && analysis.percentile360s ? [Math.round(analysis.percentile360s)] : [])
+                ]}
+                labels={[
+                  "순발력 (5초)",
+                  "스프린트 파워 (15초)",
+                  "파워 지속력 (30초)",
+                  "근력 (60초)",
+                  ...(measurement.power180s ? ["근지구력 (180초)"] : []),
+                  ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
+                ]}
+              />
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-2">날짜</th>
+                      <th className="text-center py-2">좌</th>
+                      <th className="text-center py-2">우</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="py-2">이전 측정</td>
+                      <td className="text-center py-2">42%</td>
+                      <td className="text-center py-2">58%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 font-semibold">{measurement.measureDate}</td>
+                      <td className="text-center py-2 font-semibold">{measurement.leftBalance}%</td>
+                      <td className="text-center py-2 font-semibold">{measurement.rightBalance}%</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div className="mt-4 flex items-center space-x-2">
+                  <TrendingUp className="text-green-500" />
+                  <span className="text-sm text-gray-700">밸런스가 개선되고 있습니다.</span>
+                </div>
               </div>
             </div>
           </div>
