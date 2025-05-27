@@ -588,6 +588,64 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                        "근지구력 집중 훈련이 권장됩니다."}
                     </p>
                   </div>
+
+                  {/* 180초 항목 */}
+                  {selectedMeasurement.percentile180s !== null && selectedMeasurement.percentile180s !== undefined && (
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold">심폐지구력 (180초)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className={`${selectedMeasurement.percentile180s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                            {selectedMeasurement.percentile180s >= 80 ? '우수' : selectedMeasurement.percentile180s >= 20 ? '보통' : '경고'}
+                          </Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className={`progress-fill ${selectedMeasurement.percentile180s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                             style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        {selectedMeasurement.percentile180s >= 80 ? "우수한 심폐지구력을 보여줍니다." :
+                         selectedMeasurement.percentile180s >= 60 ? "양호한 심폐지구력입니다." :
+                         selectedMeasurement.percentile180s >= 40 ? "평균적인 심폐지구력입니다." :
+                         selectedMeasurement.percentile180s >= 20 ? "심폐지구력 향상이 필요합니다." :
+                         "심폐지구력 집중 훈련이 권장됩니다."}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 360초 항목 */}
+                  {selectedMeasurement.percentile360s !== null && selectedMeasurement.percentile360s !== undefined && (
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold">장시간지구력 (360초)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className={`${selectedMeasurement.percentile360s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                            {selectedMeasurement.percentile360s >= 80 ? '우수' : selectedMeasurement.percentile360s >= 20 ? '보통' : '경고'}
+                          </Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className={`progress-fill ${selectedMeasurement.percentile360s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                             style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">
+                        {selectedMeasurement.percentile360s >= 80 ? "우수한 장시간지구력을 보여줍니다." :
+                         selectedMeasurement.percentile360s >= 60 ? "양호한 장시간지구력입니다." :
+                         selectedMeasurement.percentile360s >= 40 ? "평균적인 장시간지구력입니다." :
+                         selectedMeasurement.percentile360s >= 20 ? "장시간지구력 향상이 필요합니다." :
+                         "장시간지구력 집중 훈련이 권장됩니다."}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
 
