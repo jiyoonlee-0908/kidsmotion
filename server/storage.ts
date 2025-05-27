@@ -205,13 +205,23 @@ export class MemStorage implements IStorage {
 
 export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
+    try {
+      const [user] = await db.select().from(users).where(eq(users.id, id));
+      return user || undefined;
+    } catch (error) {
+      console.error('Error getting user:', error);
+      return undefined;
+    }
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user || undefined;
+    try {
+      const [user] = await db.select().from(users).where(eq(users.username, username));
+      return user || undefined;
+    } catch (error) {
+      console.error('Error getting user by username:', error);
+      return undefined;
+    }
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
@@ -231,33 +241,63 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getMeasurement(id: number): Promise<Measurement | undefined> {
-    const [measurement] = await db.select().from(measurements).where(eq(measurements.id, id));
-    return measurement || undefined;
+    try {
+      const [measurement] = await db.select().from(measurements).where(eq(measurements.id, id));
+      return measurement || undefined;
+    } catch (error) {
+      console.error('Error getting measurement:', error);
+      return undefined;
+    }
   }
 
   async getAllMeasurements(): Promise<Measurement[]> {
-    return await db.select().from(measurements);
+    try {
+      return await db.select().from(measurements).orderBy(measurements.id);
+    } catch (error) {
+      console.error('Error getting all measurements:', error);
+      return [];
+    }
   }
 
   async deleteMeasurement(id: number): Promise<void> {
-    await db.delete(measurements).where(eq(measurements.id, id));
+    try {
+      await db.delete(analysisResults).where(eq(analysisResults.measurementId, id));
+      await db.delete(measurements).where(eq(measurements.id, id));
+    } catch (error) {
+      console.error('Error deleting measurement:', error);
+    }
   }
 
   async createAnalysisResult(insertResult: InsertAnalysisResult): Promise<AnalysisResult> {
     const [result] = await db
       .insert(analysisResults)
-      .values(insertResult)
+      .values({
+        ...insertResult,
+        fullReportHtml: insertResult.fullReportHtml || null
+      })
       .returning();
     return result;
   }
 
   async getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined> {
-    const [result] = await db.select().from(analysisResults).where(eq(analysisResults.measurementId, measurementId));
-    return result || undefined;
+    try {
+      const [result] = await db.select().from(analysisResults).where(eq(analysisResults.measurementId, measurementId));
+      return result || undefined;
+    } catch (error) {
+      console.error('Error getting analysis result:', error);
+      return undefined;
+    }
   }
 
   async getMeasurementsByStudent(studentName: string): Promise<Measurement[]> {
-    return await db.select().from(measurements).where(eq(measurements.studentName, studentName));
+    try {
+      return await db.select().from(measurements)
+        .where(eq(measurements.studentName, studentName))
+        .orderBy(measurements.id);
+    } catch (error) {
+      console.error('Error getting measurements by student:', error);
+      return [];
+    }
   }
 
   async searchMeasurements(criteria: {
@@ -266,22 +306,27 @@ export class DatabaseStorage implements IStorage {
     birthDate?: string;
     gender?: string;
   }): Promise<Measurement[]> {
-    let query = db.select().from(measurements);
-    
-    if (criteria.studentName) {
-      query = query.where(eq(measurements.studentName, criteria.studentName));
-    }
-    if (criteria.affiliation) {
-      query = query.where(eq(measurements.affiliation, criteria.affiliation));
-    }
-    if (criteria.birthDate) {
-      query = query.where(eq(measurements.birthDate, criteria.birthDate));
-    }
-    if (criteria.gender) {
-      query = query.where(eq(measurements.gender, criteria.gender));
-    }
+    try {
+      let query = db.select().from(measurements);
+      
+      if (criteria.studentName) {
+        query = query.where(eq(measurements.studentName, criteria.studentName));
+      }
+      if (criteria.affiliation) {
+        query = query.where(eq(measurements.affiliation, criteria.affiliation));
+      }
+      if (criteria.birthDate) {
+        query = query.where(eq(measurements.birthDate, criteria.birthDate));
+      }
+      if (criteria.gender) {
+        query = query.where(eq(measurements.gender, criteria.gender));
+      }
 
-    return await query;
+      return await query.orderBy(measurements.id);
+    } catch (error) {
+      console.error('Error searching measurements:', error);
+      return [];
+    }
   }
 
   async createInviteCode(insertInviteCode: InsertInviteCode): Promise<InviteCode> {
@@ -293,15 +338,24 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getInviteCode(code: string): Promise<InviteCode | undefined> {
-    const [inviteCode] = await db.select().from(inviteCodes).where(eq(inviteCodes.code, code));
-    return inviteCode || undefined;
+    try {
+      const [inviteCode] = await db.select().from(inviteCodes).where(eq(inviteCodes.code, code));
+      return inviteCode || undefined;
+    } catch (error) {
+      console.error('Error getting invite code:', error);
+      return undefined;
+    }
   }
 
   async markInviteCodeAsUsed(code: string): Promise<void> {
-    await db.update(inviteCodes)
-      .set({ isUsed: "true", usedAt: new Date() })
-      .where(eq(inviteCodes.code, code));
+    try {
+      await db.update(inviteCodes)
+        .set({ isUsed: "true", usedAt: new Date() })
+        .where(eq(inviteCodes.code, code));
+    } catch (error) {
+      console.error('Error marking invite code as used:', error);
+    }
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
