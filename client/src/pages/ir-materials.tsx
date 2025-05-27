@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Users, Target, Building2, BarChart3, Zap } from "lucide-react";
+import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
 import Navigation from "@/components/navigation";
 
 interface IRMaterialsProps {
@@ -478,11 +478,95 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
+        {/* 투자자 예상 질문 & 답변 */}
+        <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <Target className="w-6 h-6 mr-3 text-orange-600" />
+              ❓ 투자자 예상 질문 & 답변
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              
+              {/* 시장 관련 질문 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                <h3 className="text-lg font-bold text-blue-700 mb-3">💰 시장 관련</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "2.49M 학생? 실제 고객은 몇 명인가요?"</p>
+                    <p className="text-gray-700 text-sm">A: B2B/B2G 모델이므로 개별 부모가 아닌 기관이 고객입니다. 3,302개 소아청소년과 + 24,000개 스포츠학원이 잠재 고객이며, 1,000개 기관만 확보해도 연 6억원 달성 가능합니다.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "글로벌 시장에서 몇 % 점유할 건가요?"</p>
+                    <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국에서만 연 100억 달성 후 해외 진출 계획입니다.</p>
+                  </div>
+                </div>
+              </div>
 
+              {/* 기술 관련 질문 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-purple-500">
+                <h3 className="text-lg font-bold text-purple-700 mb-3">🤖 기술 관련</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "GPT API 쓰는 게 독점 기술인가요?"</p>
+                    <p className="text-gray-700 text-sm">A: AI는 도구일 뿐, 핵심은 아동 맞춤 데이터베이스입니다. 연령별/성별 체력 기준값은 수년간 축적된 독점 자산이며, 좌우 밸런스 실시간 측정은 하드웨어 특허 기술입니다.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "자전거만 측정? 다양한 운동은 언제 하나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 자전거가 유일하게 모든 조건을 만족합니다. ✅좌우밸런스 정량측정 ✅시공간 제약없음 ✅전신체력 데이터. 달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 종합적 측정이 가능합니다.</p>
+                  </div>
+                </div>
+              </div>
 
+              {/* 경쟁 관련 질문 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-red-500">
+                <h3 className="text-lg font-bold text-red-700 mb-3">💀 경쟁 관련</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody 같은 기업이 들어오면 끝나는 거 아닌가요?"</p>
+                    <p className="text-gray-700 text-sm">A: 완전히 다른 영역입니다. InBody는 체성분(근육량, 체지방률), 우리는 운동능력(순발력, 지구력, 밸런스)을 측정합니다. 목표는 InBody처럼 의료기관 필수 장비가 되는 것입니다.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "550만원 장비 ROI 계산해보셨나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 직접 수익보다는 브랜딩 효과가 핵심입니다. '최신 아동 체력 측정 도입 병원'으로 차별화되며, 영유아검진 질 향상으로 환자 만족도와 재방문율이 증가합니다. 정부지원 50% 시 실질 부담은 275만원입니다.</p>
+                  </div>
+                </div>
+              </div>
 
+              {/* 비즈니스 모델 질문 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-green-500">
+                <h3 className="text-lg font-bold text-green-700 mb-3">📊 비즈니스 모델</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "B2B만? B2C 시장은 포기하는 건가요?"</p>
+                    <p className="text-gray-700 text-sm">A: B2B가 더 안정적이고 큰 시장입니다. 공공기관(보건소 261개, 스포츠센터 수백 개)은 정부 예산으로 안정적이며, 의료기관은 지속적 수익을 보장합니다.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "5년차 500억 근거가 있나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 보수적 계산입니다. 스포츠학원 1,000개(연 6억) + 하드웨어 1,000대(55억) + 공공기관 500개(연 3억) = 연 64억. 정부지원 효과까지 고려하면 충분히 달성 가능합니다.</p>
+                  </div>
+                </div>
+              </div>
 
+              {/* 실행력 질문 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-yellow-500">
+                <h3 className="text-lg font-bold text-yellow-700 mb-3">⏰ 실행력</h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "MVP도 미완성인데 의료기기 인증이 가능한가요?"</p>
+                    <p className="text-gray-700 text-sm">A: 체계적 단계별 접근입니다. 2026년 스포츠학원 시작(인증불필요) → 2027년 의료기기 신청 → 2028년 인증완료 → 2029년 의료기관 진출. 충분한 개발 기간을 확보했습니다.</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "특허 출원만? 등록은 언제인가요?"</p>
+                    <p className="text-gray-700 text-sm">A: 출원 즉시 18개월 우선권을 확보했습니다. 핵심은 시장 선점과 데이터 축적 속도이며, 특허보다 네트워크 효과가 더 강한 진입장벽입니다.</p>
+                  </div>
+                </div>
+              </div>
 
+            </div>
+          </CardContent>
+        </Card>
 
         {/* 투자 요청 */}
         <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
