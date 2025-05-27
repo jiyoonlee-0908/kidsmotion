@@ -478,8 +478,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 실제 검증 사례 & 타겟별 가치 제안 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
+            <CardTitle className="text-2xl">
               🎯 450만 데이터로 입증하는 시장 검증력
             </CardTitle>
           </CardHeader>
