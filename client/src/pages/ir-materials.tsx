@@ -686,11 +686,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-white p-4 rounded-lg border border-orange-200">
                   <h4 className="font-semibold text-orange-700 mb-3">📦 설치 & 교육</h4>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>당일 설치:</strong> 전문 기사 직접 방문</li>
                     <li>• <strong>3시간 교육:</strong> 장비 사용법 완전 숙지</li>
-                    <li>• <strong>시연 포함:</strong> 실제 아동으로 체험</li>
+                    <li>• <strong>시연은 동영상 제공:</strong> 실제 아동으로 체험</li>
                     <li>• <strong>매뉴얼 제공:</strong> 단계별 가이드북</li>
-                    <li>• <strong>온라인 교육:</strong> 추가 교육 언제든 가능</li>
                   </ul>
                 </div>
 
@@ -698,9 +696,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-white p-4 rounded-lg border border-orange-200">
                   <h4 className="font-semibold text-orange-700 mb-3">🔧 A/S & 유지보수</h4>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>24시간 원격지원:</strong> 실시간 문제 해결</li>
-                    <li>• <strong>48시간 출동:</strong> 전국 어디든 방문</li>
-                    <li>• <strong>예방점검:</strong> 6개월마다 정기 점검</li>
+                    <li>• <strong>고장접수하면 1-5일내 수리:</strong> 전국 어디든 방문</li>
                     <li>• <strong>무료 업데이트:</strong> 소프트웨어 자동 업데이트</li>
                     <li>• <strong>백업 장비:</strong> 고장 시 임시 대체품 제공</li>
                   </ul>
