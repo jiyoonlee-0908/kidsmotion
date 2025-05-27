@@ -463,36 +463,26 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">신체 변화 비교</h3>
           </div>
-          <div className="flex gap-6">
-            <div className="flex-2">
-              <h4 className="font-semibold text-gray-900 mb-4">기본 체력 변화 (필수 측정)</h4>
-              <ProgressChart 
-                currentData={[
-                  Math.round(analysis.percentile5s),
-                  Math.round(analysis.percentile15s),
-                  Math.round(analysis.percentile30s),
-                  Math.round(analysis.percentile60s)
-                ]}
-              />
-            </div>
-            
-            {/* 고급 측정 항목이 있는 경우 */}
-            {(measurement.power180s || measurement.power360s) && (
-              <div className="flex-1">
-                <h4 className="font-semibold text-gray-900 mb-4">고급 체력 변화 (선택 측정)</h4>
-                <ProgressChart 
-                  currentData={[
-                    measurement.power180s && analysis.percentile180s ? Math.round(analysis.percentile180s) : 0,
-                    measurement.power360s && analysis.percentile360s ? Math.round(analysis.percentile360s) : 0
-                  ].filter(val => val > 0)}
-                  labels={[
-                    ...(measurement.power180s ? ["근지구력 (180초)"] : []),
-                    ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
-                  ]}
-                  isAdvanced={true}
-                />
-              </div>
-            )}
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-4">체력 변화</h4>
+            <ProgressChart 
+              currentData={[
+                Math.round(analysis.percentile5s),
+                Math.round(analysis.percentile15s),
+                Math.round(analysis.percentile30s),
+                Math.round(analysis.percentile60s),
+                ...(measurement.power180s && analysis.percentile180s ? [Math.round(analysis.percentile180s)] : []),
+                ...(measurement.power360s && analysis.percentile360s ? [Math.round(analysis.percentile360s)] : [])
+              ]}
+              labels={[
+                "순발력 (5초)",
+                "스프린트 파워 (15초)",
+                "파워 지속력 (30초)",
+                "근력 (60초)",
+                ...(measurement.power180s ? ["근지구력 (180초)"] : []),
+                ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
+              ]}
+            />
           </div>
           
           <div className="mt-6">
