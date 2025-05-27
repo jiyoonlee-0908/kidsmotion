@@ -233,6 +233,38 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </ul>
                 </div>
               </div>
+
+              {/* 부유층 트렌드세팅 효과 */}
+              <div className="mt-6 bg-gradient-to-r from-amber-100 to-yellow-100 p-4 rounded-lg border border-amber-200">
+                <h4 className="font-semibold text-amber-800 mb-3">🥇 부유층 트렌드세팅 전략</h4>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white p-3 rounded-lg">
+                    <h5 className="font-semibold text-amber-700 mb-2">조기 어답터 타겟</h5>
+                    <ul className="space-y-1 text-gray-700 text-xs">
+                      <li>• <strong>프리미엄 스포츠 학원:</strong> 하키, 펜싱, 골프</li>
+                      <li>• <strong>사립 체육시설:</strong> 강남, 분당, 일산 등</li>
+                      <li>• <strong>국제학교 연계:</strong> 해외 진학 준비생</li>
+                      <li>• <strong>전문 운동선수 양성:</strong> 조기 재능 발굴</li>
+                    </ul>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <h5 className="font-semibold text-amber-700 mb-2">확산 효과 기대</h5>
+                    <ul className="space-y-1 text-gray-700 text-xs">
+                      <li>• <strong>SNS 확산:</strong> "우리 아이 체력 측정 결과"</li>
+                      <li>• <strong>학부모 커뮤니티:</strong> 입소문 마케팅</li>
+                      <li>• <strong>교육열 확산:</strong> 일반 가정으로 전파</li>
+                      <li>• <strong>표준화 인식:</strong> "체력측정은 필수"</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="mt-3 bg-yellow-50 p-3 rounded-lg border border-yellow-200">
+                  <p className="text-sm text-yellow-800">
+                    <strong>💡 전략적 시사점:</strong> 부유층이 먼저 도입하면 "프리미엄 육아 트렌드"가 되어 
+                    일반 가정으로 확산됩니다. 명품 유모차, 프리미엄 분유처럼 "우리 아이에게 최고를" 심리를 자극할 수 있어요.
+                  </p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
