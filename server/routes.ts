@@ -475,19 +475,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
       };
       
-      // 임시 하드코딩 테스트 (박주혁 케이스)
-      let strengthsText, improvementsText;
-      if (req.body.studentName === "박주혁") {
-        strengthsText = "순발력 (5초), 스프린트 파워 (15초), 파워 지속력 (30초)";
-        improvementsText = "근력 (60초), 근지구력 (180초), 심폐지구력 (360초)";
-        console.log("=== 박주혁 하드코딩 적용 ===");
-        console.log(`강점: ${strengthsText}`);
-        console.log(`보완점: ${improvementsText}`);
-      } else {
-        const { strengths: strengthsText2, improvements: improvementsText2 } = calculateStrengthsAndImprovements();
-        strengthsText = strengthsText2;
-        improvementsText = improvementsText2;
-      }
+      // 하드코딩된 강점/보완점 로직 (확실한 결과 보장)
+      const calculateStrengthsAndImprovementsFixed = () => {
+        const allItems = [
+          { name: "순발력 (5초)", value: percentiles["5s"] },
+          { name: "스프린트 파워 (15초)", value: percentiles["15s"] },
+          { name: "파워 지속력 (30초)", value: percentiles["30s"] },
+          { name: "근력 (60초)", value: percentiles["60s"] }
+        ];
+        
+        // 180초, 360초 데이터가 있으면 추가
+        if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
+          allItems.push({ name: "근지구력 (180초)", value: percentiles["180s"] });
+        }
+        if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
+          allItems.push({ name: "심폐지구력 (360초)", value: percentiles["360s"] });
+        }
+        
+        // 정렬 (높은 순)
+        allItems.sort((a, b) => b.value - a.value);
+        
+        let strengths = [];
+        let improvements = [];
+        
+        // 하드코딩 로직: 상위 50% 이상 → 강점, 하위 50% 미만 → 보완점
+        for (const item of allItems) {
+          if (item.value >= 50) {
+            strengths.push(item.name);
+          } else {
+            improvements.push(item.name);
+          }
+        }
+        
+        // 최소 1개씩은 보장
+        if (strengths.length === 0 && allItems.length > 0) {
+          strengths.push(allItems[0].name); // 최고점수 1개
+        }
+        if (improvements.length === 0 && allItems.length > 0) {
+          improvements.push(allItems[allItems.length - 1].name); // 최저점수 1개
+        }
+        
+        console.log("=== 하드코딩 고정 로직 적용 ===");
+        console.log(`전체 항목: ${allItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
+        console.log(`강점 (50% 이상): ${strengths.join(', ')}`);
+        console.log(`보완점 (50% 미만): ${improvements.join(', ')}`);
+        
+        return {
+          strengths: strengths.join(", "),
+          improvements: improvements.join(", ")
+        };
+      };
+      
+      const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovementsFixed();
 
       const analysisResult = await storage.createAnalysisResult({
         measurementId: measurement.id,
