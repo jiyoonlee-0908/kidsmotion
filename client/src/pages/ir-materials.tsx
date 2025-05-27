@@ -69,15 +69,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-yellow-600 mb-1">영유아검진의 대근육운동발달 항목의 문제점</p>
-                    <p className="text-gray-700">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 동그라미 1,2,3,4</p>
-                    <p className="text-xs text-red-500 mt-1">(66-71개월 영유아검진 발달선별검사)</p>
-                    <p className="text-gray-700">"아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → 동그라미 1,2,3,4</p>
-                    <p className="text-xs text-red-500 mt-1">(48~53개월 영유아검진 발달선별검사)</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
-                    <p className="text-sm text-orange-600 mb-1">평가 기준의 문제</p>
-                    <p className="text-gray-700">"1,2,3,4의 기준이 뭔가요? 누구는 어느 정도 하는데 1이라고 하고, 누구는 그 정도 하는데 3이라고 할 수 있잖아요"</p>
-                    <p className="text-xs text-orange-600 mt-1">→ 주관적 판단, 일관성 없음</p>
+                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 동그라미 1,2,3,4</p>
+                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → 동그라미 1,2,3,4</p>
+                    <p className="text-gray-700">• "1,2,3,4의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
+                    <p className="text-gray-700">• 정량적 데이터 없음, 조기발견 실패</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-sm text-red-600 mb-1">초등체력장의 문제점</p>
@@ -85,10 +80,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
                     <p className="text-gray-700">• 숫자 세는 사람의 실수로 부정확한 결과</p>
                     <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
-                    <p className="text-sm text-gray-600 mb-1">결과</p>
-                    <p className="text-gray-700">정량적 데이터 없음, 조기발견 실패</p>
                   </div>
                 </div>
               </div>
