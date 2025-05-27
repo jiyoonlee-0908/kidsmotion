@@ -208,6 +208,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     }
   };
 
+
+
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-6">
       <Card>
@@ -329,7 +331,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       {/* 나이, 성별 */}
                       <div className="flex items-center gap-1">
                         <Badge variant="outline" className="text-xs">
-                          {measurement.age}세
+                          {measurement.birthDate ? (new Date().getFullYear() - new Date(measurement.birthDate).getFullYear()) : 0}세
                         </Badge>
                         <Badge variant="outline" className="text-xs">
                           {measurement.gender === 'M' ? '남' : '여'}
@@ -475,7 +477,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <BalanceChart 
                       leftBalance={selectedMeasurement.leftBalance} 
                       rightBalance={selectedMeasurement.rightBalance} 
-                      status={selectedMeasurement.balanceStatus}
+                      status={selectedMeasurement.balanceStatus || "이상적"}
                     />
                   </div>
                   <div>
