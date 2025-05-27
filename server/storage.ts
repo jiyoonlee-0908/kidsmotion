@@ -42,8 +42,7 @@ export class MemStorage implements IStorage {
     this.currentAnalysisId = 1;
     this.currentInviteCodeId = 1;
     
-    // 박주혁 데이터 HTML 업데이트를 위한 체크
-    setTimeout(() => this.updateMissingHtml(), 1000);
+
   }
 
   async getUser(id: number): Promise<User | undefined> {
