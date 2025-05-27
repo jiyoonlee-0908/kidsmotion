@@ -20,7 +20,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             Investor Relations
           </Badge>
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            MotionBike 투자 제안서
+            💰 아동 체력 측정의 미래를 선점하세요
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             부모의 최대 관심사인 '아이 성장'과 정부의 '국민건강' 정책을 연결하는<br/>
@@ -31,7 +31,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 시장 기회 - 부모 니즈 */}
         <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-red-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-red-700 mb-4">🚨 부모의 고민 VS 현실: 정확한 측정의 부재</CardTitle>
+            <CardTitle className="text-2xl text-red-700 mb-4">🎯 249만 부모가 공감하는 치명적 문제점</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
@@ -153,7 +153,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 통합된 시장 분석 & 진입 전략 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-green-700 mb-4">📊 타겟 시장 & 진입 전략</CardTitle>
+            <CardTitle className="text-2xl text-green-700 mb-4">🚀 100억 시장 진입을 위한 3단계 전략</CardTitle>
           </CardHeader>
           <CardContent>
             {/* 시장 규모 추가 */}
@@ -265,7 +265,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Zap className="w-6 h-6 mr-3 text-purple-600" />
-              🎯 우리의 솔루션: KidsMotion
+              ⚡ 5분 만에 모든 것을 바꾸는 혁신 솔루션
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -472,7 +472,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
-              🔬 실제 검증 계획
+              🎯 450만 데이터로 입증하는 시장 검증력
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -525,7 +525,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Users className="w-6 h-6 mr-3 text-pink-600" />
-              🏢 기관 운영자님, 이런 고민 해결됩니다!
+              💡 기관 매출 30% 증가하는 비밀 무기
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -603,7 +603,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Target className="w-6 h-6 mr-3 text-orange-600" />
-              ❓ 투자자 예상 질문 & 답변
+              🔥 투자자가 묻기 전에 미리 답하는 FAQ
             </CardTitle>
           </CardHeader>
           <CardContent>
