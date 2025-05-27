@@ -438,30 +438,29 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                         </div>
                       </div>
 
-                      {/* 평균 심박수 + 운동강도 */}
-                      <div className="bg-gray-50 rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"/>
-                              </svg>
-                            </div>
-                            <span className="font-semibold text-gray-700">평균 심박수</span>
+                      {/* 평균 심박수 */}
+                      <div className="bg-gray-50 rounded-lg p-4 flex items-center justify-between">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd"/>
+                            </svg>
                           </div>
-                          <div className="text-xl font-bold text-gray-900">
-                            {analysis?.avgBpm || "N/A"}<span className="text-sm text-gray-600 ml-1">bpm</span>
+                          <span className="font-semibold text-gray-700">평균 심박수</span>
+                        </div>
+                        <div className="text-xl font-bold text-gray-900">
+                          {analysis?.avgBpm || "N/A"}<span className="text-sm text-gray-600 ml-1">bpm</span>
+                        </div>
+                      </div>
+
+                      {/* 운동강도 (별도 칸) */}
+                      {analysis?.avgBpm && analysis?.maxBpm && (
+                        <div className="bg-purple-50 rounded-lg p-4 text-center">
+                          <div className="text-lg font-bold text-purple-600">
+                            운동강도 {Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%
                           </div>
                         </div>
-                        {/* 운동강도 계산 */}
-                        {analysis?.avgBpm && analysis?.maxBpm && (
-                          <div className="text-center pt-2 border-t border-gray-200">
-                            <div className="text-lg font-bold text-purple-600">
-                              운동강도 {Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%
-                            </div>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
                 </div>
