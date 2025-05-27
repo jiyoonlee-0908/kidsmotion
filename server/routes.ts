@@ -527,6 +527,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("학생 이름:", measurement.studentName);
       console.log("저장된 전체 데이터 개수:", (await storage.getAllMeasurements()).length);
       
+      // 기존 데이터에 HTML이 없으면 생성해서 추가
+      const allMeasurements = await storage.getAllMeasurements();
+      for (const existingMeasurement of allMeasurements) {
+        const existingAnalysis = await storage.getAnalysisResult(existingMeasurement.id);
+        if (existingAnalysis && !existingAnalysis.fullReportHtml) {
+          console.log(`${existingMeasurement.studentName} 데이터에 HTML 추가 중...`);
+          
+          const existingBmi = existingMeasurement.weight / Math.pow(existingMeasurement.height / 100, 2);
+          const existingAge = calculateAge(existingMeasurement.birthDate);
+          const existingBalanceStatus = getBalanceStatus(existingMeasurement.leftBalance, existingMeasurement.rightBalance);
+          
+          const existingPercentiles = {
+            '5s': existingAnalysis.percentile5s,
+            '15s': existingAnalysis.percentile15s,
+            '30s': existingAnalysis.percentile30s,
+            '60s': existingAnalysis.percentile60s,
+            '180s': existingAnalysis.percentile180s,
+            '360s': existingAnalysis.percentile360s
+          };
+
+          const existingAiAnalysis = {
+            summary: existingAnalysis.aiSummary || '',
+            balanceComment: existingAnalysis.balanceComment || '',
+            explanations: {
+              power: existingAnalysis.explanation5s || '',
+              strength: existingAnalysis.explanation15s || '',
+              muscleEndurance: existingAnalysis.explanation30s || '',
+              cardioEndurance: existingAnalysis.explanation60s || ''
+            },
+            comprehensiveAnalysis: existingAnalysis.comprehensiveAnalysis ? existingAnalysis.comprehensiveAnalysis.split(' | ') : [],
+            overallAssessment: existingAnalysis.overallAssessment || ''
+          };
+
+          // HTML 생성
+          const existingFullReportHtml = generateFullReportHtml(existingMeasurement, {
+            bmi: existingBmi,
+            age: existingAge,
+            overallPercentile: existingAnalysis.overallPercentile,
+            percentiles: existingPercentiles,
+            balanceStatus: existingBalanceStatus,
+            aiAnalysis: existingAiAnalysis,
+            strengthsText: existingAnalysis.strengths || '',
+            improvementsText: existingAnalysis.improvements || ''
+          });
+
+          // 분석 결과 업데이트
+          existingAnalysis.fullReportHtml = existingFullReportHtml;
+          console.log(`${existingMeasurement.studentName} HTML 생성 완료!`);
+        }
+      }
+      
       res.json({
         measurement,
         analysis: analysisResult,
