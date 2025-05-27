@@ -77,7 +77,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                 <h3 className="text-2xl font-semibold text-gray-800 mb-4">이메일 문의</h3>
                 <p className="text-gray-600 mb-6">자세한 문의사항을 남겨주시면 신속히 답변드립니다</p>
                 <div className="space-y-2 flex-grow">
-                  <p className="text-xl font-semibold text-blue-600">info@motionbike.co.kr</p>
+                  <p className="text-xl font-semibold text-blue-600">dayinj@naver.com</p>
                   <p className="text-sm text-gray-500">24시간 내 답변 보장</p>
                   <p className="text-sm text-gray-500">상세한 자료 첨부 가능</p>
                   <p className="text-sm text-gray-500">체계적인 상담 진행</p>
@@ -213,7 +213,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                   
                   <div className="border-l-4 border-teal-500 pl-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Q. 예약은 어떻게 하나요?</h4>
-                    <p className="text-gray-600 text-sm">A. 전화(010-8445-0908) 또는 이메일(info@motionbike.co.kr)로 사전 예약 가능합니다.</p>
+                    <p className="text-gray-600 text-sm">A. 전화(010-8445-0908) 또는 이메일(dayinj@naver.com)로 사전 예약 가능합니다.</p>
                   </div>
                 </div>
                 
@@ -246,13 +246,13 @@ export default function Contact({ onNavigate }: ContactProps) {
                 측정 중 시스템 문제가 발생하거나 긴급한 도움이 필요하시면
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <div className="bg-white/20 rounded-lg p-4">
+                <div className="bg-white/20 rounded-lg p-4 flex-1 max-w-xs">
                   <p className="font-semibold">긴급 연락처</p>
                   <p className="text-xl font-bold">010-8445-0908</p>
                 </div>
-                <div className="bg-white/20 rounded-lg p-4">
+                <div className="bg-white/20 rounded-lg p-4 flex-1 max-w-xs">
                   <p className="font-semibold">기술 지원</p>
-                  <p className="text-xl font-bold">support@motionbike.co.kr</p>
+                  <p className="text-xl font-bold">dayinj@naver.com</p>
                 </div>
               </div>
             </CardContent>
