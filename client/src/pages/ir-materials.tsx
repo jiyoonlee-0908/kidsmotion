@@ -477,25 +477,38 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardHeader>
           <CardContent>
             {/* 파일럿 테스트 */}
-            <div className="mb-8 bg-white p-6 rounded-lg border border-green-200">
-              <h3 className="text-xl font-bold text-green-800 mb-4">2025년 파일럿 테스트</h3>
+            {/* 확정 기관 */}
+            <div className="bg-white p-6 rounded-lg border border-green-200 mb-6">
+              <h3 className="text-xl font-bold text-green-800 mb-4">2025년 파일럿 테스트 확정 기관</h3>
+              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                <h4 className="font-semibold text-blue-800 mb-2">1. IYC 유소년 스포츠센터 (서울 강서구)</h4>
+                <ul className="space-y-1 text-gray-700 text-sm">
+                  <li>• <strong>2025년 7월부터 장비 도입 예정</strong></li>
+                  <li>• 아동 대상 체력 측정 및 리포트 시연 (100명 대상)</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* 검증 계획 요약 */}
+            <div className="bg-white p-6 rounded-lg border border-green-200">
+              <h3 className="text-xl font-bold text-green-800 mb-4">검증 계획 요약</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-green-700 mb-3">검증 계획</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• <strong>사이클아카데미</strong>에서 100명 아동 데이터 수집</li>
-                    <li>• 기존 운영 중인 유소년 스포츠단 대상</li>
-                    <li>• 1년간 무료 제공 후 성과 측정</li>
-                    <li>• 실제 체력 개선 효과 검증</li>
+                  <h4 className="font-semibold text-green-700 mb-3">📋 테스트 규모</h4>
+                  <ul className="space-y-2 text-gray-700 text-sm">
+                    <li>• <strong>총 4개 기관</strong>, 1년간 무상 제공</li>
+                    <li>• (1개 기관 확정, 3개 기관 협의중)</li>
+                    <li>• <strong>예상 측정 대상 아동 수:</strong> 300명</li>
+                    <li>• <strong>측정 항목:</strong> 순발력, 파워, 좌우 밸런스, 심폐지구력 등 총 6종</li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-green-700 mb-3">기대 성과</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• 한국 아동 체력 기준 데이터 최초 구축</li>
-                    <li>• AI 분석 정확도 개선</li>
-                    <li>• 실제 운동 효과 사례 확보</li>
-                    <li>• 기관별 수요 검증</li>
+                  <h4 className="font-semibold text-green-700 mb-3">📊 데이터 확보 목표</h4>
+                  <ul className="space-y-2 text-gray-700 text-sm">
+                    <li>• <strong>데이터 포인트:</strong> 약 15,000개 / 1명</li>
+                    <li>• <strong>총 확보 데이터:</strong> 약 450만개 데이터</li>
+                    <li>• <strong>목표:</strong> 1년 내 한국 유아 전용 체력 기준선 자체 생성</li>
+                    <li>• <strong>최종 목적:</strong> 데이터 기반 AI 피드백 알고리즘 개발의 기반 확보</li>
                   </ul>
                 </div>
               </div>
