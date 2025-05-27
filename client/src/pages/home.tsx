@@ -164,7 +164,7 @@ export default function Home({ onNavigate }: HomeProps) {
         {!showResults ? (
           <>
             {/* Hero Section */}
-            <section id="home" className="text-center mb-20">
+            <section id="home" className="text-center mb-20 pt-12">
               <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 차세대 아동 체력 분석</span>
