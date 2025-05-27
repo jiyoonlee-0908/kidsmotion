@@ -45,10 +45,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700">"아이가 한쪽으로만 누워서 자는데, 뼈가 휘어지는 건 아니겠지?"</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"우리 아이만 뒤처지는 건 아닐까? 지금 조치를 안 하면 더 늦을까봐 걱정돼..."</p>
+                    <p className="text-gray-700">"지금 교정하지 않으면 평생 이대로 살아야 하는 건 아닐까... 골든타임을 놓치면 어떡하지?"</p>
                   </div>
                 </div>
               </div>
