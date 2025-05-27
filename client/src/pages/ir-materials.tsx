@@ -150,7 +150,115 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
+        {/* 통합된 시장 분석 & 진입 전략 */}
+        <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <CardHeader>
+            <CardTitle className="text-2xl text-green-700 mb-4">📊 타겟 시장 & 진입 전략</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* 시장 규모 추가 */}
+            <div className="mb-8 bg-white p-6 rounded-lg border border-emerald-200">
+              <h3 className="text-xl font-bold text-emerald-800 mb-4">💰 시장 규모</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center bg-emerald-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-emerald-600 mb-2">249만명</div>
+                  <p className="text-gray-600 text-sm">전국 초등학생 수<br/>(2024년 기준)</p>
+                </div>
+                <div className="text-center bg-red-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-red-600 mb-2">3,302개소</div>
+                  <p className="text-gray-600 text-sm">소아·청소년과<br/>전문 진료기관</p>
+                </div>
+                <div className="text-center bg-blue-50 p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">2만4천개+</div>
+                  <p className="text-gray-600 text-sm">아동 스포츠 학원<br/>(축구·태권도·수영 등)</p>
+                </div>
+              </div>
+            </div>
 
+            <div className="grid md:grid-cols-3 gap-8">
+              
+              {/* 의료기관 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-red-500">
+                <h3 className="text-xl font-bold mb-4 text-red-700">🏥 소아과/병원</h3>
+                <div className="space-y-3">
+                  <div className="bg-red-50 p-3 rounded">
+                    <h4 className="font-semibold text-red-800">핵심 가치</h4>
+                    <p className="text-sm text-red-700">"영유아검진 프리미엄 서비스"</p>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded">
+                    <h4 className="font-semibold text-red-800">차별화 포인트</h4>
+                    <p className="text-sm text-red-700">• 다른 병원과 차별화<br/>• 환자 만족도 향상<br/>• 재방문율 증가</p>
+                  </div>
+                  <div className="bg-red-50 p-3 rounded">
+                    <h4 className="font-semibold text-red-800">제공 서비스</h4>
+                    <p className="text-sm text-red-700">체력 현황 의료진 리포트<br/>성장 발달 추적 서비스</p>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-green-100 rounded">
+                  <p className="text-sm font-medium text-green-800">부모 심리: "의사가 정확한 수치로 설명해주니 신뢰할 수 있다"</p>
+                </div>
+              </div>
+
+              {/* 스포츠 학원 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-blue-500">
+                <h3 className="text-xl font-bold mb-4 text-blue-700">🏃‍♂️ 스포츠학원</h3>
+                <div className="space-y-3">
+                  <div className="bg-blue-50 p-3 rounded">
+                    <h4 className="font-semibold text-blue-800">핵심 가치</h4>
+                    <p className="text-sm text-blue-700">"우리 학원 효과 수치로 증명"</p>
+                  </div>
+                  <div className="bg-blue-50 p-3 rounded">
+                    <h4 className="font-semibold text-blue-800">차별화 포인트</h4>
+                    <p className="text-sm text-blue-700">• 학생 실력 향상 데이터 제공<br/>• 학부모 만족도 증가<br/>• 타 학원 대비 경쟁력 확보</p>
+                  </div>
+                  <div className="bg-blue-50 p-3 rounded">
+                    <h4 className="font-semibold text-blue-800">제공 서비스</h4>
+                    <p className="text-sm text-blue-700">월 5만원으로 무제한 측정<br/>성장 리포트 자동 생성</p>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-green-100 rounded">
+                  <p className="text-sm font-medium text-green-800">부모 심리: "우리 아이 부족한 부분을 정확히 알고 운동시켜준다"</p>
+                </div>
+              </div>
+
+              {/* 정부기관 */}
+              <div className="bg-white p-6 rounded-lg border-l-4 border-purple-500">
+                <h3 className="text-xl font-bold mb-4 text-purple-700">🏛️ 보건소/공공기관</h3>
+                <div className="space-y-3">
+                  <div className="bg-purple-50 p-3 rounded">
+                    <h4 className="font-semibold text-purple-800">핵심 가치</h4>
+                    <p className="text-sm text-purple-700">"지역 아동 건강 빅데이터"</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded">
+                    <h4 className="font-semibold text-purple-800">차별화 포인트</h4>
+                    <p className="text-sm text-purple-700">• 정부 정책 데이터 제공<br/>• 지역 건강 통계 구축<br/>• 예산 효율성 증명</p>
+                  </div>
+                  <div className="bg-purple-50 p-3 rounded">
+                    <h4 className="font-semibold text-purple-800">제공 서비스</h4>
+                    <p className="text-sm text-purple-700">지역별 아동 체력 통계<br/>정책 수립 기초 자료</p>
+                  </div>
+                </div>
+                <div className="mt-4 p-3 bg-green-100 rounded">
+                  <p className="text-sm font-medium text-green-800">정부 니즈: "국민체력 빅데이터로 정책 근거 마련"</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 수익 구조 */}
+            <div className="mt-8 grid md:grid-cols-2 gap-8">
+              <div className="bg-white p-6 rounded-lg text-center border-2 border-green-200">
+                <h4 className="text-lg font-bold text-green-700 mb-2">하드웨어 판매</h4>
+                <div className="text-3xl font-bold text-green-600 mb-2">550만원</div>
+                <p className="text-sm text-gray-600">장비당 일시 수익</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg text-center border-2 border-blue-200">
+                <h4 className="text-lg font-bold text-blue-700 mb-2">소프트웨어 구독</h4>
+                <div className="text-3xl font-bold text-blue-600 mb-2">월 5만원</div>
+                <p className="text-sm text-gray-600">AI 분석 • 누적데이터 통계 • 백분위 업데이트 • 분석리포트</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* 하드웨어 혁신 */}
         <Card className="mb-16">
