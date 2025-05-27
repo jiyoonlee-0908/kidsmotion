@@ -465,7 +465,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <ul className="space-y-1 text-gray-700 text-sm">
                     <li>• 아동 맞춤 하드웨어 설계 노하우</li>
                     <li>• 체력 평가 알고리즘 새로 정립</li>
-                    <li>• 연령별 체력 기준 데이터베이스</li>
+                    <li>• 연령별 체력 기준 데이터베이스화</li>
                   </ul>
                 </div>
                 <div>
