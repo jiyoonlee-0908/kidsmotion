@@ -895,7 +895,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "550만원 장비 투자수익률은 어떻게 되나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 직접 수익보다는 브랜딩 효과가 핵심입니다. '최신 아동 체력 측정 도입 병원'으로 차별화되며, 영유아검진 질 향상으로 환자 만족도와 재방문율이 증가합니다. 정부지원 50% 시 실질 부담은 275만원입니다.</p>
+                    <p className="text-gray-700 text-sm">A: 직접 수익보다는 브랜딩 효과가 핵심입니다. '최신 아동 체력 측정 도입 병원'으로 차별화되며, 영유아검진 질 향상으로 환자 만족도와 재방문율이 증가합니다.</p>
                   </div>
                 </div>
               </div>
