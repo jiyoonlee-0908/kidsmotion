@@ -479,7 +479,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
           <CardHeader>
             <CardTitle className="text-2xl">
-              🎯 450만 데이터로 입증하는 시장 검증력
+              📊 실제 파일럿 테스트와 시장 진출 계획
             </CardTitle>
           </CardHeader>
           <CardContent>
