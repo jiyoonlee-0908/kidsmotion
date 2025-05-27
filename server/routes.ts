@@ -495,8 +495,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // 정렬 (높은 순)
         allItems.sort((a, b) => b.value - a.value);
         
-        let strengths = [];
-        let improvements = [];
+        let strengths: string[] = [];
+        let improvements: string[] = [];
         
         // 1순위: 96% 이상 → 무조건 강점 (모든 항목)
         for (const item of allItems) {
