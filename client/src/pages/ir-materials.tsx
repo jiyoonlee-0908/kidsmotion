@@ -39,13 +39,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
                 <div className="space-y-4">
                   <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+                    <p className="text-gray-700 mb-2">"아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 좌우 밸런스 정확한 수치로 측정 및 개선방안 제시
                     </div>
                   </div>
                   <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
+                    <p className="text-gray-700 mb-2">"아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
                     </div>
@@ -57,7 +57,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                   <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 운동발달이 늦는 것 같아서 병원에 갔는데 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
+                    <p className="text-gray-700 mb-2">"아이 운동발달이 늦는 것 같아서 병원에 갔는데 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 조기 개입 가능: 5등급, 하위 4% 바로 확인하여 즉시 대응
                     </div>
@@ -851,16 +851,16 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-lg font-bold text-blue-700 mb-3">💰 시장 관련</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "2.49M 학생? 실제 고객은 몇 명인가요?"</p>
-                    <p className="text-gray-700 text-sm">A: B2B/B2G 모델이므로 개별 부모가 아닌 기관이 고객입니다. 3,302개 소아청소년과 + 24,000개 스포츠학원이 잠재 고객이며, 1,000개 기관만 확보해도 연 6억원 달성 가능합니다.</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "249만 학생? 실제 고객은 몇 명인가요?"</p>
+                    <p className="text-gray-700 text-sm">A: B2B/B2G 모델이므로 개별 부모가 아닌 기관이 고객입니다. 3천302개 소아청소년과 + 2만4천개 스포츠학원이 잠재 고객이며, 1천개 기관만 확보해도 연 6억원 달성 가능합니다.</p>
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "글로벌 시장에서 몇 % 점유할 건가요?"</p>
                     <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국에서만 연 100억 달성 후 해외 진출 계획입니다.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "월 5만원 구독료가 너무 비싸지 않나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 단순 데이터 제공이 아닌 종합 솔루션입니다. AI 분석 리포트 + 성장 추적 서비스 + 운동 가이드를 포함한 가격으로, 아동 1명당 월 5만원은 태권도/수영 학원비와 비슷한 수준입니다. 기관 입장에서는 차별화 서비스로 더 많은 회원 유치가 가능합니다.</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "기관에서 월 5만원 구독료가 부담스럽지 않나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 업체 관점에서 월 5만원은 매우 합리적입니다. 스포츠학원의 경우 아동 1명당 월 15만원 정도 받는데, 키즈모션 도입으로 '과학적 체력측정' 차별화 서비스 제공이 가능하여 신규 회원 유치와 기존 회원 만족도 향상으로 투자비 회수가 빠릅니다.</p>
                   </div>
                 </div>
               </div>
