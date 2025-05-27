@@ -56,71 +56,101 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [adminPassword, setAdminPassword] = useState('');
   const { toast } = useToast();
 
-  // 오로라 데이터 (실제 저장된 데이터)
-  const auroraData: MeasurementData = {
-    id: 1,
-    studentName: "오로라",
-    affiliation: "서울어린이집",
-    gender: "F",
-    age: 6,
-    measureDate: "2025-05-27",
-    birthDate: "2019-03-15", // 생년월일 추가
-    height: 110,
-    weight: 20,
-    power5s: 200,
-    power15s: 100,
-    power30s: 150,
-    power60s: 100,
-    power180s: 90,
-    power360s: 80,
-    leftBalance: 45,
-    rightBalance: 55,
-    maxHeartRate: 210,
-    avgHeartRate: 150,
-    overallGrade: "우수",
-    overallPercentile: 69,
-    percentile5s: 91,
-    percentile15s: 17,
-    percentile30s: 98,
-    percentile60s: 69,
-    percentile180s: 42,
-    percentile360s: 19
-  };
+
 
   useEffect(() => {
-    // 페이지 로딩 시 오로라 데이터 표시
-    setMeasurements([auroraData]);
+    // 페이지 로딩 시 실제 서버에서 모든 데이터 가져오기
+    handleSearch();
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     setIsLoading(true);
     
-    // 검색 로직
-    setTimeout(() => {
-      const allData = [auroraData]; // 실제로는 서버에서 가져온 모든 데이터
+    try {
+      // 실제 서버 API 호출
+      const queryParams = new URLSearchParams();
+      if (searchName.trim()) queryParams.append('studentName', searchName.trim());
+      if (searchAffiliation.trim()) queryParams.append('affiliation', searchAffiliation.trim());
+      if (searchBirthDate.trim()) queryParams.append('birthDate', searchBirthDate.trim());
+      if (searchGender.trim()) queryParams.append('gender', searchGender.trim());
       
-      // 모든 검색 조건이 비어있으면 전체 데이터 표시
+      // 모든 조건이 비어있으면 빈 이름으로 검색 (모든 데이터)
       if (!searchName.trim() && !searchAffiliation.trim() && !searchBirthDate.trim() && !searchGender.trim()) {
-        setMeasurements(allData);
-        setIsLoading(false);
-        return;
+        queryParams.append('studentName', '');
       }
       
-      // 조건에 맞는 데이터 필터링
-      const filtered = allData.filter(measurement => {
-        const nameMatch = !searchName.trim() || measurement.studentName.toLowerCase().includes(searchName.toLowerCase());
-        const affiliationMatch = !searchAffiliation.trim() || measurement.affiliation.toLowerCase().includes(searchAffiliation.toLowerCase());
-        const birthDateMatch = !searchBirthDate.trim() || measurement.birthDate.includes(searchBirthDate);
-        const genderMatch = !searchGender.trim() || measurement.gender === searchGender;
-        
-        // 모든 조건을 만족하는 경우만 반환
-        return nameMatch && affiliationMatch && birthDateMatch && genderMatch;
-      });
+      const response = await fetch(`/api/measurements/search?${queryParams}`);
       
-      setMeasurements(filtered);
+      if (!response.ok) {
+        throw new Error('데이터를 가져오는데 실패했습니다.');
+      }
+      
+      const data = await response.json();
+      
+      // 서버에서 받은 데이터를 UI 형식에 맞게 변환
+      const formattedData: MeasurementData[] = data.map((item: any) => ({
+        id: item.measurement.id,
+        studentName: item.measurement.studentName,
+        affiliation: item.measurement.affiliation,
+        gender: item.measurement.gender,
+        age: item.analysis?.age || calculateAge(item.measurement.birthDate),
+        measureDate: item.measurement.measureDate,
+        birthDate: item.measurement.birthDate,
+        height: item.measurement.height,
+        weight: item.measurement.weight,
+        power5s: item.measurement.power5s,
+        power15s: item.measurement.power15s,
+        power30s: item.measurement.power30s,
+        power60s: item.measurement.power60s,
+        power180s: item.measurement.power180s,
+        power360s: item.measurement.power360s,
+        leftBalance: item.measurement.leftBalance,
+        rightBalance: item.measurement.rightBalance,
+        maxHeartRate: item.measurement.maxHeartRate,
+        avgHeartRate: item.measurement.avgHeartRate,
+        overallGrade: item.analysis?.overallPercentile >= 80 ? "매우우수" : 
+                      item.analysis?.overallPercentile >= 60 ? "우수" :
+                      item.analysis?.overallPercentile >= 40 ? "보통" :
+                      item.analysis?.overallPercentile >= 20 ? "낮음" : "매우낮음",
+        overallPercentile: item.analysis?.overallPercentile || 0,
+        percentile5s: item.analysis?.percentile5s || 0,
+        percentile15s: item.analysis?.percentile15s || 0,
+        percentile30s: item.analysis?.percentile30s || 0,
+        percentile60s: item.analysis?.percentile60s || 0,
+        percentile180s: item.analysis?.percentile180s || null,
+        percentile360s: item.analysis?.percentile360s || null
+      }));
+      
+      setMeasurements(formattedData);
+      
+    } catch (error) {
+      console.error('검색 오류:', error);
+      toast({
+        title: "오류",
+        description: "데이터를 불러오는데 실패했습니다.",
+        variant: "destructive"
+      });
+      setMeasurements([]);
+    } finally {
       setIsLoading(false);
-    }, 300);
+    }
   };
+
+  // 나이 계산 함수
+  const calculateAge = (birthDate: string): number => {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+    }
+    
+    return age;
+  };
+
+
 
   const handleDeleteClick = (id: number) => {
     setDeleteTargetId(id);
