@@ -345,42 +345,56 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           </DialogHeader>
           
           {selectedMeasurement && (
-            <div className="space-y-6">
-              {/* Student Info Card */}
+            <div id="results-container" className="space-y-6">
+              {/* Header 추가 */}
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-bold gradient-text">체력 분석 결과</h2>
+              </div>
+
+              {/* Card 1: Basic Info - 원본과 동일한 구조 */}
               <Card className="fitness-card">
                 <CardContent>
-                  <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <User className="text-blue-600" />
+                  <div className="flex items-center justify-between mb-8">
+                    <div className="flex items-center space-x-4">
+                      <div className="fitness-icon">
+                        <User className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold text-gray-900">{selectedMeasurement.studentName}</h3>
+                        <p className="text-gray-600">{selectedMeasurement.affiliation} • {selectedMeasurement.age}세 {selectedMeasurement.gender === 'M' ? '남자' : '여자'}</p>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900">학생 정보</h3>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-600">측정일</p>
+                      <p className="text-lg font-semibold text-gray-900">{selectedMeasurement.measureDate}</p>
+                    </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">이름</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.studentName}</p>
+                      <p className="text-sm text-gray-600 mb-1">신장</p>
+                      <p className="text-2xl font-bold text-gray-900">{selectedMeasurement.height}</p>
+                      <p className="text-sm text-gray-500">cm</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">소속</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.affiliation}</p>
+                      <p className="text-sm text-gray-600 mb-1">체중</p>
+                      <p className="text-2xl font-bold text-gray-900">{selectedMeasurement.weight}</p>
+                      <p className="text-sm text-gray-500">kg</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">나이</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.age}세</p>
+                      <p className="text-sm text-gray-600 mb-1">최대 심박수</p>
+                      <p className="text-2xl font-bold text-gray-900">{selectedMeasurement.maxHeartRate || '-'}</p>
+                      <p className="text-sm text-gray-500">bpm</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">성별</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.gender === 'M' ? '남자' : '여자'}</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">측정일</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.measureDate}</p>
+                      <p className="text-sm text-gray-600 mb-1">평균 심박수</p>
+                      <p className="text-2xl font-bold text-gray-900">{selectedMeasurement.avgHeartRate || '-'}</p>
+                      <p className="text-sm text-gray-500">bpm</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Comprehensive Analysis Card */}
+              {/* Card 2: Comprehensive Analysis - 원본 구조 */}
               <Card className="fitness-card">
                 <CardContent>
                   <div className="flex items-center space-x-3 mb-6">
@@ -436,7 +450,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 </CardContent>
               </Card>
 
-              {/* Balance Analysis Card */}
+              {/* Card 3: Balance Analysis - 원본 구조 */}
               <Card className="fitness-card">
                 <CardContent>
                   <div className="flex items-center space-x-3 mb-6">
@@ -471,7 +485,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 </CardContent>
               </Card>
 
-              {/* Detailed Fitness Assessment Card */}
+              {/* Card 4: Detailed Fitness Assessment - 원본 구조 */}
               <Card className="fitness-card">
                 <CardContent>
                   <div className="flex items-center space-x-3 mb-6">
@@ -481,11 +495,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <h3 className="text-xl font-bold text-gray-900">항목별 체력 세부평가</h3>
                   </div>
                   <div className="space-y-6">
-                    {/* 5초 파워 */}
+                    {/* 원본과 동일한 항목별 평가 */}
                     <div className="fitness-item">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-900">5초 최대파워 (순발력)</h4>
+                          <h4 className="font-semibold text-gray-900">순발력 (5초)</h4>
                           <p className="text-sm text-gray-600">{selectedMeasurement.power5s}W | 환산점수: {Math.round(selectedMeasurement.percentile5s)}</p>
                         </div>
                         <div className="text-right">
@@ -496,14 +510,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="progress-bar mb-3">
                         <div className="progress-fill bg-emerald-500" style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
                       </div>
-                      <p className="text-sm text-gray-700">짧은 시간 동안 최대한의 힘을 발휘하는 능력이 매우 뛰어납니다.</p>
+                      <p className="text-sm text-gray-700">순발력이 {Math.round(selectedMeasurement.percentile5s)}% 수준입니다. 5초간 최대한의 힘을 발휘하는 능력을 평가합니다.</p>
                     </div>
 
-                    {/* 15초 파워 */}
                     <div className="fitness-item">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-900">15초 최대파워 (근력)</h4>
+                          <h4 className="font-semibold text-gray-900">근력 (15초)</h4>
                           <p className="text-sm text-gray-600">{selectedMeasurement.power15s}W | 환산점수: {Math.round(selectedMeasurement.percentile15s)}</p>
                         </div>
                         <div className="text-right">
@@ -514,14 +527,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="progress-bar mb-3">
                         <div className="progress-fill bg-red-500" style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
                       </div>
-                      <p className="text-sm text-gray-700">근력 향상을 위한 체계적인 훈련이 필요합니다.</p>
+                      <p className="text-sm text-gray-700">근력이 {Math.round(selectedMeasurement.percentile15s)}% 수준입니다. 15초간 근육의 힘을 지속적으로 발휘하는 능력을 평가합니다.</p>
                     </div>
 
-                    {/* 30초 파워 */}
                     <div className="fitness-item">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-900">30초 최대파워 (근지구력)</h4>
+                          <h4 className="font-semibold text-gray-900">근지구력 (30초)</h4>
                           <p className="text-sm text-gray-600">{selectedMeasurement.power30s}W | 환산점수: {Math.round(selectedMeasurement.percentile30s)}</p>
                         </div>
                         <div className="text-right">
@@ -532,14 +544,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="progress-bar mb-3">
                         <div className="progress-fill bg-emerald-500" style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
                       </div>
-                      <p className="text-sm text-gray-700">근육의 지구력이 매우 뛰어나 지속적인 활동에 유리합니다.</p>
+                      <p className="text-sm text-gray-700">근지구력이 {Math.round(selectedMeasurement.percentile30s)}% 수준입니다. 30초간 근육의 지구력을 통해 지속적인 힘 발휘 능력을 평가합니다.</p>
                     </div>
 
-                    {/* 60초 파워 */}
                     <div className="fitness-item">
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <h4 className="font-semibold text-gray-900">60초 최대파워 (심폐지구력)</h4>
+                          <h4 className="font-semibold text-gray-900">근력 (60초)</h4>
                           <p className="text-sm text-gray-600">{selectedMeasurement.power60s}W | 환산점수: {Math.round(selectedMeasurement.percentile60s)}</p>
                         </div>
                         <div className="text-right">
@@ -550,53 +561,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="progress-bar mb-3">
                         <div className="progress-fill bg-blue-500" style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
                       </div>
-                      <p className="text-sm text-gray-700">심폐 기능이 우수하여 지구력 운동에 적합합니다.</p>
+                      <p className="text-sm text-gray-700">근력이 {Math.round(selectedMeasurement.percentile60s)}% 수준입니다. 60초간 근육의 힘을 지속적으로 발휘하는 능력을 평가합니다.</p>
                     </div>
-
-                    {/* 180초 파워 */}
-                    {selectedMeasurement.power180s && (
-                      <div className="fitness-item">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h4 className="font-semibold text-gray-900">180초 최대파워 (장기지구력)</h4>
-                            <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s!)}</p>
-                          </div>
-                          <div className="text-right">
-                            <Badge className="bg-yellow-500 text-white text-sm font-medium">평균</Badge>
-                            <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
-                          </div>
-                        </div>
-                        <div className="progress-bar mb-3">
-                          <div className="progress-fill bg-yellow-500" style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
-                        </div>
-                        <p className="text-sm text-gray-700">장기간 지속되는 운동 능력이 평균 수준입니다.</p>
-                      </div>
-                    )}
-
-                    {/* 360초 파워 */}
-                    {selectedMeasurement.power360s && (
-                      <div className="fitness-item">
-                        <div className="flex justify-between items-start mb-3">
-                          <div>
-                            <h4 className="font-semibold text-gray-900">360초 최대파워 (초장기지구력)</h4>
-                            <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s!)}</p>
-                          </div>
-                          <div className="text-right">
-                            <Badge className="bg-red-500 text-white text-sm font-medium">경고</Badge>
-                            <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
-                          </div>
-                        </div>
-                        <div className="progress-bar mb-3">
-                          <div className="progress-fill bg-red-500" style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
-                        </div>
-                        <p className="text-sm text-gray-700">초장기 지구력 향상을 위한 체계적인 훈련이 필요합니다.</p>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Radar Chart Card */}
+              {/* Card 5: Radar Chart - 원본 구조 */}
               <Card className="fitness-card">
                 <CardContent>
                   <div className="flex items-center space-x-3 mb-6">
@@ -616,29 +587,10 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       }}
                     />
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h4 className="font-semibold text-gray-900 mb-3">AI 종합 분석</h4>
-                    <div className="space-y-3">
-                      <div>
-                        <h5 className="font-medium text-green-700 mb-1">우수한 영역</h5>
-                        <p className="text-sm text-gray-700">• 순발력 (91백분위): 동연령 대비 매우 뛰어난 폭발적 힘 발휘 능력</p>
-                        <p className="text-sm text-gray-700">• 근지구력 (98백분위): 근육의 지속적 수축 능력이 탁월함</p>
-                      </div>
-                      <div>
-                        <h5 className="font-medium text-orange-600 mb-1">개선이 필요한 영역</h5>
-                        <p className="text-sm text-gray-700">• 근력 (17백분위): 기초 근력 향상을 위한 체계적 훈련 필요</p>
-                        <p className="text-sm text-gray-700">• 장기지구력: 360초 파워 개선을 통한 지구력 향상 권장</p>
-                      </div>
-                      <div>
-                        <h5 className="font-medium text-blue-600 mb-1">운동 처방</h5>
-                        <p className="text-sm text-gray-700">순발력을 활용한 스포츠 활동과 함께 근력 강화 운동을 병행하면 균형 잡힌 체력 발달이 가능합니다.</p>
-                      </div>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
 
-              {/* 운동 추천 및 안내사항 */}
+              {/* Card 6: Exercise Recommendations - 원본 구조 */}
               <Card className="fitness-card">
                 <CardContent>
                   <div className="flex items-center space-x-3 mb-6">
