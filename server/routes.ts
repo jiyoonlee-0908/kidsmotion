@@ -348,17 +348,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // 모든 측정 데이터 가져오기
-  app.get("/api/measurements/all", async (req, res) => {
-    try {
-      const measurements = await storage.getAllMeasurements();
-      res.json(measurements);
-    } catch (error) {
-      console.error("Error fetching all measurements:", error);
-      res.status(500).json({ error: "Failed to retrieve all measurements" });
-    }
-  });
-
   // 측정 데이터 삭제
   app.delete("/api/measurements/:id", async (req, res) => {
     try {
@@ -383,7 +372,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // 모든 측정 데이터 조회 (새로운 엔드포인트)
+  // 모든 측정 데이터 조회
   app.get("/api/measurements/all", async (req, res) => {
     try {
       console.log("=== 모든 측정 데이터 조회 요청 ===");
@@ -425,9 +414,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // 검색 조건이 없으면 모든 데이터 반환
       if (!studentName || studentName === '' || studentName === 'ALL_DATA') {
         console.log("모든 데이터 반환 모드");
-        const response = await fetch(`http://localhost:${process.env.PORT || 5000}/api/measurements/all`);
-        const data = await response.json();
-        return res.json(data);
+        const measurements = await storage.getAllMeasurements();
+        console.log("저장된 전체 측정 데이터 개수:", measurements.length);
+        
+        if (measurements.length === 0) {
+          return res.json([]);
+        }
+        
+        // 각 측정에 대한 분석 결과 가져오기
+        const results = await Promise.all(
+          measurements.map(async (measurement) => {
+            const analysis = await storage.getAnalysisResult(measurement.id);
+            return {
+              measurement,
+              analysis
+            };
+          })
+        );
+        
+        return res.json(results);
       }
       
       // 실제 검색 수행
