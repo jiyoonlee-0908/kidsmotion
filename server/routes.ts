@@ -311,12 +311,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const grade1Items = percentileData.filter(item => item.value >= 96);
         strengths.push(...grade1Items.map(item => item.name));
         
-        // 5등급(4% 미만)은 무조건 보완점
-        const grade5Items = percentileData.filter(item => item.value < 4);
+        // 5등급(20% 미만)은 무조건 보완점  
+        const grade5Items = percentileData.filter(item => item.value < 20);
         improvements.push(...grade5Items.map(item => item.name));
         
         // 1등급, 5등급이 아닌 나머지 항목들
-        const middleItems = percentileData.filter(item => item.value >= 4 && item.value < 96);
+        const middleItems = percentileData.filter(item => item.value >= 20 && item.value < 96);
         
         if (middleItems.length > 0) {
           // 백분위순으로 정렬 (높은 순)
