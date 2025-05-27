@@ -174,7 +174,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                       <Badge variant="outline" className="border-orange-300 text-orange-600">선택</Badge>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-white rounded border border-dashed">
-                      <span className="text-gray-700">✓ 심폐지구력 (360초)</span>
+                      <span className="text-gray-700">✓ 심폐지구력 (300초)</span>
                       <Badge variant="outline" className="border-orange-300 text-orange-600">선택</Badge>
                     </div>
                   </div>
