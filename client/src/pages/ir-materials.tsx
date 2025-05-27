@@ -432,22 +432,23 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <h4 className="font-semibold text-cyan-700 mb-3">🎯 센서 기반 정밀 측정</h4>
                   <div className="bg-white p-4 rounded-lg">
                     <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>프레임 내 센서:</strong> 좌우 밸런스 실시간 측정</li>
-                      <li>• <strong>체력 평가:</strong> 6단계 파워 수치 정확 측정</li>
+                      <li>• <strong>프레임 내 센서:</strong> 실시간 좌우 밸런스</li>
+                      <li>• <strong></strong> 실시간 체력측정</li>
                       <li>• <strong>외부 심박센서:</strong> 운동 강도 정밀 분석</li>
                     </ul>
                   </div>
                 </div>
               </div>
-              
-              <div className="mt-4 bg-white p-4 rounded-lg border-l-4 border-cyan-500">
-                <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
-                <p className="text-gray-700 text-sm">
-                  사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
-                  <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
-                  올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
-                </p>
-              </div>
+            </div>
+
+            {/* 스포츠과학 검증 별도 카드 */}
+            <div className="mt-6 bg-white p-6 rounded-lg border-2 border-cyan-300 shadow-lg">
+              <h4 className="font-semibold text-cyan-700 mb-3 text-lg">🏆 스포츠과학 검증</h4>
+              <p className="text-gray-700 text-sm">
+                사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
+                <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
+                올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
+              </p>
             </div>
 
             <div className="mt-8 bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
