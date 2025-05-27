@@ -472,7 +472,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
-              🔬 실제 검증 계획 & 차별화 가치
+              🔬 실제 검증 계획
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -501,76 +501,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
 
-            {/* 타겟별 가치 제안 */}
-            <div className="grid md:grid-cols-3 gap-6">
-              
-              {/* 스포츠학원 */}
-              <div className="bg-blue-50 p-6 rounded-lg border-2 border-blue-200">
-                <div className="text-center mb-4">
-                  <div className="text-4xl mb-2">🏃‍♂️</div>
-                  <h3 className="font-bold text-lg text-blue-800">스포츠학원</h3>
-                </div>
-                <div className="space-y-3">
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-blue-700 text-sm">핵심 가치</h4>
-                    <p className="text-blue-600 text-xs">"우리 학원 효과 수치로 증명"</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-blue-700 text-sm">차별화 포인트</h4>
-                    <p className="text-blue-600 text-xs">• 학생 실력 향상 데이터 제공<br/>• 학부모 만족도 증가<br/>• 타 학원 대비 경쟁력 확보</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-blue-700 text-sm">제공 서비스</h4>
-                    <p className="text-blue-600 text-xs">월 5만원으로 무제한 측정<br/>성장 리포트 자동 생성</p>
-                  </div>
-                </div>
-              </div>
 
-              {/* 병원 */}
-              <div className="bg-red-50 p-6 rounded-lg border-2 border-red-200">
-                <div className="text-center mb-4">
-                  <div className="text-4xl mb-2">🏥</div>
-                  <h3 className="font-bold text-lg text-red-800">소아과/병원</h3>
-                </div>
-                <div className="space-y-3">
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-red-700 text-sm">핵심 가치</h4>
-                    <p className="text-red-600 text-xs">"영유아검진 프리미엄 서비스"</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-red-700 text-sm">차별화 포인트</h4>
-                    <p className="text-red-600 text-xs">• 다른 병원과 차별화<br/>• 환자 만족도 향상<br/>• 재방문율 증가</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-red-700 text-sm">제공 서비스</h4>
-                    <p className="text-red-600 text-xs">체력 현황 의료진 리포트<br/>성장 발달 추적 서비스</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 보건소 */}
-              <div className="bg-purple-50 p-6 rounded-lg border-2 border-purple-200">
-                <div className="text-center mb-4">
-                  <div className="text-4xl mb-2">🏛️</div>
-                  <h3 className="font-bold text-lg text-purple-800">보건소/공공기관</h3>
-                </div>
-                <div className="space-y-3">
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-purple-700 text-sm">핵심 가치</h4>
-                    <p className="text-purple-600 text-xs">"지역 아동 건강 빅데이터"</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-purple-700 text-sm">차별화 포인트</h4>
-                    <p className="text-purple-600 text-xs">• 정부 정책 데이터 제공<br/>• 지역 건강 통계 구축<br/>• 예산 효율성 증명</p>
-                  </div>
-                  <div className="bg-white p-3 rounded">
-                    <h4 className="font-semibold text-purple-700 text-sm">제공 서비스</h4>
-                    <p className="text-purple-600 text-xs">지역별 아동 체력 통계<br/>정책 수립 기초 자료</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
           </CardContent>
         </Card>
 
