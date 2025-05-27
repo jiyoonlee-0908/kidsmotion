@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
 import Navigation from "@/components/navigation";
+import CommonFooter from "@/components/common-footer";
 
 interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
@@ -858,6 +859,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </Card>
 
       </div>
+      <CommonFooter onNavigate={onNavigate} />
     </div>
   );
 }
