@@ -438,7 +438,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   
                   {/* 스포츠과학 검증을 여기로 이동 */}
-                  <div className="mt-4 bg-white p-4 rounded-lg border-l-4 border-cyan-500">
+                  <div className="mt-4 bg-white p-4 rounded-lg">
                     <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
                     <p className="text-gray-700 text-sm">
                       사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
