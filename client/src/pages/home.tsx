@@ -54,13 +54,12 @@ export default function Home({ onNavigate }: HomeProps) {
     setShowResults(true);
     setIsAnalyzing(false);
     
-    // Smooth scroll to results
+    // 측정 완료 후 잠시 결과를 보여준 다음 기록 페이지로 이동
     setTimeout(() => {
-      const resultsElement = document.getElementById('results-container');
-      if (resultsElement) {
-        resultsElement.scrollIntoView({ behavior: 'smooth' });
+      if (onNavigate) {
+        onNavigate('records');
       }
-    }, 100);
+    }, 3000); // 3초 후 자동 이동
   };
 
   const handleMeasurementStart = () => {

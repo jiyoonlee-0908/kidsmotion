@@ -289,19 +289,25 @@ export class DatabaseStorage implements IStorage {
   }): Promise<Measurement[]> {
     console.log('=== 데이터베이스 검색 요청 ===', criteria);
     
-    let query = db.select().from(measurements);
-    
     // 빈 이름이면 모든 데이터 반환
     if (criteria.studentName && criteria.studentName.trim() !== '') {
-      query = query.where(eq(measurements.studentName, criteria.studentName));
       console.log('특정 학생 검색:', criteria.studentName);
+      const results = await db
+        .select()
+        .from(measurements)
+        .where(eq(measurements.studentName, criteria.studentName))
+        .orderBy(desc(measurements.createdAt));
+      console.log('데이터베이스에서 반환된 결과:', results.length + '개');
+      return results;
     } else {
       console.log('모든 데이터 반환 모드');
+      const results = await db
+        .select()
+        .from(measurements)
+        .orderBy(desc(measurements.createdAt));
+      console.log('데이터베이스에서 반환된 결과:', results.length + '개');
+      return results;
     }
-    
-    const results = await query.orderBy(desc(measurements.createdAt));
-    console.log('데이터베이스에서 반환된 결과:', results.length + '개');
-    return results;
   }
 
   async createInviteCode(insertInviteCode: InsertInviteCode): Promise<InviteCode> {
