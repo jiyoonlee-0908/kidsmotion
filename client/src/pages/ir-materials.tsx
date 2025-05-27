@@ -39,7 +39,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-xl font-bold mb-4 text-gray-800">현재 부모들의 고민</h3>
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"우리 아이 좌우 밸런스가 안 맞는 것 같은데 성장에 문제가 있을까?"</p>
+                    <p className="text-gray-700">"우리 아이 좌우가 틀어진 것 같은데 성장에 문제가 있을까?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700">"체력이 또래보다 떨어지는 것 같은데 정확히 어느 정도인지 모르겠다"</p>
@@ -54,7 +54,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">영유아검진 설문 방식</p>
-                    <p className="text-gray-700">"자전거 탈 수 있나요?" → 주관적 답변</p>
+                    <p className="text-gray-700">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 예/아니오</p>
+                    <p className="text-xs text-red-500 mt-1">(66-71개월 영유아검진 발달선별검사)</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">운동발달 평가</p>
