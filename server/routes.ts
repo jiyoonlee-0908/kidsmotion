@@ -206,7 +206,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // 성별과 나이에 따른 데이터 키 생성
       const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
       const genderKey = `${clampedAge}_${measurementData.gender}`;
-      const cutoffs = cutoffData[genderKey]; // data 중첩 제거
+      const cutoffs = realisticKidsCutoffs[genderKey]; // 현실적인 한국 아동 기준값 사용
       
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       console.log(`Cutoffs found:`, cutoffs ? "Yes" : "No", cutoffs);
