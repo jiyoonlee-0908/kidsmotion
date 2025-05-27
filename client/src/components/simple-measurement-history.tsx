@@ -428,6 +428,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           if (selectedMeasurement.percentile15s >= 20) strengths.push("스프린트 파워 (15초)");
                           if (selectedMeasurement.percentile30s >= 20) strengths.push("근력 (30초)");
                           if (selectedMeasurement.percentile60s >= 20) strengths.push("근지구력 (60초)");
+                          if (selectedMeasurement.percentile180s && selectedMeasurement.percentile180s >= 20) strengths.push("심폐지구력 (180초)");
+                          if (selectedMeasurement.percentile360s && selectedMeasurement.percentile360s >= 20) strengths.push("장시간지구력 (360초)");
                           return strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다";
                         })()}
                       </p>
@@ -444,6 +446,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                             { name: "근력 (30초)", value: selectedMeasurement.percentile30s },
                             { name: "근지구력 (60초)", value: selectedMeasurement.percentile60s }
                           ];
+                          
+                          // 180초, 360초 데이터가 있으면 추가
+                          if (selectedMeasurement.percentile180s !== null && selectedMeasurement.percentile180s !== undefined) {
+                            percentiles.push({ name: "심폐지구력 (180초)", value: selectedMeasurement.percentile180s });
+                          }
+                          if (selectedMeasurement.percentile360s !== null && selectedMeasurement.percentile360s !== undefined) {
+                            percentiles.push({ name: "장시간지구력 (360초)", value: selectedMeasurement.percentile360s });
+                          }
                           
                           // 20% 미만인 항목들 찾기
                           const weakAreas = percentiles.filter(item => item.value < 20);
