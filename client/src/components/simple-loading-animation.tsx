@@ -94,7 +94,7 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
 
           {/* Progress Percentage */}
           <div className="text-2xl font-bold text-purple-600">
-            {progress}%
+            {Math.round(progress)}%
           </div>
 
           {/* Status Message */}
