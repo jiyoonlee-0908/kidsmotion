@@ -431,25 +431,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="font-semibold text-lg mb-2">AI 리포트 제공</h3>
                 <p className="text-gray-600 mb-3">복잡한 숫자, 지표를 부모가 이해하는<br/>맞춤 해석으로 변환</p>
                 <div className="bg-purple-100 p-2 rounded text-sm text-purple-700">
-                  기존: 숫자만 제공 → MotionBike: 숫자+맞춤 해석
+                  기존: 숫자만 제공<br/>
+                  → MotionBike: 숫자+맞춤 해석
                 </div>
               </div>
               
               <div className="text-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
                 <div className="text-4xl mb-4">⚖️</div>
                 <h3 className="font-semibold text-lg mb-2">실시간 밸런스 감지</h3>
-                <p className="text-gray-600 mb-3">좌우 불균형을 페달링으로 정량 측정</p>
+                <p className="text-gray-600 mb-3">좌우 불균형을 페달링으로<br/>정량 측정</p>
                 <div className="bg-blue-100 p-2 rounded text-sm text-blue-700">
-                  기존: 설문 평가 → MotionBike: 실시간 센서
+                  기존: 설문 평가<br/>
+                  → MotionBike: 실시간 센서
                 </div>
               </div>
               
               <div className="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
                 <div className="text-4xl mb-4">🤖</div>
                 <h3 className="font-semibold text-lg mb-2">AI 기반 처방</h3>
-                <p className="text-gray-600 mb-3">GPT-4o로 개인별 맞춤 운동 처방</p>
+                <p className="text-gray-600 mb-3">GPT-4o로 개인별<br/>맞춤 운동 처방</p>
                 <div className="bg-green-100 p-2 rounded text-sm text-green-700">
-                  기존: 일반적 조언 → MotionBike: 개인 맞춤
+                  기존: 일반적 조언<br/>
+                  → MotionBike: 개인 맞춤
                 </div>
               </div>
             </div>
