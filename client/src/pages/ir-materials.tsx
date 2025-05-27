@@ -757,7 +757,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Users className="w-6 h-6 mr-3 text-pink-600" />
-              👨‍👩‍👧‍👦 학부모님, 이런 걱정 없으세요!
+              🏢 기관 운영자님, 이런 고민 해결됩니다!
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -803,10 +803,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700 text-sm">정량적 데이터로 <strong>"추측이 아닌 확실한 정보"</strong>를 드립니다. 부모님의 감이 맞는지 과학적으로 확인할 수 있어요.</p>
                   </div>
 
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">📱 쉽고 재미있는 경험</h4>
-                    <p className="text-gray-700 text-sm">아이들은 자전거 타는 게 재미있어해요! <strong>게임하듯 즐겁게</strong> 측정하고, 결과도 이해하기 쉽게 나와요.</p>
-                  </div>
+
                 </div>
               </div>
             </div>
