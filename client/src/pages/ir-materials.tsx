@@ -158,7 +158,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">국민체력100의 한계</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-800">국민체육진흥공단 국민체력100의 한계</h3>
                 <div className="space-y-4">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
                     <h4 className="font-semibold text-orange-600 mb-3">현재 측정 방식 (아날로그)</h4>
