@@ -429,13 +429,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-cyan-700 mb-3">📊 데이터 수집 정확도</h4>
+                  <h4 className="font-semibold text-cyan-700 mb-3">🎯 센서 기반 정밀 측정</h4>
                   <div className="bg-white p-4 rounded-lg">
                     <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>샘플링 주파수:</strong> 초당 50회 데이터 수집</li>
-                      <li>• <strong>총 데이터 포인트:</strong> 5분 = 15,000개 데이터</li>
-                      <li>• <strong>좌우 밸런스:</strong> 실시간 독립 측정</li>
-                      <li>• <strong>심박수 연동:</strong> 운동 강도 정확 측정</li>
+                      <li>• <strong>프레임 내 센서:</strong> 좌우 밸런스 실시간 측정</li>
+                      <li>• <strong>체력 평가:</strong> 6단계 파워 수치 정확 측정</li>
+                      <li>• <strong>외부 심박센서:</strong> 운동 강도 정밀 분석</li>
                     </ul>
                   </div>
                 </div>
