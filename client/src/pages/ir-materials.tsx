@@ -534,11 +534,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-lg font-bold text-red-700 mb-3">💀 경쟁 관련</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody 같은 기업이 들어오면 끝나는 거 아닌가요?"</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody처럼 큰 기업이 아동 체력 측정에 뛰어들면 어떻게 하나요?"</p>
                     <p className="text-gray-700 text-sm">A: 완전히 다른 영역입니다. InBody는 체성분(근육량, 체지방률), 우리는 운동능력(순발력, 지구력, 밸런스)을 측정합니다. 목표는 InBody처럼 의료기관 필수 장비가 되는 것입니다.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "550만원 장비 ROI 계산해보셨나요?"</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "550만원 장비 투자수익률은 어떻게 되나요?"</p>
                     <p className="text-gray-700 text-sm">A: 직접 수익보다는 브랜딩 효과가 핵심입니다. '최신 아동 체력 측정 도입 병원'으로 차별화되며, 영유아검진 질 향상으로 환자 만족도와 재방문율이 증가합니다. 정부지원 50% 시 실질 부담은 275만원입니다.</p>
                   </div>
                 </div>
