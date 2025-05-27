@@ -345,14 +345,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
       console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
+      // 180초와 360초를 위한 별도 기준값 생성 (와트바이크 파워표 기반)
+      const enduranceCutoffs = {
+        // 180초(근지구력): 1분과 5분 사이값으로 추정
+        muscleEndurance180s: {
+          P96: Math.round(cutoffs?.cardioEndurance.P96 * 1.3), 
+          P80: Math.round(cutoffs?.cardioEndurance.P80 * 1.3),
+          P20: Math.round(cutoffs?.cardioEndurance.P20 * 1.3),
+          P4: Math.round(cutoffs?.cardioEndurance.P4 * 1.3)
+        },
+        // 360초(심폐지구력): 5분 기준으로 더 낮은 값
+        cardioEndurance360s: {
+          P96: Math.round(cutoffs?.cardioEndurance.P96 * 0.85),
+          P80: Math.round(cutoffs?.cardioEndurance.P80 * 0.85), 
+          P20: Math.round(cutoffs?.cardioEndurance.P20 * 0.85),
+          P4: Math.round(cutoffs?.cardioEndurance.P4 * 0.85)
+        }
+      };
+
       // Calculate percentiles (including 180s/360s if available)
       const percentiles = {
         "5s": calculatePercentile(relativePowers["5s"], cutoffs?.power),
         "15s": calculatePercentile(relativePowers["15s"], cutoffs?.strength),
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.muscleEndurance),
         "60s": calculatePercentile(relativePowers["60s"], cutoffs?.cardioEndurance),
-        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.cardioEndurance) : null,
-        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.cardioEndurance) : null
+        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], enduranceCutoffs.muscleEndurance180s) : null,
+        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], enduranceCutoffs.cardioEndurance360s) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
