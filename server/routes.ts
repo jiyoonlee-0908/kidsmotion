@@ -671,6 +671,18 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 측정 기록 삭제 API
+  app.delete("/api/measurements/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteMeasurement(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("측정 기록 삭제 오류:", error);
+      res.status(500).json({ error: "삭제에 실패했습니다." });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

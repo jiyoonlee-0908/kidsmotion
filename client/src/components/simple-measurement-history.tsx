@@ -162,16 +162,28 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     setAdminPassword('');
   };
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
     if (adminPassword === '263910') {
-      setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
-      setDeleteConfirmOpen(false);
-      setDeleteTargetId(null);
-      setAdminPassword('');
-      toast({
-        title: "삭제 완료",
-        description: "측정 기록이 삭제되었습니다.",
-      });
+      try {
+        await fetch(`/api/measurements/${deleteTargetId}`, {
+          method: 'DELETE',
+        });
+        
+        setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
+        setDeleteConfirmOpen(false);
+        setDeleteTargetId(null);
+        setAdminPassword('');
+        toast({
+          title: "삭제 완료",
+          description: "측정 기록이 삭제되었습니다.",
+        });
+      } catch (error) {
+        toast({
+          title: "삭제 실패",
+          description: "서버 오류가 발생했습니다.",
+          variant: "destructive",
+        });
+      }
     } else {
       toast({
         title: "삭제 실패",
