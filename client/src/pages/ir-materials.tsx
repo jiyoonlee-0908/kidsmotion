@@ -512,8 +512,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div>
                   <h4 className="font-semibold text-green-700 mb-3">📊 데이터 확보 목표</h4>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>데이터 포인트:</strong> 약 15,000개 / 1명</li>
-                    <li>• <strong>총 확보 데이터:</strong> 약 450만개 데이터</li>
+
                     <li>• <strong>목표:</strong> 1년 내 한국 유아 전용 체력 기준선 자체 생성</li>
                     <li>• <strong>최종 목적:</strong> 데이터 기반 AI 피드백 알고리즘 개발의 기반 확보</li>
                   </ul>
