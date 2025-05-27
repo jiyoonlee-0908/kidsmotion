@@ -184,8 +184,8 @@ export default function Home({ onNavigate }: HomeProps) {
                     <div className="fitness-icon mx-auto mb-6">
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">정밀 분석</h3>
-                    <p className="text-gray-600 leading-relaxed">4가지 체력요소를 정밀하게<br />측정하고 백분위로 평가</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
+                    <p className="text-gray-600 leading-relaxed">다양한 체력요소를 종합적으로<br />측정하고 백분위로 평가</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
