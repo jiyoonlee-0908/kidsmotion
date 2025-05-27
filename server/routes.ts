@@ -4,6 +4,7 @@ import { storage } from "./storage";
 import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema } from "@shared/schema";
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
+import { realisticKidsCutoffs } from "./realistic-kids-cutoffs";
 import OpenAI from "openai";
 
 // Constants
