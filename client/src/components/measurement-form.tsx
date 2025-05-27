@@ -170,9 +170,34 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="birthDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>생년월일 (YYYY-MM-DD)</FormLabel>
+                    <FormLabel>생년월일</FormLabel>
                     <FormControl>
-                      <Input type="date" placeholder="2018-06-15" {...field} />
+                      <Input 
+                        type="text" 
+                        placeholder="2018-06-15 (YYYY-MM-DD 형식으로 입력)"
+                        pattern="\d{4}-\d{2}-\d{2}"
+                        maxLength={10}
+                        {...field} 
+                        onChange={(e) => {
+                          // 숫자와 하이픈만 허용
+                          let value = e.target.value.replace(/[^\d-]/g, '');
+                          
+                          // 자동으로 하이픈 추가
+                          if (value.length >= 4 && value.charAt(4) !== '-') {
+                            value = value.slice(0, 4) + '-' + value.slice(4);
+                          }
+                          if (value.length >= 7 && value.charAt(7) !== '-') {
+                            value = value.slice(0, 7) + '-' + value.slice(7);
+                          }
+                          
+                          // 최대 길이 제한
+                          if (value.length > 10) {
+                            value = value.slice(0, 10);
+                          }
+                          
+                          field.onChange(value);
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
