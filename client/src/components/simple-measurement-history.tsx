@@ -444,8 +444,18 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                             { name: "근력 (30초)", value: selectedMeasurement.percentile30s },
                             { name: "근지구력 (60초)", value: selectedMeasurement.percentile60s }
                           ];
-                          const lowest = percentiles.sort((a, b) => a.value - b.value);
-                          return lowest.slice(0, 2).map(item => item.name).join(", ");
+                          
+                          // 20% 미만인 항목들 찾기
+                          const weakAreas = percentiles.filter(item => item.value < 20);
+                          
+                          if (weakAreas.length >= 3) {
+                            // 대부분 영역이 약하면 모든 약한 영역 표시
+                            return weakAreas.map(item => item.name).join(", ");
+                          } else {
+                            // 일부만 약하면 가장 낮은 1-2개만 표시
+                            const lowest = percentiles.sort((a, b) => a.value - b.value);
+                            return lowest.slice(0, 2).map(item => item.name).join(", ");
+                          }
                         })()}
                       </p>
                     </div>
