@@ -217,7 +217,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": measurementData.power30s,
         "60s": measurementData.power60s,
         "180s": measurementData.power180s || 0,
-        "360s": measurementData.power360s || 0
+        "300s": measurementData.power300s || 0
       };
       
       // 상대 파워 계산: W / kg^POWER_EXPONENT
@@ -230,27 +230,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": absolutePowers["30s"] / weightPower,
         "60s": absolutePowers["60s"] / weightPower,
         "180s": absolutePowers["180s"] / weightPower,
-        "360s": absolutePowers["360s"] / weightPower
+        "300s": absolutePowers["300s"] / weightPower
       };
       
       console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
       console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
-      // 180초와 360초를 위한 별도 기준값 생성 (와트바이크 파워표 기반)
+      // 새로운 기준값 사용 - finalWattbikeCutoffs에서 직접 가져오기
       const enduranceCutoffs = {
-        // 180초(근지구력): 1분과 5분 사이값으로 추정
-        muscleEndurance180s: {
-          P96: Math.round(cutoffs?.cardioEndurance.P96 * 1.3), 
-          P80: Math.round(cutoffs?.cardioEndurance.P80 * 1.3),
-          P20: Math.round(cutoffs?.cardioEndurance.P20 * 1.3),
-          P4: Math.round(cutoffs?.cardioEndurance.P4 * 1.3)
+        // 180초(근지구력): 새로운 기준값 사용
+        muscleEndurance180s: cutoffs?.longEndurance180s || {
+          P96: Math.round(cutoffs?.cardioEndurance.P96 * 1.2), 
+          P80: Math.round(cutoffs?.cardioEndurance.P80 * 1.2),
+          P20: Math.round(cutoffs?.cardioEndurance.P20 * 1.2),
+          P4: Math.round(cutoffs?.cardioEndurance.P4 * 1.2)
         },
-        // 360초(심폐지구력): 5분 기준으로 더 낮은 값
-        cardioEndurance360s: {
-          P96: Math.round(cutoffs?.cardioEndurance.P96 * 0.85),
-          P80: Math.round(cutoffs?.cardioEndurance.P80 * 0.85), 
-          P20: Math.round(cutoffs?.cardioEndurance.P20 * 0.85),
-          P4: Math.round(cutoffs?.cardioEndurance.P4 * 0.85)
+        // 300초(심폐지구력): 새로운 기준값 사용
+        cardioEndurance300s: cutoffs?.longEndurance300s || {
+          P96: Math.round(cutoffs?.cardioEndurance.P96 * 0.8),
+          P80: Math.round(cutoffs?.cardioEndurance.P80 * 0.8), 
+          P20: Math.round(cutoffs?.cardioEndurance.P20 * 0.8),
+          P4: Math.round(cutoffs?.cardioEndurance.P4 * 0.8)
         }
       };
 
@@ -261,7 +261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.muscleEndurance),
         "60s": calculatePercentile(relativePowers["60s"], cutoffs?.cardioEndurance),
         "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], enduranceCutoffs.muscleEndurance180s) : null,
-        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], enduranceCutoffs.cardioEndurance360s) : null
+        "300s": absolutePowers["300s"] > 0 ? calculatePercentile(relativePowers["300s"], enduranceCutoffs.cardioEndurance300s) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);

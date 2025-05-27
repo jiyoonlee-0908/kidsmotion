@@ -461,11 +461,11 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
 
                   <FormField
                     control={form.control}
-                    name="power360s"
+                    name="power300s"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-xs">360초</Badge>
+                          <Badge variant="outline" className="text-xs">300초</Badge>
                           심폐지구력
                         </FormLabel>
                         <FormControl>
@@ -477,7 +477,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                           />
                         </FormControl>
                         <FormMessage />
-                        <p className="text-xs text-gray-500">6분간 유산소 영역</p>
+                        <p className="text-xs text-gray-500">5분간 유산소 영역</p>
                       </FormItem>
                     )}
                   />
