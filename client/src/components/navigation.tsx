@@ -61,7 +61,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 window.location.assign('/');
               }
             }}
-            onSelectStart={(e) => {
+            onSelectStart={(e: React.SyntheticEvent) => {
               e.preventDefault();
               return false;
             }}
@@ -71,13 +71,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             }}
             style={{ 
               zIndex: 9999, 
-              cursor: 'pointer !important',
-              userSelect: 'none !important',
-              WebkitUserSelect: 'none !important',
-              MozUserSelect: 'none !important',
-              msUserSelect: 'none !important',
-              pointerEvents: 'auto !important',
-              WebkitTouchCallout: 'none !important'
+              cursor: 'pointer'
             }}
             className="logo-clickable flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity relative select-none"
           >
@@ -86,12 +80,6 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             </div>
             <div 
               className="flex items-baseline space-x-2"
-              style={{
-                cursor: 'pointer !important',
-                userSelect: 'none !important',
-                WebkitUserSelect: 'none !important',
-                pointerEvents: 'auto !important'
-              }}
             >
               <h1 
                 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
