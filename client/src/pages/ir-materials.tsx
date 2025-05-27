@@ -149,38 +149,87 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
-                <div className="space-y-4">
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">대상 연령</h4>
-                    <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="md:col-span-2">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
+                    <div className="space-y-3">
+                      <div className="bg-purple-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-purple-800">대상 연령</h4>
+                        <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
+                      </div>
+                      <div className="bg-purple-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-purple-800">신장 대응</h4>
+                        <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
+                      </div>
+                      <div className="bg-purple-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
+                        <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">신장 대응</h4>
-                    <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
-                    <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
+                  <div>
+                    <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
+                    <div className="space-y-3">
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
+                        <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
+                        <p className="text-blue-700">정확한 수치로 불균형 감지</p>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded-lg">
+                        <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
+                        <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
+              <div className="flex flex-col items-center">
+                <img 
+                  src="/attached_assets/KakaoTalk_20250527_212636970.png" 
+                  alt="KidsMotion 스마트 사이클" 
+                  className="w-full max-w-xs rounded-lg shadow-lg mb-4"
+                />
+                <p className="text-sm text-gray-600 text-center italic">
+                  * 실사 KidsMotion으로 대체 예정
+                </p>
+              </div>
+            </div>
+            
+            {/* 하드웨어 상세 설명 */}
+            <div className="border-t pt-8">
+              <h3 className="text-xl font-bold mb-6 text-center">스마트 사이클 하드웨어 특징</h3>
+              <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
-                    <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-gray-800 mb-2">🔧 조절 가능한 프레임</h4>
+                    <p className="text-gray-700">• 안장 높이/전후 조절로 모든 체형에 맞춤</p>
+                    <p className="text-gray-700">• 핸들 높이/각도 조절로 올바른 자세 유지</p>
+                    <p className="text-gray-700">• 성장하는 아동에게 지속 사용 가능</p>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
-                    <p className="text-blue-700">정확한 수치로 불균형 감지</p>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-gray-800 mb-2">📱 스마트 디스플레이</h4>
+                    <p className="text-gray-700">• 실시간 파워, 속도, 심박수 표시</p>
+                    <p className="text-gray-700">• 아동 친화적 인터페이스 설계</p>
+                    <p className="text-gray-700">• 측정 진행 상황 시각적 피드백</p>
                   </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
-                    <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
+                </div>
+                <div className="space-y-4">
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-gray-800 mb-2">⚡ 에어 저항 시스템</h4>
+                    <p className="text-gray-700">• 페달링 강도에 따른 자동 저항 조절</p>
+                    <p className="text-gray-700">• 정확한 파워 측정을 위한 정밀 센서</p>
+                    <p className="text-gray-700">• 좌우 독립 측정으로 밸런스 분석</p>
+                  </div>
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-gray-800 mb-2">🛡️ 안전 설계</h4>
+                    <p className="text-gray-700">• 아동용 안전 페달 및 스트랩</p>
+                    <p className="text-gray-700">• 넘어짐 방지 안정적인 베이스</p>
+                    <p className="text-gray-700">• 응급 정지 버튼 및 안전 가이드</p>
                   </div>
                 </div>
               </div>
