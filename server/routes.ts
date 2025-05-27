@@ -124,6 +124,131 @@ const cutoffData = {
 
 console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
 
+function generateFullReportHtml(measurementData: any, analysisData: any): string {
+  const { bmi, age, overallPercentile, percentiles, balanceStatus, aiAnalysis, strengthsText, improvementsText } = analysisData;
+  
+  const getGrade = (percentile: number) => {
+    if (percentile >= 96) return "매우우수";
+    if (percentile >= 80) return "우수";
+    if (percentile >= 20) return "보통";
+    if (percentile >= 4) return "낮음";
+    return "매우낮음";
+  };
+
+  const balanceDifference = Math.abs(measurementData.leftBalance - measurementData.rightBalance);
+
+  return `
+    <div class="complete-report">
+      <h1>체력 분석 결과</h1>
+      
+      <section class="basic-info">
+        <h2>${measurementData.studentName}</h2>
+        <p>측정일: ${measurementData.measureDate}</p>
+        <p>소속: ${measurementData.affiliation}</p>
+        <p>생년월일: ${measurementData.birthDate}</p>
+        <p>키/체중: ${measurementData.height}cm / ${measurementData.weight}kg</p>
+        <p>BMI: ${bmi.toFixed(1)}</p>
+      </section>
+
+      <section class="summary">
+        <h3>체력 요약</h3>
+        <p>종합 백분위: ${Math.round(overallPercentile)}</p>
+        <p>강점: ${strengthsText}</p>
+        <p>보완점: ${improvementsText}</p>
+        <p>한줄 요약: ${aiAnalysis.summary}</p>
+      </section>
+
+      <section class="balance">
+        <h3>좌우 밸런스 분석</h3>
+        <p>왼쪽: ${measurementData.leftBalance}% | 오른쪽: ${measurementData.rightBalance}%</p>
+        <p>상태: ${balanceStatus} (차이: ${balanceDifference.toFixed(1)}%)</p>
+        <p>AI 코멘트: ${aiAnalysis.balanceComment}</p>
+      </section>
+
+      <section class="detailed-scores">
+        <h3>항목별 체력 세부평가</h3>
+        
+        <div class="score-item">
+          <h4>순발력 (5초)</h4>
+          <p>${measurementData.power5s}W | 환산점수: ${Math.round(percentiles['5s'])}</p>
+          <p>등급: ${getGrade(percentiles['5s'])} (${Math.round(percentiles['5s'])}%)</p>
+          <p>${aiAnalysis.explanations.power}</p>
+        </div>
+
+        <div class="score-item">
+          <h4>스프린트 파워 (15초)</h4>
+          <p>${measurementData.power15s}W | 환산점수: ${Math.round(percentiles['15s'])}</p>
+          <p>등급: ${getGrade(percentiles['15s'])} (${Math.round(percentiles['15s'])}%)</p>
+          <p>${aiAnalysis.explanations.strength}</p>
+        </div>
+
+        <div class="score-item">
+          <h4>파워 지속력 (30초)</h4>
+          <p>${measurementData.power30s}W | 환산점수: ${Math.round(percentiles['30s'])}</p>
+          <p>등급: ${getGrade(percentiles['30s'])} (${Math.round(percentiles['30s'])}%)</p>
+          <p>${aiAnalysis.explanations.muscleEndurance}</p>
+        </div>
+
+        <div class="score-item">
+          <h4>근력 (60초)</h4>
+          <p>${measurementData.power60s}W | 환산점수: ${Math.round(percentiles['60s'])}</p>
+          <p>등급: ${getGrade(percentiles['60s'])} (${Math.round(percentiles['60s'])}%)</p>
+          <p>${aiAnalysis.explanations.cardioEndurance}</p>
+        </div>
+
+        ${percentiles['180s'] !== null ? `
+        <div class="score-item">
+          <h4>근지구력 (180초)</h4>
+          <p>${measurementData.power180s || 0}W | 환산점수: ${Math.round(percentiles['180s'])}</p>
+          <p>등급: ${getGrade(percentiles['180s'])} (${Math.round(percentiles['180s'])}%)</p>
+          <p>근지구력이 ${Math.round(percentiles['180s'])}% 수준입니다.</p>
+        </div>
+        ` : ''}
+
+        ${percentiles['360s'] !== null ? `
+        <div class="score-item">
+          <h4>심폐지구력 (360초)</h4>
+          <p>${measurementData.power360s || 0}W | 환산점수: ${Math.round(percentiles['360s'])}</p>
+          <p>등급: ${getGrade(percentiles['360s'])} (${Math.round(percentiles['360s'])}%)</p>
+          <p>심폐지구력이 ${Math.round(percentiles['360s'])}% 수준입니다.</p>
+        </div>
+        ` : ''}
+      </section>
+
+      <section class="comprehensive-analysis">
+        <h3>체력 종합 분석</h3>
+        <h4>AI 종합 해설</h4>
+        ${aiAnalysis.comprehensiveAnalysis.map((analysis: string) => `<p>${analysis}</p>`).join('')}
+        
+        <p><strong>최고 항목:</strong> ${strengthsText.split(', ')[0]}</p>
+        <p><strong>개선 항목:</strong> ${improvementsText.split(', ')[0]}</p>
+      </section>
+
+      <section class="overall-assessment">
+        <h3>종합 평가</h3>
+        <p>${aiAnalysis.overallAssessment}</p>
+      </section>
+
+      <section class="reference">
+        <h3>참고사항</h3>
+        <h4>지도선생님 참고</h4>
+        <p>중점 관리 항목: ${improvementsText}과 좌우균형</p>
+        
+        <h4>보호자 참고</h4>
+        <ul>
+          <li>체력 측정은 5분 내외로 간편하게 진행됩니다</li>
+          <li>성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
+          <li>총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
+        </ul>
+        
+        <div class="metadata">
+          <p>데이터 버전: v2025-05-26 | 보정 지수: 0.67 | 평가 기준: P4/P20/P80/P96</p>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
 function calculateAge(birthDate: string): number {
   const birth = new Date(birthDate);
   const today = new Date();
@@ -381,7 +506,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
         overallAssessment: aiAnalysis.overallAssessment,
         strengths: strengthsText,
-        improvements: improvementsText
+        improvements: improvementsText,
+        fullReportHtml: generateFullReportHtml(measurementData, {
+          bmi,
+          age,
+          overallPercentile,
+          percentiles,
+          balanceStatus,
+          aiAnalysis,
+          strengthsText,
+          improvementsText
+        })
       });
       
       console.log("=== 측정 데이터 저장 완료 ===");

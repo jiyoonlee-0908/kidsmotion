@@ -58,6 +58,7 @@ export const analysisResults = pgTable("analysis_results", {
   overallAssessment: text("overall_assessment"),
   strengths: text("strengths"),
   improvements: text("improvements"),
+  fullReportHtml: text("full_report_html"), // 전체 리포트 HTML 저장
 });
 
 export const inviteCodes = pgTable("invite_codes", {

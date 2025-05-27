@@ -194,14 +194,27 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
             </DialogTitle>
           </DialogHeader>
           
-          {selectedMeasurement && (
+          {selectedMeasurement && (() => {
+            const analysis = getSelectedAnalysis();
+            
+            // 저장된 전체 리포트 HTML이 있으면 그것을 표시
+            if (analysis?.fullReportHtml) {
+              return (
+                <div 
+                  className="complete-report-viewer"
+                  dangerouslySetInnerHTML={{ __html: analysis.fullReportHtml }}
+                />
+              );
+            }
+            
+            // 기존 방식 (fallback)
+            return (
             <div className="space-y-8">
-              {/* 헤더 */}
               <div className="text-center">
                 <h2 className="text-3xl font-bold gradient-text mb-4">체력 분석 결과</h2>
+                <p className="text-sm text-gray-500">(저장된 완전한 리포트가 없어 기본 정보만 표시됩니다)</p>
               </div>
 
-              {/* 기본 정보 섹션 */}
               <div className="bg-white rounded-lg p-6 border">
                 <div className="text-center mb-4">
                   <h3 className="text-2xl font-bold text-gray-900">{selectedMeasurement.studentName}</h3>
@@ -225,24 +238,23 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">BMI</p>
-                    <p className="font-semibold">{getSelectedAnalysis()?.bmi?.toFixed(1) || "N/A"}</p>
+                    <p className="font-semibold">{analysis?.bmi?.toFixed(1) || "N/A"}</p>
                   </div>
                 </div>
               </div>
 
-              {/* 체력 요약 */}
               <div className="bg-white rounded-lg p-6 border">
                 <h3 className="text-xl font-bold mb-4">체력 요약</h3>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-purple-600 mb-2">{Math.round(getSelectedAnalysis()?.overallPercentile || 0)}</div>
+                    <div className="text-4xl font-bold text-purple-600 mb-2">{Math.round(analysis?.overallPercentile || 0)}</div>
                     <div className="text-sm text-gray-600">종합 백분위</div>
                   </div>
                   <div>
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">강점</span>
                       <p className="font-semibold text-green-600">
-                        {getSelectedAnalysis()?.strengths || "집중 훈련이 필요합니다"}
+                        {analysis?.strengths || "집중 훈련이 필요합니다"}
                       </p>
                     </div>
                   </div>
@@ -250,7 +262,7 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">보완점</span>
                       <p className="font-semibold text-orange-600">
-                        {getSelectedAnalysis()?.improvements || "측정 필요"}
+                        {analysis?.improvements || "측정 필요"}
                       </p>
                     </div>
                   </div>
@@ -258,14 +270,15 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">한줄 요약</span>
                       <p className="text-sm text-gray-700">
-                        {getSelectedAnalysis()?.aiSummary || "분석 결과를 확인하세요"}
+                        {analysis?.aiSummary || "분석 결과를 확인하세요"}
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          )}
+            );
+          })()}
         </DialogContent>
       </Dialog>
 
