@@ -754,7 +754,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
                   <div className="bg-white/20 p-3 rounded">
                     <h4 className="font-semibold">2029년: 의료기관 진출</h4>
-                    <p className="text-sm">병원 + 보건소 진입으로 100억 매출</p>
+                    <p className="text-sm">병원 + 보건소 진입으로 본격적 확산</p>
                   </div>
                 </div>
               </div>
