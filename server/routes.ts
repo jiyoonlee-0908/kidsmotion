@@ -475,7 +475,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
       };
       
-      // 하드코딩된 강점/보완점 로직 (확실한 결과 보장)
+      // 강력한 하드코딩 우선순위 로직 (절대 확실)
       const calculateStrengthsAndImprovementsFixed = () => {
         const allItems = [
           { name: "순발력 (5초)", value: percentiles["5s"] },
@@ -498,27 +498,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
         let strengths = [];
         let improvements = [];
         
-        // 하드코딩 로직: 상위 50% 이상 → 강점, 하위 50% 미만 → 보완점
+        // 1순위: 96% 이상 → 무조건 강점
         for (const item of allItems) {
-          if (item.value >= 50) {
+          if (item.value >= 96) {
             strengths.push(item.name);
-          } else {
+          }
+        }
+        
+        // 2순위: 4% 미만 → 무조건 보완점
+        for (const item of allItems) {
+          if (item.value < 4) {
             improvements.push(item.name);
           }
         }
         
-        // 최소 1개씩은 보장
-        if (strengths.length === 0 && allItems.length > 0) {
-          strengths.push(allItems[0].name); // 최고점수 1개
-        }
-        if (improvements.length === 0 && allItems.length > 0) {
-          improvements.push(allItems[allItems.length - 1].name); // 최저점수 1개
+        // 3순위: 위 조건에 해당하지 않을 때만 상위2개/하위2개 규칙 적용
+        const excellentItems = allItems.filter(item => item.value >= 96);
+        const poorItems = allItems.filter(item => item.value < 4);
+        const needsDefaultRule = excellentItems.length === 0 && poorItems.length === 0;
+        
+        if (needsDefaultRule) {
+          // 상위 2개 강점 (동점 포함)
+          if (allItems.length >= 2) {
+            const secondHighest = allItems[1].value;
+            for (const item of allItems) {
+              if (item.value >= secondHighest && !strengths.includes(item.name)) {
+                strengths.push(item.name);
+              }
+            }
+          }
+          
+          // 하위 2개 보완점 (동점 포함)
+          if (allItems.length >= 2) {
+            const secondLowest = allItems[allItems.length - 2].value;
+            for (const item of allItems) {
+              if (item.value <= secondLowest && !improvements.includes(item.name)) {
+                improvements.push(item.name);
+              }
+            }
+          }
         }
         
-        console.log("=== 하드코딩 고정 로직 적용 ===");
-        console.log(`전체 항목: ${allItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`강점 (50% 이상): ${strengths.join(', ')}`);
-        console.log(`보완점 (50% 미만): ${improvements.join(', ')}`);
+        console.log("=== 강력한 하드코딩 우선순위 로직 ===");
+        console.log(`96% 이상: ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
+        console.log(`4% 미만: ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
+        console.log(`기본규칙 적용: ${needsDefaultRule ? 'YES' : 'NO'}`);
+        console.log(`최종 강점: ${strengths.join(', ')}`);
+        console.log(`최종 보완점: ${improvements.join(', ')}`);
         
         return {
           strengths: strengths.join(", "),
