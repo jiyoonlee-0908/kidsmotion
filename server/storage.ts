@@ -204,8 +204,8 @@ export class MemStorage implements IStorage {
 // 데이터베이스 저장소 클래스
 export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
+    // 임시로 undefined 반환 (사용자 기능은 나중에 구현)
+    return undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
@@ -214,34 +214,22 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(insertUser)
-      .returning();
-    return user;
+    // 임시로 기본 사용자 반환 (사용자 기능은 나중에 구현)
+    return {
+      id: 1,
+      username: insertUser.username || 'default',
+      password: insertUser.password || 'default'
+    };
   }
 
   async createMeasurement(insertMeasurement: InsertMeasurement): Promise<Measurement> {
-    // 500개 제한 - 오래된 것부터 삭제
-    const existingCount = await db.$count(measurements);
-    if (existingCount >= 500) {
-      const oldestMeasurements = await db
-        .select({ id: measurements.id })
-        .from(measurements)
-        .orderBy(measurements.createdAt)
-        .limit(existingCount - 499);
-      
-      if (oldestMeasurements.length > 0) {
-        for (const oldMeasurement of oldestMeasurements) {
-          await db.delete(measurements).where(eq(measurements.id, oldMeasurement.id));
-          await db.delete(analysisResults).where(eq(analysisResults.measurementId, oldMeasurement.id));
-        }
-      }
-    }
-
+    // 새 측정 데이터 저장
     const [measurement] = await db
       .insert(measurements)
-      .values(insertMeasurement)
+      .values({
+        ...insertMeasurement,
+        createdAt: new Date()
+      })
       .returning();
     return measurement;
   }
@@ -331,4 +319,4 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
