@@ -836,7 +836,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </Button>
               <div className="mt-6 space-y-2">
                 <p className="text-lg font-semibold">📞 010-8445-0908</p>
-                <p>📧 투자제안서 요청 가능</p>
                 <p>📍 서울시 강서구 금낭화로 234, GX2</p>
                 <p className="text-sm opacity-75 mt-4">지하철 5호선 방화역 4번 출구</p>
               </div>
