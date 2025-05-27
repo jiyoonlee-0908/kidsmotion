@@ -104,7 +104,7 @@ export class MemStorage implements IStorage {
       percentile360s: insertResult.percentile360s || null,
       maxBpm: insertResult.maxBpm || null,
       avgBpm: insertResult.avgBpm || null,
-
+      restingBpm: insertResult.restingBpm || null,
       aiSummary: insertResult.aiSummary || null,
       balanceComment: insertResult.balanceComment || null,
       explanation5s: insertResult.explanation5s || null,
