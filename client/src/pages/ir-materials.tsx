@@ -709,7 +709,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 투자 요청 */}
         <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">🚀 투자 제안</CardTitle>
+            <CardTitle className="text-2xl text-center">💎 지금이 골든타임! 투자 기회</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
