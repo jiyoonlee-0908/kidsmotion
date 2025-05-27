@@ -424,7 +424,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                       <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
                       <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
                       <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
-                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
+                      <li>• <strong>300초 심폐지구력:</strong> 유산소 능력 평가</li>
                     </ul>
                   </div>
                 </div>
