@@ -463,8 +463,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">신체 변화 비교</h3>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
+          <div className="flex gap-6">
+            <div className="flex-2">
               <h4 className="font-semibold text-gray-900 mb-4">기본 체력 변화 (필수 측정)</h4>
               <ProgressChart 
                 currentData={[
@@ -478,7 +478,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             
             {/* 고급 측정 항목이 있는 경우 */}
             {(measurement.power180s || measurement.power360s) && (
-              <div>
+              <div className="flex-1">
                 <h4 className="font-semibold text-gray-900 mb-4">고급 체력 변화 (선택 측정)</h4>
                 <ProgressChart 
                   currentData={[
