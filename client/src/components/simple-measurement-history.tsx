@@ -167,12 +167,12 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
                       <div className="text-sm">
-                        <span className="font-semibold">{result.measurement.studentName}</span>
-                        <span className="text-gray-600 ml-2">{result.measurement.measureDate}</span>
-                        <span className="text-gray-600 ml-2">{result.measurement.affiliation}</span>
-                        <span className="text-gray-600 ml-2">{result.measurement.birthDate}</span>
-                        <span className="text-gray-600 ml-2">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
-                        <span className="text-purple-600 ml-2">종합: {Math.round(result.analysis?.overallPercentile || 0)}%</span>
+                        <span className="font-bold text-lg text-gray-900">{result.measurement.studentName}</span>
+                        <span className="text-gray-600 ml-3">측정: {result.measurement.measureDate}</span>
+                        <span className="text-gray-600 ml-3">{result.measurement.affiliation}</span>
+                        <span className="text-gray-600 ml-3">생년: {result.measurement.birthDate}</span>
+                        <span className="text-gray-600 ml-3">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
+                        <span className="text-purple-600 ml-3 font-semibold">종합: {Math.round(result.analysis?.overallPercentile || 0)}%</span>
                       </div>
                       
 
