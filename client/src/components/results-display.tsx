@@ -26,6 +26,11 @@ interface ResultsDisplayProps {
 export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
   
+  // 디버깅: 실제 전달된 데이터 확인
+  console.log("강점 데이터:", strengths);
+  console.log("보완점 데이터:", improvements);
+  console.log("분석 결과:", analysis);
+  
   const getGradeColor = (percentile: number) => {
     if (percentile >= 96) return "bg-emerald-500";  // 1등급: 상위 4%
     if (percentile >= 80) return "bg-blue-500";     // 2등급: 상위 20%
