@@ -564,8 +564,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-lg font-bold text-yellow-700 mb-3">⏰ 실행력</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "MVP도 미완성인데 의료기기 인증이 가능한가요?"</p>
-                    <p className="text-gray-700 text-sm">A: 체계적 단계별 접근입니다. 2026년 스포츠학원 시작(인증불필요) → 2027년 의료기기 신청 → 2028년 인증완료 → 2029년 의료기관 진출. 충분한 개발 기간을 확보했습니다.</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "현재 개발 상황은 어떻게 되나요?"</p>
+                    <p className="text-gray-700 text-sm">A: 웹 MVP와 하드웨어 프로토타입이 모두 완성되었습니다(보안상 이유로 하드웨어 사진 비공개). 체계적 단계별 접근으로 2026년 스포츠학원 시작 → 2027년 의료기기 신청 → 2028년 인증완료 → 2029년 의료기관 진출 계획입니다.</p>
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "특허 출원만? 등록은 언제인가요?"</p>
