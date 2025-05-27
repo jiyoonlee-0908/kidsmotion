@@ -386,10 +386,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { studentName, affiliation, birthDate, gender } = req.query;
       
+      console.log("검색 요청:", { studentName, affiliation, birthDate, gender });
+      
       // 빈 이름이면 모든 데이터 반환
       let measurements;
       if (!studentName || studentName === '') {
         measurements = await storage.getAllMeasurements();
+        console.log("모든 측정 데이터:", measurements.length + "개");
       } else {
         measurements = await storage.searchMeasurements({
           studentName: studentName as string,
@@ -397,6 +400,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           birthDate: birthDate as string,
           gender: gender as string
         });
+        console.log("검색 결과:", measurements.length + "개");
+      }
+      
+      if (measurements.length === 0) {
+        return res.status(404).json({ error: "Measurement not found" });
       }
       
       // Get analysis results for each measurement
