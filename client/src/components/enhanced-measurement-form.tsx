@@ -154,30 +154,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                     <FormItem>
                       <FormLabel>생년월일</FormLabel>
                       <FormControl>
-                        <Input 
-                          {...field} 
-                          placeholder="예: 2018-03-15"
-                          onChange={(e) => {
-                            let value = e.target.value;
-                            // 숫자만 입력 허용
-                            value = value.replace(/[^\d]/g, '');
-                            
-                            // 자동으로 하이픈 추가
-                            if (value.length >= 4) {
-                              value = value.slice(0, 4) + '-' + value.slice(4);
-                            }
-                            if (value.length >= 7) {
-                              value = value.slice(0, 7) + '-' + value.slice(7, 9);
-                            }
-                            
-                            // 최대 10자리 (YYYY-MM-DD)
-                            if (value.length > 10) {
-                              value = value.slice(0, 10);
-                            }
-                            
-                            field.onChange(value);
-                          }}
-                        />
+                        <Input type="date" {...field} />
                       </FormControl>
                       <FormMessage />
                       {currentAge > 0 && (

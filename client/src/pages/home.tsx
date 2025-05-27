@@ -53,7 +53,14 @@ export default function Home({ onNavigate }: HomeProps) {
     setMeasurementData(data);
     setShowResults(true);
     setIsAnalyzing(false);
-    // 자동 이동 제거 - 사용자가 직접 버튼을 눌러야 이동
+    
+    // Smooth scroll to results
+    setTimeout(() => {
+      const resultsElement = document.getElementById('results-container');
+      if (resultsElement) {
+        resultsElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const handleMeasurementStart = () => {
