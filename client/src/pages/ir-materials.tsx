@@ -610,20 +610,20 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-xl font-bold mb-4">투자 수익 전망</h3>
                 <div className="space-y-3">
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">1년차: 의료기관 진입</h4>
-                    <p className="text-sm">100개 병원 × 550만원 = 5.5억 매출</p>
+                    <h4 className="font-semibold">2026년: 스포츠학원 진입</h4>
+                    <p className="text-sm">100개 학원 × 월 5만원 × 12개월 = 6억 매출</p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2년차: 2종의료기기 인증</h4>
-                    <p className="text-sm">인증 취득을 목표로 신뢰도 확보</p>
+                    <h4 className="font-semibold">2027년: 의료기기 신청</h4>
+                    <p className="text-sm">임상시험 진행, 하드웨어 판매 확대</p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">3년차: B2G 확산</h4>
-                    <p className="text-sm">보건소 + 학교 진입으로 100억 매출</p>
+                    <h4 className="font-semibold">2028년: 인증 완료</h4>
+                    <p className="text-sm">의료기기 인증 취득, 신뢰도 확보</p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">5년차: 시장 표준화</h4>
-                    <p className="text-sm">구독 수익 중심 500억 매출 달성</p>
+                    <h4 className="font-semibold">2029년: 의료기관 진출</h4>
+                    <p className="text-sm">병원 + 보건소 진입으로 100억 매출</p>
                   </div>
                 </div>
               </div>
