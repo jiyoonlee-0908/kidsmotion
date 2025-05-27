@@ -266,151 +266,294 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           
           {selectedMeasurement && (
             <div className="space-y-6">
-              {/* 기본 정보 */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
-                    기본 정보
-                  </CardTitle>
-                </CardHeader>
+              {/* Student Info Card */}
+              <Card className="fitness-card">
                 <CardContent>
-                  <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                      <User className="text-blue-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">학생 정보</h3>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
                     <div className="text-center">
-                      <p className="text-sm text-gray-600">측정일</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.measureDate}</p>
+                      <p className="text-sm text-gray-600 mb-1">이름</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.studentName}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600">소속</p>
+                      <p className="text-sm text-gray-600 mb-1">소속</p>
                       <p className="font-semibold text-gray-900">{selectedMeasurement.affiliation}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600">나이/성별</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.age}세 {selectedMeasurement.gender === 'M' ? '남자' : '여자'}</p>
+                      <p className="text-sm text-gray-600 mb-1">나이</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.age}세</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600">신장/체중</p>
-                      <p className="font-semibold text-gray-900">{selectedMeasurement.height}cm / {selectedMeasurement.weight}kg</p>
+                      <p className="text-sm text-gray-600 mb-1">성별</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.gender === 'M' ? '남자' : '여자'}</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-sm text-gray-600">심박수</p>
-                      <p className="font-semibold text-gray-900">
-                        {selectedMeasurement.maxHeartRate && selectedMeasurement.avgHeartRate 
-                          ? `${selectedMeasurement.maxHeartRate}/${selectedMeasurement.avgHeartRate}bpm`
-                          : '미측정'
-                        }
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-sm text-gray-600">종합 등급</p>
-                      <Badge className={`${getGradeColor(selectedMeasurement.overallGrade)}`}>
-                        {selectedMeasurement.overallGrade} ({selectedMeasurement.overallPercentile}%)
-                      </Badge>
+                      <p className="text-sm text-gray-600 mb-1">측정일</p>
+                      <p className="font-semibold text-gray-900">{selectedMeasurement.measureDate}</p>
                     </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* 종합 분석 */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Trophy className="w-4 h-4" />
-                    종합 분석
-                  </CardTitle>
-                </CardHeader>
+              {/* Comprehensive Analysis Card */}
+              <Card className="fitness-card">
                 <CardContent>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {/* 기본 4가지 측정 */}
-                    <div className="text-center p-4 bg-red-50 rounded-lg">
-                      <Trophy className="w-6 h-6 mx-auto mb-2 text-red-600" />
-                      <p className="text-sm text-gray-600 mb-1">5초 파워</p>
-                      <p className="text-2xl font-bold text-red-800">{selectedMeasurement.power5s}W</p>
-                      <p className="text-sm text-red-600">{selectedMeasurement.percentile5s}백분위 (매우우수)</p>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <Trophy className="text-purple-600" />
                     </div>
-                    <div className="text-center p-4 bg-blue-50 rounded-lg">
-                      <Scale className="w-6 h-6 mx-auto mb-2 text-blue-600" />
-                      <p className="text-sm text-gray-600 mb-1">15초 파워</p>
-                      <p className="text-2xl font-bold text-blue-800">{selectedMeasurement.power15s}W</p>
-                      <p className="text-sm text-blue-600">{selectedMeasurement.percentile15s}백분위 (낮음)</p>
+                    <h3 className="text-xl font-bold text-gray-900">종합 체력 분석</h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div className="text-center">
+                      <div className="relative w-20 h-20 mx-auto mb-3">
+                        <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                          <path
+                            d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="#e5e7eb"
+                            strokeWidth="2"
+                          />
+                          <path
+                            d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="url(#gradient)"
+                            strokeWidth="2"
+                            strokeDasharray={`${selectedMeasurement.overallPercentile}, 100`}
+                            strokeLinecap="round"
+                          />
+                          <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#7c3aed" />
+                              <stop offset="100%" stopColor="#3b82f6" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-lg font-bold text-gray-900">{Math.round(selectedMeasurement.overallPercentile)}</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600">종합 백분위</p>
                     </div>
-                    <div className="text-center p-4 bg-green-50 rounded-lg">
-                      <BarChart3 className="w-6 h-6 mx-auto mb-2 text-green-600" />
-                      <p className="text-sm text-gray-600 mb-1">30초 파워</p>
-                      <p className="text-2xl font-bold text-green-800">{selectedMeasurement.power30s}W</p>
-                      <p className="text-sm text-green-600">{selectedMeasurement.percentile30s}백분위 (매우우수)</p>
+                    <div>
+                      <p className="text-sm text-gray-600 mb-2">강점</p>
+                      <p className="font-semibold text-green-600">5초 순발력, 30초 근지구력</p>
                     </div>
-                    <div className="text-center p-4 bg-orange-50 rounded-lg">
-                      <Calendar className="w-6 h-6 mx-auto mb-2 text-orange-600" />
-                      <p className="text-sm text-gray-600 mb-1">60초 파워</p>
-                      <p className="text-2xl font-bold text-orange-800">{selectedMeasurement.power60s}W</p>
-                      <p className="text-sm text-orange-600">{selectedMeasurement.percentile60s}백분위 (우수)</p>
+                    <div>
+                      <p className="text-sm text-gray-600 mb-2">보완점</p>
+                      <p className="font-semibold text-yellow-600">15초 근력, 장기지구력</p>
                     </div>
-                    
-                    {/* 추가 2가지 측정 (장기지구력) */}
+                    <div>
+                      <p className="text-sm text-gray-600 mb-2">한줄 요약</p>
+                      <p className="text-sm text-gray-900">순발력이 뛰어난 활발한 아동으로, 근력 보강이 필요합니다.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Balance Analysis Card */}
+              <Card className="fitness-card">
+                <CardContent>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
+                      <Scale className="text-indigo-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">좌우 밸런스 분석</h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="flex justify-center">
+                      <BalanceChart 
+                        leftBalance={selectedMeasurement.leftBalance} 
+                        rightBalance={selectedMeasurement.rightBalance} 
+                        status="주의 필요"
+                      />
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">왼쪽</span>
+                        <span className="font-semibold">{selectedMeasurement.leftBalance}%</span>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">오른쪽</span>
+                        <span className="font-semibold">{selectedMeasurement.rightBalance}%</span>
+                      </div>
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <h4 className="font-semibold text-gray-900 mb-2">AI 코멘트</h4>
+                        <p className="text-sm text-gray-700">좌우 밸런스에 10%의 차이가 있어 주의가 필요합니다. 오른쪽 다리 근력이 더 강하며, 왼쪽 다리 강화 운동을 통해 균형을 맞추는 것이 중요합니다.</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Detailed Fitness Assessment Card */}
+              <Card className="fitness-card">
+                <CardContent>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <BarChart3 className="text-green-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">항목별 체력 세부평가</h3>
+                  </div>
+                  <div className="space-y-6">
+                    {/* 5초 파워 */}
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">5초 최대파워 (순발력)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power5s}W | 환산점수: {Math.round(selectedMeasurement.percentile5s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className="bg-emerald-500 text-white text-sm font-medium">매우우수</Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile5s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className="progress-fill bg-emerald-500" style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">짧은 시간 동안 최대한의 힘을 발휘하는 능력이 매우 뛰어납니다.</p>
+                    </div>
+
+                    {/* 15초 파워 */}
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">15초 최대파워 (근력)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power15s}W | 환산점수: {Math.round(selectedMeasurement.percentile15s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className="bg-red-500 text-white text-sm font-medium">경고</Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile15s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className="progress-fill bg-red-500" style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">근력 향상을 위한 체계적인 훈련이 필요합니다.</p>
+                    </div>
+
+                    {/* 30초 파워 */}
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">30초 최대파워 (근지구력)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power30s}W | 환산점수: {Math.round(selectedMeasurement.percentile30s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className="bg-emerald-500 text-white text-sm font-medium">매우우수</Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile30s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className="progress-fill bg-emerald-500" style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">근육의 지구력이 매우 뛰어나 지속적인 활동에 유리합니다.</p>
+                    </div>
+
+                    {/* 60초 파워 */}
+                    <div className="fitness-item">
+                      <div className="flex justify-between items-start mb-3">
+                        <div>
+                          <h4 className="font-semibold text-gray-900">60초 최대파워 (심폐지구력)</h4>
+                          <p className="text-sm text-gray-600">{selectedMeasurement.power60s}W | 환산점수: {Math.round(selectedMeasurement.percentile60s)}</p>
+                        </div>
+                        <div className="text-right">
+                          <Badge className="bg-blue-500 text-white text-sm font-medium">우수</Badge>
+                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile60s}%</p>
+                        </div>
+                      </div>
+                      <div className="progress-bar mb-3">
+                        <div className="progress-fill bg-blue-500" style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
+                      </div>
+                      <p className="text-sm text-gray-700">심폐 기능이 우수하여 지구력 운동에 적합합니다.</p>
+                    </div>
+
+                    {/* 180초 파워 */}
                     {selectedMeasurement.power180s && (
-                      <div className="text-center p-4 bg-purple-50 rounded-lg">
-                        <Trophy className="w-6 h-6 mx-auto mb-2 text-purple-600" />
-                        <p className="text-sm text-gray-600 mb-1">180초 파워</p>
-                        <p className="text-2xl font-bold text-purple-800">{selectedMeasurement.power180s}W</p>
-                        <p className="text-sm text-purple-600">{selectedMeasurement.percentile180s}백분위 (보통)</p>
+                      <div className="fitness-item">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h4 className="font-semibold text-gray-900">180초 최대파워 (장기지구력)</h4>
+                            <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s!)}</p>
+                          </div>
+                          <div className="text-right">
+                            <Badge className="bg-yellow-500 text-white text-sm font-medium">평균</Badge>
+                            <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
+                          </div>
+                        </div>
+                        <div className="progress-bar mb-3">
+                          <div className="progress-fill bg-yellow-500" style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
+                        </div>
+                        <p className="text-sm text-gray-700">장기간 지속되는 운동 능력이 평균 수준입니다.</p>
                       </div>
                     )}
+
+                    {/* 360초 파워 */}
                     {selectedMeasurement.power360s && (
-                      <div className="text-center p-4 bg-indigo-50 rounded-lg">
-                        <BarChart3 className="w-6 h-6 mx-auto mb-2 text-indigo-600" />
-                        <p className="text-sm text-gray-600 mb-1">360초 파워</p>
-                        <p className="text-2xl font-bold text-indigo-800">{selectedMeasurement.power360s}W</p>
-                        <p className="text-sm text-indigo-600">{selectedMeasurement.percentile360s}백분위 (낮음)</p>
+                      <div className="fitness-item">
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h4 className="font-semibold text-gray-900">360초 최대파워 (초장기지구력)</h4>
+                            <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s!)}</p>
+                          </div>
+                          <div className="text-right">
+                            <Badge className="bg-red-500 text-white text-sm font-medium">경고</Badge>
+                            <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
+                          </div>
+                        </div>
+                        <div className="progress-bar mb-3">
+                          <div className="progress-fill bg-red-500" style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
+                        </div>
+                        <p className="text-sm text-gray-700">초장기 지구력 향상을 위한 체계적인 훈련이 필요합니다.</p>
                       </div>
                     )}
                   </div>
                 </CardContent>
               </Card>
 
-              {/* 밸런스 차트 */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>좌우 밸런스</CardTitle>
-                </CardHeader>
+              {/* Radar Chart Card */}
+              <Card className="fitness-card">
                 <CardContent>
-                  <BalanceChart 
-                    leftBalance={selectedMeasurement.leftBalance} 
-                    rightBalance={selectedMeasurement.rightBalance}
-                    status="정상 범위"
-                  />
-                  <p className="text-center text-sm text-gray-600 mt-4">
-                    좌우 밸런스: 좌 {selectedMeasurement.leftBalance}% / 우 {selectedMeasurement.rightBalance}%
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* 레이더 차트 */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>체력 요소별 분석</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <RadarChart
-                    data={{
-                      power: selectedMeasurement.percentile5s,
-                      strength: selectedMeasurement.percentile15s,
-                      muscleEndurance: selectedMeasurement.percentile30s,
-                      cardioEndurance: selectedMeasurement.percentile60s,
-                      balance: 85
-                    }}
-                  />
-                  <div className="mt-4 text-sm text-gray-600">
-                    <p>• 파워: {selectedMeasurement.percentile5s}백분위 (5초 최대파워)</p>
-                    <p>• 근력: {selectedMeasurement.percentile15s}백분위 (15초 파워)</p>
-                    <p>• 근지구력: {selectedMeasurement.percentile30s}백분위 (30초 파워)</p>
-                    <p>• 심폐지구력: {selectedMeasurement.percentile60s}백분위 (60초 파워)</p>
-                    {selectedMeasurement.percentile180s && (
-                      <p>• 장기지구력(180초): {selectedMeasurement.percentile180s}백분위</p>
-                    )}
-                    {selectedMeasurement.percentile360s && (
-                      <p>• 장기지구력(360초): {selectedMeasurement.percentile360s}백분위</p>
-                    )}
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                      <BarChart3 className="text-purple-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">체력 프로필 차트</h3>
+                  </div>
+                  <div className="flex justify-center mb-6">
+                    <RadarChart
+                      data={{
+                        power: selectedMeasurement.percentile5s,
+                        strength: selectedMeasurement.percentile15s,
+                        muscleEndurance: selectedMeasurement.percentile30s,
+                        cardioEndurance: selectedMeasurement.percentile60s,
+                        balance: 75
+                      }}
+                    />
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <h4 className="font-semibold text-gray-900 mb-3">AI 종합 분석</h4>
+                    <div className="space-y-3">
+                      <div>
+                        <h5 className="font-medium text-green-700 mb-1">우수한 영역</h5>
+                        <p className="text-sm text-gray-700">• 순발력 (91백분위): 동연령 대비 매우 뛰어난 폭발적 힘 발휘 능력</p>
+                        <p className="text-sm text-gray-700">• 근지구력 (98백분위): 근육의 지속적 수축 능력이 탁월함</p>
+                      </div>
+                      <div>
+                        <h5 className="font-medium text-orange-600 mb-1">개선이 필요한 영역</h5>
+                        <p className="text-sm text-gray-700">• 근력 (17백분위): 기초 근력 향상을 위한 체계적 훈련 필요</p>
+                        <p className="text-sm text-gray-700">• 장기지구력: 360초 파워 개선을 통한 지구력 향상 권장</p>
+                      </div>
+                      <div>
+                        <h5 className="font-medium text-blue-600 mb-1">운동 처방</h5>
+                        <p className="text-sm text-gray-700">순발력을 활용한 스포츠 활동과 함께 근력 강화 운동을 병행하면 균형 잡힌 체력 발달이 가능합니다.</p>
+                      </div>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
