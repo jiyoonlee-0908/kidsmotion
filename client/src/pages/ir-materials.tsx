@@ -62,6 +62,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                       → 조기 개입 가능: 5등급, 하위 4% 바로 확인하여 즉시 대응
                     </div>
                   </div>
+
+                  {/* 여백 맞추기 위한 종합 결과 */}
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
+                    <p className="text-blue-600 mb-2">종합 결과</p>
+                    <p className="text-gray-700">• 정확한 데이터 부재로 조기발견 실패</p>
+                    <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
+                    <p className="text-gray-700">• 개인별 맞춤 방향 제시 불가</p>
+                  </div>
                 </div>
               </div>
               <div>
