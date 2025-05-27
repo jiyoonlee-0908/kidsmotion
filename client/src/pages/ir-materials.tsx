@@ -145,7 +145,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
               <Zap className="w-6 h-6 mr-3 text-purple-600" />
-              MotionBike 하드웨어 혁신
+              KidsMotion 시스템 특징
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -154,41 +154,33 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
                 <div className="space-y-4">
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">안장 높이</h4>
-                    <p className="text-purple-700">35-65cm 조절 (신장 100-150cm 대응)</p>
+                    <h4 className="font-semibold text-purple-800">대상 연령</h4>
+                    <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
                   </div>
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">안장 전후</h4>
-                    <p className="text-purple-700">0-5cm 조절 (다리 길이 맞춤)</p>
+                    <h4 className="font-semibold text-purple-800">신장 대응</h4>
+                    <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
                   </div>
                   <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">핸들 높이</h4>
-                    <p className="text-purple-700">25-45cm 조절 (상체 비율 맞춤)</p>
-                  </div>
-                  <div className="bg-purple-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-purple-800">핸들 전후</h4>
-                    <p className="text-purple-700">25-40cm 조절 (팔 길이 맞춤)</p>
+                    <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
+                    <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
                   </div>
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-4">정밀 센서 기술</h3>
+                <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
                 <div className="space-y-4">
                   <div className="bg-blue-50 p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
+                    <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
+                  </div>
+                  <div className="bg-blue-50 p-4 rounded-lg">
                     <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
-                    <p className="text-blue-700">페달링 시 좌우 불균형 실시간 감지</p>
+                    <p className="text-blue-700">정확한 수치로 불균형 감지</p>
                   </div>
                   <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">파워 측정</h4>
-                    <p className="text-blue-700">W/kg^0.67 공식으로 체중 보정된 상대파워</p>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">지구력 분석</h4>
-                    <p className="text-blue-700">5초/15초/30초/60초/180초/360초 구간별</p>
-                  </div>
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-blue-800">협응력 평가</h4>
-                    <p className="text-blue-700">체간 안정성, 신경 조절력 수치화</p>
+                    <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
+                    <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
                   </div>
                 </div>
               </div>
