@@ -333,61 +333,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* MotionBike 혁신 솔루션 */}
-        <Card className="mb-16 bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-yellow-700 mb-4">🎯 MotionBike 혁신: 설문 → 정량 데이터</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-red-600">기존 방식의 문제</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <h4 className="font-semibold text-red-700 mb-2">영유아검진 설문</h4>
-                    <p className="text-gray-700 mb-2">"자전거 탈 수 있나요?"</p>
-                    <p className="text-red-600 text-sm">→ 부모 주관적 판단, 부정확</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <h4 className="font-semibold text-red-700 mb-2">운동발달 평가</h4>
-                    <p className="text-gray-700 mb-2">"한발로 3초간 설 수 있는가?"</p>
-                    <p className="text-red-600 text-sm">→ 예/아니오, 정량화 불가</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <h4 className="font-semibold text-red-700 mb-2">조기발견 실패</h4>
-                    <p className="text-gray-700 mb-2">골든타임 놓침</p>
-                    <p className="text-red-600 text-sm">→ 초등학교 입학 후에야 발견</p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-green-600">MotionBike 해결책</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <h4 className="font-semibold text-green-700 mb-2">실제 페달링 분석</h4>
-                    <p className="text-gray-700 mb-2">좌우 밸런스 85% vs 15%</p>
-                    <p className="text-green-600 text-sm">→ 정확한 수치로 불균형 감지</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <h4 className="font-semibold text-green-700 mb-2">체간 안정성 측정</h4>
-                    <p className="text-gray-700 mb-2">좌우 흔들림 각도 ±3.2°</p>
-                    <p className="text-green-600 text-sm">→ 협응력 수치화</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <h4 className="font-semibold text-green-700 mb-2">운동 재능 정량 평가</h4>
-                    <p className="text-gray-700 mb-2">백분위 95% = 상위 5% 재능 확인</p>
-                    <p className="text-green-600 text-sm">→ "우리 아이 운동시켜도 될까?" 명확한 답변</p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <h4 className="font-semibold text-green-700 mb-2">조기 개입 가능</h4>
-                    <p className="text-gray-700 mb-2">백분위 20% 이하 자동 알림</p>
-                    <p className="text-green-600 text-sm">→ 즉시 전문가 연계</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+
 
         {/* 시장 규모 및 기회 */}
         <Card className="mb-16">
@@ -398,39 +344,29 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="space-y-6">
-                <div className="text-center bg-green-50 p-6 rounded-lg">
-                  <div className="text-4xl font-bold text-green-600 mb-2">249만명</div>
-                  <p className="text-gray-600 mb-4">전국 초등학생 수 (2024년 기준)</p>
-                  <div className="bg-white p-3 rounded-lg">
-                    <p className="text-sm text-green-700">연간 영유아 건강검진 수검인원</p>
-                    <p className="text-lg font-bold text-green-800">177만명 (2023년 기준)</p>
-                  </div>
-                </div>
-                <div className="text-center bg-red-50 p-6 rounded-lg">
-                  <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
-                  <p className="text-gray-600 mb-4">전국 소아·청소년과 전문 진료기관</p>
-                  <div className="bg-white p-3 rounded-lg">
-                    <p className="text-sm text-red-700">의원급(1차 의료기관): 2,147개소</p>
-                    <p className="text-sm text-red-700">전국 보건소: 261개소</p>
-                  </div>
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="text-center bg-green-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-green-600 mb-2">249만명</div>
+                <p className="text-gray-600 mb-4">전국 초등학생 수 (2024년 기준)</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-green-700">연간 영유아 건강검진 수검인원</p>
+                  <p className="text-lg font-bold text-green-800">177만명 (2023년 기준)</p>
                 </div>
               </div>
-              <div className="space-y-6">
-                <div className="text-center bg-blue-50 p-6 rounded-lg">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">9,000개</div>
-                  <p className="text-gray-600 mb-4">전국 태권도장 수</p>
-                  <div className="bg-white p-3 rounded-lg">
-                    <p className="text-sm text-blue-700">좌우 밸런스 측정 수요 높음</p>
-                  </div>
+              <div className="text-center bg-red-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
+                <p className="text-gray-600 mb-4">전국 소아·청소년과 전문 진료기관</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-red-700">의원급(1차 의료기관): 2,147개소</p>
+                  <p className="text-sm text-red-700">전국 보건소: 261개소</p>
                 </div>
-                <div className="text-center bg-purple-50 p-6 rounded-lg">
-                  <div className="text-4xl font-bold text-purple-600 mb-2">15,000개+</div>
-                  <p className="text-gray-600 mb-4">기타 아동 스포츠 학원</p>
-                  <div className="bg-white p-3 rounded-lg">
-                    <p className="text-sm text-purple-700">축구교실, 수영장, 체조교실 등</p>
-                  </div>
+              </div>
+              <div className="text-center bg-purple-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-purple-600 mb-2">24,000개+</div>
+                <p className="text-gray-600 mb-4">전국 아동 스포츠 학원</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-purple-700">축구교실, 수영장, 체조교실, 태권도장 등</p>
+                  <p className="text-sm text-purple-700">체력 측정 및 맞춤 훈련 수요</p>
                 </div>
               </div>
             </div>
