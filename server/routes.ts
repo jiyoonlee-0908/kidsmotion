@@ -221,17 +221,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "300s": measurementData.power300s || 0
       };
       
-      // 상대 파워 계산: W / kg^POWER_EXPONENT
-      const weightPower = Math.pow(measurementData.weight, POWER_EXPONENT);
-      console.log(`체중: ${measurementData.weight}kg, 체중^${POWER_EXPONENT}: ${weightPower}`);
+      // 상대 파워 계산: W / kg (와트바이크 기준에 맞춤)
+      console.log(`체중: ${measurementData.weight}kg`);
       
       const relativePowers = {
-        "5s": absolutePowers["5s"] / weightPower,
-        "15s": absolutePowers["15s"] / weightPower,
-        "30s": absolutePowers["30s"] / weightPower,
-        "60s": absolutePowers["60s"] / weightPower,
-        "180s": absolutePowers["180s"] / weightPower,
-        "300s": absolutePowers["300s"] / weightPower
+        "5s": absolutePowers["5s"] / measurementData.weight,
+        "15s": absolutePowers["15s"] / measurementData.weight,
+        "30s": absolutePowers["30s"] / measurementData.weight,
+        "60s": absolutePowers["60s"] / measurementData.weight,
+        "180s": absolutePowers["180s"] / measurementData.weight,
+        "300s": absolutePowers["300s"] / measurementData.weight
       };
       
       console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
