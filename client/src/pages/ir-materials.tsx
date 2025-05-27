@@ -699,7 +699,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <div className="text-gray-700 text-sm">
                       <p className="mb-2">A: 웹 MVP와 하드웨어 프로토타입이 모두 완성되었습니다.</p>
                       <p className="text-gray-600 text-xs mb-2">(보안상 이유로 하드웨어 사진은 미팅 시 별도 공개)</p>
-                      <p className="text-gray-700">단계별 진출 계획: 2026년 스포츠학원 시작 → 2027년 의료기기 신청 → 2029년 의료기관 진출</p>
+                      <p className="text-gray-700">단계별 진출 계획: 2027년 스포츠학원 시작 → 2028년 의료기기 신청 → 2029년 의료기관 진출</p>
                     </div>
                   </div>
                   <div>
@@ -741,12 +741,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-xl font-bold mb-4">투자 수익 전망</h3>
                 <div className="space-y-3">
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2026년: 스포츠학원 진입</h4>
+                    <h4 className="font-semibold">2027년: 스포츠학원 진입</h4>
                     <p className="text-sm">파일럿 검증 완료 후 100개 학원 × 월 5만원 = 연 6억 매출<br/>
                     <span className="text-xs opacity-90">+ 하드웨어 판매 100대 × 550만원 = 5.5억</span></p>
                   </div>
                   <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2027년: 의료기기 신청</h4>
+                    <h4 className="font-semibold">2028년: 의료기기 신청</h4>
                     <p className="text-sm">임상시험 진행, 하드웨어 판매 확대</p>
                   </div>
 
