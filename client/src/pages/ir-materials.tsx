@@ -63,13 +63,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
 
-                  {/* 여백 맞추기 위한 종합 결과 */}
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
-                    <p className="text-blue-600 mb-2">종합 결과</p>
-                    <p className="text-gray-700">• 정확한 데이터 부재로 조기발견 실패</p>
-                    <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
-                    <p className="text-gray-700">• 개인별 맞춤 방향 제시 불가</p>
-                  </div>
+                  {/* 오른쪽과 대칭 맞추기 위한 여백 */}
+                  <div className="h-24"></div>
                 </div>
               </div>
               <div>
