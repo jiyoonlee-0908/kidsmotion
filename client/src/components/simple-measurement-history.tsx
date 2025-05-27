@@ -166,10 +166,13 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                      onClick={() => setSelectedMeasurement(result.measurement)}>
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <div className="flex items-center gap-4 mb-2">
-                        <h3 className="font-semibold text-lg">{result.measurement.studentName}</h3>
-                        <span className="text-sm text-gray-500">{result.measurement.measureDate}</span>
-                        <span className="text-sm text-gray-500">{result.measurement.affiliation}</span>
+                      <div className="text-sm">
+                        <span className="font-semibold">{result.measurement.studentName}</span>
+                        <span className="text-gray-600 ml-2">{result.measurement.measureDate}</span>
+                        <span className="text-gray-600 ml-2">{result.measurement.affiliation}</span>
+                        <span className="text-gray-600 ml-2">{result.measurement.birthDate}</span>
+                        <span className="text-gray-600 ml-2">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
+                        <span className="text-purple-600 ml-2">종합: {Math.round(result.analysis?.overallPercentile || 0)}%</span>
                       </div>
                       
 
