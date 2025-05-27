@@ -90,6 +90,12 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       }
       
       const data = await response.json();
+      console.log("받은 데이터:", data);
+      if (data.length > 0) {
+        console.log("첫 번째 항목:", data[0]);
+        console.log("strengths:", data[0].strengths);
+        console.log("improvements:", data[0].improvements);
+      }
       
       // 서버에서 받은 원본 데이터를 그대로 사용 (새로 계산하지 않음)
       const formattedData: MeasurementData[] = data.map((item: any) => ({
@@ -427,7 +433,9 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">강점</span>
                       <p className="font-semibold text-green-600">
-                        {selectedMeasurement.strengths || "집중 훈련이 필요합니다"}
+                        {selectedMeasurement.strengths && selectedMeasurement.strengths.trim() !== "" 
+                          ? selectedMeasurement.strengths 
+                          : "집중 훈련이 필요합니다"}
                       </p>
                     </div>
                   </div>
@@ -435,7 +443,9 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">보완점</span>
                       <p className="font-semibold text-orange-600">
-                        {selectedMeasurement.improvements || "측정 필요"}
+                        {selectedMeasurement.improvements && selectedMeasurement.improvements.trim() !== "" 
+                          ? selectedMeasurement.improvements 
+                          : "측정 필요"}
                       </p>
                     </div>
                   </div>
