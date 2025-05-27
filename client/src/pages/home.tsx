@@ -185,7 +185,7 @@ export default function Home({ onNavigate }: HomeProps) {
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
                     <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
-                    <p className="text-gray-600 leading-relaxed">다양한 체력요소를 종합적으로<br />측정하고 백분위로 평가</p>
+                    <p className="text-gray-600 leading-relaxed">종합적인 체력 측정으로<br />정확한 백분위 평가 제공</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
