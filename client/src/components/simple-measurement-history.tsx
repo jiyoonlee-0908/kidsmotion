@@ -453,10 +453,10 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                         </div>
                       </div>
 
-                      {/* 운동강도 (별도 칸) */}
+                      {/* 운동강도 */}
                       {analysis?.avgBpm && analysis?.maxBpm && (
-                        <div className="bg-purple-50 rounded-lg p-4 text-center">
-                          <div className="text-lg font-bold text-purple-600">
+                        <div className="text-center">
+                          <div className="text-xl font-bold text-gray-900">
                             운동강도 {Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%
                           </div>
                         </div>
