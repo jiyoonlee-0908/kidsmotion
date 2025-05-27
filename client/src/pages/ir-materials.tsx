@@ -87,7 +87,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입 가능</p>
                   </div>
                   <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
-                    <p className="text-blue-600 mb-2">국가에서 하는 아동대상 체력측정의 한계</p>
+                    <p className="text-blue-600 mb-2">국민체육진흥공단의 국민체력100의 한계</p>
                     <p className="text-gray-700">• 악력기로 근력 체크 → 전신근력이 아닌 부분근력만 측정</p>
                     <p className="text-gray-700">• 국가 주관 평가임에도 정량 데이터 제공 안됨</p>
                   </div>
@@ -130,7 +130,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">정부가 원하는 것</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-800">정부 정책: 국민건강 데이터화 추진</h3>
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
                     <p className="text-green-600 mb-2">디지털 전환 필요성</p>
