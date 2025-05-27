@@ -57,7 +57,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 혹시 숨겨진 재능이 있는 건 아닐까?"</p>
+                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
                     </div>
