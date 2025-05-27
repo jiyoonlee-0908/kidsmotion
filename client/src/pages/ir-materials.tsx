@@ -81,6 +81,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700">• 숫자 세는 사람의 실수로 부정확한 결과</p>
                     <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
                   </div>
+                  <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                    <p className="text-sm text-gray-600 mb-1">종합 결과</p>
+                    <p className="text-gray-700">• 정량적 데이터 부재로 조기발견 실패</p>
+                    <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
+                    <p className="text-gray-700">• 개인별 맞춤 개선 방안 제시 불가</p>
+                  </div>
                 </div>
               </div>
             </div>
