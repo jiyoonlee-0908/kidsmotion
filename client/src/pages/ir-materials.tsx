@@ -29,7 +29,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 시장 기회 - 부모 니즈 */}
-        <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-red-200">
+        <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl text-red-700 mb-4">⚠️ 현재 체력 측정의 한계와 부모들의 불안감</CardTitle>
           </CardHeader>
