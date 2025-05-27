@@ -374,26 +374,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             {/* 해외 시장 기회 */}
             <div className="mt-8 bg-gradient-to-r from-blue-100 to-indigo-100 p-6 rounded-lg border border-blue-200">
               <h3 className="text-xl font-bold text-blue-800 mb-4">🌍 글로벌 시장 기회</h3>
-              <div className="grid md:grid-cols-2 gap-6 mb-4">
-                <div className="bg-white p-4 rounded-lg">
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center bg-white p-4 rounded-lg">
                   <div className="text-3xl font-bold text-blue-600 mb-2">$218억</div>
-                  <p className="text-sm text-gray-600 mb-2">글로벌 아동 스포츠 장비 시장 (2022년)</p>
-                  <p className="text-xs text-blue-700">약 29조 원 규모</p>
+                  <p className="text-gray-600 mb-2">글로벌 아동 스포츠 장비 시장 (2022년)</p>
+                  <div className="bg-blue-50 p-2 rounded">
+                    <p className="text-xs text-blue-700">약 29조 원 규모</p>
+                  </div>
                 </div>
-                <div className="bg-white p-4 rounded-lg">
+                <div className="text-center bg-white p-4 rounded-lg">
                   <div className="text-3xl font-bold text-green-600 mb-2">$306억</div>
-                  <p className="text-sm text-gray-600 mb-2">2030년 전망 시장 규모</p>
-                  <p className="text-xs text-green-700">약 41조 원 (CAGR 4.4%)</p>
+                  <p className="text-gray-600 mb-2">2030년 전망 시장 규모</p>
+                  <div className="bg-green-50 p-2 rounded">
+                    <p className="text-xs text-green-700">약 41조 원 (CAGR 4.4%)</p>
+                  </div>
                 </div>
-              </div>
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-lg border border-purple-200">
-                <h4 className="font-bold text-purple-700 mb-2">💡 핵심 성장 분야</h4>
-                <p className="text-purple-700 text-sm">
-                  <strong>피트니스 장비 부문</strong>: 연평균 성장률 <strong>5.5%</strong>로 가장 빠른 성장세
-                </p>
-                <p className="text-purple-600 text-xs mt-1">
-                  * Kids Sports Equipment Market 보고서 기준
-                </p>
+                <div className="text-center bg-white p-4 rounded-lg">
+                  <div className="text-3xl font-bold text-purple-600 mb-2">5.5%</div>
+                  <p className="text-gray-600 mb-2">피트니스 장비 부문 연평균 성장률</p>
+                  <div className="bg-purple-50 p-2 rounded">
+                    <p className="text-xs text-purple-700">가장 빠른 성장세</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -413,7 +415,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <h4 className="font-semibold text-orange-700 mb-2">선점 효과</h4>
                   <ul className="space-y-1 text-orange-700">
                     <li>• 아동 운동발달 정량화 최초 시스템</li>
-                    <li>• B2B/B2G 시장 진입 장벽 구축</li>
+                    <li>• B2B/B2G 시장 진입 용이성</li>
                     <li>• 데이터 누적으로 AI 성능 향상</li>
                     <li>• 의료기관 표준화 가능성</li>
                   </ul>
