@@ -545,7 +545,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className={`progress-fill ${selectedMeasurement.percentile30s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
                     </div>
-                    <p className="text-sm text-gray-700">{selectedMeasurement.explanation30s}</p>
+                    <p className="text-sm text-gray-700">
+                      {selectedMeasurement.percentile30s >= 80 ? "우수한 근력을 보여줍니다." :
+                       selectedMeasurement.percentile30s >= 60 ? "양호한 근력입니다." :
+                       selectedMeasurement.percentile30s >= 40 ? "평균적인 근력입니다." :
+                       selectedMeasurement.percentile30s >= 20 ? "근력 향상이 필요합니다." :
+                       "근력 집중 훈련이 권장됩니다."}
+                    </p>
                   </div>
 
                   <div className="fitness-item">
@@ -565,7 +571,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className={`progress-fill ${selectedMeasurement.percentile60s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
                     </div>
-                    <p className="text-sm text-gray-700">{selectedMeasurement.explanation60s}</p>
+                    <p className="text-sm text-gray-700">
+                      {selectedMeasurement.percentile60s >= 80 ? "우수한 근지구력을 보여줍니다." :
+                       selectedMeasurement.percentile60s >= 60 ? "양호한 근지구력입니다." :
+                       selectedMeasurement.percentile60s >= 40 ? "평균적인 근지구력입니다." :
+                       selectedMeasurement.percentile60s >= 20 ? "근지구력 향상이 필요합니다." :
+                       "근지구력 집중 훈련이 권장됩니다."}
+                    </p>
                   </div>
                 </div>
               </div>
