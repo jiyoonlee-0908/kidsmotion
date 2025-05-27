@@ -211,7 +211,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="mt-4 bg-white/50 p-3 rounded-lg border border-blue-200">
                 <p className="text-xs text-gray-600">
                   <strong>출처:</strong> Grand View Research, "Kids Sports Equipment Market Size & Share Analysis Report 2023-2030"<br/>
-                  Research And Markets, "Global Youth Sports Equipment Market Report 2023"
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Research And Markets, "Global Youth Sports Equipment Market Report 2023"
                 </p>
               </div>
             </div>
