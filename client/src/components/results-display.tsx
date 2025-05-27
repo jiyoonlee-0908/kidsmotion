@@ -373,7 +373,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 </div>
                 <div className="progress-bar mb-3">
                   <div 
-                    className={`progress-fill ${item.measured ? getGradeColor(item.percentile) : 'bg-gray-300'}`}
+                    className={`progress-fill ${item.measured ? getGradeColor(item.percentile || 0) : 'bg-gray-300'}`}
                     style={{ width: item.measured ? `${item.percentile || 0}%` : '0%' }}
                   />
                 </div>
