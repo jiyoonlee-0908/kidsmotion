@@ -534,7 +534,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <h3 className="text-lg font-bold text-red-700 mb-3">💀 경쟁 관련</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody처럼 큰 기업이 아동 체력 측정에 뛰어들면 어떻게 하나요?"</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody 같은 기계가 이미 있는데 키즈모션을 왜 도입할까요?"</p>
                     <p className="text-gray-700 text-sm">A: 완전히 다른 영역입니다. InBody는 체성분(근육량, 체지방률), 우리는 운동능력(순발력, 지구력, 밸런스)을 측정합니다. 목표는 InBody처럼 의료기관 필수 장비가 되는 것입니다.</p>
                   </div>
                   <div>
