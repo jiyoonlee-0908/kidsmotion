@@ -417,7 +417,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <span className="text-gray-600">버전:</span>
-                    <span className="ml-2 font-semibold">v2.1.0</span>
+                    <span className="ml-2 font-semibold">v0.1</span>
                   </div>
                   <div>
                     <span className="text-gray-600">최종 업데이트:</span>
@@ -425,7 +425,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   </div>
                   <div>
                     <span className="text-gray-600">측정 엔진:</span>
-                    <span className="ml-2 font-semibold">WattBike Pro</span>
+                    <span className="ml-2 font-semibold">MotionBike v0.1</span>
                   </div>
                   <div>
                     <span className="text-gray-600">AI 모델:</span>
