@@ -421,13 +421,33 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   <div>
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">강점</span>
-                      <p className="font-semibold text-green-600">근력 (60초), 파워 지속력 (30초)</p>
+                      <p className="font-semibold text-green-600">
+                        {(() => {
+                          const strengths = [];
+                          if (selectedMeasurement.percentile5s >= 20) strengths.push("순발력 (5초)");
+                          if (selectedMeasurement.percentile15s >= 20) strengths.push("스프린트 파워 (15초)");
+                          if (selectedMeasurement.percentile30s >= 20) strengths.push("근력 (30초)");
+                          if (selectedMeasurement.percentile60s >= 20) strengths.push("근지구력 (60초)");
+                          return strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다";
+                        })()}
+                      </p>
                     </div>
                   </div>
                   <div>
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">보완점</span>
-                      <p className="font-semibold text-orange-600">순발력 (5초)</p>
+                      <p className="font-semibold text-orange-600">
+                        {(() => {
+                          const percentiles = [
+                            { name: "순발력 (5초)", value: selectedMeasurement.percentile5s },
+                            { name: "스프린트 파워 (15초)", value: selectedMeasurement.percentile15s },
+                            { name: "근력 (30초)", value: selectedMeasurement.percentile30s },
+                            { name: "근지구력 (60초)", value: selectedMeasurement.percentile60s }
+                          ];
+                          const lowest = percentiles.sort((a, b) => a.value - b.value);
+                          return lowest.slice(0, 2).map(item => item.name).join(", ");
+                        })()}
+                      </p>
                     </div>
                   </div>
                   <div>
