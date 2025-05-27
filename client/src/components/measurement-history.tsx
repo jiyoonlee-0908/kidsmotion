@@ -79,7 +79,9 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
   }];
 
   useEffect(() => {
-    fetchAllMeasurements();
+    // 페이지 로딩 시 즉시 오로라 데이터 표시
+    setAllMeasurements(auroraData);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -304,17 +306,26 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
             <span className="text-sm text-gray-600">
               총 {allMeasurements.length}건 중 {filteredMeasurements.length}건 표시
             </span>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchName('');
-                setSearchAffiliation('');
-                setSearchGender('');
-                setSearchAgeRange('');
-              }}
-            >
-              필터 초기화
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="default"
+                onClick={fetchAllMeasurements}
+              >
+                <Search className="w-4 h-4 mr-2" />
+                검색
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchName('');
+                  setSearchAffiliation('');
+                  setSearchGender('');
+                  setSearchAgeRange('');
+                }}
+              >
+                필터 초기화
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
