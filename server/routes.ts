@@ -386,16 +386,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { studentName, affiliation, birthDate, gender } = req.query;
       
-      if (!studentName) {
-        return res.status(400).json({ error: "Student name is required" });
+      // 빈 이름이면 모든 데이터 반환
+      let measurements;
+      if (!studentName || studentName === '') {
+        measurements = await storage.getAllMeasurements();
+      } else {
+        measurements = await storage.searchMeasurements({
+          studentName: studentName as string,
+          affiliation: affiliation as string,
+          birthDate: birthDate as string,
+          gender: gender as string
+        });
       }
-      
-      const measurements = await storage.searchMeasurements({
-        studentName: studentName as string,
-        affiliation: affiliation as string,
-        birthDate: birthDate as string,
-        gender: gender as string
-      });
       
       // Get analysis results for each measurement
       const results = await Promise.all(

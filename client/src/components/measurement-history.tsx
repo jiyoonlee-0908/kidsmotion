@@ -39,37 +39,19 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
   const fetchAllMeasurements = async () => {
     setIsLoading(true);
     try {
-      // 모든 측정 데이터 가져오기
-      const response = await fetch('/api/measurements/all');
+      // 오로라 데이터 직접 검색해보기
+      const response = await fetch('/api/measurements/search?studentName=오로라');
       if (response.ok) {
-        const measurements = await response.json();
-        
-        // 각 측정에 대한 분석 결과도 가져오기
-        const historyWithAnalysis = await Promise.all(
-          measurements.map(async (measurement: Measurement) => {
-            try {
-              const analysisResponse = await fetch(`/api/measurements/${measurement.id}`);
-              if (analysisResponse.ok) {
-                const data = await analysisResponse.json();
-                return { measurement, analysis: data.analysis };
-              }
-              return null;
-            } catch {
-              return null;
-            }
-          })
-        );
-
-        const validHistory = historyWithAnalysis.filter(Boolean) as HistoryData[];
-        setAllMeasurements(validHistory);
+        const historyData = await response.json();
+        setAllMeasurements(historyData);
+        console.log('오로라 데이터 찾음:', historyData);
+      } else {
+        console.log('오로라 데이터 검색 실패');
+        setAllMeasurements([]);
       }
     } catch (error) {
-      console.error('Error fetching all measurements:', error);
-      toast({
-        title: "데이터 로딩 실패",
-        description: "측정 데이터를 불러오는데 실패했습니다.",
-        variant: "destructive",
-      });
+      console.error('Error fetching measurements:', error);
+      setAllMeasurements([]);
     } finally {
       setIsLoading(false);
     }

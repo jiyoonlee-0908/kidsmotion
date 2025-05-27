@@ -138,8 +138,8 @@ export class MemStorage implements IStorage {
   }): Promise<Measurement[]> {
     return Array.from(this.measurements.values())
       .filter(measurement => {
-        // 이름은 필수 조건
-        if (measurement.studentName !== criteria.studentName) {
+        // 이름은 부분 매칭으로 변경
+        if (!measurement.studentName.includes(criteria.studentName)) {
           return false;
         }
         
