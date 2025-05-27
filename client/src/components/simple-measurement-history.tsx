@@ -172,24 +172,7 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                         <span className="text-sm text-gray-500">{result.measurement.affiliation}</span>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                        <div>
-                          <span className="text-gray-600">종합:</span>
-                          <span className="ml-1 font-medium">{Math.round(result.analysis?.overallPercentile || 0)}%</span>
-                        </div>
-                        <div>
-                          <span className="text-gray-600">강점:</span>
-                          <span className="ml-1 text-green-600">{result.analysis?.strengths || "집중 훈련이 필요합니다"}</span>
-                        </div>
-                        <div>
-                          <span className="text-gray-600">보완점:</span>
-                          <span className="ml-1 text-orange-600">{result.analysis?.improvements || "측정 필요"}</span>
-                        </div>
-                        <div>
-                          <span className="text-gray-600">BMI:</span>
-                          <span className="ml-1">{result.analysis?.bmi?.toFixed(1) || "N/A"}</span>
-                        </div>
-                      </div>
+
                     </div>
                     
                     <Button
