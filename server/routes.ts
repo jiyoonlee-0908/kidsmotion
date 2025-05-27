@@ -281,8 +281,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (percentiles["180s"]) {
         categories.push({ name: "근지구력 (180초)", percentile: percentiles["180s"] });
       }
-      if (percentiles["360s"]) {
-        categories.push({ name: "심폐지구력 (360초)", percentile: percentiles["360s"] });
+      if (percentiles["300s"]) {
+        categories.push({ name: "심폐지구력 (300초)", percentile: percentiles["300s"] });
       }
       
       categories.sort((a, b) => b.percentile - a.percentile);
@@ -307,12 +307,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           muscleEndurance: percentiles["30s"],
           cardioEndurance: percentiles["60s"],
           longEndurance180s: percentiles["180s"],
-          longEndurance360s: percentiles["360s"]
+          longEndurance300s: percentiles["300s"]
         },
         advancedPowerData: {
           power180s: absolutePowers["180s"],
-          power360s: absolutePowers["360s"],
-          hasAdvancedData: absolutePowers["180s"] > 0 || absolutePowers["360s"] > 0
+          power300s: absolutePowers["300s"],
+          hasAdvancedData: absolutePowers["180s"] > 0 || absolutePowers["300s"] > 0
         },
         heartRateData,
         balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
@@ -336,8 +336,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
           allItems.push({ name: "근지구력 (180초)", value: percentiles["180s"] });
         }
-        if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
-          allItems.push({ name: "심폐지구력 (360초)", value: percentiles["360s"] });
+        if (percentiles["300s"] !== null && percentiles["300s"] !== undefined) {
+          allItems.push({ name: "심폐지구력 (300초)", value: percentiles["300s"] });
         }
         
         // 정렬 (높은 순)
@@ -440,7 +440,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         percentile30s: percentiles["30s"],
         percentile60s: percentiles["60s"],
         percentile180s: percentiles["180s"],
-        percentile360s: percentiles["360s"],
+        percentile300s: percentiles["300s"],
         maxBpm: heartRateData.maxBpm,
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
