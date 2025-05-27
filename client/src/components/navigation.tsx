@@ -123,7 +123,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             {/* IR자료 버튼 */}
             <Button
               onClick={() => handleNavigation('ir-materials')}
-              className="ml-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 font-medium text-sm"
+              className="ml-4 bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-700 hover:to-purple-700 text-white px-3 py-1.5 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 font-medium text-sm whitespace-nowrap"
             >
               IR자료
             </Button>
