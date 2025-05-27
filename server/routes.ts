@@ -304,26 +304,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
         }
         
-        // 강점: 20% 이상인 항목들
-        const strengths = percentileData
-          .filter(item => item.value >= 20)
-          .map(item => item.name);
+        // 백분위순으로 정렬
+        const sorted = [...percentileData].sort((a, b) => b.value - a.value);
         
-        // 보완점: 20% 미만인 항목들 찾기
-        const weakAreas = percentileData.filter(item => item.value < 20);
+        // 상위 2개는 강점
+        const strengths = sorted.slice(0, 2).map(item => item.name);
         
-        let improvements;
-        if (weakAreas.length >= 3) {
-          // 대부분 영역이 약하면 모든 약한 영역 표시
-          improvements = weakAreas.map(item => item.name);
-        } else {
-          // 일부만 약하면 가장 낮은 1-2개만 표시
-          const sorted = [...percentileData].sort((a, b) => a.value - b.value);
-          improvements = sorted.slice(0, 2).map(item => item.name);
-        }
+        // 하위 2개는 보완점
+        const improvements = sorted.slice(-2).map(item => item.name);
         
         return {
-          strengths: strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다",
+          strengths: strengths.join(", "),
           improvements: improvements.join(", ")
         };
       };
