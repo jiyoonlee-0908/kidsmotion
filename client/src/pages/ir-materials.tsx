@@ -69,10 +69,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-yellow-600 mb-1">영유아검진의 대근육운동발달 항목의 문제점</p>
-                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④</p>
-                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④</p>
-                    <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
-                    <p className="text-gray-700">• 정량적 데이터 없음, 조기발견 실패</p>
+                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → <span className="font-bold text-blue-600">❶❷❸❹</span></p>
+                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → <span className="font-bold text-blue-600">❶❷❸❹</span></p>
+                    <p className="text-gray-700">• "<span className="font-bold text-blue-600">❶❷❸❹</span>의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-sm text-red-600 mb-1">초등체력장의 문제점</p>
