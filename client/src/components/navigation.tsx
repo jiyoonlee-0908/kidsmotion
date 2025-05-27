@@ -43,7 +43,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     e.stopPropagation();
                     handleNavigation('ir-materials');
                   }}
-                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors"
+                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors px-3 py-1 border-2 border-purple-300 rounded-lg hover:border-purple-500 hover:bg-purple-50"
                 >
                   IR자료
                 </span>
