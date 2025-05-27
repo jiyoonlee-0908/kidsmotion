@@ -568,68 +568,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 경쟁우위 */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Zap className="w-6 h-6 mr-3 text-yellow-600" />
-              MotionBike만의 독점 기술
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
-                <div className="text-4xl mb-4">📋</div>
-                <h3 className="font-semibold text-lg mb-2">AI 리포트 해석</h3>
-                <p className="text-gray-600 mb-3">복잡한 숫자를 부모가 이해하는 맞춤 해석으로 변환</p>
-                <div className="bg-purple-100 p-2 rounded text-sm text-purple-700">
-                  기존: 숫자만 제공 → MotionBike: 맞춤 해석 + 운동처방
-                </div>
-              </div>
-              
-              <div className="text-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
-                <div className="text-4xl mb-4">⚖️</div>
-                <h3 className="font-semibold text-lg mb-2">실시간 밸런스 감지</h3>
-                <p className="text-gray-600 mb-3">좌우 불균형을 페달링으로 정량 측정</p>
-                <div className="bg-blue-100 p-2 rounded text-sm text-blue-700">
-                  기존: 설문 평가 → MotionBike: 실시간 센서
-                </div>
-              </div>
-              
-              <div className="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
-                <div className="text-4xl mb-4">🤖</div>
-                <h3 className="font-semibold text-lg mb-2">AI 기반 처방</h3>
-                <p className="text-gray-600 mb-3">GPT-4o로 개인별 맞춤 운동 처방</p>
-                <div className="bg-green-100 p-2 rounded text-sm text-green-700">
-                  기존: 일반적 조언 → MotionBike: 개인 맞춤
-                </div>
-              </div>
-            </div>
 
-            <div className="mt-8 bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-              <h3 className="text-lg font-bold text-red-700 mb-3">🛡️ 경쟁사 진입 장벽</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-red-600 mb-2">기술적 장벽</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• 아동 맞춤 하드웨어 설계 노하우</li>
-                    <li>• 체력 평가 알고리즘 새로 정립</li>
-                    <li>• 연령별 체력 기준 데이터베이스</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-red-600 mb-2">시장 진입 장벽</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• 2종의료기기 인증 목표</li>
-                    <li>• 의료기관 인증 및 승인 과정</li>
-                    <li>• B2B 영업 네트워크 구축</li>
-                    <li>• 사용자 데이터 누적 필요</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* 투자 요청 */}
         <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
