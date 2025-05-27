@@ -2,10 +2,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap } from "lucide-react";
+import Navigation from "@/components/navigation";
 
-export default function IRMaterials() {
+interface IRMaterialsProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+      <Navigation onNavigate={onNavigate} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         {/* 헤더 */}
