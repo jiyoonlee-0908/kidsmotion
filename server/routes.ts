@@ -412,68 +412,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Create analysis result
-      // 강점과 보완점 계산
-      const calculateStrengthsAndImprovements = () => {
-        const percentileData = [
-          { name: "순발력 (5초)", value: percentiles["5s"] },
-          { name: "스프린트 파워 (15초)", value: percentiles["15s"] },
-          { name: "파워 지속력 (30초)", value: percentiles["30s"] },
-          { name: "근력 (60초)", value: percentiles["60s"] }
-        ];
-        
-        // 180초, 360초 데이터가 있으면 추가
-        if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
-          percentileData.push({ name: "근지구력 (180초)", value: percentiles["180s"] });
-        }
-        if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
-          percentileData.push({ name: "심폐지구력 (360초)", value: percentiles["360s"] });
-        }
-        
-        // 모든 데이터를 백분위 순으로 정렬 (높은 순)
-        const sortedData = [...percentileData].sort((a, b) => b.value - a.value);
-        
-        let strengths = [];
-        let improvements = [];
-        
-        // 1. 먼저 1등급(96% 이상)은 무조건 강점
-        const excellentItems = sortedData.filter(item => item.value >= 96);
-        strengths.push(...excellentItems.map(item => item.name));
-        
-        // 2. 5등급(4% 미만)은 무조건 보완점  
-        const poorItems = sortedData.filter(item => item.value < 4);
-        improvements.push(...poorItems.map(item => item.name));
-        
-        // 3. 20% 미만인 모든 항목을 보완점에 추가 (중복 제거)
-        const lowItems = sortedData.filter(item => item.value < 20);
-        for (const item of lowItems) {
-          if (!improvements.includes(item.name)) {
-            improvements.push(item.name);
-          }
-        }
-        
-        // 4. 동점 처리: 같은 점수인 최상위 항목들을 모두 강점에 추가
-        if (sortedData.length > 0) {
-          const topScore = sortedData[0].value;
-          const topItems = sortedData.filter(item => item.value === topScore);
-          for (const item of topItems) {
-            if (!strengths.includes(item.name)) {
-              strengths.push(item.name);
-            }
-          }
-        }
-        
-        console.log(`우수 항목 (96% 이상): ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`취약 항목 (4% 미만): ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`20% 미만 항목: ${lowItems.map(i => `${i.name}=${i.value}%`).join(', ')}`)
-        
-        console.log(`최종 강점: ${strengths.join(', ')}`);
-        console.log(`최종 보완점: ${improvements.join(', ')}`);
-        
-        return {
-          strengths: strengths.join(", "),
-          improvements: improvements.join(", ")
-        };
-      };
+
       
       // 강력한 하드코딩 우선순위 로직 (절대 확실)
       const calculateStrengthsAndImprovementsFixed = () => {
