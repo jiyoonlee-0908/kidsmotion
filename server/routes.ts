@@ -312,7 +312,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         overallAssessment: aiAnalysis.overallAssessment
       });
       
-      console.log("측정 데이터 저장 완료:", measurement.id, measurement.studentName);
+      console.log("=== 측정 데이터 저장 완료 ===");
+      console.log("측정 ID:", measurement.id);
+      console.log("학생 이름:", measurement.studentName);
+      console.log("저장된 전체 데이터 개수:", (await storage.getAllMeasurements()).length);
       
       res.json({
         measurement,
