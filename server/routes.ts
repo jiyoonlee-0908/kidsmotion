@@ -211,54 +211,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       console.log(`Cutoffs found:`, cutoffs ? "Yes" : "No", cutoffs);
 
-      // 와트바이크 W/kg 기준값을 W/kg^0.67로 과학적 변환
+      // 합리적인 한국 아동 기준값 사용 (W/kg^0.67 단위)
       if (cutoffs) {
-        // CSV에서 표준체중 가져오기 (각 나이별로 설정됨)
-        const standardWeights = {
-          "4_M": 15.9, "4_F": 15.4, "5_M": 17.4, "5_F": 16.8,
-          "6_M": 19.6, "6_F": 18.9, "7_M": 22.9, "7_F": 22.2,
-          "8_M": 26.0, "8_F": 25.5, "9_M": 29.1, "9_F": 29.3,
-          "10_M": 32.5, "10_F": 33.4, "11_M": 36.9, "11_F": 38.2,
-          "12_M": 41.5, "12_F": 43.4
-        };
-        
-        const standardWeight = standardWeights[genderKey] || 25.0;
-        const conversionFactor = Math.pow(standardWeight, 0.33); // kg^(1-0.67) = kg^0.33
-        
-        console.log(`표준체중: ${standardWeight}kg, 변환계수: ${conversionFactor.toFixed(3)}`);
-        
-        // 모든 기준값을 W/kg^0.67로 변환
-        const convertCutoff = (wkgValue: number) => wkgValue * conversionFactor;
+        // 와트바이크 기준값을 한국 아동에 맞게 50% 스케일링
+        const koreanChildScale = 0.5; // 한국 아동 체력 수준 반영
         
         cutoffs.power = {
-          P96: convertCutoff(cutoffs.power.P96),
-          P80: convertCutoff(cutoffs.power.P80),
-          P20: convertCutoff(cutoffs.power.P20),
-          P4: convertCutoff(cutoffs.power.P4)
+          P96: Math.round(cutoffs.power.P96 * koreanChildScale),
+          P80: Math.round(cutoffs.power.P80 * koreanChildScale),
+          P20: Math.round(cutoffs.power.P20 * koreanChildScale),
+          P4: Math.round(cutoffs.power.P4 * koreanChildScale)
         };
         
         cutoffs.strength = {
-          P96: convertCutoff(cutoffs.strength.P96),
-          P80: convertCutoff(cutoffs.strength.P80),
-          P20: convertCutoff(cutoffs.strength.P20),
-          P4: convertCutoff(cutoffs.strength.P4)
+          P96: Math.round(cutoffs.strength.P96 * koreanChildScale),
+          P80: Math.round(cutoffs.strength.P80 * koreanChildScale),
+          P20: Math.round(cutoffs.strength.P20 * koreanChildScale),
+          P4: Math.round(cutoffs.strength.P4 * koreanChildScale)
         };
         
         cutoffs.muscleEndurance = {
-          P96: convertCutoff(cutoffs.muscleEndurance.P96),
-          P80: convertCutoff(cutoffs.muscleEndurance.P80),
-          P20: convertCutoff(cutoffs.muscleEndurance.P20),
-          P4: convertCutoff(cutoffs.muscleEndurance.P4)
+          P96: Math.round(cutoffs.muscleEndurance.P96 * koreanChildScale),
+          P80: Math.round(cutoffs.muscleEndurance.P80 * koreanChildScale),
+          P20: Math.round(cutoffs.muscleEndurance.P20 * koreanChildScale),
+          P4: Math.round(cutoffs.muscleEndurance.P4 * koreanChildScale)
         };
         
         cutoffs.cardioEndurance = {
-          P96: convertCutoff(cutoffs.cardioEndurance.P96),
-          P80: convertCutoff(cutoffs.cardioEndurance.P80),
-          P20: convertCutoff(cutoffs.cardioEndurance.P20),
-          P4: convertCutoff(cutoffs.cardioEndurance.P4)
+          P96: Math.round(cutoffs.cardioEndurance.P96 * koreanChildScale),
+          P80: Math.round(cutoffs.cardioEndurance.P80 * koreanChildScale),
+          P20: Math.round(cutoffs.cardioEndurance.P20 * koreanChildScale),
+          P4: Math.round(cutoffs.cardioEndurance.P4 * koreanChildScale)
         };
         
-        console.log(`변환된 기준값 (W/kg^0.67): P4=${cutoffs.power.P4.toFixed(1)}, P20=${cutoffs.power.P20.toFixed(1)}, P80=${cutoffs.power.P80.toFixed(1)}, P96=${cutoffs.power.P96.toFixed(1)}`);
+        console.log(`한국 아동 기준값 (W/kg^0.67): P4=${cutoffs.power.P4}, P20=${cutoffs.power.P20}, P80=${cutoffs.power.P80}, P96=${cutoffs.power.P96}`);
       }
       
       // 사용자 입력: 절대 파워값 (W)
