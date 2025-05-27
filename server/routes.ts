@@ -570,7 +570,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log("=== 강력한 하드코딩 우선순위 로직 ===");
         console.log(`96% 이상: ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
         console.log(`4% 미만: ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`기본규칙 적용: ${needsDefaultRule ? 'YES' : 'NO'}`);
+        console.log(`특수케이스 있음: ${hasSpecialCases ? 'YES' : 'NO'}`);
         console.log(`최종 강점: ${strengths.join(', ')}`);
         console.log(`최종 보완점: ${improvements.join(', ')}`);
         
