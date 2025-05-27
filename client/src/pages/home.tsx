@@ -53,13 +53,7 @@ export default function Home({ onNavigate }: HomeProps) {
     setMeasurementData(data);
     setShowResults(true);
     setIsAnalyzing(false);
-    
-    // 측정 완료 후 잠시 결과를 보여준 다음 기록 페이지로 이동
-    setTimeout(() => {
-      if (onNavigate) {
-        onNavigate('records');
-      }
-    }, 3000); // 3초 후 자동 이동
+    // 자동 이동 제거 - 사용자가 직접 버튼을 눌러야 이동
   };
 
   const handleMeasurementStart = () => {
