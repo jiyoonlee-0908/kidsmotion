@@ -415,7 +415,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* MotionBike만의 독점 기술 - 우리의 솔루션 바로 다음 */}
+        {/* MotionBike만의 독점 기술 - KidsMotion 솔루션 바로 다음 */}
         <Card className="mb-16">
           <CardHeader>
             <CardTitle className="flex items-center text-2xl">
