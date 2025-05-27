@@ -189,11 +189,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
               <div className="flex flex-col items-center">
-                <img 
-                  src="attached_assets/KakaoTalk_20250527_212636970.png" 
-                  alt="KidsMotion 스마트 사이클" 
-                  className="w-full max-w-xs rounded-lg shadow-lg mb-4"
-                />
+                <div className="w-full max-w-xs h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg mb-4 flex items-center justify-center border-2 border-dashed border-gray-300">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🚴‍♂️</div>
+                    <div className="text-sm text-gray-600 font-medium">KidsMotion</div>
+                    <div className="text-xs text-gray-500">스마트 사이클</div>
+                  </div>
+                </div>
                 <p className="text-sm text-gray-600 text-center italic">
                   * 실사 KidsMotion으로 대체 예정
                 </p>
