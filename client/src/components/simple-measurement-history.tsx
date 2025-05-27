@@ -677,41 +677,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
 
 
-              {/* 참고사항 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">참고사항</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold text-blue-800 mb-2">지도선생님 참고</h4>
-                    <p className="text-sm">중점 관리 항목: 근지구력 (180초)과 좌우균형</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-green-800 mb-2">보호자 참고</h4>
-                    <ul className="text-sm space-y-1">
-                      <li>• 체력 측정은 5분 내외로 간편하게 진행됩니다</li>
-                      <li>• 성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
-                      <li>• 총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="mt-4 pt-4 border-t">
-                  <h4 className="font-semibold mb-2">측정 기준 정보</h4>
-                  <div className="grid grid-cols-3 gap-4 text-sm">
-                    <div className="flex justify-between">
-                      <span>데이터 버전:</span>
-                      <span>v2025-05-26</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>보정 지수:</span>
-                      <span>0.67</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>평가 기준:</span>
-                      <span>P4/P20/P80/P96</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           )}
         </DialogContent>
