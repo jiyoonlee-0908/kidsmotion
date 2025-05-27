@@ -330,52 +330,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get("/api/measurements/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const measurement = await storage.getMeasurement(id);
-      
-      if (!measurement) {
-        return res.status(404).json({ error: "Measurement not found" });
-      }
-      
-      const analysis = await storage.getAnalysisResult(id);
-      
-      res.json({
-        measurement,
-        analysis
-      });
-      
-    } catch (error) {
-      res.status(500).json({ error: "Failed to retrieve measurement" });
-    }
-  });
-  
-  // 측정 데이터 삭제
-  app.delete("/api/measurements/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      await storage.deleteMeasurement(id);
-      res.json({ success: true });
-    } catch (error) {
-      console.error("Error deleting measurement:", error);
-      res.status(500).json({ error: "Failed to delete measurement" });
-    }
-  });
-
-  app.get("/api/measurements/student/:name", async (req, res) => {
-    try {
-      const studentName = decodeURIComponent(req.params.name);
-      const measurements = await storage.getMeasurementsByStudent(studentName);
-      
-      res.json(measurements);
-      
-    } catch (error) {
-      res.status(500).json({ error: "Failed to retrieve student measurements" });
-    }
-  });
-
-  // 모든 측정 데이터 조회
+  // 모든 측정 데이터 조회 (먼저 정의)
   app.get("/api/measurements/all", async (req, res) => {
     try {
       console.log("=== 모든 측정 데이터 조회 요청 ===");
@@ -407,7 +362,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Search measurements endpoint (수정된 버전)
+  // Search measurements endpoint (먼저 정의)
   app.get("/api/measurements/search", async (req, res) => {
     try {
       const { studentName, affiliation, birthDate, gender } = req.query;
@@ -468,6 +423,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("검색 오류:", error);
       res.status(500).json({ error: "Failed to search measurements" });
+    }
+  });
+
+  // Student measurements (특정 형식이므로 먼저 정의)
+  app.get("/api/measurements/student/:name", async (req, res) => {
+    try {
+      const studentName = decodeURIComponent(req.params.name);
+      const measurements = await storage.getMeasurementsByStudent(studentName);
+      
+      res.json(measurements);
+      
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve student measurements" });
+    }
+  });
+
+  // Individual measurement by ID (마지막에 정의)
+  app.get("/api/measurements/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const measurement = await storage.getMeasurement(id);
+      
+      if (!measurement) {
+        return res.status(404).json({ error: "Measurement not found" });
+      }
+      
+      const analysis = await storage.getAnalysisResult(id);
+      
+      res.json({
+        measurement,
+        analysis
+      });
+      
+    } catch (error) {
+      res.status(500).json({ error: "Failed to retrieve measurement" });
+    }
+  });
+  
+  // 측정 데이터 삭제
+  app.delete("/api/measurements/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteMeasurement(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting measurement:", error);
+      res.status(500).json({ error: "Failed to delete measurement" });
     }
   });
 
