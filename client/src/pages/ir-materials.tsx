@@ -37,28 +37,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
-                <div className="space-y-3">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
+                <div className="space-y-5">
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700 mb-3">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+                    <div className="bg-green-50 p-3 rounded text-sm text-green-700">
                       → 좌우 밸런스 정확한 수치로 측정 및 개선방안 제시
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700 mb-3">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
+                    <div className="bg-green-50 p-3 rounded text-sm text-green-700">
                       → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700 mb-3">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
+                    <div className="bg-green-50 p-3 rounded text-sm text-green-700">
                       → 1~5등급 체제와 백분위 퍼센트 제공으로 우리 아이의 정확한 위치 확인
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
+                  <div className="bg-white p-5 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700 mb-3">"병원에 가봐도 '괜찮다'고만 하고 정확한 수치는 알려주지 않아서 불안해!"</p>
+                    <div className="bg-green-50 p-3 rounded text-sm text-green-700">
                       → 5분 측정으로 6가지 체력 지표 정량 데이터 제공
                     </div>
                   </div>
