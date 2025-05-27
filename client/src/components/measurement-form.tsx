@@ -113,7 +113,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
           <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
             <UserPlus className="text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">측정 정보 입력</h2>
+          <h2 className="text-2xl font-bold text-gray-900">
+            측정 정보 입력 
+            <span className="text-sm font-normal text-gray-500 ml-2">(유아~초등대상)</span>
+          </h2>
         </div>
         
         <Form {...form}>
