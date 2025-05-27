@@ -36,10 +36,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">현재 부모들의 절박한 고민</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-800">현재 부모들의 고민</h3>
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700">"큰일났다! 우리 아이 좌우가 틀어진 것 같은데 성장에 문제가 생기는 건 아니겠지?"</p>
+                    <p className="text-gray-700">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
@@ -57,12 +57,18 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="space-y-3">
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">영유아검진 설문 방식</p>
-                    <p className="text-gray-700">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 예/아니오</p>
+                    <p className="text-gray-700">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → 동그라미 1,2,3,4</p>
                     <p className="text-xs text-red-500 mt-1">(66-71개월 영유아검진 발달선별검사)</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">운동발달 평가</p>
-                    <p className="text-gray-700">"한발로 3초간 설 수 있는가?" → 예/아니오</p>
+                    <p className="text-gray-700">"아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → 동그라미 1,2,3,4</p>
+                    <p className="text-xs text-red-500 mt-1">(48~53개월 영유아검진 발달선별검사)</p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+                    <p className="text-sm text-orange-600 mb-1">평가 기준의 문제</p>
+                    <p className="text-gray-700">"1,2,3,4의 기준이 뭔가요? 누구는 어느 정도 하는데 1이라고 하고, 누구는 그 정도 하는데 3이라고 할 수 있잖아요"</p>
+                    <p className="text-xs text-orange-600 mt-1">→ 주관적 판단, 일관성 없음</p>
                   </div>
                   <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
                     <p className="text-sm text-gray-600 mb-1">결과</p>
