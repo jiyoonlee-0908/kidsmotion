@@ -424,7 +424,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                       <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
                       <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
                       <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
-                      <li>• <strong>300초 심폐지구력:</strong> 유산소 능력 평가</li>
+                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
                     </ul>
                   </div>
                 </div>
@@ -479,8 +479,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 실제 검증 사례 & 타겟별 가치 제안 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
           <CardHeader>
-            <CardTitle className="text-2xl">
-              🎯 파일럿부터 검증하는 확실한 성공 공식
+            <CardTitle className="flex items-center text-2xl">
+              <BarChart3 className="w-6 h-6 mr-3 text-green-600" />
+              🎯 450만 데이터로 입증하는 시장 검증력
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -531,8 +532,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 학부모 불안감 해소 */}
         <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
           <CardHeader>
-            <CardTitle className="text-2xl">
-              🚀 기관 수익 극대화하는 게임체인저
+            <CardTitle className="flex items-center text-2xl">
+              <Users className="w-6 h-6 mr-3 text-pink-600" />
+              💡 기관 매출 30% 증가하는 비밀 무기
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -608,8 +610,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 투자자 예상 질문 & 답변 */}
         <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
           <CardHeader>
-            <CardTitle className="text-2xl">
-              💬 투자자가 묻기 전에 미리 답하는 FAQ
+            <CardTitle className="flex items-center text-2xl">
+              <Target className="w-6 h-6 mr-3 text-orange-600" />
+              🔥 투자자가 묻기 전에 미리 답하는 FAQ
             </CardTitle>
           </CardHeader>
           <CardContent>

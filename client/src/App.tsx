@@ -97,8 +97,6 @@ function App() {
         return <Contact onNavigate={navigateTo} />;
       case 'records':
         return <Records onNavigate={navigateTo} />;
-      case 'measurement-history':
-        return <Records onNavigate={navigateTo} />;
       case 'user-guide':
         return <UserGuide onNavigate={navigateTo} />;
       case 'faq':

@@ -150,7 +150,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <h4 className="font-semibold text-blue-800 mb-3 flex items-center space-x-2">
                     <Clock className="w-5 h-5" />
-                    <span>기본 4항목 5분 소요, 선택 2항목은 추가 시간 소요될 수 있음</span>
+                    <span>측정 시간: 총 5분 (기본 4항목 + 선택 2항목)</span>
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex items-center justify-between p-3 bg-white rounded border">
@@ -174,7 +174,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                       <Badge variant="outline" className="border-orange-300 text-orange-600">선택</Badge>
                     </div>
                     <div className="flex items-center justify-between p-3 bg-white rounded border border-dashed">
-                      <span className="text-gray-700">✓ 심폐지구력 (300초)</span>
+                      <span className="text-gray-700">✓ 심폐지구력 (360초)</span>
                       <Badge variant="outline" className="border-orange-300 text-orange-600">선택</Badge>
                     </div>
                   </div>

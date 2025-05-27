@@ -4,142 +4,125 @@ import { storage } from "./storage";
 import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema } from "@shared/schema";
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
-import { realisticKidsCutoffs } from "./realistic-kids-cutoffs";
 import OpenAI from "openai";
 
 // Constants
 const POWER_EXPONENT = 0.67;
 
-// 최종 와트바이크 파워표 + 로그선형내삽 + 300초(5분) 기준값 사용
-import { finalWattbikeCutoffs } from "./final-wattbike-cutoffs";
-const cutoffData = finalWattbikeCutoffs;
+// Load cutoff data - 한국 아동에 맞게 조정된 현실적인 기준
+// 체중 20kg, 파워 150W = 상대파워 20.16이 적절한 백분위가 나오도록 조정
+const cutoffData = {
+  "4_M": {
+    "power": { "P96": 28, "P80": 24, "P20": 16, "P4": 12 },
+    "strength": { "P96": 22, "P80": 18, "P20": 12, "P4": 8 },
+    "muscleEndurance": { "P96": 18, "P80": 15, "P20": 10, "P4": 6 },
+    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 8, "P4": 5 }
+  },
+  "4_F": {
+    "power": { "P96": 24, "P80": 20, "P20": 14, "P4": 10 },
+    "strength": { "P96": 19, "P80": 15, "P20": 10, "P4": 7 },
+    "muscleEndurance": { "P96": 15, "P80": 13, "P20": 9, "P4": 5 },
+    "cardioEndurance": { "P96": 13, "P80": 10, "P20": 7, "P4": 4 }
+  },
+  "5_M": {
+    "power": { "P96": 30, "P80": 26, "P20": 18, "P4": 14 },
+    "strength": { "P96": 24, "P80": 20, "P20": 14, "P4": 10 },
+    "muscleEndurance": { "P96": 20, "P80": 17, "P20": 12, "P4": 8 },
+    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 10, "P4": 7 }
+  },
+  "5_F": {
+    "power": { "P96": 26, "P80": 22, "P20": 16, "P4": 12 },
+    "strength": { "P96": 21, "P80": 17, "P20": 12, "P4": 9 },
+    "muscleEndurance": { "P96": 17, "P80": 15, "P20": 11, "P4": 7 },
+    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 9, "P4": 6 }
+  },
+  "6_M": {
+    "power": { "P96": 32, "P80": 28, "P20": 20, "P4": 16 },
+    "strength": { "P96": 26, "P80": 22, "P20": 16, "P4": 12 },
+    "muscleEndurance": { "P96": 22, "P80": 19, "P20": 14, "P4": 10 },
+    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 12, "P4": 9 }
+  },
+  "6_F": {
+    "power": { "P96": 28, "P80": 24, "P20": 18, "P4": 14 },
+    "strength": { "P96": 23, "P80": 19, "P20": 14, "P4": 11 },
+    "muscleEndurance": { "P96": 19, "P80": 17, "P20": 13, "P4": 9 },
+    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 11, "P4": 8 }
+  },
+  "7_M": {
+    "power": { "P96": 34, "P80": 30, "P20": 22, "P4": 18 },
+    "strength": { "P96": 28, "P80": 24, "P20": 18, "P4": 14 },
+    "muscleEndurance": { "P96": 24, "P80": 21, "P20": 16, "P4": 12 },
+    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 14, "P4": 11 }
+  },
+  "7_F": {
+    "power": { "P96": 30, "P80": 26, "P20": 20, "P4": 16 },
+    "strength": { "P96": 25, "P80": 21, "P20": 16, "P4": 13 },
+    "muscleEndurance": { "P96": 21, "P80": 19, "P20": 15, "P4": 11 },
+    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 13, "P4": 10 }
+  },
+  "8_M": {
+    "power": { "P96": 36, "P80": 32, "P20": 24, "P4": 20 },
+    "strength": { "P96": 30, "P80": 26, "P20": 20, "P4": 16 },
+    "muscleEndurance": { "P96": 26, "P80": 23, "P20": 18, "P4": 14 },
+    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 16, "P4": 13 }
+  },
+  "8_F": {
+    "power": { "P96": 32, "P80": 28, "P20": 22, "P4": 18 },
+    "strength": { "P96": 27, "P80": 23, "P20": 18, "P4": 15 },
+    "muscleEndurance": { "P96": 23, "P80": 21, "P20": 17, "P4": 13 },
+    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 15, "P4": 12 }
+  },
+  "9_M": {
+    "power": { "P96": 38, "P80": 34, "P20": 26, "P4": 22 },
+    "strength": { "P96": 32, "P80": 28, "P20": 22, "P4": 18 },
+    "muscleEndurance": { "P96": 28, "P80": 25, "P20": 20, "P4": 16 },
+    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 18, "P4": 15 }
+  },
+  "9_F": {
+    "power": { "P96": 34, "P80": 30, "P20": 24, "P4": 20 },
+    "strength": { "P96": 29, "P80": 25, "P20": 20, "P4": 17 },
+    "muscleEndurance": { "P96": 25, "P80": 23, "P20": 19, "P4": 15 },
+    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 17, "P4": 14 }
+  },
+  "10_M": {
+    "power": { "P96": 40, "P80": 36, "P20": 28, "P4": 24 },
+    "strength": { "P96": 34, "P80": 30, "P20": 24, "P4": 20 },
+    "muscleEndurance": { "P96": 30, "P80": 27, "P20": 22, "P4": 18 },
+    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 20, "P4": 17 }
+  },
+  "10_F": {
+    "power": { "P96": 36, "P80": 32, "P20": 26, "P4": 22 },
+    "strength": { "P96": 31, "P80": 27, "P20": 22, "P4": 19 },
+    "muscleEndurance": { "P96": 27, "P80": 25, "P20": 21, "P4": 17 },
+    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 19, "P4": 16 }
+  },
+  "11_M": {
+    "power": { "P96": 42, "P80": 38, "P20": 30, "P4": 26 },
+    "strength": { "P96": 36, "P80": 32, "P20": 26, "P4": 22 },
+    "muscleEndurance": { "P96": 32, "P80": 29, "P20": 24, "P4": 20 },
+    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 22, "P4": 19 }
+  },
+  "11_F": {
+    "power": { "P96": 38, "P80": 34, "P20": 28, "P4": 24 },
+    "strength": { "P96": 33, "P80": 29, "P20": 24, "P4": 21 },
+    "muscleEndurance": { "P96": 29, "P80": 27, "P20": 23, "P4": 19 },
+    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 21, "P4": 18 }
+  },
+  "12_M": {
+    "power": { "P96": 44, "P80": 40, "P20": 32, "P4": 28 },
+    "strength": { "P96": 38, "P80": 34, "P20": 28, "P4": 24 },
+    "muscleEndurance": { "P96": 34, "P80": 31, "P20": 26, "P4": 22 },
+    "cardioEndurance": { "P96": 31, "P80": 28, "P20": 24, "P4": 21 }
+  },
+  "12_F": {
+    "power": { "P96": 40, "P80": 36, "P20": 30, "P4": 26 },
+    "strength": { "P96": 35, "P80": 31, "P20": 26, "P4": 23 },
+    "muscleEndurance": { "P96": 31, "P80": 29, "P20": 25, "P4": 21 },
+    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 23, "P4": 20 }
+  }
+};
 
 console.log("Cutoff data loaded successfully:", Object.keys(cutoffData));
-
-function generateFullReportHtml(measurementData: any, analysisData: any): string {
-  const { bmi, age, overallPercentile, percentiles, balanceStatus, aiAnalysis, strengthsText, improvementsText } = analysisData;
-  
-  const getGrade = (percentile: number) => {
-    if (percentile >= 96) return "매우우수";
-    if (percentile >= 80) return "우수";
-    if (percentile >= 20) return "보통";
-    if (percentile >= 4) return "낮음";
-    return "매우낮음";
-  };
-
-  const balanceDifference = Math.abs(measurementData.leftBalance - measurementData.rightBalance);
-
-  return `
-    <div class="complete-report">
-      <h1>체력 분석 결과</h1>
-      
-      <section class="basic-info">
-        <h2>${measurementData.studentName}</h2>
-        <p>측정일: ${measurementData.measureDate}</p>
-        <p>소속: ${measurementData.affiliation}</p>
-        <p>생년월일: ${measurementData.birthDate}</p>
-        <p>키/체중: ${measurementData.height}cm / ${measurementData.weight}kg</p>
-        <p>BMI: ${bmi.toFixed(1)}</p>
-      </section>
-
-      <section class="summary">
-        <h3>체력 요약</h3>
-        <p>종합 백분위: ${Math.round(overallPercentile)}</p>
-        <p>강점: ${strengthsText}</p>
-        <p>보완점: ${improvementsText}</p>
-        <p>한줄 요약: ${aiAnalysis.summary}</p>
-      </section>
-
-      <section class="balance">
-        <h3>좌우 밸런스 분석</h3>
-        <p>왼쪽: ${measurementData.leftBalance}% | 오른쪽: ${measurementData.rightBalance}%</p>
-        <p>상태: ${balanceStatus} (차이: ${balanceDifference.toFixed(1)}%)</p>
-        <p>AI 코멘트: ${aiAnalysis.balanceComment}</p>
-      </section>
-
-      <section class="detailed-scores">
-        <h3>항목별 체력 세부평가</h3>
-        
-        <div class="score-item">
-          <h4>순발력 (5초)</h4>
-          <p>${measurementData.power5s}W | 환산점수: ${Math.round(percentiles['5s'])}</p>
-          <p>등급: ${getGrade(percentiles['5s'])} (${Math.round(percentiles['5s'])}%)</p>
-          <p>${aiAnalysis.explanations.power}</p>
-        </div>
-
-        <div class="score-item">
-          <h4>스프린트 파워 (15초)</h4>
-          <p>${measurementData.power15s}W | 환산점수: ${Math.round(percentiles['15s'])}</p>
-          <p>등급: ${getGrade(percentiles['15s'])} (${Math.round(percentiles['15s'])}%)</p>
-          <p>${aiAnalysis.explanations.strength}</p>
-        </div>
-
-        <div class="score-item">
-          <h4>파워 지속력 (30초)</h4>
-          <p>${measurementData.power30s}W | 환산점수: ${Math.round(percentiles['30s'])}</p>
-          <p>등급: ${getGrade(percentiles['30s'])} (${Math.round(percentiles['30s'])}%)</p>
-          <p>${aiAnalysis.explanations.muscleEndurance}</p>
-        </div>
-
-        <div class="score-item">
-          <h4>근력 (60초)</h4>
-          <p>${measurementData.power60s}W | 환산점수: ${Math.round(percentiles['60s'])}</p>
-          <p>등급: ${getGrade(percentiles['60s'])} (${Math.round(percentiles['60s'])}%)</p>
-          <p>${aiAnalysis.explanations.cardioEndurance}</p>
-        </div>
-
-        ${percentiles['180s'] !== null ? `
-        <div class="score-item">
-          <h4>근지구력 (180초)</h4>
-          <p>${measurementData.power180s || 0}W | 환산점수: ${Math.round(percentiles['180s'])}</p>
-          <p>등급: ${getGrade(percentiles['180s'])} (${Math.round(percentiles['180s'])}%)</p>
-          <p>근지구력이 ${Math.round(percentiles['180s'])}% 수준입니다.</p>
-        </div>
-        ` : ''}
-
-        ${percentiles['300s'] !== null ? `
-        <div class="score-item">
-          <h4>심폐지구력 (300초)</h4>
-          <p>${measurementData.power300s || 0}W | 환산점수: ${Math.round(percentiles['300s'])}</p>
-          <p>등급: ${getGrade(percentiles['300s'])} (${Math.round(percentiles['300s'])}%)</p>
-          <p>심폐지구력이 ${Math.round(percentiles['300s'])}% 수준입니다.</p>
-        </div>
-        ` : ''}
-      </section>
-
-      <section class="comprehensive-analysis">
-        <h3>체력 종합 분석</h3>
-        <h4>AI 종합 해설</h4>
-        ${aiAnalysis.comprehensiveAnalysis.map((analysis: string) => `<p>${analysis}</p>`).join('')}
-        
-        <p><strong>최고 항목:</strong> ${strengthsText.split(', ')[0]}</p>
-        <p><strong>개선 항목:</strong> ${improvementsText.split(', ')[0]}</p>
-      </section>
-
-      <section class="overall-assessment">
-        <h3>종합 평가</h3>
-        <p>${aiAnalysis.overallAssessment}</p>
-      </section>
-
-      <section class="reference">
-        <h3>참고사항</h3>
-        <h4>지도선생님 참고</h4>
-        <p>중점 관리 항목: ${improvementsText}과 좌우균형</p>
-        
-        <h4>보호자 참고</h4>
-        <ul>
-          <li>체력 측정은 5분 내외로 간편하게 진행됩니다</li>
-          <li>성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
-          <li>총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
-        </ul>
-        
-        <div class="metadata">
-          <p>데이터 버전: v2025-05-26 | 보정 지수: 0.67 | 평가 기준: P4/P20/P80/P96</p>
-        </div>
-      </section>
-    </div>
-  `;
-}
 
 function calculateAge(birthDate: string): number {
   const birth = new Date(birthDate);
@@ -206,15 +189,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // 성별과 나이에 따른 데이터 키 생성
       const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
       const genderKey = `${clampedAge}_${measurementData.gender}`;
-      const cutoffs = cutoffData[genderKey]; // 와트바이크 CSV 데이터 사용
+      const cutoffs = cutoffData[genderKey]; // data 중첩 제거
       
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       console.log(`Cutoffs found:`, cutoffs ? "Yes" : "No", cutoffs);
-
-      // CSV 데이터는 이미 W/kg^0.67 단위로 변환된 기준값입니다
-      if (cutoffs) {
-        console.log(`기준값 (W/kg^0.67): P4=${cutoffs.power.P4}, P20=${cutoffs.power.P20}, P80=${cutoffs.power.P80}, P96=${cutoffs.power.P96}`);
-      }
       
       // 사용자 입력: 절대 파워값 (W)
       const absolutePowers = {
@@ -223,10 +201,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": measurementData.power30s,
         "60s": measurementData.power60s,
         "180s": measurementData.power180s || 0,
-        "300s": measurementData.power300s || 0
+        "360s": measurementData.power360s || 0
       };
       
-      // 상대 파워 계산: W / kg^0.67 (아동 체력 평가의 과학적 표준)
+      // 상대 파워 계산: W / kg^POWER_EXPONENT
       const weightPower = Math.pow(measurementData.weight, POWER_EXPONENT);
       console.log(`체중: ${measurementData.weight}kg, 체중^${POWER_EXPONENT}: ${weightPower}`);
       
@@ -236,38 +214,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "30s": absolutePowers["30s"] / weightPower,
         "60s": absolutePowers["60s"] / weightPower,
         "180s": absolutePowers["180s"] / weightPower,
-        "300s": absolutePowers["300s"] / weightPower
+        "360s": absolutePowers["360s"] / weightPower
       };
       
       console.log(`입력된 절대 파워값: 5s=${absolutePowers["5s"]}W, 15s=${absolutePowers["15s"]}W, 30s=${absolutePowers["30s"]}W, 60s=${absolutePowers["60s"]}W`);
       console.log(`계산된 상대 파워값: 5s=${relativePowers["5s"]}, 15s=${relativePowers["15s"]}, 30s=${relativePowers["30s"]}, 60s=${relativePowers["60s"]}`);
       
-      // 새로운 기준값 사용 - finalWattbikeCutoffs에서 직접 가져오기
-      const enduranceCutoffs = {
-        // 180초(근지구력): 새로운 기준값 사용
-        muscleEndurance180s: cutoffs?.longEndurance180s || {
-          P96: Math.round(cutoffs?.cardioEndurance.P96 * 1.2), 
-          P80: Math.round(cutoffs?.cardioEndurance.P80 * 1.2),
-          P20: Math.round(cutoffs?.cardioEndurance.P20 * 1.2),
-          P4: Math.round(cutoffs?.cardioEndurance.P4 * 1.2)
-        },
-        // 300초(심폐지구력): 새로운 기준값 사용
-        cardioEndurance300s: cutoffs?.longEndurance300s || {
-          P96: Math.round(cutoffs?.cardioEndurance.P96 * 0.8),
-          P80: Math.round(cutoffs?.cardioEndurance.P80 * 0.8), 
-          P20: Math.round(cutoffs?.cardioEndurance.P20 * 0.8),
-          P4: Math.round(cutoffs?.cardioEndurance.P4 * 0.8)
-        }
-      };
-
       // Calculate percentiles (including 180s/360s if available)
       const percentiles = {
         "5s": calculatePercentile(relativePowers["5s"], cutoffs?.power),
         "15s": calculatePercentile(relativePowers["15s"], cutoffs?.strength),
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.muscleEndurance),
         "60s": calculatePercentile(relativePowers["60s"], cutoffs?.cardioEndurance),
-        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], enduranceCutoffs.muscleEndurance180s) : null,
-        "300s": absolutePowers["300s"] > 0 ? calculatePercentile(relativePowers["300s"], enduranceCutoffs.cardioEndurance300s) : null
+        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.cardioEndurance) : null,
+        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.cardioEndurance) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
@@ -287,8 +247,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (percentiles["180s"]) {
         categories.push({ name: "근지구력 (180초)", percentile: percentiles["180s"] });
       }
-      if (percentiles["300s"]) {
-        categories.push({ name: "심폐지구력 (300초)", percentile: percentiles["300s"] });
+      if (percentiles["360s"]) {
+        categories.push({ name: "심폐지구력 (360초)", percentile: percentiles["360s"] });
       }
       
       categories.sort((a, b) => b.percentile - a.percentile);
@@ -313,12 +273,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           muscleEndurance: percentiles["30s"],
           cardioEndurance: percentiles["60s"],
           longEndurance180s: percentiles["180s"],
-          longEndurance300s: percentiles["300s"]
+          longEndurance360s: percentiles["360s"]
         },
         advancedPowerData: {
           power180s: absolutePowers["180s"],
-          power300s: absolutePowers["300s"],
-          hasAdvancedData: absolutePowers["180s"] > 0 || absolutePowers["300s"] > 0
+          power360s: absolutePowers["360s"],
+          hasAdvancedData: absolutePowers["180s"] > 0 || absolutePowers["360s"] > 0
         },
         heartRateData,
         balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
@@ -327,114 +287,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
       
       // Create analysis result
-
-      
-      // 강력한 하드코딩 우선순위 로직 (절대 확실)
-      const calculateStrengthsAndImprovementsFixed = () => {
-        const allItems = [
+      // 강점과 보완점 계산
+      const calculateStrengthsAndImprovements = () => {
+        const percentileData = [
           { name: "순발력 (5초)", value: percentiles["5s"] },
           { name: "스프린트 파워 (15초)", value: percentiles["15s"] },
-          { name: "파워 지속력 (30초)", value: percentiles["30s"] },
-          { name: "근력 (60초)", value: percentiles["60s"] }
+          { name: "근력 (30초)", value: percentiles["30s"] },
+          { name: "근지구력 (60초)", value: percentiles["60s"] }
         ];
         
         // 180초, 360초 데이터가 있으면 추가
         if (percentiles["180s"] !== null && percentiles["180s"] !== undefined) {
-          allItems.push({ name: "근지구력 (180초)", value: percentiles["180s"] });
+          percentileData.push({ name: "심폐지구력 (180초)", value: percentiles["180s"] });
         }
-        if (percentiles["300s"] !== null && percentiles["300s"] !== undefined) {
-          allItems.push({ name: "심폐지구력 (300초)", value: percentiles["300s"] });
-        }
-        
-        // 정렬 (높은 순)
-        allItems.sort((a, b) => b.value - a.value);
-        
-        let strengths: string[] = [];
-        let improvements: string[] = [];
-        
-        // 1순위: 96% 이상 → 무조건 강점 (모든 항목)
-        for (const item of allItems) {
-          if (item.value >= 96) {
-            strengths.push(item.name);
-          }
+        if (percentiles["360s"] !== null && percentiles["360s"] !== undefined) {
+          percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
         }
         
-        // 2순위: 4% 미만 → 무조건 보완점 (모든 항목)
-        for (const item of allItems) {
-          if (item.value < 4) {
-            improvements.push(item.name);
-          }
-        }
+        // 강점: 20% 이상인 항목들
+        const strengths = percentileData
+          .filter(item => item.value >= 20)
+          .map(item => item.name);
         
-        // 3순위: 위 조건에 해당하지 않을 때만 상위2개/하위2개 규칙 적용
-        const excellentItems = allItems.filter(item => item.value >= 96);
-        const poorItems = allItems.filter(item => item.value < 4);
-        const hasSpecialCases = excellentItems.length > 0 || poorItems.length > 0;
+        // 보완점: 20% 미만인 항목들 찾기
+        const weakAreas = percentileData.filter(item => item.value < 20);
         
-        if (!hasSpecialCases) {
-          // 상위 2개 강점 (동점 포함)
-          if (allItems.length >= 2) {
-            const secondHighest = allItems[1].value;
-            for (const item of allItems) {
-              if (item.value >= secondHighest && !strengths.includes(item.name)) {
-                strengths.push(item.name);
-              }
-            }
-          }
-          
-          // 하위 2개 보완점 (동점 포함)
-          if (allItems.length >= 2) {
-            const secondLowest = allItems[allItems.length - 2].value;
-            for (const item of allItems) {
-              if (item.value <= secondLowest && !improvements.includes(item.name)) {
-                improvements.push(item.name);
-              }
-            }
-          }
+        let improvements;
+        if (weakAreas.length >= 3) {
+          // 대부분 영역이 약하면 모든 약한 영역 표시
+          improvements = weakAreas.map(item => item.name);
         } else {
-          // 특수 케이스가 있을 때도 상위2개/하위2개 보완 적용
-          // 96% 이상/4% 미만이 아닌 나머지 중에서 상위2개/하위2개 선택
-          const remainingItems = allItems.filter(item => item.value < 96 && item.value >= 4);
-          
-          if (remainingItems.length >= 2) {
-            remainingItems.sort((a, b) => b.value - a.value);
-            
-            // 나머지 중 상위 항목들을 강점에 추가 (부족한 만큼만)
-            if (strengths.length < 2) {
-              const needed = Math.min(2 - strengths.length, remainingItems.length);
-              for (let i = 0; i < needed; i++) {
-                if (!strengths.includes(remainingItems[i].name)) {
-                  strengths.push(remainingItems[i].name);
-                }
-              }
-            }
-            
-            // 나머지 중 하위 항목들을 보완점에 추가 (부족한 만큼만)
-            if (improvements.length < 2) {
-              const needed = Math.min(2 - improvements.length, remainingItems.length);
-              for (let i = remainingItems.length - needed; i < remainingItems.length; i++) {
-                if (i >= 0 && !improvements.includes(remainingItems[i].name)) {
-                  improvements.push(remainingItems[i].name);
-                }
-              }
-            }
-          }
+          // 일부만 약하면 가장 낮은 1-2개만 표시
+          const sorted = [...percentileData].sort((a, b) => a.value - b.value);
+          improvements = sorted.slice(0, 2).map(item => item.name);
         }
-        
-        console.log("=== 강력한 하드코딩 우선순위 로직 ===");
-        console.log(`96% 이상: ${excellentItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`4% 미만: ${poorItems.map(i => `${i.name}=${i.value}%`).join(', ')}`);
-        console.log(`특수케이스 존재: ${hasSpecialCases ? 'YES' : 'NO'}`);
-        console.log(`최종 강점: ${strengths.join(', ')}`);
-        console.log(`최종 보완점: ${improvements.join(', ')}`);
         
         return {
-          strengths: strengths.join(", "),
+          strengths: strengths.length > 0 ? strengths.join(", ") : "집중 훈련이 필요합니다",
           improvements: improvements.join(", ")
         };
       };
       
-      const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovementsFixed();
+      const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovements();
 
       const analysisResult = await storage.createAnalysisResult({
         measurementId: measurement.id,
@@ -446,7 +340,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         percentile30s: percentiles["30s"],
         percentile60s: percentiles["60s"],
         percentile180s: percentiles["180s"],
-        percentile300s: percentiles["300s"],
+        percentile360s: percentiles["360s"],
         maxBpm: heartRateData.maxBpm,
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
@@ -460,17 +354,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
         overallAssessment: aiAnalysis.overallAssessment,
         strengths: strengthsText,
-        improvements: improvementsText,
-        fullReportHtml: generateFullReportHtml(measurementData, {
-          bmi,
-          age,
-          overallPercentile,
-          percentiles,
-          balanceStatus,
-          aiAnalysis,
-          strengthsText,
-          improvementsText
-        })
+        improvements: improvementsText
       });
       
       console.log("=== 측정 데이터 저장 완료 ===");
@@ -481,8 +365,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         measurement,
         analysis: analysisResult,
-        strengths: strengthsText.split(", "),
-        improvements: improvementsText.split(", ")
+        strengths,
+        improvements
       });
       
     } catch (error) {
@@ -509,9 +393,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const analysis = await storage.getAnalysisResult(measurement.id);
           return {
             measurement,
-            analysis,
-            strengths: analysis?.strengths ? analysis.strengths.split(", ") : [],
-            improvements: analysis?.improvements ? analysis.improvements.split(", ") : []
+            analysis
           };
         })
       );
@@ -759,18 +641,6 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     } catch (error) {
       console.error("이미지 생성 오류:", error);
       res.status(500).json({ error: "이미지 생성에 실패했습니다." });
-    }
-  });
-
-  // 측정 기록 삭제 API
-  app.delete("/api/measurements/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      await storage.deleteMeasurement(id);
-      res.json({ success: true });
-    } catch (error) {
-      console.error("측정 기록 삭제 오류:", error);
-      res.status(500).json({ error: "삭제에 실패했습니다." });
     }
   });
 

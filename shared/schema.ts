@@ -28,7 +28,7 @@ export const measurements = pgTable("measurements", {
   avgHeartRate: real("avg_heart_rate").notNull(),
   // 고급 측정 (선택사항)
   power180s: real("power_180s"),
-  power300s: real("power_300s"), // 5분 심폐지구력 (기존 360초에서 변경)
+  power360s: real("power_360s"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -43,7 +43,7 @@ export const analysisResults = pgTable("analysis_results", {
   percentile30s: real("percentile_30s").notNull(),
   percentile60s: real("percentile_60s").notNull(),
   percentile180s: real("percentile_180s"),
-  percentile300s: real("percentile_300s"),
+  percentile360s: real("percentile_360s"),
   maxBpm: real("max_bpm"),
   avgBpm: real("avg_bpm"),
   restingBpm: real("resting_bpm"),
@@ -58,7 +58,6 @@ export const analysisResults = pgTable("analysis_results", {
   overallAssessment: text("overall_assessment"),
   strengths: text("strengths"),
   improvements: text("improvements"),
-  fullReportHtml: text("full_report_html"), // 전체 리포트 HTML 저장
 });
 
 export const inviteCodes = pgTable("invite_codes", {

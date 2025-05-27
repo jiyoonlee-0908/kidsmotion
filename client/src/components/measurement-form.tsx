@@ -501,7 +501,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <div>
                         <p className="text-sm text-blue-800 font-medium">고급 측정 안내</p>
                         <p className="text-xs text-blue-700 mt-1">
-                          180초(근지구력), 300초(심폐지구력) 측정과 심박수 데이터를 추가로 수집합니다. 
+                          180초(근지구력), 360초(심폐지구력) 측정과 심박수 데이터를 추가로 수집합니다. 
                           10세 이상 권장하지만, 모든 연령에서 선택적으로 실시 가능합니다.
                         </p>
                       </div>
@@ -536,12 +536,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     
                     <FormField
                       control={form.control}
-                      name="power300s"
+                      name="power360s"
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2 text-sm font-medium text-gray-700">
                             <Timer className="w-4 h-4 text-green-600" />
-                            300초 심폐지구력 (W)
+                            360초 심폐지구력 (W)
                           </FormLabel>
                           <FormControl>
                             <Input
@@ -552,7 +552,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
                             />
                           </FormControl>
-                          <p className="text-xs text-gray-500">5분간 유산소 영역</p>
+                          <p className="text-xs text-gray-500">6분간 유산소 영역</p>
                           <FormMessage />
                         </FormItem>
                       )}

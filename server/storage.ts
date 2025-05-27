@@ -1,6 +1,4 @@
 import { measurements, analysisResults, inviteCodes, type Measurement, type InsertMeasurement, type AnalysisResult, type InsertAnalysisResult, users, type User, type InsertUser, type InviteCode, type InsertInviteCode } from "@shared/schema";
-import { db } from "./db";
-import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -43,8 +41,6 @@ export class MemStorage implements IStorage {
     this.currentMeasurementId = 1;
     this.currentAnalysisId = 1;
     this.currentInviteCodeId = 1;
-    
-
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -70,7 +66,7 @@ export class MemStorage implements IStorage {
       ...insertMeasurement, 
       id,
       power180s: insertMeasurement.power180s || null,
-      power300s: insertMeasurement.power300s || null,
+      power360s: insertMeasurement.power360s || null,
       createdAt: new Date()
     };
     this.measurements.set(id, measurement);
@@ -109,7 +105,7 @@ export class MemStorage implements IStorage {
       ...insertResult, 
       id,
       percentile180s: insertResult.percentile180s || null,
-      percentile300s: insertResult.percentile300s || null,
+      percentile360s: insertResult.percentile360s || null,
       maxBpm: insertResult.maxBpm || null,
       avgBpm: insertResult.avgBpm || null,
       restingBpm: insertResult.restingBpm || null,
@@ -203,159 +199,4 @@ export class MemStorage implements IStorage {
   }
 }
 
-export class DatabaseStorage implements IStorage {
-  async getUser(id: number): Promise<User | undefined> {
-    try {
-      const [user] = await db.select().from(users).where(eq(users.id, id));
-      return user || undefined;
-    } catch (error) {
-      console.error('Error getting user:', error);
-      return undefined;
-    }
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    try {
-      const [user] = await db.select().from(users).where(eq(users.username, username));
-      return user || undefined;
-    } catch (error) {
-      console.error('Error getting user by username:', error);
-      return undefined;
-    }
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(insertUser)
-      .returning();
-    return user;
-  }
-
-  async createMeasurement(insertMeasurement: InsertMeasurement): Promise<Measurement> {
-    const [measurement] = await db
-      .insert(measurements)
-      .values(insertMeasurement)
-      .returning();
-    return measurement;
-  }
-
-  async getMeasurement(id: number): Promise<Measurement | undefined> {
-    try {
-      const [measurement] = await db.select().from(measurements).where(eq(measurements.id, id));
-      return measurement || undefined;
-    } catch (error) {
-      console.error('Error getting measurement:', error);
-      return undefined;
-    }
-  }
-
-  async getAllMeasurements(): Promise<Measurement[]> {
-    try {
-      return await db.select().from(measurements).orderBy(measurements.id);
-    } catch (error) {
-      console.error('Error getting all measurements:', error);
-      return [];
-    }
-  }
-
-  async deleteMeasurement(id: number): Promise<void> {
-    try {
-      await db.delete(analysisResults).where(eq(analysisResults.measurementId, id));
-      await db.delete(measurements).where(eq(measurements.id, id));
-    } catch (error) {
-      console.error('Error deleting measurement:', error);
-    }
-  }
-
-  async createAnalysisResult(insertResult: InsertAnalysisResult): Promise<AnalysisResult> {
-    const [result] = await db
-      .insert(analysisResults)
-      .values({
-        ...insertResult,
-        fullReportHtml: insertResult.fullReportHtml || null
-      })
-      .returning();
-    return result;
-  }
-
-  async getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined> {
-    try {
-      const [result] = await db.select().from(analysisResults).where(eq(analysisResults.measurementId, measurementId));
-      return result || undefined;
-    } catch (error) {
-      console.error('Error getting analysis result:', error);
-      return undefined;
-    }
-  }
-
-  async getMeasurementsByStudent(studentName: string): Promise<Measurement[]> {
-    try {
-      return await db.select().from(measurements)
-        .where(eq(measurements.studentName, studentName))
-        .orderBy(measurements.id);
-    } catch (error) {
-      console.error('Error getting measurements by student:', error);
-      return [];
-    }
-  }
-
-  async searchMeasurements(criteria: {
-    studentName?: string;
-    affiliation?: string;
-    birthDate?: string;
-    gender?: string;
-  }): Promise<Measurement[]> {
-    try {
-      let query = db.select().from(measurements);
-      
-      if (criteria.studentName) {
-        query = query.where(eq(measurements.studentName, criteria.studentName));
-      }
-      if (criteria.affiliation) {
-        query = query.where(eq(measurements.affiliation, criteria.affiliation));
-      }
-      if (criteria.birthDate) {
-        query = query.where(eq(measurements.birthDate, criteria.birthDate));
-      }
-      if (criteria.gender) {
-        query = query.where(eq(measurements.gender, criteria.gender));
-      }
-
-      return await query.orderBy(measurements.id);
-    } catch (error) {
-      console.error('Error searching measurements:', error);
-      return [];
-    }
-  }
-
-  async createInviteCode(insertInviteCode: InsertInviteCode): Promise<InviteCode> {
-    const [inviteCode] = await db
-      .insert(inviteCodes)
-      .values(insertInviteCode)
-      .returning();
-    return inviteCode;
-  }
-
-  async getInviteCode(code: string): Promise<InviteCode | undefined> {
-    try {
-      const [inviteCode] = await db.select().from(inviteCodes).where(eq(inviteCodes.code, code));
-      return inviteCode || undefined;
-    } catch (error) {
-      console.error('Error getting invite code:', error);
-      return undefined;
-    }
-  }
-
-  async markInviteCodeAsUsed(code: string): Promise<void> {
-    try {
-      await db.update(inviteCodes)
-        .set({ isUsed: "true", usedAt: new Date() })
-        .where(eq(inviteCodes.code, code));
-    } catch (error) {
-      console.error('Error marking invite code as used:', error);
-    }
-  }
-}
-
-export const storage = new DatabaseStorage();
+export const storage = new MemStorage();
