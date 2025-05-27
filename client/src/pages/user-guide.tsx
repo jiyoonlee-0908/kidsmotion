@@ -150,7 +150,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                 <div className="bg-blue-50 p-6 rounded-lg">
                   <h4 className="font-semibold text-blue-800 mb-3 flex items-center space-x-2">
                     <Clock className="w-5 h-5" />
-                    <span>측정 시간: 총 5분 (기본 4항목 + 선택 2항목)</span>
+                    <span>기본 4항목 5분 소요, 선택 2항목은 추가 시간 소요될 수 있음</span>
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div className="flex items-center justify-between p-3 bg-white rounded border">
