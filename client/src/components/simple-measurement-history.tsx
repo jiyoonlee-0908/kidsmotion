@@ -150,17 +150,20 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               {measurements.map((measurement) => (
                 <div
                   key={measurement.id}
-                  className="border rounded-lg p-6 hover:bg-gray-50 transition-colors"
+                  className="border rounded-lg p-4 hover:bg-gray-50 transition-colors"
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 
-                          className="text-lg font-semibold text-[#7B5CFF] cursor-pointer hover:underline"
-                          onClick={() => setSelectedMeasurement(measurement)}
-                        >
-                          {measurement.studentName}
-                        </h3>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 flex-1">
+                      {/* 이름 (클릭 가능, 고정 너비) */}
+                      <h3 
+                        className="text-lg font-semibold text-[#7B5CFF] cursor-pointer hover:underline min-w-[80px]"
+                        onClick={() => setSelectedMeasurement(measurement)}
+                      >
+                        {measurement.studentName}
+                      </h3>
+                      
+                      {/* 나이, 성별 */}
+                      <div className="flex items-center gap-1">
                         <Badge variant="outline" className="text-xs">
                           {measurement.age}세
                         </Badge>
@@ -168,41 +171,31 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           {measurement.gender === 'M' ? '남' : '여'}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-1">
-                        소속: {measurement.affiliation}
-                      </p>
-                      <p className="text-sm text-gray-600">
-                        측정일: {measurement.measureDate}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <Badge className={`mb-2 ${getGradeColor(measurement.overallGrade)}`}>
+                      
+                      {/* 소속 */}
+                      <span className="text-sm text-gray-600 min-w-[100px]">
+                        {measurement.affiliation}
+                      </span>
+                      
+                      {/* 측정일 */}
+                      <span className="text-sm text-gray-600">
+                        {measurement.measureDate}
+                      </span>
+                      
+                      {/* 등급 */}
+                      <Badge className={`${getGradeColor(measurement.overallGrade)}`}>
                         {measurement.overallGrade} ({measurement.overallPercentile}%)
                       </Badge>
                     </div>
-                  </div>
-
-
-
-                  <div className="flex justify-end gap-2">
-                    {onViewDetails && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onViewDetails(measurement)}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        상세보기
-                      </Button>
-                    )}
+                    
+                    {/* 삭제 버튼 */}
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleDelete(measurement.id)}
-                      className="text-red-600 hover:text-red-700"
+                      className="text-red-600 hover:text-red-700 ml-4"
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      삭제
+                      <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>
