@@ -388,9 +388,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log("검색 요청:", { studentName, affiliation, birthDate, gender });
       
-      // 빈 이름이면 모든 데이터 반환
+      // 빈 이름이거나 ALL_DATA면 모든 데이터 반환
       let measurements;
-      if (!studentName || studentName === '') {
+      if (!studentName || studentName === '' || studentName === 'ALL_DATA') {
         measurements = await storage.getAllMeasurements();
         console.log("모든 측정 데이터:", measurements.length + "개");
       } else {

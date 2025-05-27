@@ -78,8 +78,12 @@ export class MemStorage implements IStorage {
   }
 
   async getAllMeasurements(): Promise<Measurement[]> {
-    return Array.from(this.measurements.values())
-      .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
+    const allMeasurements = Array.from(this.measurements.values());
+    console.log("전체 저장된 측정 데이터:", allMeasurements.length + "개");
+    allMeasurements.forEach((m, index) => {
+      console.log(`${index + 1}. ${m.studentName} (ID: ${m.id})`);
+    });
+    return allMeasurements.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
   }
 
   async deleteMeasurement(id: number): Promise<void> {

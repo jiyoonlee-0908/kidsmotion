@@ -39,14 +39,14 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
   const fetchAllMeasurements = async () => {
     setIsLoading(true);
     try {
-      // 오로라 데이터 직접 검색해보기
-      const response = await fetch('/api/measurements/search?studentName=오로라');
+      // 모든 데이터를 가져오기 위해 특별한 검색어 사용
+      const response = await fetch('/api/measurements/search?studentName=ALL_DATA');
       if (response.ok) {
         const historyData = await response.json();
         setAllMeasurements(historyData);
-        console.log('오로라 데이터 찾음:', historyData);
+        console.log('전체 데이터:', historyData);
       } else {
-        console.log('오로라 데이터 검색 실패');
+        console.log('데이터 로딩 실패, 빈 배열로 설정');
         setAllMeasurements([]);
       }
     } catch (error) {
