@@ -708,8 +708,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <ul className="space-y-2 text-gray-700 text-sm">
                     <li>• <strong>최소 공간:</strong> 2m × 1.5m (3㎡)</li>
                     <li>• <strong>전력 불필요:</strong> 자가충전으로 운영</li>
-                    <li>• <strong>소음 없음:</strong> 에어 저항 방식</li>
-                    <li>• <strong>먼지 방지:</strong> 밀폐형 디자인</li>
                     <li>• <strong>이동 가능:</strong> 바퀴 달린 이동형</li>
                   </ul>
                 </div>
@@ -743,7 +741,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <div className="text-2xl mb-2">🏛️</div>
                     <h5 className="font-semibold text-purple-700">보건소 패키지</h5>
                     <ul className="text-xs text-gray-600 mt-2">
-                      <li>• 공무원 교육 과정</li>
                       <li>• 지역 통계 리포트</li>
                       <li>• 정책 수립 자료</li>
                       <li>• 예산 효과 분석</li>
