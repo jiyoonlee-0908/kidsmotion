@@ -448,10 +448,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <RadarChart 
                 data={{
                   balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
-                  power: analysis.percentile5s,
-                  strength: analysis.percentile15s,
-                  muscleEndurance: analysis.percentile30s,
-                  cardioEndurance: analysis.percentile60s
+                  power: analysis.percentile5s,        // 순발력 (5초)
+                  sprintPower: analysis.percentile15s, // 스프린트 파워 (15초)
+                  powerEndurance: analysis.percentile30s, // 파워 지속력 (30초) 
+                  strength: analysis.percentile60s     // 근력 (60초)
                 }}
               />
             </div>
