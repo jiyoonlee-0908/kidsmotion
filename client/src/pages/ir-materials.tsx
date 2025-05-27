@@ -530,8 +530,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 학부모 불안감 해소 */}
         <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Users className="w-6 h-6 mr-3 text-pink-600" />
+            <CardTitle className="text-2xl">
               💡 기관 매출 30% 증가하는 비밀 무기
             </CardTitle>
           </CardHeader>
@@ -608,8 +607,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 투자자 예상 질문 & 답변 */}
         <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
           <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Target className="w-6 h-6 mr-3 text-orange-600" />
+            <CardTitle className="text-2xl">
               🔥 투자자가 묻기 전에 미리 답하는 FAQ
             </CardTitle>
           </CardHeader>
