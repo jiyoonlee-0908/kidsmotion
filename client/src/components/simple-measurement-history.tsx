@@ -637,6 +637,71 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   </div>
                 </CardContent>
               </Card>
+
+              {/* 운동 추천 및 안내사항 */}
+              <Card className="fitness-card">
+                <CardContent>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Trophy className="text-emerald-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900">운동 추천 및 안내사항</h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-blue-800 mb-3">🏃‍♀️ 권장 운동</h4>
+                      <ul className="space-y-2 text-sm text-blue-700">
+                        <li>• 달리기, 줄넘기 (순발력 향상)</li>
+                        <li>• 스쿼트, 런지 (하체 근력 강화)</li>
+                        <li>• 플랭크, 버티기 (코어 근지구력)</li>
+                        <li>• 자전거 타기 (심폐지구력)</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="bg-green-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-green-800 mb-3">📋 측정 안내</h4>
+                      <ul className="space-y-2 text-sm text-green-700">
+                        <li>• 3-6개월 주기로 재측정 권장</li>
+                        <li>• 충분한 휴식 후 측정 필요</li>
+                        <li>• 꾸준한 운동으로 체력 향상 가능</li>
+                        <li>• 개인차를 고려한 단계적 훈련</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-yellow-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-yellow-800 mb-3">💡 KidsMotion 소개</h4>
+                      <div className="space-y-2 text-sm text-yellow-700">
+                        <p className="font-medium">아동 전용 체력 측정 시스템</p>
+                        <ul className="space-y-1 text-gray-600">
+                          <li>• 체력 측정은 5분 내외로 간편하게 진행됩니다</li>
+                          <li>• 성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
+                          <li>• 총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 mb-3">측정 기준 정보</h4>
+                      <div className="space-y-2 text-xs text-gray-600">
+                        <div className="flex justify-between">
+                          <span>데이터 버전:</span>
+                          <span>v2025-05-26</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>보정 지수:</span>
+                          <span>0.67</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>평가 기준:</span>
+                          <span>P4/P20/P80/P96</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           )}
         </DialogContent>
