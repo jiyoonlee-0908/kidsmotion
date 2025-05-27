@@ -438,7 +438,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">강점</span>
                       <p className="font-semibold text-green-600">
-                        {selectedMeasurement.strengths || "집중 훈련이 필요합니다"}
+                        {selectedAnalysis?.strengths || "집중 훈련이 필요합니다"}
                       </p>
                     </div>
                   </div>
@@ -446,7 +446,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">보완점</span>
                       <p className="font-semibold text-orange-600">
-                        {selectedMeasurement.improvements || "측정 필요"}
+                        {selectedAnalysis?.improvements || "측정 필요"}
                       </p>
                     </div>
                   </div>
@@ -711,7 +711,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 삭제
               </Button>
             </div>
-          </div>
+            );
+          })()}
         </DialogContent>
       </Dialog>
     </div>
