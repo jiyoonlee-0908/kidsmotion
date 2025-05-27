@@ -6,6 +6,8 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createMeasurement(measurement: InsertMeasurement): Promise<Measurement>;
   getMeasurement(id: number): Promise<Measurement | undefined>;
+  getAllMeasurements(): Promise<Measurement[]>;
+  deleteMeasurement(id: number): Promise<void>;
   createAnalysisResult(result: InsertAnalysisResult): Promise<AnalysisResult>;
   getAnalysisResult(measurementId: number): Promise<AnalysisResult | undefined>;
   getMeasurementsByStudent(studentName: string): Promise<Measurement[]>;
@@ -63,6 +65,8 @@ export class MemStorage implements IStorage {
     const measurement: Measurement = { 
       ...insertMeasurement, 
       id,
+      power180s: insertMeasurement.power180s || null,
+      power360s: insertMeasurement.power360s || null,
       createdAt: new Date()
     };
     this.measurements.set(id, measurement);
@@ -71,6 +75,24 @@ export class MemStorage implements IStorage {
 
   async getMeasurement(id: number): Promise<Measurement | undefined> {
     return this.measurements.get(id);
+  }
+
+  async getAllMeasurements(): Promise<Measurement[]> {
+    return Array.from(this.measurements.values())
+      .sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
+  }
+
+  async deleteMeasurement(id: number): Promise<void> {
+    // 측정 데이터 삭제
+    this.measurements.delete(id);
+    
+    // 관련된 분석 결과도 삭제
+    const analysisToDelete = Array.from(this.analysisResults.entries())
+      .filter(([_, analysis]) => analysis.measurementId === id);
+    
+    for (const [analysisId, _] of analysisToDelete) {
+      this.analysisResults.delete(analysisId);
+    }
   }
 
   async createAnalysisResult(insertResult: InsertAnalysisResult): Promise<AnalysisResult> {

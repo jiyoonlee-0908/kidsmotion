@@ -346,6 +346,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // 모든 측정 데이터 가져오기
+  app.get("/api/measurements/all", async (req, res) => {
+    try {
+      const measurements = await storage.getAllMeasurements();
+      res.json(measurements);
+    } catch (error) {
+      console.error("Error fetching all measurements:", error);
+      res.status(500).json({ error: "Failed to retrieve all measurements" });
+    }
+  });
+
+  // 측정 데이터 삭제
+  app.delete("/api/measurements/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteMeasurement(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting measurement:", error);
+      res.status(500).json({ error: "Failed to delete measurement" });
+    }
+  });
+
   app.get("/api/measurements/student/:name", async (req, res) => {
     try {
       const studentName = decodeURIComponent(req.params.name);

@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, TrendingUp, TrendingDown, Minus, History, Target, Award, ChevronRight } from "lucide-react";
-import { Line, LineChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Trash2, Search, Download, Database, Calendar, User, Building } from "lucide-react";
 import type { Measurement, AnalysisResult } from "@shared/schema";
+import { useToast } from "@/hooks/use-toast";
 
 interface MeasurementHistoryProps {
   studentName: string;
@@ -17,24 +19,32 @@ interface HistoryData {
 }
 
 export default function MeasurementHistory({ studentName, currentMeasurement }: MeasurementHistoryProps) {
-  const [history, setHistory] = useState<HistoryData[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedMetric, setSelectedMetric] = useState<'power' | 'strength' | 'muscleEndurance' | 'cardioEndurance'>('power');
+  const [allMeasurements, setAllMeasurements] = useState<HistoryData[]>([]);
+  const [filteredMeasurements, setFilteredMeasurements] = useState<HistoryData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchName, setSearchName] = useState('');
+  const [searchAffiliation, setSearchAffiliation] = useState('');
+  const [searchGender, setSearchGender] = useState('');
+  const [searchAgeRange, setSearchAgeRange] = useState('');
+  const { toast } = useToast();
 
   useEffect(() => {
-    if (studentName) {
-      fetchHistory();
-    }
-  }, [studentName]);
+    fetchAllMeasurements();
+  }, []);
 
-  const fetchHistory = async () => {
+  useEffect(() => {
+    filterMeasurements();
+  }, [allMeasurements, searchName, searchAffiliation, searchGender, searchAgeRange]);
+
+  const fetchAllMeasurements = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/measurements/student/${encodeURIComponent(studentName)}`);
+      // 모든 측정 데이터 가져오기
+      const response = await fetch('/api/measurements/all');
       if (response.ok) {
         const measurements = await response.json();
         
-        // Get analysis results for each measurement
+        // 각 측정에 대한 분석 결과도 가져오기
         const historyWithAnalysis = await Promise.all(
           measurements.map(async (measurement: Measurement) => {
             try {
@@ -50,92 +60,108 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
           })
         );
 
-        setHistory(historyWithAnalysis.filter(Boolean) as HistoryData[]);
+        const validHistory = historyWithAnalysis.filter(Boolean) as HistoryData[];
+        setAllMeasurements(validHistory);
       }
     } catch (error) {
-      console.error('Error fetching history:', error);
+      console.error('Error fetching all measurements:', error);
+      toast({
+        title: "데이터 로딩 실패",
+        description: "측정 데이터를 불러오는데 실패했습니다.",
+        variant: "destructive",
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getGrowthTrend = () => {
-    if (history.length < 2) return null;
-    
-    const recent = history[history.length - 1];
-    const previous = history[history.length - 2];
-    
-    const currentValue = recent.measurement[selectedMetric];
-    const previousValue = previous.measurement[selectedMetric];
-    
-    const change = currentValue - previousValue;
-    const changePercent = ((change / previousValue) * 100).toFixed(1);
-    
-    return {
-      change,
-      changePercent,
-      isPositive: change > 0,
-      isNeutral: Math.abs(change) < 1
-    };
+  const filterMeasurements = () => {
+    let filtered = [...allMeasurements];
+
+    if (searchName) {
+      filtered = filtered.filter(item => 
+        item.measurement.studentName.toLowerCase().includes(searchName.toLowerCase())
+      );
+    }
+
+    if (searchAffiliation) {
+      filtered = filtered.filter(item => 
+        item.measurement.affiliation.toLowerCase().includes(searchAffiliation.toLowerCase())
+      );
+    }
+
+    if (searchGender) {
+      filtered = filtered.filter(item => item.measurement.gender === searchGender);
+    }
+
+    if (searchAgeRange) {
+      filtered = filtered.filter(item => {
+        const age = item.analysis.age;
+        switch (searchAgeRange) {
+          case '6-8': return age >= 6 && age <= 8;
+          case '9-11': return age >= 9 && age <= 11;
+          case '12-14': return age >= 12 && age <= 14;
+          case '15-17': return age >= 15 && age <= 17;
+          default: return true;
+        }
+      });
+    }
+
+    setFilteredMeasurements(filtered);
   };
 
-  const getChartData = () => {
-    return history.map((item, index) => ({
-      date: new Date(item.measurement.createdAt).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }),
-      [selectedMetric]: item.measurement[selectedMetric],
-      percentile: item.analysis.percentiles[selectedMetric],
-      overallPercentile: item.analysis.overallPercentile
-    }));
+  const deleteMeasurement = async (measurementId: number) => {
+    if (!confirm('정말로 이 측정 데이터를 삭제하시겠습니까?')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/measurements/${measurementId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        toast({
+          title: "삭제 완료",
+          description: "측정 데이터가 성공적으로 삭제되었습니다.",
+        });
+        // 데이터 다시 불러오기
+        fetchAllMeasurements();
+      } else {
+        throw new Error('삭제 실패');
+      }
+    } catch (error) {
+      toast({
+        title: "삭제 실패",
+        description: "측정 데이터 삭제에 실패했습니다.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const getMetricDisplayName = (metric: string) => {
-    const names = {
-      power: '파워',
-      strength: '근력', 
-      muscleEndurance: '근지구력',
-      cardioEndurance: '심폐지구력'
-    };
-    return names[metric as keyof typeof names] || metric;
+  const getGradeFromPercentile = (percentile: number): string => {
+    if (percentile >= 80) return "매우우수";
+    if (percentile >= 60) return "우수";
+    if (percentile >= 40) return "보통";
+    if (percentile >= 20) return "낮음";
+    return "매우낮음";
   };
 
-  const getPeerComparison = () => {
-    if (!currentMeasurement) return null;
-    
-    // Calculate peer averages (mock data - replace with real peer data)
-    const peerAverages = {
-      power: currentMeasurement.age <= 8 ? 120 : currentMeasurement.age <= 10 ? 180 : 250,
-      strength: currentMeasurement.age <= 8 ? 80 : currentMeasurement.age <= 10 ? 120 : 160,
-      muscleEndurance: currentMeasurement.age <= 8 ? 50 : currentMeasurement.age <= 10 ? 75 : 100,
-      cardioEndurance: currentMeasurement.age <= 8 ? 40 : currentMeasurement.age <= 10 ? 60 : 80
-    };
-
-    return Object.entries(peerAverages).map(([metric, peerAvg]) => {
-      const myValue = currentMeasurement[metric as keyof typeof peerAverages];
-      const diff = myValue - peerAvg;
-      const diffPercent = ((diff / peerAvg) * 100).toFixed(1);
-      
-      return {
-        metric,
-        myValue,
-        peerAvg,
-        diff,
-        diffPercent,
-        isBetter: diff > 0
-      };
-    });
+  const getGradeColor = (percentile: number): string => {
+    if (percentile >= 80) return "bg-purple-100 text-purple-800";
+    if (percentile >= 60) return "bg-blue-100 text-blue-800";
+    if (percentile >= 40) return "bg-green-100 text-green-800";
+    if (percentile >= 20) return "bg-yellow-100 text-yellow-800";
+    return "bg-red-100 text-red-800";
   };
-
-  const trend = getGrowthTrend();
-  const chartData = getChartData();
-  const peerComparison = getPeerComparison();
 
   if (isLoading) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <History className="w-5 h-5" />
-            측정 기록 로딩 중...
+            <Database className="w-5 h-5" />
+            전체 측정 기록 로딩 중...
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -150,167 +176,179 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
 
   return (
     <div className="space-y-6">
-      {/* Growth Summary */}
-      {trend && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-green-600" />
-              성장 현황
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['power', 'strength', 'muscleEndurance', 'cardioEndurance'].map((metric) => {
-                const current = history[history.length - 1]?.measurement[metric as keyof Measurement] || 0;
-                const previous = history[history.length - 2]?.measurement[metric as keyof Measurement] || 0;
-                const change = current - previous;
-                const isPositive = change > 0;
-                
-                return (
-                  <div key={metric} className="text-center p-3 bg-gray-50 rounded-lg">
-                    <div className="text-sm text-gray-600 mb-1">{getMetricDisplayName(metric)}</div>
-                    <div className="text-xl font-bold text-gray-900">{current}W</div>
-                    <div className={`text-sm flex items-center justify-center gap-1 ${
-                      isPositive ? 'text-green-600' : change === 0 ? 'text-gray-500' : 'text-red-500'
-                    }`}>
-                      {isPositive ? <TrendingUp className="w-3 h-3" /> : 
-                       change === 0 ? <Minus className="w-3 h-3" /> : 
-                       <TrendingDown className="w-3 h-3" />}
-                      {change > 0 ? '+' : ''}{change.toFixed(0)}W
-                    </div>
-                  </div>
-                );
-              })}
+      {/* 검색 필터 */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Search className="w-5 h-5" />
+            검색 및 필터
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label className="text-sm font-medium mb-2 block">학생 이름</label>
+              <Input
+                placeholder="이름으로 검색..."
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />
             </div>
-          </CardContent>
-        </Card>
-      )}
+            <div>
+              <label className="text-sm font-medium mb-2 block">소속</label>
+              <Input
+                placeholder="소속으로 검색..."
+                value={searchAffiliation}
+                onChange={(e) => setSearchAffiliation(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">성별</label>
+              <Select value={searchGender} onValueChange={setSearchGender}>
+                <SelectTrigger>
+                  <SelectValue placeholder="성별 선택" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">전체</SelectItem>
+                  <SelectItem value="M">남성</SelectItem>
+                  <SelectItem value="F">여성</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-2 block">연령대</label>
+              <Select value={searchAgeRange} onValueChange={setSearchAgeRange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="연령대 선택" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">전체</SelectItem>
+                  <SelectItem value="6-8">6-8세</SelectItem>
+                  <SelectItem value="9-11">9-11세</SelectItem>
+                  <SelectItem value="12-14">12-14세</SelectItem>
+                  <SelectItem value="15-17">15-17세</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          <div className="mt-4 flex justify-between items-center">
+            <span className="text-sm text-gray-600">
+              총 {allMeasurements.length}건 중 {filteredMeasurements.length}건 표시
+            </span>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchName('');
+                setSearchAffiliation('');
+                setSearchGender('');
+                setSearchAgeRange('');
+              }}
+            >
+              필터 초기화
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Progress Chart */}
+      {/* 측정 데이터 목록 */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span className="flex items-center gap-2">
-              <Calendar className="w-5 h-5" />
-              성장 그래프
+              <Database className="w-5 h-5" />
+              전체 측정 기록
             </span>
-            <div className="flex gap-2">
-              {['power', 'strength', 'muscleEndurance', 'cardioEndurance'].map((metric) => (
-                <Button
-                  key={metric}
-                  variant={selectedMetric === metric ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedMetric(metric as any)}
-                >
-                  {getMetricDisplayName(metric)}
-                </Button>
-              ))}
-            </div>
+            <Button variant="outline" size="sm">
+              <Download className="w-4 h-4 mr-2" />
+              CSV 내보내기
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={300}>
-              <AreaChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip 
-                  formatter={(value, name) => [
-                    `${value}W`,
-                    name === selectedMetric ? getMetricDisplayName(selectedMetric) : name
-                  ]}
-                />
-                <Area 
-                  type="monotone" 
-                  dataKey={selectedMetric} 
-                  stroke="#7B5CFF" 
-                  fill="#7B5CFF" 
-                  fillOpacity={0.1}
-                  strokeWidth={3}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+          {filteredMeasurements.length > 0 ? (
+            <div className="space-y-4">
+              {filteredMeasurements.map((item) => (
+                <div
+                  key={item.measurement.id}
+                  className="border rounded-lg p-6 hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-lg font-semibold">{item.measurement.studentName}</h3>
+                        <Badge variant="outline" className="text-xs">
+                          {item.analysis.age}세
+                        </Badge>
+                        <Badge variant="outline" className="text-xs">
+                          {item.measurement.gender === 'M' ? '남성' : '여성'}
+                        </Badge>
+                        <Badge className={`text-xs ${getGradeColor(item.analysis.overallPercentile)}`}>
+                          {getGradeFromPercentile(item.analysis.overallPercentile)}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                        <span className="flex items-center gap-1">
+                          <Building className="w-4 h-4" />
+                          {item.measurement.affiliation}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {item.measurement.measureDate}
+                        </span>
+                        <span>
+                          {item.measurement.height}cm / {item.measurement.weight}kg
+                        </span>
+                      </div>
+                    </div>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => deleteMeasurement(item.measurement.id)}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-purple-50 p-3 rounded-lg">
+                      <div className="text-xs text-purple-600 mb-1">5초 최대파워</div>
+                      <div className="text-lg font-bold text-purple-800">{item.measurement.power5s}W</div>
+                      <div className="text-xs text-purple-600">{item.analysis.percentile5s}백분위</div>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <div className="text-xs text-blue-600 mb-1">15초 파워</div>
+                      <div className="text-lg font-bold text-blue-800">{item.measurement.power15s}W</div>
+                      <div className="text-xs text-blue-600">{item.analysis.percentile15s}백분위</div>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg">
+                      <div className="text-xs text-green-600 mb-1">30초 파워</div>
+                      <div className="text-lg font-bold text-green-800">{item.measurement.power30s}W</div>
+                      <div className="text-xs text-green-600">{item.analysis.percentile30s}백분위</div>
+                    </div>
+                    <div className="bg-orange-50 p-3 rounded-lg">
+                      <div className="text-xs text-orange-600 mb-1">60초 파워</div>
+                      <div className="text-lg font-bold text-orange-800">{item.measurement.power60s}W</div>
+                      <div className="text-xs text-orange-600">{item.analysis.percentile60s}백분위</div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex justify-between items-center">
+                    <div className="text-sm text-gray-600">
+                      밸런스: 좌 {item.measurement.leftBalance}% / 우 {item.measurement.rightBalance}% 
+                      ({item.analysis.balanceStatus})
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      종합 백분위: {item.analysis.overallPercentile}점
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="text-center py-12 text-gray-500">
-              <History className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>아직 측정 기록이 없습니다.</p>
-              <p className="text-sm">첫 번째 측정을 완료해보세요!</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Peer Comparison */}
-      {peerComparison && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="w-5 h-5 text-blue-600" />
-              또래 비교
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {peerComparison.map((comparison) => (
-                <div key={comparison.metric} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div className="flex-1">
-                    <div className="font-medium">{getMetricDisplayName(comparison.metric)}</div>
-                    <div className="text-sm text-gray-600">
-                      내 점수: {comparison.myValue}W | 또래 평균: {comparison.peerAvg}W
-                    </div>
-                  </div>
-                  <Badge variant={comparison.isBetter ? "default" : "secondary"}>
-                    {comparison.isBetter ? '+' : ''}{comparison.diffPercent}%
-                  </Badge>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Measurement Timeline */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Award className="w-5 h-5 text-purple-600" />
-            측정 기록 타임라인
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          {history.length > 0 ? (
-            <div className="space-y-4">
-              {history.slice().reverse().map((item, index) => (
-                <div key={item.measurement.id} className="flex items-center gap-4 p-4 border rounded-lg hover:bg-gray-50 transition-colors">
-                  <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-purple-600 font-bold">{history.length - index}</span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium">
-                        {new Date(item.measurement.createdAt).toLocaleDateString('ko-KR')}
-                      </span>
-                      <Badge variant="outline">
-                        종합 {item.analysis.overallPercentile}백분위
-                      </Badge>
-                    </div>
-                    <div className="text-sm text-gray-600 grid grid-cols-2 md:grid-cols-4 gap-2">
-                      <span>파워: {item.measurement.power}W</span>
-                      <span>근력: {item.measurement.strength}W</span>
-                      <span>근지구력: {item.measurement.muscleEndurance}W</span>
-                      <span>심폐지구력: {item.measurement.cardioEndurance}W</span>
-                    </div>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-gray-500">
-              <Calendar className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>측정 기록이 없습니다.</p>
+              <Database className="w-12 h-12 mx-auto mb-4 opacity-50" />
+              <p>검색 조건에 맞는 측정 기록이 없습니다.</p>
+              <p className="text-sm">필터를 조정하거나 새로운 측정을 진행해보세요.</p>
             </div>
           )}
         </CardContent>
