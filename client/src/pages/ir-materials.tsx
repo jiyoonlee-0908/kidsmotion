@@ -140,7 +140,90 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
+        {/* 💰 시장 규모 및 투자 기회 - 정부 정책 바로 다음 */}
+        <Card className="mb-16">
+          <CardHeader>
+            <CardTitle className="flex items-center text-2xl">
+              <TrendingUp className="w-6 h-6 mr-3 text-green-600" />
+              시장 규모 및 투자 기회
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="text-center bg-green-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-green-600 mb-2">249만명</div>
+                <p className="text-gray-600 mb-4">전국 초등학생 수 (2024년 기준)</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-green-700">연간 영유아 건강검진 수검인원</p>
+                  <p className="text-lg font-bold text-green-800">177만명 (2023년 기준)</p>
+                </div>
+              </div>
+              <div className="text-center bg-red-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
+                <p className="text-gray-600 mb-4">전국 소아·청소년과 전문 진료기관</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-red-700">의원급(1차 의료기관): 2,147개소</p>
+                  <p className="text-sm text-red-700">전국 보건소: 261개소</p>
+                </div>
+              </div>
+              <div className="text-center bg-purple-50 p-6 rounded-lg">
+                <div className="text-4xl font-bold text-purple-600 mb-2">24,000개+</div>
+                <p className="text-gray-600 mb-4">전국 아동 스포츠 학원</p>
+                <div className="bg-white p-3 rounded-lg">
+                  <p className="text-sm text-purple-700">축구교실, 수영장, 체조교실, 태권도장 등</p>
+                  <p className="text-sm text-purple-700">체력 측정 및 맞춤 훈련 수요</p>
+                </div>
+              </div>
+            </div>
 
+            {/* 해외 시장 기회 */}
+            <div className="mt-8 bg-gradient-to-r from-blue-100 to-indigo-100 p-6 rounded-lg border border-blue-200">
+              <h3 className="text-xl font-bold text-blue-800 mb-4">🌍 글로벌 시장 기회</h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center bg-white p-4 rounded-lg shadow">
+                  <div className="text-3xl font-bold text-blue-600 mb-2">$218억</div>
+                  <p className="text-gray-600 mb-2">글로벌 아동 스포츠 장비 시장 (2022년)</p>
+                  <p className="text-sm text-blue-700">약 29조 원 규모</p>
+                </div>
+                <div className="text-center bg-white p-4 rounded-lg shadow">
+                  <div className="text-3xl font-bold text-indigo-600 mb-2">$306억</div>
+                  <p className="text-gray-600 mb-2">2030년 전망 시장 규모</p>
+                  <p className="text-sm text-indigo-700">약 41조 원 (CAGR 4.4%)</p>
+                </div>
+                <div className="text-center bg-white p-4 rounded-lg shadow">
+                  <div className="text-3xl font-bold text-teal-600 mb-2">5.5%</div>
+                  <p className="text-gray-600 mb-2">피트니스 장비 부문 연평균 성장률</p>
+                  <p className="text-sm text-teal-700">가장 빠른 성장세</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 투자 포인트 */}
+            <div className="mt-8 bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-lg border border-purple-200">
+              <h3 className="text-xl font-bold text-purple-800 mb-4">💡 투자 포인트</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-purple-700 mb-3">시장 성장 동력</h4>
+                  <ul className="space-y-1 text-gray-700 text-sm">
+                    <li>• 저출산으로 한 자녀당 투자 증가</li>
+                    <li>• 부모들의 성장 관련 민감도 증가</li>
+                    <li>• 정부의 국민건강 데이터화 정책</li>
+                    <li>• 디지털 헬스케어 확산</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-purple-700 mb-3">선점 효과</h4>
+                  <ul className="space-y-1 text-gray-700 text-sm">
+                    <li>• 아동 운동발달 정량화 최초 시스템</li>
+                    <li>• B2B/B2G 시장 진입 용이성</li>
+                    <li>• 데이터 누적으로 AI 성능 향상</li>
+                    <li>• 의료기관 표준화 가능성</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* 하드웨어 혁신 */}
         <Card className="mb-16">
