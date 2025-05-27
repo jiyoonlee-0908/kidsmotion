@@ -97,7 +97,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         studentName: item.measurement.studentName,
         affiliation: item.measurement.affiliation,
         gender: item.measurement.gender,
-        age: item.age || 0,
+        age: item.analysis?.age || 0,
         measureDate: item.measurement.measureDate,
         birthDate: item.measurement.birthDate,
         height: item.measurement.height,
