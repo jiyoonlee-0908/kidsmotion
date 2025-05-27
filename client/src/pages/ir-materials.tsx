@@ -1046,7 +1046,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
               {/* 하드웨어 ROI */}
               <div className="mt-6 bg-white/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">💰 하드웨어 투자 회수 계산</h4>
+                <h4 className="font-semibold mb-3">💰 하드웨어 투자 회수 계산 (스포츠학원 기준)</h4>
                 <div className="grid md:grid-cols-3 gap-4 text-sm">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-yellow-300">550만원</div>
