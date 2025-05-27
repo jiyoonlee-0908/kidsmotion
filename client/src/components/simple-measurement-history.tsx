@@ -87,13 +87,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       
       const data = await response.json();
       
-      // 서버에서 받은 데이터를 UI 형식에 맞게 변환
+      // 서버에서 받은 원본 데이터를 그대로 사용 (새로 계산하지 않음)
       const formattedData: MeasurementData[] = data.map((item: any) => ({
         id: item.measurement.id,
         studentName: item.measurement.studentName,
         affiliation: item.measurement.affiliation,
         gender: item.measurement.gender,
-        age: item.analysis?.age || calculateAge(item.measurement.birthDate),
+        age: item.analysis?.age || 0,
         measureDate: item.measurement.measureDate,
         birthDate: item.measurement.birthDate,
         height: item.measurement.height,
