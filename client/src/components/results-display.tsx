@@ -503,7 +503,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   Math.round(analysis.percentile30s),
                   Math.round(analysis.percentile60s),
                   ...(measurement.power180s && analysis.percentile180s ? [Math.round(analysis.percentile180s)] : []),
-                  ...(measurement.power360s && analysis.percentile360s ? [Math.round(analysis.percentile360s)] : [])
+                  ...(measurement.power300s && analysis.percentile300s ? [Math.round(analysis.percentile300s)] : [])
                 ]}
                 labels={[
                   "순발력 (5초)",
@@ -511,7 +511,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   "파워 지속력 (30초)",
                   "근력 (60초)",
                   ...(measurement.power180s ? ["근지구력 (180초)"] : []),
-                  ...(measurement.power360s ? ["심폐지구력 (360초)"] : [])
+                  ...(measurement.power300s ? ["심폐지구력 (300초)"] : [])
                 ]}
               />
             </div>
