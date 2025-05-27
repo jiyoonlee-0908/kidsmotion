@@ -629,20 +629,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
 
 
-              {/* 다음 측정 및 이력 안내 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">다음 측정 및 이력 안내</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-2">권장 측정 주기</h4>
-                    <p className="text-sm">1-2개월 내 재측정 권장</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">측정 이력 확인</h4>
-                    <p className="text-sm">QR코드 또는 관리자 페이지에서 확인</p>
-                  </div>
-                </div>
-              </div>
+
 
               {/* 참고사항 */}
               <div className="bg-white rounded-lg p-6 border">
