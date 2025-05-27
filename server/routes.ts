@@ -211,40 +211,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log(`나이: ${age}, 제한된 나이: ${clampedAge}, 성별: ${measurementData.gender}, 키: ${genderKey}`);
       console.log(`Cutoffs found:`, cutoffs ? "Yes" : "No", cutoffs);
 
-      // 합리적인 한국 아동 기준값 사용 (W/kg^0.67 단위)
+      // CSV 데이터는 이미 W/kg^0.67 단위로 변환된 기준값입니다
       if (cutoffs) {
-        // 와트바이크 기준값을 한국 아동에 맞게 50% 스케일링
-        const koreanChildScale = 0.5; // 한국 아동 체력 수준 반영
-        
-        cutoffs.power = {
-          P96: Math.round(cutoffs.power.P96 * koreanChildScale),
-          P80: Math.round(cutoffs.power.P80 * koreanChildScale),
-          P20: Math.round(cutoffs.power.P20 * koreanChildScale),
-          P4: Math.round(cutoffs.power.P4 * koreanChildScale)
-        };
-        
-        cutoffs.strength = {
-          P96: Math.round(cutoffs.strength.P96 * koreanChildScale),
-          P80: Math.round(cutoffs.strength.P80 * koreanChildScale),
-          P20: Math.round(cutoffs.strength.P20 * koreanChildScale),
-          P4: Math.round(cutoffs.strength.P4 * koreanChildScale)
-        };
-        
-        cutoffs.muscleEndurance = {
-          P96: Math.round(cutoffs.muscleEndurance.P96 * koreanChildScale),
-          P80: Math.round(cutoffs.muscleEndurance.P80 * koreanChildScale),
-          P20: Math.round(cutoffs.muscleEndurance.P20 * koreanChildScale),
-          P4: Math.round(cutoffs.muscleEndurance.P4 * koreanChildScale)
-        };
-        
-        cutoffs.cardioEndurance = {
-          P96: Math.round(cutoffs.cardioEndurance.P96 * koreanChildScale),
-          P80: Math.round(cutoffs.cardioEndurance.P80 * koreanChildScale),
-          P20: Math.round(cutoffs.cardioEndurance.P20 * koreanChildScale),
-          P4: Math.round(cutoffs.cardioEndurance.P4 * koreanChildScale)
-        };
-        
-        console.log(`한국 아동 기준값 (W/kg^0.67): P4=${cutoffs.power.P4}, P20=${cutoffs.power.P20}, P80=${cutoffs.power.P80}, P96=${cutoffs.power.P96}`);
+        console.log(`기준값 (W/kg^0.67): P4=${cutoffs.power.P4}, P20=${cutoffs.power.P20}, P80=${cutoffs.power.P80}, P96=${cutoffs.power.P96}`);
       }
       
       // 사용자 입력: 절대 파워값 (W)
