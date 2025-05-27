@@ -1,0 +1,115 @@
+3530-6e7dcb83fe1a94ee.js:1 Replit version 682f8528, pid2 version 0.0.1338
+_app-8bed6eca65a23b67.js:38 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+_app-8bed6eca65a23b67.js:38 [LaunchDarkly] LaunchDarkly client initialized
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+Tracking Prevention blocked access to storage for <URL>.
+_app-8bed6eca65a23b67.js:38 [LaunchDarkly] Opening stream connection to https://clientstream.launchdarkly.com/eval/62b35a865152ab14c5942820/eyJrZXkiOiI0MjYzMTI5NyIsImtpbmQiOiJ1c2VyIiwibmFtZSI6IjJneW9vb24iLCJyb2xlcyI6WyJpbnRlbnRfYnVzaW5lc3MiLCJvbmJvYXJkaW5nX2pvYl9lbmciLCJvbmJvYXJkaW5nX3JvbGVfbWVtYmVyIl0sImVtYWlsIjoiMmd5b29vbkBnbWFpbC5jb20iLCJ0aW1lX2NyZWF0ZWQiOjE3NDcxMzMzNTk0MjksIl9tZXRhIjp7InByaXZhdGVBdHRyaWJ1dGVzIjpbImVtYWlsIl19fQ
+kidsmotion:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+framework-3c0c5f8044ab3419.js:1  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'battery'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'layout-animations'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'navigation-override'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'oversized-images'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'publickey-credentials'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'speaker-selection'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'unoptimized-images'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'unsized-media'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Unrecognized feature: 'pointer-lock'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-3c0c5f8044ab3419.js:1
+framework-3c0c5f8044ab3419.js:1  Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-3c0c5f8044ab3419.js:1
+workspace_iframe.html:32  Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html:32  Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html:32  Unrecognized feature: 'battery'.
+workspace_iframe.html:32  Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html:32  Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html:32  Unrecognized feature: 'layout-animations'.
+workspace_iframe.html:32  Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html:32  Unrecognized feature: 'navigation-override'.
+workspace_iframe.html:32  Unrecognized feature: 'oversized-images'.
+workspace_iframe.html:32  Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html:32  Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html:32  Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html:32  Unrecognized feature: 'unsized-media'.
+workspace_iframe.html:32  Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html:32  Allow attribute will take precedence over 'allowpaymentrequest'.
+Console.js:61 SW registration failed: SecurityError: Failed to register a ServiceWorker for scope ('https://9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/') with script ('https://9690a09c-ee1e-4e3c-9a08-77ead2a2d247-00-1c8ffoaq1oj86.riker.replit.dev/sw.js'): The script has an unsupported MIME type ('text/html').
+Console.js:61 받은 데이터: Array(1)
+Console.js:61 첫 번째 항목: Object
+Console.js:61 strengths: undefined
+Console.js:61 improvements: undefined
+Console.js:61  Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
+Mt.forEach.n.<computed> @ Console.js:61
+
+                
+          
+          
+          
+         Microsoft Edge is moving towards a new experience that allows users to choose to browse without third-party cookies.
+[NEW] Explain Console errors by using Copilot in Edge: click
+         
+         to explain an error. 
+        Learn more
+        Don't show again
+stallwart.build.js:1 stallwart: failed ping 1
+stallwart.build.js:1 stallwart: failed ping 2
