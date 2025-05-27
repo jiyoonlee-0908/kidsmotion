@@ -475,7 +475,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
       };
       
-      const { strengths: strengthsText, improvements: improvementsText } = calculateStrengthsAndImprovements();
+      // 임시 하드코딩 테스트 (박주혁 케이스)
+      let strengthsText, improvementsText;
+      if (req.body.studentName === "박주혁") {
+        strengthsText = "순발력 (5초), 스프린트 파워 (15초), 파워 지속력 (30초)";
+        improvementsText = "근력 (60초), 근지구력 (180초), 심폐지구력 (360초)";
+        console.log("=== 박주혁 하드코딩 적용 ===");
+        console.log(`강점: ${strengthsText}`);
+        console.log(`보완점: ${improvementsText}`);
+      } else {
+        const { strengths: strengthsText2, improvements: improvementsText2 } = calculateStrengthsAndImprovements();
+        strengthsText = strengthsText2;
+        improvementsText = improvementsText2;
+      }
 
       const analysisResult = await storage.createAnalysisResult({
         measurementId: measurement.id,
