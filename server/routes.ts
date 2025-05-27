@@ -468,10 +468,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           strengths = sorted.slice(0, 2).map(item => item.name);
         }
         
-        // 보완점이 없으면 기본 하위 2개
+        // 보완점이 없고 모든 항목이 80% 이상이면 보완점 없음
         if (improvements.length === 0) {
-          const sorted = [...percentileData].sort((a, b) => b.value - a.value);
-          improvements = sorted.slice(-2).map(item => item.name);
+          const allGood = percentileData.every(item => item.value >= 80);
+          if (!allGood) {
+            const sorted = [...percentileData].sort((a, b) => b.value - a.value);
+            improvements = sorted.slice(-2).map(item => item.name);
+          }
         }
         
         return {
