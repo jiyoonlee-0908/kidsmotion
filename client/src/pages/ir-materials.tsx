@@ -37,27 +37,27 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"우리 아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 좌우 밸런스 정확한 수치로 측정 및 개선방안 제시
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"우리 아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
                     <p className="text-gray-700 mb-2">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 1~5등급 체제와 백분위 퍼센트 제공으로 우리 아이의 정확한 위치 확인
                     </div>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"우리 아이 발달이 늦는 것 같아서 병원에 갔는데 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
+                    <p className="text-gray-700 mb-2">"우리 아이 운동발달이 늦는 것 같아서 병원에 갔는데 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
                     <div className="bg-green-50 p-2 rounded text-sm text-green-700">
                       → 조기 개입 가능: 5등급, 하위 4% 바로 확인하여 즉시 대응
                     </div>
@@ -66,27 +66,26 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">현재 검진의 한계</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-yellow-500">
-                    <p className="text-sm text-yellow-600 mb-1">영유아검진의 대근육운동발달 항목의 한계</p>
+                <div className="space-y-3">
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-yellow-500">
+                    <p className="text-yellow-600 mb-2">영유아검진의 대근육운동발달 항목의 한계</p>
                     <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④</p>
                     <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④</p>
                     <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-                    <p className="text-sm text-red-600 mb-1">초등체력장의 한계</p>
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
+                    <p className="text-red-600 mb-2">초등체력장의 한계</p>
                     <p className="text-gray-700">• 아날로그식 측정으로 정확도 한계</p>
                     <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
-                    <p className="text-gray-700">• 숫자 세는 사람의 실수로 부정확한 결과</p>
                     <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입</p>
                   </div>
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
-                    <p className="text-sm text-blue-600 mb-1">국가에서 하는 아동대상 체력측정의 한계</p>
+                  <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
+                    <p className="text-blue-600 mb-2">국가에서 하는 아동대상 체력측정의 한계</p>
                     <p className="text-gray-700">• 악력기로 근력 체크 → 전신근력이 아닌 부분근력만 측정</p>
                     <p className="text-gray-700">• 국가 주관 평가임에도 정량 데이터 제공 안됨</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
-                    <p className="text-sm text-gray-600 mb-1">종합 결과</p>
+                  <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
+                    <p className="text-gray-600 mb-2">종합 결과</p>
                     <p className="text-gray-700">• 정량적 데이터 부재로 조기발견 실패</p>
                     <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
                     <p className="text-gray-700">• 개인별 맞춤 개선 방안 제시 불가</p>
