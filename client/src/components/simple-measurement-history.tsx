@@ -183,11 +183,11 @@ export default function SimpleMeasurementHistory({ onNewMeasurement }: SimpleMea
                           <span className="text-gray-700 font-medium">{result.measurement.affiliation}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-gray-500">🎂 생년</span>
+                          <span className="text-gray-500">🎂 생년월일</span>
                           <span className="text-gray-700 font-medium">{result.measurement.birthDate}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-gray-500">👤 성별</span>
+                          <span className="text-gray-500">{result.measurement.gender === 'M' ? '👦' : '👧'} 성별</span>
                           <span className="text-gray-700 font-medium">{result.measurement.gender === 'M' ? '남성' : '여성'}</span>
                         </div>
                       </div>
