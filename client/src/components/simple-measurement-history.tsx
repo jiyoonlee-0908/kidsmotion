@@ -291,6 +291,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         {measurement.affiliation}
                       </span>
                       
+                      {/* 생년월일 */}
+                      <span className="text-sm text-gray-600">
+                        {measurement.birthDate}
+                      </span>
+                      
                       {/* 측정일 */}
                       <span className="text-sm text-gray-600">
                         {measurement.measureDate}
