@@ -21,18 +21,85 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             Investor Relations
           </Badge>
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            📈 아동 체력 측정의 미래를 선점하세요
+            부모의 걱정을 데이터로 바꾸는 팀입니다
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            부모의 최대 관심사인 '아이 성장'과 정부의 '국민건강' 정책을 연결하는<br/>
-            <span className="text-purple-600 font-semibold">아동 운동발달 정량화 혁신 기업</span>
+            아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
+            <span className="text-purple-600 font-semibold">우리가 5분 만에 답해드릴게요</span>
           </p>
         </div>
 
-        {/* 시장 기회 - 부모 니즈 */}
+        {/* Founder Letter */}
+        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
+          <CardHeader>
+            <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
+              <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
+              
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p>아이를 자전거에 태웠을 때였습니다.<br/>
+                자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다.<br/>
+                제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다.<br/>
+                하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
+
+                <p>병원에 갔습니다.<br/>
+                "아이들은 원래 그래요. 괜찮아요."<br/>
+                "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."<br/>
+                그렇게 말하더군요.</p>
+
+                <p className="font-medium text-purple-700">그 순간 알았습니다.<br/>
+                "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요.<br/>
+                정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
+
+                <p>그게 바로 창업의 출발점이었습니다.<br/>
+                '감'이 아니라 '데이터'로 아이의 몸을 이해해야 한다는 확신.<br/>
+                "정확하게 알고, 정확하게 도와줄 수 있어야 한다"는 다짐.</p>
+
+                <div className="bg-purple-50 p-4 rounded-lg my-6">
+                  <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다.<br/>
+                  남편은 24년간 국가대표 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
+                  10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
+                </div>
+
+                <p>특히, 선수반에 등록하려는 아이들을 볼 때마다 한계를 느꼈습니다.<br/>
+                어떤 아이는 분명 부족해 보이는데,<br/>
+                "운동시켜도 될까요?"라는 부모님의 질문에 정확히 말해줄 데이터가 없었습니다.</p>
+
+                <p>"상위 1%가 아니면 운동으로 성공하기 어렵습니다."<br/>
+                그렇게 설명해도, 객관적인 수치가 없다 보니<br/>
+                부모는 결국 마음으로 판단하고, 아이는 부담을 안고 훈련에 들어갑니다.</p>
+
+                <p className="font-medium text-red-600">이건 결국, 아이의 가능성에도, 부모의 시간과 비용에도 좋지 않은 선택이었습니다.</p>
+
+                <p className="font-bold text-green-700">그래서 저는 만들었습니다.<br/>
+                운동 자질을 데이터로 확인할 수 있는 장비.<br/>
+                운동을 해야 할 아이, 하지 말아야 할 아이를 정확히 구분해주는 시스템.</p>
+
+                <p>이건 처음엔 제 아이를 위해 만든 것이었습니다.<br/>
+                하지만 지금은, 같은 고민을 가진 수많은 부모와 아카데미, 병원, 학교 모두에게<br/>
+                절실히 필요한 장비라고 확신합니다.</p>
+
+                <div className="bg-blue-50 p-4 rounded-lg my-6">
+                  <p className="font-medium">눈으로 확인할 수 있는 성장 데이터.<br/>
+                  부모가 납득할 수 있는 해석 리포트.<br/>
+                  아이에게 꼭 맞는 훈련 방향.</p>
+                </div>
+
+                <p className="text-lg font-bold text-purple-700">이제는 '괜찮을 거예요'가 아니라<br/>
+                "지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
+
+                <p className="text-right font-medium text-gray-600 mt-6">– 모션바이크 대표</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* 문제 정의 */}
         <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl text-red-700 mb-4">⚠️ 현재 체력 측정의 한계와 부모들의 불안감</CardTitle>
+            <CardTitle className="text-2xl text-red-700 mb-4">📋 우리가 해결하려는 문제</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
@@ -108,63 +175,49 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
 
 
-        {/* 정부 정책: 국민건강 데이터화 추진 */}
-        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+        {/* 솔루션 개요 */}
+        <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-blue-700 mb-4">🏛️ 정부 정책: 국민건강 데이터화 추진</CardTitle>
+            <CardTitle className="text-2xl text-green-700 mb-4">💡 기술이 아닌 진심으로 만든 해결책</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">국민체육진흥공단 국민체력100의 한계</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
-                    <h4 className="font-semibold text-orange-600 mb-3">현재 측정 방식 (아날로그)</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• 제자리 멀리뛰기 → 줄자로 측정</li>
-                      <li>• 윗몸말아올리기 → 사람이 카운트</li>
-                      <li>• 왕복오래달리기 → 수동 기록</li>
-                    </ul>
-                  </div>
-                  <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                    <h4 className="font-semibold text-red-600 mb-3">결과</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• 정확성 부족</li>
-                      <li>• 데이터 축적 어려움</li>
-                      <li>• 국민건강 빅데이터 구축 불가</li>
-                    </ul>
-                  </div>
-                </div>
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
+                <div className="text-4xl mb-3">⚡</div>
+                <h3 className="text-xl font-bold text-green-700 mb-3">5분 측정</h3>
+                <p className="text-gray-600">바쁜 부모도, 예민한 아이도 부담 없이</p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">정부 정책: 국민건강 데이터화 추진</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-                    <h4 className="font-semibold text-green-600 mb-3">디지털 전환 필요성</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• <strong>정량적 데이터</strong> 수집 시스템</li>
-                      <li>• <strong>국민체력 빅데이터</strong> 구축</li>
-                      <li>• <strong>객관적 평가</strong>로 정책 수립</li>
-                      <li>• <strong>비만 예방</strong> 조기 개입</li>
-                    </ul>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-                    <h4 className="font-semibold text-green-600 mb-3">해결책</h4>
-                    <ul className="space-y-2 text-gray-700">
-                      <li>• KidsMotion으로 디지털 체력측정 실현</li>
-                      <li>• 정확한 데이터로 정책 수립 지원</li>
-                    </ul>
-                  </div>
+              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
+                <div className="text-4xl mb-3">📊</div>
+                <h3 className="text-xl font-bold text-green-700 mb-3">정확한 수치</h3>
+                <p className="text-gray-600">이제 추측하지 않아도 됩니다</p>
+              </div>
+              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
+                <div className="text-4xl mb-3">🤖</div>
+                <h3 className="text-xl font-bold text-green-700 mb-3">AI 분석</h3>
+                <p className="text-gray-600">복잡한 숫자를 부모가 이해하는 말로</p>
+              </div>
+            </div>
+            
+            {/* 정부 정책 간소화 */}
+            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+              <h3 className="text-lg font-bold text-blue-700 mb-3">🏛️ 정부 정책과의 연결점</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <p className="text-gray-700 mb-2"><strong>현재 한계:</strong> 아날로그 측정으로 정확성 부족, 국민건강 빅데이터 구축 불가</p>
+                </div>
+                <div>
+                  <p className="text-gray-700"><strong>우리의 기여:</strong> 디지털 체력측정으로 정량적 데이터 제공, 정책 수립 기초자료 구축</p>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* 통합된 시장 분석 & 진입 전략 */}
-        <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+        {/* 비즈니스 모델 & 시장 */}
+        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-green-700 mb-4">🎯 타겟 시장 분석과 진입 전략</CardTitle>
+            <CardTitle className="text-2xl text-blue-700 mb-4">🏢 필요한 곳에 닿고 있습니다</CardTitle>
           </CardHeader>
           <CardContent>
             {/* 시장 규모 추가 */}
@@ -271,11 +324,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 하드웨어 혁신 */}
+        {/* 하드웨어 및 기술 */}
         <Card className="mb-16">
           <CardHeader>
             <CardTitle className="text-2xl">
-              ⚡ 5분 만에 모든 것을 바꾸는 혁신 솔루션
+              🛡️ 신뢰할 수 있는 이유들
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -476,11 +529,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 실제 검증 사례 & 타겟별 가치 제안 */}
+        {/* 실증과 성장 계획 */}
         <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
           <CardHeader>
             <CardTitle className="text-2xl">
-              📊 실제 파일럿 테스트와 시장 진출 계획
+              🚀 우리는 지금, 이 시장을 증명하고 있습니다
             </CardTitle>
           </CardHeader>
           <CardContent>
