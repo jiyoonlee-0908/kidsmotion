@@ -67,7 +67,7 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
       avgBpm: null,
       restingBpm: null,
       balanceStatus: "정상 범위",
-      aiSummary: "오로라는 6세 여아로 전반적으로 우수한 체력을 보여줍니다.",
+      aiCoreInsights: "오로라는 6세 여아로 전반적으로 우수한 체력을 보여줍니다.",
       balanceComment: "좌우 밸런스가 정상 범위 내에 있습니다.",
       explanation5s: "5초 최대파워가 매우 우수합니다.",
       explanation15s: "15초 파워는 개선이 필요합니다.",

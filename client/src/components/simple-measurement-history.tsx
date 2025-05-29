@@ -39,7 +39,7 @@ interface MeasurementData {
   percentile360s?: number;
   strengths?: string;
   improvements?: string;
-  aiSummary?: string;
+  aiCoreInsights?: string;
   balanceStatus?: string;
 }
 
@@ -136,7 +136,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           percentile360s: analysis.percentile360s || null,
           strengths: analysis.strengths,
           improvements: analysis.improvements,
-          aiSummary: analysis.aiSummary,
+          aiCoreInsights: analysis.aiCoreInsights,
           balanceStatus: analysis.balanceStatus
         };
       });
@@ -461,7 +461,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   <div>
                     <div className="mb-2">
                       <span className="text-sm text-gray-600">한줄 요약</span>
-                      <p className="text-sm">{selectedMeasurement.aiSummary || "AI 분석 결과가 없습니다."}</p>
+                      <p className="text-sm">{selectedMeasurement.aiCoreInsights || "AI 분석 결과가 없습니다."}</p>
                     </div>
                   </div>
                 </div>
