@@ -497,7 +497,33 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         </CardContent>
       </Card>
 
-      {/* Card 6: Progress Comparison */}
+      {/* Card 6-1: 종합해설 */}
+      <Card className="fitness-card">
+        <CardContent>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+              <FileText className="text-white" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">종합해설</h3>
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-2 py-1 rounded-md text-xs font-semibold">
+              AI 종합 해설
+            </div>
+          </div>
+          
+          <div className="text-gray-700 text-sm leading-relaxed prose prose-sm max-w-none">
+            <div dangerouslySetInnerHTML={{ 
+              __html: analysis.detailedReport 
+                ? analysis.detailedReport
+                    .replace(/\n/g, '<br>')
+                    .replace(/# (\d+)\. ([^\n]+)/g, '<h4 class="text-base font-bold text-gray-800 mt-4 mb-2">$1. $2</h4>')
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                : "상세 종합해설을 준비하고 있습니다..."
+            }} />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Card 7: Progress Comparison */}
       <Card className="fitness-card">
         <CardContent>
           <div className="flex items-center space-x-3 mb-6">
