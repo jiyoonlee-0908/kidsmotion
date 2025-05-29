@@ -446,10 +446,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               </div>
             </div>
             
-            {/* 하단: AI 종합 해설 */}
+            {/* 하단: AI 요약 */}
             <div className="bg-blue-50 rounded-lg p-6">
-              <h4 className="font-semibold text-gray-900 mb-4 text-xl">🤖 AI 종합 해설</h4>
-              <div className="text-gray-700 leading-relaxed text-lg space-y-3">
+              <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 AI 요약</h4>
+              <div className="text-gray-700 leading-relaxed text-base space-y-3">
                 {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
                   <div 
                     className="whitespace-pre-line"
@@ -465,6 +465,73 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   ))
                 )}
               </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Detailed AI Analysis Card */}
+      <Card className="fitness-card">
+        <CardContent>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
+              <FileText className="text-emerald-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">상세 분석 리포트</h3>
+          </div>
+          
+          <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6">
+            <div className="prose max-w-none text-gray-800 leading-relaxed">
+              {analysis.overallAssessment ? (
+                <div 
+                  className="whitespace-pre-line space-y-4"
+                  dangerouslySetInnerHTML={{ 
+                    __html: analysis.overallAssessment
+                      .replace(/# (\d+)\. (.*?)(?=\n|$)/g, '<h4 class="text-lg font-bold text-purple-800 mt-6 mb-3 flex items-center"><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm mr-2">$1</span>$2</h4>')
+                      .replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900">$1</strong>')
+                      .replace(/\n\n/g, '</p><p class="mb-3">')
+                      .replace(/\n/g, '<br />')
+                  }}
+                />
+              ) : (
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-lg font-bold text-purple-800 mb-3 flex items-center">
+                      <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm mr-2">1</span>
+                      {measurement.studentName}의 오늘 한눈에 보기
+                    </h4>
+                    <p className="text-gray-700 mb-3">
+                      {measurement.studentName}은 전반적으로 균형잡힌 체력 발달을 보이고 있습니다. 
+                      특히 {strengths[0] || "지속적인 운동 능력"}에서 뛰어난 모습을 보여주며, 
+                      {improvements[0] || "전반적인 체력 관리"}에 조금 더 신경 쓴다면 더욱 향상된 결과를 기대할 수 있습니다.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg font-bold text-purple-800 mb-3 flex items-center">
+                      <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm mr-2">2</span>
+                      강점 & 잠재력
+                    </h4>
+                    <p className="text-gray-700 mb-3">
+                      가장 높은 점수를 받은 {strengths[0] || "체력 항목"}에서 뛰어난 성과를 보였습니다. 
+                      이는 또래 아이들과 비교했을 때 상당한 경쟁력을 가지고 있음을 의미합니다. 
+                      이러한 강점을 활용하여 관련 운동을 더 적극적으로 진행하면 전반적인 체력 향상에 도움이 될 것입니다.
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-lg font-bold text-purple-800 mb-3 flex items-center">
+                      <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-sm mr-2">3</span>
+                      우선 개선 영역
+                    </h4>
+                    <p className="text-gray-700 mb-3">
+                      {improvements[0] || "전반적인 체력 관리"} 부분에서 개선의 여지가 있습니다. 
+                      이 영역을 집중적으로 관리하면 전체적인 체력 밸런스가 크게 향상될 것으로 예상됩니다. 
+                      꾸준한 운동과 올바른 습관 형성이 중요합니다.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </CardContent>
