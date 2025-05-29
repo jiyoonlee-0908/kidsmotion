@@ -302,6 +302,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const aiAnalysis = await generateFitnessAnalysis({
         studentName: measurementData.studentName,
         age,
+        bmi,
+        height: measurementData.height,
+        weight: measurementData.weight,
         overallPercentile,
         percentiles: {
           power: percentiles["5s"],
