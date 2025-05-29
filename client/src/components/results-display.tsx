@@ -427,9 +427,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                     power: analysis.percentile5s,
                     strength: analysis.percentile15s,
                     muscleEndurance: analysis.percentile30s,
-                    cardioEndurance: analysis.percentile60s,
-                    ...(analysis.percentile180s ? { longEndurance180s: analysis.percentile180s } : {}),
-                    ...(analysis.percentile360s ? { longEndurance360s: analysis.percentile360s } : {})
+                    cardioEndurance: analysis.percentile60s
                   }}
                 />
               </div>
