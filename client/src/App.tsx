@@ -26,12 +26,22 @@ import InviteCodeForm from "@/components/invite-code-form";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
+  
+  // 투자자 데모용 - 초대코드 우회 설정 (true로 설정하면 초대코드 없이 바로 접근 가능)
+  const DEMO_MODE = true;
 
   // Check if user was previously authenticated
   useEffect(() => {
-    const auth = localStorage.getItem('kidsmotion_authenticated');
-    if (auth === 'true') {
+    if (DEMO_MODE) {
+      // 데모 모드: 초대코드 없이 바로 접근 허용
       setIsAuthenticated(true);
+      localStorage.setItem('kidsmotion_authenticated', 'true');
+    } else {
+      // 일반 모드: 기존 초대코드 방식
+      const auth = localStorage.getItem('kidsmotion_authenticated');
+      if (auth === 'true') {
+        setIsAuthenticated(true);
+      }
     }
     
     // Check URL for current page
