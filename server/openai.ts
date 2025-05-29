@@ -110,26 +110,32 @@ export async function generateFitnessAnalysis(
 ${measurementData}
 
 **CRITICAL 필수 규칙:**
-- 대명사(그, 그녀, 아이) 절대 사용 금지. 반드시 "${data.studentName}님"으로만 호칭
-- BMI ${data.bmi} 수치와 의미를 반드시 포함하여 설명
-- 좌우밸런스와 성장 관련성을 자연스럽게 언급 
-- 의료법 위반 표현 금지 (진단, 치료, 질병명 등)
-- 모든 내용을 풍부하고 구체적이며 상세하게 작성
+- 반드시 "${data.studentName}님" 호칭만 사용, 대명사 절대 금지
+- BMI는 소수점 1자리로 반올림하여 제시
+- 모든 실제 측정값(W)과 백분위를 구체적으로 언급
+- 전문가다운 의학적 근거 기반 분석 제공
+- 성장기 특성과 좌우밸런스 발달과정 자연스럽게 연결
 
 AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
-  "expertAnalysis": "15년 경력 아동운동생리학 박사의 전문 분석보고서. ${data.studentName}님에 대한 정확히 3문단, 각 문단 정확히 3문장 구성. 실제 측정값(W)과 백분위, BMI ${data.bmi}, 체중 ${data.weight}kg을 구체적으로 언급하며 전문가다운 깊이 있는 분석 제공. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
-  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. ${data.studentName}님 호칭 사용, 성장기 아동의 밸런스 발달 과정과 관련성을 자연스럽게 포함, 의학적 진단/치료 문구 금지, 4-7줄로 상세 작성",
-  "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI ${data.bmi}와 체중 ${data.weight}kg이 운동 수행에 미치는 영향을 구체적으로 분석, 줄바꿈과 강조 사용, 체중 대비 파워 분석과 성장기 특성 반영",
-  "detailedReport": "CRITICAL: 15년 경력 아동운동생리학 박사의 전문 해설. 이모티콘으로 시작, # 숫자 금지. ${data.studentName}님 호칭 사용, 9단계 구조로 각 섹션 최소 5문장, 권장 6-7문장으로 매우 상세하고 전문적으로 작성. 실제 측정값 포함(예: 30초 파워 측정치로 하위 XX%). BMI ${data.bmi}, 체중 ${data.weight}kg, 키 ${data.height}cm를 구체적으로 활용한 전문 분석. 좌우밸런스와 성장기 발달과정 관련성 자연스럽게 언급. 현실적인 목표 설정(급격한 향상 금지). 자연스럽고 전문적인 문체로 AI 냄새 제거. 백분위를 순위로 설명(상위 XX% = 또래 100명 중 XX등). 운동 방법은 시간/횟수/빈도 구체적 제시"
+  "expertAnalysis": "CRITICAL: 정확히 3개 문단, 각 문단 정확히 3개 문장. 15년 경력 아동운동생리학 박사의 전문 강점분석보고서. ${data.studentName}님 호칭 필수. 실제 측정값 예시: 5초 파워 200W(6%), 15초 150W(2%), 30초 150W(12%), 60초 150W(20%) 등을 구체적으로 언급. BMI는 ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg 활용한 전문 분석. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
+  "balanceComment": "${data.studentName}님의 좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. 성장기 아동의 밸런스 발달 과정과 관련성 포함, 4-7줄로 상세 작성",
+  "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI와 체중이 운동 수행에 미치는 영향 분석",
+  "detailedReport": "ABSOLUTE CRITICAL: 이모티콘으로 시작, 해시태그나 번호 절대 금지. ${data.studentName}님 호칭 필수. 9개 섹션 각각 반드시 최소 5개 문장, 권장 6-7개 문장으로 작성. 실제 측정값과 W 단위 반드시 포함. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg, 키 ${data.height}cm 활용. 좌우밸런스와 성장기 발달 관련성 언급. 현실적 목표 설정. 자연스럽고 전문적인 문체. 백분위를 구체적 순위로 설명. 운동 방법은 시간/횟수/빈도 구체적 제시. 형식 예시: '🔍 ${data.studentName}님의 오늘 한눈에 보기\\n${data.studentName}님은 6세 여아로서 키 ${data.height}cm, 체중 ${data.weight}kg, BMI ${Math.round(data.bmi * 10) / 10}의 체격을 보유하고 있습니다. 순발력 5초 파워에서 실제 측정값으로 하위 수준을 기록했습니다. 이는 또래 100명 중 특정 순위에 해당하는 결과입니다. 성장기 아동의 특성상 이러한 결과는 향후 발달 과정에서 개선 가능성이 높습니다. BMI 수치는 해당 연령대에 적절한 범위에 속하며 운동 수행에 유리한 조건을 제공합니다. 좌우 밸런스는 성장기 운동 발달에 중요한 지표로 작용합니다.'"
 }
 
-**필수 체크리스트:**
-1. ${data.studentName}님 호칭 사용 여부 확인
-2. BMI 수치와 의미 포함 여부 확인  
-3. 좌우밸런스-성장 관련성 언급 여부 확인
-4. 의료법 준수 여부 확인
-5. 풍부하고 상세한 내용 작성 여부 확인
+**절대 금지 사항:**
+1. 해시태그(#) 번호 매기기 절대 금지
+2. "요약", "간결", "축약" 등 단어 사용 금지
+3. 대명사(그, 그녀, 아이) 사용 금지
+4. 1-2줄 짧은 설명 금지 - 반드시 5-7줄로 상세 작성
+
+**필수 준수 사항:**
+1. ${data.studentName}님 호칭만 사용
+2. 실제 측정값(W)과 백분위 구체적 언급
+3. BMI 소수점 1자리로 반올림 표시
+4. 각 섹션 최소 5문장, 권장 6-7문장으로 작성
+5. 전문가다운 의학적 근거 기반 분석
 `;
 
     const response = await openai.chat.completions.create({
