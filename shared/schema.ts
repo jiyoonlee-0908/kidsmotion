@@ -48,7 +48,7 @@ export const analysisResults = pgTable("analysis_results", {
   avgBpm: real("avg_bpm"),
   restingBpm: real("resting_bpm"),
   balanceStatus: text("balance_status").notNull(),
-  expertReport: text("expert_report"),
+  aiSummary: text("ai_summary"),
   balanceComment: text("balance_comment"),
   explanation5s: text("explanation_5s"),
   explanation15s: text("explanation_15s"),
@@ -56,7 +56,6 @@ export const analysisResults = pgTable("analysis_results", {
   explanation60s: text("explanation_60s"),
   comprehensiveAnalysis: text("comprehensive_analysis"),
   overallAssessment: text("overall_assessment"),
-  detailedReport: text("detailed_report"),
   strengths: text("strengths"),
   improvements: text("improvements"),
 });

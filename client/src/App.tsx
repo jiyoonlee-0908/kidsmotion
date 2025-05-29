@@ -44,14 +44,10 @@ function App() {
       }
     }
     
-    // Check URL for current page (both pathname and hash)
+    // Check URL for current page
     const path = window.location.pathname;
-    const hash = window.location.hash.substring(1); // Remove the '#'
-    
     if (path === '/about') setCurrentPage('about');
     else if (path === '/contact') setCurrentPage('contact');
-    else if (path === '/measurement' || hash === 'analysis') setCurrentPage('measurement');
-    else if (path === '/measurement-history') setCurrentPage('measurement-history');
     else if (path === '/records') setCurrentPage('records');
     else if (path === '/user-guide') setCurrentPage('user-guide');
     else if (path === '/faq') setCurrentPage('faq');
@@ -109,10 +105,6 @@ function App() {
         return <About onNavigate={navigateTo} />;
       case 'contact':
         return <Contact onNavigate={navigateTo} />;
-      case 'measurement':
-        return <Home onNavigate={navigateTo} />;
-      case 'measurement-history':
-        return <Records onNavigate={navigateTo} />;
       case 'records':
         return <Records onNavigate={navigateTo} />;
       case 'user-guide':

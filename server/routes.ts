@@ -268,12 +268,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
       
-      // Calculate overall percentile based on available measurements
-      let validPercentiles = [percentiles["5s"], percentiles["15s"], percentiles["30s"], percentiles["60s"]];
-      if (percentiles["180s"]) validPercentiles.push(percentiles["180s"]);
-      if (percentiles["360s"]) validPercentiles.push(percentiles["360s"]);
-      
-      const overallPercentile = validPercentiles.reduce((sum, p) => sum + p, 0) / validPercentiles.length;
+      const overallPercentile = (percentiles["5s"] + percentiles["15s"] + percentiles["30s"] + percentiles["60s"]) / 4;
       const balanceStatus = getBalanceStatus(measurementData.leftBalance, measurementData.rightBalance);
       
       // Determine strengths and improvements (including 180s/360s if available)
@@ -307,9 +302,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const aiAnalysis = await generateFitnessAnalysis({
         studentName: measurementData.studentName,
         age,
-        bmi,
-        height: measurementData.height,
-        weight: measurementData.weight,
         overallPercentile,
         percentiles: {
           power: percentiles["5s"],
@@ -391,7 +383,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
         balanceStatus,
-        expertReport: aiAnalysis.expertReport,
+        aiSummary: aiAnalysis.summary,
         balanceComment: aiAnalysis.balanceComment,
         explanation5s: aiAnalysis.explanations.power,
         explanation15s: aiAnalysis.explanations.strength,
@@ -403,7 +395,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ? aiAnalysis.comprehensiveAnalysis.join(" | ")
             : "체력 분석을 완료했습니다.",
         overallAssessment: aiAnalysis.overallAssessment,
-        detailedReport: aiAnalysis.detailedReport,
         strengths: strengthsText,
         improvements: improvementsText,
         aiAnalysis
@@ -515,7 +506,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               percentile360s: analysis.percentile360s,
               strengths: analysis.strengths,
               improvements: analysis.improvements,
-              expertReport: analysis.expertReport,
+              aiSummary: analysis.aiSummary,
               balanceStatus: analysis.balanceStatus
             };
           })
@@ -579,7 +570,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             percentile360s: analysis.percentile360s,
             strengths: analysis.strengths,
             improvements: analysis.improvements,
-            expertReport: analysis.expertReport,
+            aiSummary: analysis.aiSummary,
             balanceStatus: analysis.balanceStatus
           };
         })

@@ -8,9 +8,6 @@ const openai = new OpenAI({
 export interface FitnessAnalysisRequest {
   studentName: string;
   age: number;
-  bmi: number;
-  height: number;
-  weight: number;
   overallPercentile: number;
   percentiles: {
     power: number;
@@ -36,7 +33,7 @@ export interface FitnessAnalysisRequest {
 }
 
 export interface AIAnalysisResponse {
-  expertReport: string;
+  summary: string;
   balanceComment: string;
   explanations: {
     power: string;
@@ -46,13 +43,11 @@ export interface AIAnalysisResponse {
   };
   comprehensiveAnalysis: string[];
   overallAssessment: string;
-  detailedReport: string;
 }
 
 export async function generateFitnessAnalysis(
   data: FitnessAnalysisRequest,
 ): Promise<AIAnalysisResponse> {
-  console.log("=== AI 분석 시작 ===", data.studentName);
   try {
     // Build measurement data based on available information
     let measurementData = `
@@ -104,42 +99,23 @@ export async function generateFitnessAnalysis(
 - 개선 항목: ${data.improvements.join(", ")}`;
 
     const prompt = `
-당신은 15년 경력의 아동 운동생리학 박사이자 스포츠 의학 컨설턴트입니다. 비전문가가 봐도 이해할 수 있을 정도로 쉽고 명확하게 설명해주세요.
-
 아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
 
 ${measurementData}
 
-**CRITICAL 필수 규칙:**
-- 반드시 "${data.studentName}님" 호칭만 사용, 대명사 절대 금지
-- BMI는 소수점 1자리로 반올림하여 제시
-- 모든 실제 측정값(W)과 백분위를 구체적으로 언급
-- 전문가다운 의학적 근거 기반 분석 제공
-- 성장기 특성과 좌우밸런스 발달과정 자연스럽게 연결
-
-AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세요:
+AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
-  "expertAnalysis": "CRITICAL: 정확히 3개 문단, 각 문단 정확히 3개 문장. 15년 경력 아동운동생리학 박사의 전문 강점분석보고서. ${data.studentName}님 호칭 필수. 실제 측정값을 정확히 언급하며 전문 의학용어 사용 (근신경계 발달, 체력기반, 발달특성 등). BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg을 매 문장마다 활용. 문장 연결어 필수 사용 ('이는', '현재', '특히', '전반적으로'). 전문적 문체 ('~상황입니다', '~전망됩니다', '~가능합니다'). 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
-  "balanceComment": "${data.studentName}님의 좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. 성장기 아동의 밸런스 발달 과정과 관련성 포함, 4-7줄로 상세 작성",
-  "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI와 체중이 운동 수행에 미치는 영향 분석",
-  "detailedReport": "ABSOLUTE CRITICAL: 이모티콘으로 시작하는 9개 섹션 구성. 해시태그나 번호 절대 금지. 각 섹션은 반드시 \\n\\n으로 구분하여 9개 독립된 블록으로 작성. ${data.studentName}님 호칭 필수. 각 섹션 반드시 6-7개 문장으로 작성 (5문장 미만 절대 금지). 실제 측정값과 W 단위를 매 섹션마다 포함. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg, 키 ${data.height}cm을 구체적으로 활용. 전문 의학용어 강제 사용 (근신경계 발달, 체력기반, 발달특성, 운동생리학적). 문장 연결어 필수 ('이는', '현재', '특히', '전반적으로'). 전문적 문체 ('~상황입니다', '~전망됩니다', '~가능합니다'). 좌우밸런스와 성장기 발달 관련성 의학적 근거로 언급. 현실적 목표 설정 (백분위별 차등 향상: 하위권 1-3%, 중위권 1-2%, 상위권 0.5-1%, 최상위권 현상유지 수준). 백분위를 구체적 순위로 설명 ('또래 100명 중 XX등'). 운동 방법은 시간/횟수/빈도 구체적 제시. 9개 섹션: 1)오늘 한눈에 보기 2)강점&잠재력 3)우선 개선영역 4)밸런스&자세 5)성장 예측 6)운동 처방 7)영양 가이드 8)일상 관리 9)3개월 목표"
+  "summary": "15년 경력의 아동 운동생리학 박사 관점에서 부모가 이해하기 쉽게 강점과 보완점을 1-3줄로 요약 (3줄일 경우 한 문장으로 끊어지지 않게)",
+  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. 성장과의 관련성을 포함하되 의학적 진단/치료 문구는 피하고, 4-7줄로 상세 작성",
+  "comprehensiveAnalysis": "체력 종합분석 AI 해설. 줄바꿈(\\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성. ${data.studentName}의 이름을 자연스럽게 활용하여 개인 맞춤형 분석 제공"
 }
 
-**절대 금지 사항:**
-1. 해시태그(#) 번호 매기기 절대 금지
-2. "요약", "간결", "축약" 등 단어 사용 금지
-3. 대명사(그, 그녀, 아이) 사용 금지
-4. 1-2줄 짧은 설명 금지 - 반드시 5-7줄로 상세 작성
-
-**필수 준수 사항:**
-1. ${data.studentName}님 호칭만 사용
-2. 실제 측정값(W)과 백분위 구체적 언급
-3. BMI 소수점 1자리로 반올림 표시
-4. 각 섹션 정확히 6-7문장으로 작성
-5. 전문 의학용어와 연결어 필수 사용
+**중요 지침:**
+1. 체력요약카드 한줄요약: 전문가적이지만 부모가 쉽게 이해할 수 있게
+2. 좌우밸런스 AI 코멘트: 성장 관련성 포함, 의료법 준수
+3. 체력종합분석 AI 종합해설: 가독성 최우선, 줄바꿈과 강조 필수
 `;
 
-    console.log("=== OpenAI 요청 전송 중 ===");
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
@@ -181,19 +157,18 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
       max_tokens: 3000,
     });
 
-    console.log("=== OpenAI 응답 받음 ===", response.choices[0].message.content?.substring(0, 200));
-    
     const result = JSON.parse(response.choices[0].message.content || "{}");
-    console.log("=== JSON 파싱 완료 ===", Object.keys(result));
 
     return {
-      expertReport: result.expertAnalysis || "체력 분석을 완료했습니다.",
+      summary: result.summary || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
         strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
         muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
-        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`
+        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
+        longEndurance180s: data.percentiles.longEndurance180s ? `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance180s)}등 수준입니다.` : null,
+        longEndurance360s: data.percentiles.longEndurance360s ? `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance360s)}등 수준입니다.` : null,
       },
       comprehensiveAnalysis: result.comprehensiveAnalysis || [
         "전반적인 체력 상태를 분석 중입니다.",
@@ -201,24 +176,27 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
         "맞춤형 운동 계획을 수립하겠습니다.",
       ],
       overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
-      detailedReport: result.detailedReport || `# 1. ${data.studentName}의 오늘 한눈에 보기\n체력 측정이 완료되었습니다.\n\n# 2. 강점 & 잠재력\n개인별 강점을 분석하고 있습니다.\n\n# 3. 우선 개선 영역\n개선이 필요한 부분을 확인하고 있습니다.`,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);
 
     // Fallback response in case of API failure
     return {
-      expertReport: `${data.studentName}님은 전체적으로 ${data.overallPercentile}%의 체력 수준을 보유하고 있습니다. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg의 체격 조건에서 측정된 결과입니다. 현재 상태는 성장기 아동의 발달특성을 고려할 때 향후 개선 가능성이 높은 상황입니다.\n\n이는 근신경계 발달 과정에서 나타나는 일반적인 현상으로 판단됩니다. 특히 체력기반이 형성되는 시기적 특성상 체계적인 접근이 필요한 상황입니다. 전반적으로 균형잡힌 발달을 위한 맞춤형 운동 처방이 권장되는 상태로 전망됩니다.\n\n좌우 밸런스 ${data.balanceDifference}% 차이는 성장기 운동능력 발달에 중요한 지표로 작용합니다. 현재 균형감각의 발달정도는 향후 운동기술 습득의 기반이 될 것으로 예상됩니다. 이러한 기초 체력요소들을 바탕으로 단계적인 향상이 가능할 것으로 전망됩니다.`,
-      balanceComment: `${data.studentName}님의 좌우 밸런스 차이 ${data.balanceDifference}%는 성장기 아동의 발달과정에서 중요한 의미를 갖습니다. 이는 근신경계 발달과 운동학습능력에 직접적인 영향을 미치는 핵심 지표입니다. 특히 체력기반 형성 시기에 나타나는 이러한 결과는 향후 운동능력 발달의 예측인자로 활용됩니다. 균형감각의 완성도는 복합적인 운동기술 습득과 밀접한 관련성을 보입니다.`,
+      summary: "체력 분석을 완료했습니다.",
+      balanceComment: "좌우 밸런스 개선을 위한 균형 훈련이 권장됩니다.",
       explanations: {
-        power: `순발력은 근신경계의 폭발적 에너지 발산능력을 평가하는 핵심 지표입니다. ${data.studentName}님은 또래 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준의 능력을 보유하고 있습니다.`,
-        strength: `근력은 15초간 지속적인 힘 발휘능력을 측정하는 체력요소입니다. 현재 또래 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준의 발달상태를 보이고 있습니다.`,
-        muscleEndurance: `근지구력은 30초간 일정 강도의 힘을 유지하는 능력입니다. 또래 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준으로 측정되었습니다.`,
-        cardioEndurance: `심폐지구력은 1분간 지속적인 운동수행능력을 나타냅니다. 현재 또래 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`
+        power: "순발력 수준이 양호하며, 폭발적인 힘 발휘 능력을 보입니다.",
+        strength: "근력 개발을 위한 지속적인 저항 훈련이 도움이 됩니다.",
+        muscleEndurance:
+          "근지구력 향상을 위해 점진적인 지구력 훈련을 권장합니다.",
+        cardioEndurance: "심폐지구력 강화를 위한 유산소 운동이 필요합니다.",
       },
-      comprehensiveAnalysis: `${data.studentName}님의 체력분석 결과 BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg 조건에서 전반적인 발달양상을 확인할 수 있습니다. 이는 성장기 아동의 체력기반 형성과정에서 나타나는 특징적 패턴으로 해석됩니다.`,
-      overallAssessment: `${data.studentName}님은 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 근신경계 발달특성을 고려할 때 지속적인 향상이 기대됩니다. 특히 체력기반이 형성되는 현 시기의 특성상 체계적인 접근을 통해 균형잡힌 발달이 가능할 것으로 전망됩니다. 현재 BMI ${Math.round(data.bmi * 10) / 10}의 체격조건은 다양한 운동활동에 유리한 조건을 제공하고 있습니다. 이러한 기초적 조건들을 바탕으로 맞춤형 운동처방을 통한 단계적 향상이 권장되는 상황입니다.`,
-      detailedReport: `🔍 ${data.studentName}님의 오늘 한눈에 보기\n\n${data.studentName}님은 키 ${data.height}cm, 체중 ${data.weight}kg, BMI ${Math.round(data.bmi * 10) / 10}의 체격을 보유하고 있습니다. 이는 성장기 아동의 발달특성을 고려할 때 적절한 범위에 속하는 상황입니다. 현재 측정된 체력수준은 근신경계 발달과정의 특징을 반영하고 있습니다. 특히 체력기반 형성 시기의 특성상 향후 개선가능성이 높은 상태로 판단됩니다. 좌우 밸런스 ${data.balanceDifference}% 차이는 운동학습능력의 기초가 되는 중요한 지표입니다. 전반적으로 체계적인 접근을 통한 균형잡힌 발달이 기대되는 상황입니다.\n\n🌟 강점 & 잠재력\n\n${data.studentName}님의 현재 체력상태는 성장기 발달과정의 긍정적 신호를 보여주고 있습니다.`,
+      comprehensiveAnalysis: [
+        "전체적으로 균형잡힌 체력 발달을 보이고 있습니다.",
+        "지속적인 훈련을 통해 더 큰 향상이 기대됩니다.",
+        "규칙적인 운동 습관 형성이 중요합니다.",
+      ],
+      overallAssessment: `${data.studentName}은(는) 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 꾸준한 노력을 통해 더 큰 발전이 가능합니다. 특히 강점 영역을 활용하여 부족한 부분을 보완하는 방향으로 훈련하면 좋은 결과를 얻을 수 있을 것입니다. 균형잡힌 신체 발달을 위해 다양한 운동을 경험하고, 정기적인 측정을 통해 진전 상황을 확인하기를 권장합니다. 현재의 체력 기반을 바탕으로 지속적인 관리와 적절한 운동 프로그램 참여를 통해 건강한 성장이 이루어질 것으로 기대됩니다.`,
     };
   }
 }
