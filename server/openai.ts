@@ -118,7 +118,7 @@ ${measurementData}
 
 AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
-  "expertAnalysis": "CRITICAL: 정확히 3개 문단, 각 문단 정확히 3개 문장. 15년 경력 아동운동생리학 박사의 전문 강점분석보고서. ${data.studentName}님 호칭 필수. 실제 측정값 예시: 5초 파워 200W(6%), 15초 150W(2%), 30초 150W(12%), 60초 150W(20%) 등을 구체적으로 언급. BMI는 ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg 활용한 전문 분석. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
+  "expertAnalysis": "CRITICAL: 정확히 3개 문단, 각 문단 정확히 3개 문장. 15년 경력 아동운동생리학 박사의 전문 강점분석보고서. ${data.studentName}님 호칭 필수. 실제 측정값을 정확히 언급 (예: 5초 파워 35W(75%), 15초 파워 28W(45%), 30초 파워 22W(30%), 60초 파워 18W(25%) 등). BMI는 ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg 활용한 전문 분석. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
   "balanceComment": "${data.studentName}님의 좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. 성장기 아동의 밸런스 발달 과정과 관련성 포함, 4-7줄로 상세 작성",
   "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI와 체중이 운동 수행에 미치는 영향 분석",
   "detailedReport": "ABSOLUTE CRITICAL: 이모티콘으로 시작하는 9개 섹션 구성. 해시태그나 번호 절대 금지. ${data.studentName}님 호칭 필수. 각 섹션 반드시 최소 5개 문장, 권장 6-7개 문장으로 작성. 실제 측정값과 W 단위 반드시 포함. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg, 키 ${data.height}cm 활용. 좌우밸런스와 성장기 발달 관련성 언급. 현실적 목표 설정 (2%→5%→15% 정도). 자연스럽고 전문적인 문체. 백분위를 구체적 순위로 설명. 운동 방법은 시간/횟수/빈도 구체적 제시. 9개 섹션: 1)오늘 한눈에 보기 2)강점&잠재력 3)우선 개선영역 4)밸런스&자세 5)성장 예측 6)운동 처방 7)영양 가이드 8)일상 관리 9)3개월 목표"
