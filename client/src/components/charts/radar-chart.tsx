@@ -77,11 +77,11 @@ export default function RadarChart({ data }: RadarChartProps) {
             },
             pointLabels: {
               font: {
-                size: 13,
+                size: 15,
                 weight: 'bold',
               },
               color: '#374151',
-              padding: 15,
+              padding: 20,
             },
             grid: {
               color: '#E5E7EB',

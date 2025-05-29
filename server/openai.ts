@@ -50,17 +50,20 @@ export async function generateFitnessAnalysis(
 ): Promise<AIAnalysisResponse> {
   try {
     // Build measurement data based on available information
+    const bmi = Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2) * 10) / 10;
+    
     let measurementData = `
 **측정 대상 정보:**
 - 이름: ${data.studentName}
 - 나이: ${data.age}세
-- 종합 백분위: ${Math.round(data.overallPercentile)}% (하위 ${Math.round(data.overallPercentile)}%, 상위 ${Math.round(100 - data.overallPercentile)}%)
+- 신체정보: 키 ${data.height || 120}cm, 체중 ${data.weight || 20}kg, BMI ${bmi}
+- 종합 백분위: ${Math.round(data.overallPercentile)}% (100명 중 ${Math.round(100 - data.overallPercentile)}등 수준)
 
-**기본 측정 항목별 백분위:**
-- 순발력 (5초): ${Math.round(data.percentiles.power)}%
-- 스프린트 파워 (15초): ${Math.round(data.percentiles.strength)}%
-- 파워 지속력 (30초): ${Math.round(data.percentiles.muscleEndurance)}%
-- 근력 (60초): ${Math.round(data.percentiles.cardioEndurance)}%`;
+**기본 측정 항목별 상세 결과:**
+- 순발력 (5초): ${data.rawPower5s || 0}W → 백분위 ${Math.round(data.percentiles.power)}% (100명 중 ${Math.round(100 - data.percentiles.power)}등)
+- 스프린트 파워 (15초): ${data.rawPower15s || 0}W → 백분위 ${Math.round(data.percentiles.strength)}% (100명 중 ${Math.round(100 - data.percentiles.strength)}등)
+- 파워 지속력 (30초): ${data.rawPower30s || 0}W → 백분위 ${Math.round(data.percentiles.muscleEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등)
+- 근력 (60초): ${data.rawPower60s || 0}W → 백분위 ${Math.round(data.percentiles.cardioEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등)`;
 
     // Add advanced measurements if available
     if (data.advancedPowerData?.hasAdvancedData) {
@@ -125,28 +128,27 @@ JSON 형식으로 응답하세요:
           content: `당신은 15년 경력의 아동 운동생리학 박사이자 스포츠 의학 컨설턴트입니다.
 ※ 본 리포트는 건강증진 목적의 일반 가이드이며, 의학적 진단·치료를 대체하지 않습니다.
 
-목표:
-1) 연령·성별·키·체중·BMI 맥락으로 수치를 생활언어로 해석 ("또래 대비 체중이 가벼워 파워 유리" 같은 개인별 특성 포함)
-2) '오늘의 강점 1가지' '오늘의 우선 개선 1가지'를 굵게 강조
-3) 3·30·90일(1주·1달·3달) 구체적 행동 가이드 ⟶ 운동 빈도·횟수·시간 포함
-4) 계절·장소·부모 참여 팁 각각 1개씩 제시
-5) 아이 이름을 자연스럽게 활용하여 개인 맞춤형 느낌 강화
-6) 안전 가이드라인: 무리·통증 발생 시 중단 / 전문가 상담 기준 명시
-7) 의학적 표현은 '가능성'·'권장' 수준으로, 진단·처방 문구 회피
-8) 마지막에 '다음 측정 예상개선치' 구체적 수치로 제시
+중요 지침:
+1) BMI를 포함한 신체구성 분석으로 개별 특성 해석 ("BMI ${Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2))} 기준 또래 대비 체중이 가벼워 파워 유리" 등)
+2) 각 측정값의 원W 수치와 백분위의 구체적 의미 설명
+3) 운동 성장률은 보수적으로 1-2% 향상 목표 (상위권일수록 더 보수적)
+4) 한 항목당 최소 6줄 이상 자세한 설명
+5) 부모가 "전문적이고 돈값한다"고 느낄 정도로 길고 구체적으로
+6) 의학적 진단/치료 문구 절대 금지, 권장/가능성 수준으로만
+7) 아이 이름을 자연스럽게 활용하여 개인 맞춤형 분석
 
-출력 형식:
-# 1. ${data.studentName}의 오늘 한눈에 보기 (두 줄 요약)
-# 2. 강점 & 잠재력  
-# 3. 우선 개선 영역
-# 4. 이번 주 해야 할 일
-# 5. 이번 달 목표
-# 6. 3개월 로드맵
-# 7. 부모 참여 운동법
-# 8. 안전 주의사항
-# 9. 다음 측정 예상 개선치
+출력 형식 (각 항목마다 아이콘과 함께):
+# 1. 📊 ${data.studentName}의 오늘 한눈에 보기
+# 2. 💪 강점 & 잠재력  
+# 3. 🎯 우선 개선 영역
+# 4. 📅 이번 주 해야 할 일
+# 5. 📈 이번 달 목표
+# 6. 🚀 3개월 로드맵
+# 7. 👨‍👩‍👧‍👦 부모 참여 운동법
+# 8. ⚠️ 안전 주의사항
+# 9. 🔮 다음 측정 예상 개선치
 
-동어반복을 피하고, 숫자 나열이 아닌 성장 가능성에 집중하여 작성하세요.`,
+각 항목은 최소 6줄 이상, 구체적 수치와 운동생리학적 근거를 포함하여 전문성을 드러내세요.`,
         },
         {
           role: "user",

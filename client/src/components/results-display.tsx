@@ -367,8 +367,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           <div className="grid grid-cols-2 gap-6">
             {/* 종합 백분위 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-64 h-64 mb-4">
-                <svg className="w-64 h-64 transform -rotate-90" viewBox="0 0 36 36">
+              <div className="relative w-48 h-48 mb-4">
+                <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 36 36">
                   <path
                     d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     fill="none"
@@ -415,12 +415,12 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
 
             {/* 최고/개선 항목 */}
             <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-center p-3 bg-green-50 rounded-lg">
-                <p className="text-gray-600 mb-1">💪 최고 항목</p>
+              <div className="text-center p-4 bg-green-50 rounded-lg flex flex-col justify-center items-center h-20">
+                <p className="text-gray-600 mb-2">💪 최고 항목</p>
                 <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
               </div>
-              <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                <p className="text-gray-600 mb-1">🎯 개선 항목</p>
+              <div className="text-center p-4 bg-yellow-50 rounded-lg flex flex-col justify-center items-center h-20">
+                <p className="text-gray-600 mb-2">🎯 개선 항목</p>
                 <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
               </div>
             </div>
@@ -461,7 +461,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           
           <div className="bg-blue-50 rounded-lg p-6 mt-6">
-            <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석 핵심</h4>
+            <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석</h4>
             <div className="text-gray-700 leading-relaxed text-base space-y-3">
               {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
                 <div 
@@ -482,7 +482,46 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         </CardContent>
       </Card>
 
-      {/* Card 6: Progress Comparison */}
+      {/* Card 6: AI Comprehensive Analysis */}
+      <Card className="fitness-card">
+        <CardContent>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">AI</span>
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">체력 종합 해설</h3>
+            <div className="text-sm text-purple-600 font-medium">AI 기반</div>
+          </div>
+          
+          <div className="space-y-6">
+            {analysis.overallAssessment && typeof analysis.overallAssessment === 'string' ? (
+              <div 
+                className="text-gray-700 leading-relaxed text-base space-y-4"
+                dangerouslySetInnerHTML={{ 
+                  __html: analysis.overallAssessment
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/# (\d+)\. (.*?)(?=\n|$)/g, '<div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500 mb-4"><h4 class="font-bold text-purple-800 text-lg mb-2 flex items-center"><span class="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">$1</span>$2</h4>')
+                    .replace(/\n\n/g, '</div><div class="text-gray-700 mb-3">')
+                    .replace(/\n/g, '<br />')
+                    + '</div>'
+                }}
+              />
+            ) : (
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500">
+                  <h4 className="font-bold text-purple-800 text-lg mb-2 flex items-center">
+                    <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">1</span>
+                    오늘 한눈에 보기
+                  </h4>
+                  <p className="text-gray-700">전문적인 체력 분석을 생성하고 있습니다.</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Card 7: Progress Comparison */}
       <Card className="fitness-card">
         <CardContent>
           <div className="flex items-center space-x-3 mb-6">
