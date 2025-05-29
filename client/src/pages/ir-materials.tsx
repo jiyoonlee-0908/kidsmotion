@@ -175,33 +175,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
 
 
-        {/* 솔루션 개요 */}
-        <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+        {/* 정부 정책 */}
+        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
           <CardHeader>
-            <CardTitle className="text-2xl text-green-700 mb-4">💡 기술이 아닌 진심으로 만든 해결책</CardTitle>
+            <CardTitle className="text-2xl text-blue-700 mb-4">🏛️ 현재 정부정책: 국민건강 데이터화 추진</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
-                <div className="text-4xl mb-3">⚡</div>
-                <h3 className="text-xl font-bold text-green-700 mb-3">5분 측정</h3>
-                <p className="text-gray-600">바쁜 부모도, 예민한 아이도 부담 없이</p>
-              </div>
-              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
-                <div className="text-4xl mb-3">📊</div>
-                <h3 className="text-xl font-bold text-green-700 mb-3">정확한 수치</h3>
-                <p className="text-gray-600">이제 추측하지 않아도 됩니다</p>
-              </div>
-              <div className="text-center bg-white p-6 rounded-lg border border-green-200">
-                <div className="text-4xl mb-3">🤖</div>
-                <h3 className="text-xl font-bold text-green-700 mb-3">AI 분석</h3>
-                <p className="text-gray-600">복잡한 숫자를 부모가 이해하는 말로</p>
-              </div>
-            </div>
-            
-            {/* 정부 정책: 국민체육진흥공단 국민체력100 */}
-            <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-lg font-bold text-blue-700 mb-4">🏛️ 정부 정책: 국민건강 데이터화 추진</h3>
+            <div className="bg-white p-6 rounded-lg border border-blue-200">
+              <h3 className="text-lg font-bold text-blue-700 mb-4">국민체육진흥공단 국민체력100과의 연결점</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold text-blue-800 mb-3">국민체육진흥공단 국민체력100의 한계</h4>
