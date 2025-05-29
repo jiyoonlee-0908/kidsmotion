@@ -459,7 +459,10 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           <div className="bg-blue-50 rounded-lg p-6">
             <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석 요약</h4>
             <div className="text-gray-700 leading-relaxed text-base">
-              <p>{analysis.aiSummary || "체력 분석을 완료했습니다."}</p>
+              <div dangerouslySetInnerHTML={{ 
+                __html: (analysis.aiSummary || "체력 분석을 완료했습니다.")
+                  .replace(/<span style='color: red;'>([^<]+)<\/span>/g, '<span style="color: #ef4444; font-weight: 600;">$1</span>')
+              }} />
             </div>
           </div>
         </CardContent>

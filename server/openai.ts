@@ -118,10 +118,10 @@ ${measurementData}
 
 AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
-  "summary": "${data.studentName}님의 강점과 보완점을 정확히 3문단으로 작성. 각 문단은 정확히 3문장씩 구성. **강조문구** 절대 사용 금지, 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용. BMI와 체중의 운동 수행 영향을 반드시 포함",
-  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. ${data.studentName}님 호칭 사용, 성장기 아동의 밸런스 발달 과정과 관련성을 자연스럽게 포함, 의학적 진단/치료 문구 금지, 4-7줄로 상세 작성",
+  "expertAnalysis": "15년 경력 아동운동생리학 박사의 전문 분석보고서. ${data.studentName}님에 대한 정확히 3문단, 각 문단 정확히 3문장 구성. 실제 측정값(W)과 백분위, BMI ${data.bmi}, 체중 ${data.weight}kg을 구체적으로 언급하며 전문가다운 깊이 있는 분석 제공. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
+  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. ${data.studentName}님 호칭 사용, 성장기 아동의 밸런스 발달 과정과 관련성을 자연스럽게 포함, 의학적 진단/치료 문구 금지, 4-7줄로 상세 작성",
   "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI ${data.bmi}와 체중 ${data.weight}kg이 운동 수행에 미치는 영향을 구체적으로 분석, 줄바꿈과 강조 사용, 체중 대비 파워 분석과 성장기 특성 반영",
-  "detailedReport": "CRITICAL: 이모티콘으로 시작, # 숫자 금지. ${data.studentName}님 호칭 사용, 9단계 구조로 각 섹션 5-7문장씩 풍부하고 상세하게 작성. BMI ${data.bmi}, 체중 ${data.weight}kg, 키 ${data.height}cm 분석 포함. 좌우밸런스와 성장 관련성 언급. 백분위를 순위로 설명(상위 XX% = 또래 100명 중 XX등). 운동 방법은 시간/횟수/빈도 구체적 제시. 형식: '🔍 ${data.studentName}님의 오늘 한눈에 보기\n${data.studentName}님은 또래보다 뛰어난 심폐지구력을 가지고 있으며... BMI ${data.bmi} 수준으로 체중이 운동 수행에 유리한 조건을 제공합니다. 좌우밸런스는 성장기 아동에게 중요한 발달 지표입니다...' 이런 식으로 9개 섹션 모두 매우 상세하게 작성"
+  "detailedReport": "CRITICAL: 15년 경력 아동운동생리학 박사의 전문 해설. 이모티콘으로 시작, # 숫자 금지. ${data.studentName}님 호칭 사용, 9단계 구조로 각 섹션 최소 5문장, 권장 6-7문장으로 매우 상세하고 전문적으로 작성. 실제 측정값 포함(예: 30초 파워 측정치로 하위 XX%). BMI ${data.bmi}, 체중 ${data.weight}kg, 키 ${data.height}cm를 구체적으로 활용한 전문 분석. 좌우밸런스와 성장기 발달과정 관련성 자연스럽게 언급. 현실적인 목표 설정(급격한 향상 금지). 자연스럽고 전문적인 문체로 AI 냄새 제거. 백분위를 순위로 설명(상위 XX% = 또래 100명 중 XX등). 운동 방법은 시간/횟수/빈도 구체적 제시"
 }
 
 **필수 체크리스트:**
@@ -176,15 +176,13 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
     const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      summary: result.summary || "체력 분석을 완료했습니다.",
+      summary: result.expertAnalysis || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
         strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
         muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
-        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
-        longEndurance180s: data.percentiles.longEndurance180s ? `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance180s)}등 수준입니다.` : null,
-        longEndurance360s: data.percentiles.longEndurance360s ? `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance360s)}등 수준입니다.` : null,
+        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`
       },
       comprehensiveAnalysis: result.comprehensiveAnalysis || [
         "전반적인 체력 상태를 분석 중입니다.",
