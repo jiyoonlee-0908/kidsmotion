@@ -842,7 +842,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               <div className="bg-white/10 p-8 rounded-lg border border-white/20 mb-8">
-                <h3 className="text-xl font-bold mb-6">📞 연락처</h3>
                 <div className="grid md:grid-cols-2 gap-8 text-left">
                   <div>
                     <h4 className="font-semibold mb-3">모션바이크 대표</h4>
