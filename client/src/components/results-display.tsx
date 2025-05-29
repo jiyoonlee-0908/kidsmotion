@@ -408,7 +408,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
 
             {/* 방사형 그래프 */}
-            <div className="flex justify-center">
+            <div className="flex justify-center -mt-2">
               <RadarChart 
                 data={{
                   power: analysis.percentile5s,
