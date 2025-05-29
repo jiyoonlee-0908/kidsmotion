@@ -165,35 +165,28 @@ JSON 형식으로 응답하세요:
           content: prompt,
         },
       ],
-
+      response_format: { type: "json_object" },
       temperature: 0.7,
       max_tokens: 3000,
     });
 
-    const responseContent = response.choices[0].message.content || "";
-    console.log("OpenAI 응답:", responseContent);
+    const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      coreInsights: responseContent.substring(0, 200) + "...",
-      balanceComment: `좌우밸런스 차이가 ${data.balanceDifference}%로 측정되었습니다. ${
-        data.balanceDifference <= 5 
-          ? '이는 정상 범위로, 균형감각이 잘 발달되어 있음을 나타냅니다. 현재 상태를 유지하면서 다양한 신체활동을 통해 지속적으로 균형감각을 발달시켜 나가세요.' 
-          : data.balanceDifference <= 10 
-          ? '약간의 좌우 불균형이 관찰됩니다. 성장기 아동에게서 흔히 나타나는 현상으로, 한쪽 다리 서기, 균형판 운동, 다양한 방향으로 걷기 등의 놀이를 통해 자연스럽게 개선할 수 있습니다.' 
-          : '좌우 균형에 주의가 필요합니다. 체계적인 균형 훈련을 통해 개선이 가능하므로, 전문가와 상담하여 맞춤형 운동 프로그램을 실시하는 것을 권장합니다.'
-      }`,
+      coreInsights: result.coreInsights || "체력 분석을 완료했습니다.",
+      balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
         strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
         muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
         cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
       },
-      comprehensiveAnalysis: [
+      comprehensiveAnalysis: result.comprehensiveAnalysis || [
         "전반적인 체력 상태를 분석 중입니다.",
         "개선점과 강점을 파악하고 있습니다.",
         "맞춤형 운동 계획을 수립하겠습니다.",
       ],
-      overallAssessment: responseContent || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
+      overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);

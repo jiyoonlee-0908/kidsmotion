@@ -335,10 +335,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       console.log("AI 분석 완료:", {
         coreInsights: aiAnalysis.coreInsights ? "생성됨" : "없음",
-        overallAssessment: aiAnalysis.overallAssessment ? "생성됨" : "없음",
-        balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
-        leftBalance: measurementData.leftBalance,
-        rightBalance: measurementData.rightBalance
+        overallAssessment: aiAnalysis.overallAssessment ? "생성됨" : "없음"
       });
       
       // Create analysis result
