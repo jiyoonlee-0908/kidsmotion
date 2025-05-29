@@ -120,28 +120,28 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       title: "순발력 (5초)",
       power: measurement.power5s,
       percentile: Math.round(analysis.percentile5s),
-      explanation: `순발력이 ${Math.round(analysis.percentile5s)}% 수준입니다. 짧은 시간 안에 최대 파워를 발휘하는 능력을 평가합니다.`,
+      explanation: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile5s)}등 수준입니다.`,
       category: "power"
     },
     {
       title: "스프린트 파워 (15초)",
       power: measurement.power15s,
       percentile: Math.round(analysis.percentile15s),
-      explanation: `스프린트 파워가 ${Math.round(analysis.percentile15s)}% 수준입니다. 15초간 지속할 수 있는 강한 파워 발휘 능력을 평가합니다.`,
+      explanation: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile15s)}등 수준입니다.`,
       category: "strength"
     },
     {
       title: "파워 지속력 (30초)",
       power: measurement.power30s,
       percentile: Math.round(analysis.percentile30s),
-      explanation: `파워 지속력이 ${Math.round(analysis.percentile30s)}% 수준입니다. 30초간 일정한 강도의 파워를 유지하는 능력을 평가합니다.`,
+      explanation: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile30s)}등 수준입니다.`,
       category: "endurance"
     },
     {
       title: "근력 (60초)",
       power: measurement.power60s,
       percentile: Math.round(analysis.percentile60s),
-      explanation: `근력이 ${Math.round(analysis.percentile60s)}% 수준입니다. 60초간 근육의 힘을 지속적으로 발휘하는 능력을 평가합니다.`,
+      explanation: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile60s)}등 수준입니다.`,
       category: "cardio"
     },
     // 180초, 360초 데이터가 있으면 추가
@@ -149,14 +149,14 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       title: "근지구력 (180초)",
       power: measurement.power180s,
       percentile: Math.round(analysis.percentile180s),
-      explanation: `근지구력이 ${Math.round(analysis.percentile180s)}% 수준입니다. 180초간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다.`,
+      explanation: `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile180s)}등 수준입니다.`,
       category: "muscular-endurance"
     }] : []),
     ...(measurement.power360s && analysis.percentile360s ? [{
       title: "심폐지구력 (360초)",
       power: measurement.power360s,
       percentile: Math.round(analysis.percentile360s),
-      explanation: `심폐지구력이 ${Math.round(analysis.percentile360s)}% 수준입니다. 360초간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다.`,
+      explanation: `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile360s)}등 수준입니다.`,
       category: "cardio-endurance"
     }] : [])
   ];
@@ -281,7 +281,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <div>
               <p className="text-sm text-gray-600 mb-2">한줄 요약</p>
-              <p className="text-sm text-gray-900">{analysis.aiSummary}</p>
+              <p className="text-sm text-gray-900">{analysis.aiSummary || "체력 분석을 완료했습니다."}</p>
             </div>
           </div>
         </CardContent>
@@ -315,7 +315,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               </div>
               <div className="bg-gray-50 rounded-lg p-4">
                 <h4 className="font-semibold text-gray-900 mb-2">AI 코멘트</h4>
-                <p className="text-sm text-gray-700">{analysis.balanceComment}</p>
+                <p className="text-sm text-gray-700">{analysis.balanceComment || "좌우 밸런스 분석을 통해 균형 상태를 확인했습니다."}</p>
               </div>
             </div>
           </div>
@@ -444,11 +444,11 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <div className="bg-blue-50 rounded-lg p-6">
                 <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 AI 종합 해설</h4>
                 <div className="text-gray-700 leading-relaxed text-base space-y-3">
-                  {analysis.aiAnalysis?.comprehensiveAnalysis && typeof analysis.aiAnalysis.comprehensiveAnalysis === 'string' ? (
+                  {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
                     <div 
                       className="whitespace-pre-line"
                       dangerouslySetInnerHTML={{ 
-                        __html: analysis.aiAnalysis.comprehensiveAnalysis
+                        __html: analysis.comprehensiveAnalysis
                           .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                           .replace(/\n/g, '<br />')
                       }}
