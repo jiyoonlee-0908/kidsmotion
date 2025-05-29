@@ -103,6 +103,8 @@ export async function generateFitnessAnalysis(
 - 개선 항목: ${data.improvements.join(", ")}`;
 
     const prompt = `
+당신은 15년 경력의 아동 운동생리학 박사이자 스포츠 의학 컨설턴트입니다. 비전문가가 봐도 이해할 수 있을 정도로 쉽고 명확하게 설명해주세요.
+
 아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
 
 ${measurementData}
