@@ -59,7 +59,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
                 <div className="bg-purple-50 p-4 rounded-lg my-6">
                   <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다.<br/>
-                  남편은 24년간 국가대표 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
+                  남편은 국가대표 선수 출신이며 24년간 사이클 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
                   10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
                 </div>
 
