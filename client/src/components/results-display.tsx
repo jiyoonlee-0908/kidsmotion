@@ -418,47 +418,52 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
             <h3 className="text-xl font-bold text-gray-900">체력 종합 분석</h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex justify-center">
-              <RadarChart 
-                data={{
-                  balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
-                  power: analysis.percentile5s,
-                  strength: analysis.percentile15s,
-                  muscleEndurance: analysis.percentile30s,
-                  cardioEndurance: analysis.percentile60s
-                }}
-              />
-            </div>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <p className="text-gray-600 mb-1">💪 최고 항목</p>
-                  <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
-                </div>
-                <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                  <p className="text-gray-600 mb-1">🎯 개선 항목</p>
-                  <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
+          <div className="space-y-6">
+            {/* 상단: 방사형 그래프와 최고/개선 항목 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex justify-center">
+                <RadarChart 
+                  data={{
+                    balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
+                    power: analysis.percentile5s,
+                    strength: analysis.percentile15s,
+                    muscleEndurance: analysis.percentile30s,
+                    cardioEndurance: analysis.percentile60s
+                  }}
+                />
+              </div>
+              <div className="flex items-center">
+                <div className="grid grid-cols-2 gap-4 text-sm w-full">
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <p className="text-gray-600 mb-2">💪 최고 항목</p>
+                    <p className="font-semibold text-green-600 text-base">{strengths[0] || "균형잡힌 발달"}</p>
+                  </div>
+                  <div className="text-center p-4 bg-yellow-50 rounded-lg">
+                    <p className="text-gray-600 mb-2">🎯 개선 항목</p>
+                    <p className="font-semibold text-yellow-600 text-base">{improvements[0] || "지속적 관리"}</p>
+                  </div>
                 </div>
               </div>
-              <div className="bg-blue-50 rounded-lg p-6">
-                <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 AI 종합 해설</h4>
-                <div className="text-gray-700 leading-relaxed text-base space-y-3">
-                  {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
-                    <div 
-                      className="whitespace-pre-line"
-                      dangerouslySetInnerHTML={{ 
-                        __html: analysis.comprehensiveAnalysis
-                          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                          .replace(/\n/g, '<br />')
-                      }}
-                    />
-                  ) : (
-                    comprehensiveAnalysisPoints.map((point, index) => (
-                      <p key={index}>{point}</p>
-                    ))
-                  )}
-                </div>
+            </div>
+            
+            {/* 하단: AI 종합 해설 */}
+            <div className="bg-blue-50 rounded-lg p-6">
+              <h4 className="font-semibold text-gray-900 mb-4 text-xl">🤖 AI 종합 해설</h4>
+              <div className="text-gray-700 leading-relaxed text-lg space-y-3">
+                {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
+                  <div 
+                    className="whitespace-pre-line"
+                    dangerouslySetInnerHTML={{ 
+                      __html: analysis.comprehensiveAnalysis
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\n/g, '<br />')
+                    }}
+                  />
+                ) : (
+                  comprehensiveAnalysisPoints.map((point, index) => (
+                    <p key={index}>{point}</p>
+                  ))
+                )}
               </div>
             </div>
           </div>
