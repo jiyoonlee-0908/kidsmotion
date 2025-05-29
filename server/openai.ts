@@ -1,8 +1,8 @@
 import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({ 
-  apiKey: process.env.OPENAI_API_KEY
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 export interface FitnessAnalysisRequest {
@@ -45,7 +45,9 @@ export interface AIAnalysisResponse {
   overallAssessment: string;
 }
 
-export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Promise<AIAnalysisResponse> {
+export async function generateFitnessAnalysis(
+  data: FitnessAnalysisRequest,
+): Promise<AIAnalysisResponse> {
   try {
     // Build measurement data based on available information
     let measurementData = `
@@ -72,7 +74,11 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
     }
 
     // Add heart rate analysis if available
-    if (data.heartRateData?.maxBpm || data.heartRateData?.avgBpm || data.heartRateData?.restingBpm) {
+    if (
+      data.heartRateData?.maxBpm ||
+      data.heartRateData?.avgBpm ||
+      data.heartRateData?.restingBpm
+    ) {
       measurementData += `\n\n**심박수 데이터 (에너지 시스템 분석):**`;
       if (data.heartRateData.maxBpm) {
         measurementData += `\n- 최대 심박수: ${data.heartRateData.maxBpm} bpm`;
@@ -89,72 +95,42 @@ export async function generateFitnessAnalysis(data: FitnessAnalysisRequest): Pro
 
 **좌우 밸런스:**
 - 좌우 차이: ${data.balanceDifference}%
-- 주요 강점: ${data.strengths.join(', ')}
-- 개선 항목: ${data.improvements.join(', ')}`;
+- 주요 강점: ${data.strengths.join(", ")}
+- 개선 항목: ${data.improvements.join(", ")}`;
 
     const prompt = `
-아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
-
 ${measurementData}
 
-**절대적으로 사용해야 하는 체력 항목명 (다른 용어 절대 금지):**
-- 순발력 (5초) - 다른 모든 용어 금지 (폭발력, ATP-PC, 무산소성 등)
-- 스프린트 파워 (15초) - 다른 모든 용어 금지 (무산소 파워, 해당작용 등)
-- 파워 지속력 (30초) - 다른 모든 용어 금지 (무산소성 지구력 등)
-- 근력 (60초) - 다른 모든 용어 금지 (혼합 지구력, 유무산소 등)
-- 근지구력 (180초) - 다른 모든 용어 금지
-- 심폐지구력 (360초) - 다른 모든 용어 금지
+위 데이터를 바탕으로 아래 9단계 형식으로 상세하고 전문적인 분석을 작성해주세요. 각 섹션마다 충분히 길고 구체적으로 작성하여 부모가 값어치를 느낄 수 있도록 해주세요.
 
-다음 형식의 JSON으로 응답해주세요:
-{
-  "summary": "강점과 보완점을 바탕으로 한 한줄 요약 (반드시 위 항목명만 사용)",
-  "balanceComment": "좌우 밸런스 차이에 대한 구체적 분석과 개선방안 (3-4줄, 반드시 '좌우 밸런스 차이는 X%'로 시작)",
-  "explanations": {
-    "power": "순발력 (5초) 백분위에 맞는 정확한 해설 (반드시 '순발력 (5초)' 용어만 사용)",
-    "strength": "스프린트 파워 (15초) 백분위에 맞는 정확한 해설 (반드시 '스프린트 파워 (15초)' 용어만 사용)",
-    "muscleEndurance": "파워 지속력 (30초) 백분위에 맞는 정확한 해설 (반드시 '파워 지속력 (30초)' 용어만 사용)", 
-    "cardioEndurance": "근력 (60초) 백분위에 맞는 정확한 해설 (반드시 '근력 (60초)' 용어만 사용)"
-  },
-  "comprehensiveAnalysis": [
-    "종합평가 포인트 1 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 2 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 3 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 4 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 5 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 6 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 7 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 8 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 9 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 10 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 11 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)",
-    "종합평가 포인트 12 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용)"
-  ],
-  "overallAssessment": "12줄 이상의 상세한 종합평가 (반드시 순발력(5초), 스프린트파워(15초), 파워지속력(30초), 근력(60초) 용어만 사용하고 '상위 XX%' 표현 포함, 아동 이름 포함)"
-}
+# 1. ${data.studentName}의 오늘 한눈에 보기
+(가장 뛰어난 강점 1가지와 가장 시급한 개선점 1가지를 두 줄로 요약)
 
-**백분위 해석 기준 (절대 틀리지 마세요):**
-- 90% 이상: 매우우수 (상위 10% 이내) - 뛰어난 능력, 강점으로 활용
-- 70-89%: 우수 (상위 11-30%) - 좋은 수준, 지속 발전  
-- 40-69%: 평균 (상위 31-60%) - 보통 수준, 꾸준한 노력 필요
-- 20-39%: 주의 (상위 61-80%) - 평균 이하, 집중적 개선 필요
-- 20% 미만: 경고 (상위 80% 이하) - 매우 낮은 수준, 전문적 관리 필요
+# 2. 강점 & 잠재력
+(상위 70% 이상인 항목들을 구체적 수치와 함께 설명하고, 운동생리학적 근거를 제시하며, 이 강점을 활용할 수 있는 구체적 방법들을 5-7줄로 상세히 서술)
 
-**절대 규칙:**
-- 2% = 하위 2% = 상위 98% (매우 낮은 수준이므로 경고)
-- 낮은 백분위는 절대 "뛰어나다", "우수하다" 표현 금지
-- 높은 백분위만 긍정적 표현 사용
-- 구체적인 운동법과 개선방안 제시
-- 정확한 평가와 현실적인 조언 제공
+# 3. 우선 개선 영역
+(하위 30% 이하인 항목 중 가장 시급한 것을 선정하고, 왜 문제인지와 방치했을 때의 위험성을 설명하며, 동갑 100명 중 몇 등 수준인지를 명시하여 5-7줄로 상세히 서술)
 
-**체력 항목명 사용 규칙 (반드시 준수):**
-- 순발력 (5초) - "ATP-PC 폭발력", "무산소성" 등 전문용어 사용 금지
-- 스프린트 파워 (15초) - "해당작용 파워" 등 전문용어 사용 금지
-- 파워 지속력 (30초) - "무산소성 지구력" 등 전문용어 사용 금지
-- 근력 (60초) - "유무산소 혼합지구력" 등 전문용어 사용 금지
-- 근지구력 (180초) - "중장거리 지구력" 등 전문용어 사용 금지
-- 심폐지구력 (360초) - "장거리 지구력" 등 전문용어 사용 금지
+# 4. 이번 주 해야 할 일
+(구체적 운동명, 정확한 횟수, 시간, 빈도를 명시하고, 실내/실외 구분하여 2가지 옵션을 제시하며, 매일 체크할 수 있는 간단한 목표를 설정하여 6-8줄로 상세히 서술)
 
-**모든 분석에서 위 항목명만 사용하고, 전문적인 에너지 시스템 용어는 일반인이 이해하기 쉬운 표현으로 대체하세요.**
+# 5. 이번 달 목표
+(측정 가능한 구체적 수치 목표를 제시하고, 중간 점검 시점과 방법을 설명하며, 달성 시 예상되는 백분위 변화를 포함하여 5-7줄로 상세히 서술)
+
+# 6. 3개월 로드맵
+(1개월, 2개월, 3개월 단계별 목표를 구체적으로 제시하고, 각 단계별 예상 개선 수치와 백분위 변화를 설명하며, 장기적 체력 발달 전망을 포함하여 7-9줄로 상세히 서술)
+
+# 7. 부모 참여 운동법
+(가족이 함께 할 수 있는 구체적 운동 3가지를 제시하고, 부모의 역할과 격려 방법을 설명하며, 재미있게 할 수 있는 게임 요소를 포함하여 6-8줄로 상세히 서술)
+
+# 8. 안전 주의사항
+(운동 중 즉시 중단해야 하는 신호 5가지를 명시하고, 부상 예방을 위한 준비운동과 마무리운동을 설명하며, 전문가 상담이 필요한 상황을 포함하여 6-8줄로 상세히 서술)
+
+# 9. 다음 측정 예상 개선치
+(3개월 후 각 항목별 예상 와트수와 백분위를 구체적으로 제시하고, 가장 많이 개선될 것으로 예상되는 항목과 근거를 설명하며, 목표 달성을 위한 핵심 포인트를 포함하여 6-8줄로 상세히 서술)
+
+아이 이름을 자연스럽게 활용하고, BMI와 체중 특성을 반영한 개인 맞춤형 해석을 포함하세요.
 `;
 
     const response = await openai.chat.completions.create({
@@ -186,39 +162,34 @@ ${measurementData}
 # 8. 안전 주의사항
 # 9. 다음 측정 예상 개선치
 
-동어반복을 피하고, 숫자 나열이 아닌 성장 가능성에 집중하여 작성하세요.`
+동어반복을 피하고, 숫자 나열이 아닌 성장 가능성에 집중하여 작성하세요.`,
         },
         {
           role: "user",
-          content: prompt
-        }
+          content: prompt,
+        },
       ],
-      response_format: { type: "json_object" },
       temperature: 0.7,
-      max_tokens: 2000
+      max_tokens: 3000,
     });
 
-    const result = JSON.parse(response.choices[0].message.content || "{}");
-    
+    const analysisText = response.choices[0].message.content || "체력 분석을 완료했습니다.";
+
     return {
-      summary: result.summary || "체력 분석을 완료했습니다.",
-      balanceComment: result.balanceComment || "좌우 밸런스 개선이 필요합니다.",
+      summary: "9단계 전문 체력 분석 리포트",
+      balanceComment: `좌우 밸런스 차이는 ${data.balanceDifference}%입니다.`,
       explanations: {
-        power: result.explanations?.power || "순발력 분석 중입니다.",
-        strength: result.explanations?.strength || "근력 분석 중입니다.",
-        muscleEndurance: result.explanations?.muscleEndurance || "근지구력 분석 중입니다.",
-        cardioEndurance: result.explanations?.cardioEndurance || "심폐지구력 분석 중입니다."
+        power: "순발력 분석이 포함되어 있습니다.",
+        strength: "스프린트 파워 분석이 포함되어 있습니다.",
+        muscleEndurance: "파워 지속력 분석이 포함되어 있습니다.",
+        cardioEndurance: "근력 분석이 포함되어 있습니다.",
       },
-      comprehensiveAnalysis: result.comprehensiveAnalysis || [
-        "전반적인 체력 상태를 분석 중입니다.",
-        "개선점과 강점을 파악하고 있습니다.",
-        "맞춤형 운동 계획을 수립하겠습니다."
-      ],
-      overallAssessment: result.overallAssessment || "종합적인 체력 평가를 진행하고 있습니다."
+      comprehensiveAnalysis: [analysisText],
+      overallAssessment: analysisText,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);
-    
+
     // Fallback response in case of API failure
     return {
       summary: "체력 분석을 완료했습니다.",
@@ -226,15 +197,16 @@ ${measurementData}
       explanations: {
         power: "순발력 수준이 양호하며, 폭발적인 힘 발휘 능력을 보입니다.",
         strength: "근력 개발을 위한 지속적인 저항 훈련이 도움이 됩니다.",
-        muscleEndurance: "근지구력 향상을 위해 점진적인 지구력 훈련을 권장합니다.",
-        cardioEndurance: "심폐지구력 강화를 위한 유산소 운동이 필요합니다."
+        muscleEndurance:
+          "근지구력 향상을 위해 점진적인 지구력 훈련을 권장합니다.",
+        cardioEndurance: "심폐지구력 강화를 위한 유산소 운동이 필요합니다.",
       },
       comprehensiveAnalysis: [
         "전체적으로 균형잡힌 체력 발달을 보이고 있습니다.",
         "지속적인 훈련을 통해 더 큰 향상이 기대됩니다.",
-        "규칙적인 운동 습관 형성이 중요합니다."
+        "규칙적인 운동 습관 형성이 중요합니다.",
       ],
-      overallAssessment: `${data.studentName}은(는) 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 꾸준한 노력을 통해 더 큰 발전이 가능합니다. 특히 강점 영역을 활용하여 부족한 부분을 보완하는 방향으로 훈련하면 좋은 결과를 얻을 수 있을 것입니다. 균형잡힌 신체 발달을 위해 다양한 운동을 경험하고, 정기적인 측정을 통해 진전 상황을 확인하기를 권장합니다. 현재의 체력 기반을 바탕으로 지속적인 관리와 적절한 운동 프로그램 참여를 통해 건강한 성장이 이루어질 것으로 기대됩니다.`
+      overallAssessment: `${data.studentName}은(는) 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 꾸준한 노력을 통해 더 큰 발전이 가능합니다. 특히 강점 영역을 활용하여 부족한 부분을 보완하는 방향으로 훈련하면 좋은 결과를 얻을 수 있을 것입니다. 균형잡힌 신체 발달을 위해 다양한 운동을 경험하고, 정기적인 측정을 통해 진전 상황을 확인하기를 권장합니다. 현재의 체력 기반을 바탕으로 지속적인 관리와 적절한 운동 프로그램 참여를 통해 건강한 성장이 이루어질 것으로 기대됩니다.`,
     };
   }
 }
