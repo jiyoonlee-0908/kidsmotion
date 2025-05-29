@@ -36,7 +36,7 @@ export interface FitnessAnalysisRequest {
 }
 
 export interface AIAnalysisResponse {
-  summary: string;
+  expertReport: string;
   balanceComment: string;
   explanations: {
     power: string;
@@ -182,7 +182,7 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
     const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      aiSummary: result.expertAnalysis || "체력 분석을 완료했습니다.",
+      expertReport: result.expertAnalysis || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,

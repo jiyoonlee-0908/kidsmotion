@@ -391,7 +391,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
         balanceStatus,
-        aiSummary: aiAnalysis.summary,
+        expertReport: aiAnalysis.expertReport,
         balanceComment: aiAnalysis.balanceComment,
         explanation5s: aiAnalysis.explanations.power,
         explanation15s: aiAnalysis.explanations.strength,
@@ -515,7 +515,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               percentile360s: analysis.percentile360s,
               strengths: analysis.strengths,
               improvements: analysis.improvements,
-              aiSummary: analysis.aiSummary,
+              expertReport: analysis.expertReport,
               balanceStatus: analysis.balanceStatus
             };
           })
