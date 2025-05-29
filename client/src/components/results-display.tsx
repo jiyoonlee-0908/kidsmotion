@@ -415,11 +415,11 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
 
             {/* 최고/개선 항목 */}
             <div className="grid grid-cols-2 gap-4 text-sm -mt-5">
-              <div className="text-center p-4 bg-green-50 rounded-lg flex flex-col justify-center items-center h-[88px]">
+              <div className="text-center p-4 bg-green-50 rounded-lg flex flex-col justify-center items-center h-[112px]">
                 <p className="text-gray-600 mb-2">💪 최고 항목</p>
                 <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
               </div>
-              <div className="text-center p-4 bg-yellow-50 rounded-lg flex flex-col justify-center items-center h-[88px]">
+              <div className="text-center p-4 bg-yellow-50 rounded-lg flex flex-col justify-center items-center h-[112px]">
                 <p className="text-gray-600 mb-2">🎯 개선 항목</p>
                 <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
               </div>
