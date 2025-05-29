@@ -383,7 +383,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
         balanceStatus,
-        aiSummary: aiAnalysis.coreInsights,
+        aiCoreInsights: aiAnalysis.coreInsights,
         balanceComment: aiAnalysis.balanceComment,
         explanation5s: aiAnalysis.explanations.power,
         explanation15s: aiAnalysis.explanations.strength,
@@ -506,7 +506,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               percentile360s: analysis.percentile360s,
               strengths: analysis.strengths,
               improvements: analysis.improvements,
-              aiSummary: analysis.aiSummary,
+              aiCoreInsights: analysis.aiCoreInsights,
               balanceStatus: analysis.balanceStatus
             };
           })
@@ -570,7 +570,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             percentile360s: analysis.percentile360s,
             strengths: analysis.strengths,
             improvements: analysis.improvements,
-            aiSummary: analysis.aiSummary,
+            aiCoreInsights: analysis.aiCoreInsights,
             balanceStatus: analysis.balanceStatus
           };
         })
