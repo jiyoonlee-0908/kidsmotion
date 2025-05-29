@@ -99,38 +99,36 @@ export async function generateFitnessAnalysis(
 - 개선 항목: ${data.improvements.join(", ")}`;
 
     const prompt = `
+아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
+
 ${measurementData}
 
-위 데이터를 바탕으로 아래 9단계 형식으로 상세하고 전문적인 분석을 작성해주세요. 각 섹션마다 충분히 길고 구체적으로 작성하여 부모가 값어치를 느낄 수 있도록 해주세요.
+다음 형식의 JSON으로 응답해주세요:
+{
+  "summary": "강점과 보완점을 바탕으로 한 한줄 요약",
+  "balanceComment": "좌우 밸런스 차이에 대한 구체적 분석과 개선방안 (3-7줄로 상세하게 작성하되, 반드시 '좌우 밸런스 차이는 ${data.balanceDifference}%'로 시작)",
+  "explanations": {
+    "power": "순발력 ${data.percentiles.power}% 수준입니다. 달리기에서 출발 순간의 폭발력이나 점프할 때의 순간적인 힘을 평가합니다.",
+    "strength": "스프린트 파워 ${data.percentiles.strength}% 수준입니다. 단거리 달리기나 자전거 페달을 힘껏 밟는 능력을 평가합니다.",
+    "muscleEndurance": "파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 계속해서 힘을 내는 능력, 계단 오르기나 언덕 뛰기에 필요합니다.",
+    "cardioEndurance": "근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속할 수 있는 능력을 평가합니다."
+  },
+  "comprehensiveAnalysis": [
+    "종합평가 포인트 1 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
+    "종합평가 포인트 2 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
+    "종합평가 포인트 3 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
+    "종합평가 포인트 4 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
+    "종합평가 포인트 5 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
+    "종합평가 포인트 6 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)"
+  ],
+  "overallAssessment": "종합적인 체력 평가 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성, 아동 이름 포함)"
+}
 
-# 1. ${data.studentName}의 오늘 한눈에 보기
-(가장 뛰어난 강점 1가지와 가장 시급한 개선점 1가지를 두 줄로 요약)
-
-# 2. 강점 & 잠재력
-(상위 70% 이상인 항목들을 구체적 수치와 함께 설명하고, 운동생리학적 근거를 제시하며, 이 강점을 활용할 수 있는 구체적 방법들을 5-7줄로 상세히 서술)
-
-# 3. 우선 개선 영역
-(하위 30% 이하인 항목 중 가장 시급한 것을 선정하고, 왜 문제인지와 방치했을 때의 위험성을 설명하며, 동갑 100명 중 몇 등 수준인지를 명시하여 5-7줄로 상세히 서술)
-
-# 4. 이번 주 해야 할 일
-(구체적 운동명, 정확한 횟수, 시간, 빈도를 명시하고, 실내/실외 구분하여 2가지 옵션을 제시하며, 매일 체크할 수 있는 간단한 목표를 설정하여 6-8줄로 상세히 서술)
-
-# 5. 이번 달 목표
-(측정 가능한 구체적 수치 목표를 제시하고, 중간 점검 시점과 방법을 설명하며, 달성 시 예상되는 백분위 변화를 포함하여 5-7줄로 상세히 서술)
-
-# 6. 3개월 로드맵
-(1개월, 2개월, 3개월 단계별 목표를 구체적으로 제시하고, 각 단계별 예상 개선 수치와 백분위 변화를 설명하며, 장기적 체력 발달 전망을 포함하여 7-9줄로 상세히 서술)
-
-# 7. 부모 참여 운동법
-(가족이 함께 할 수 있는 구체적 운동 3가지를 제시하고, 부모의 역할과 격려 방법을 설명하며, 재미있게 할 수 있는 게임 요소를 포함하여 6-8줄로 상세히 서술)
-
-# 8. 안전 주의사항
-(운동 중 즉시 중단해야 하는 신호 5가지를 명시하고, 부상 예방을 위한 준비운동과 마무리운동을 설명하며, 전문가 상담이 필요한 상황을 포함하여 6-8줄로 상세히 서술)
-
-# 9. 다음 측정 예상 개선치
-(3개월 후 각 항목별 예상 와트수와 백분위를 구체적으로 제시하고, 가장 많이 개선될 것으로 예상되는 항목과 근거를 설명하며, 목표 달성을 위한 핵심 포인트를 포함하여 6-8줄로 상세히 서술)
-
-아이 이름을 자연스럽게 활용하고, BMI와 체중 특성을 반영한 개인 맞춤형 해석을 포함하세요.
+**중요 지침:**
+1. 밸런스 코멘트는 반드시 3-7줄로 상세하게 작성
+2. 각 체력 항목 설명은 비전문가인 부모도 쉽게 이해할 수 있도록 일상적인 운동 예시 포함
+3. 종합분석과 종합평가는 줄바꿈(\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성
+4. 아동의 이름을 자연스럽게 활용하여 개인 맞춤형 느낌 강화
 `;
 
     const response = await openai.chat.completions.create({
@@ -169,23 +167,28 @@ ${measurementData}
           content: prompt,
         },
       ],
+      response_format: { type: "json_object" },
       temperature: 0.7,
       max_tokens: 3000,
     });
 
-    const analysisText = response.choices[0].message.content || "체력 분석을 완료했습니다.";
+    const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      summary: "9단계 전문 체력 분석 리포트",
-      balanceComment: `좌우 밸런스 차이는 ${data.balanceDifference}%입니다.`,
+      summary: result.summary || "체력 분석을 완료했습니다.",
+      balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
-        power: "순발력 분석이 포함되어 있습니다.",
-        strength: "스프린트 파워 분석이 포함되어 있습니다.",
-        muscleEndurance: "파워 지속력 분석이 포함되어 있습니다.",
-        cardioEndurance: "근력 분석이 포함되어 있습니다.",
+        power: result.explanations?.power || `순발력 ${data.percentiles.power}% 수준입니다. 달리기에서 출발 순간의 폭발력이나 점프할 때의 순간적인 힘을 평가합니다.`,
+        strength: result.explanations?.strength || `스프린트 파워 ${data.percentiles.strength}% 수준입니다. 단거리 달리기나 자전거 페달을 힘껏 밟는 능력을 평가합니다.`,
+        muscleEndurance: result.explanations?.muscleEndurance || `파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 계속해서 힘을 내는 능력, 계단 오르기나 언덕 뛰기에 필요합니다.`,
+        cardioEndurance: result.explanations?.cardioEndurance || `근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속할 수 있는 능력을 평가합니다.`,
       },
-      comprehensiveAnalysis: [analysisText],
-      overallAssessment: analysisText,
+      comprehensiveAnalysis: result.comprehensiveAnalysis || [
+        "전반적인 체력 상태를 분석 중입니다.",
+        "개선점과 강점을 파악하고 있습니다.",
+        "맞춤형 운동 계획을 수립하겠습니다.",
+      ],
+      overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);
