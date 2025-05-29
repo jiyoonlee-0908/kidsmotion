@@ -121,7 +121,7 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
   "expertAnalysis": "CRITICAL: 정확히 3개 문단, 각 문단 정확히 3개 문장. 15년 경력 아동운동생리학 박사의 전문 강점분석보고서. ${data.studentName}님 호칭 필수. 실제 측정값 예시: 5초 파워 200W(6%), 15초 150W(2%), 30초 150W(12%), 60초 150W(20%) 등을 구체적으로 언급. BMI는 ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg 활용한 전문 분석. 빨간 글씨는 <span style='color: red;'>내용</span> 형식 사용",
   "balanceComment": "${data.studentName}님의 좌우 밸런스 차이 ${data.balanceDifference}%에 대한 전문 분석. 성장기 아동의 밸런스 발달 과정과 관련성 포함, 4-7줄로 상세 작성",
   "comprehensiveAnalysis": "${data.studentName}님의 체력 종합분석. BMI와 체중이 운동 수행에 미치는 영향 분석",
-  "detailedReport": "ABSOLUTE CRITICAL: 이모티콘으로 시작, 해시태그나 번호 절대 금지. ${data.studentName}님 호칭 필수. 9개 섹션 각각 반드시 최소 5개 문장, 권장 6-7개 문장으로 작성. 실제 측정값과 W 단위 반드시 포함. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg, 키 ${data.height}cm 활용. 좌우밸런스와 성장기 발달 관련성 언급. 현실적 목표 설정. 자연스럽고 전문적인 문체. 백분위를 구체적 순위로 설명. 운동 방법은 시간/횟수/빈도 구체적 제시. 형식 예시: '🔍 ${data.studentName}님의 오늘 한눈에 보기\\n${data.studentName}님은 6세 여아로서 키 ${data.height}cm, 체중 ${data.weight}kg, BMI ${Math.round(data.bmi * 10) / 10}의 체격을 보유하고 있습니다. 순발력 5초 파워에서 실제 측정값으로 하위 수준을 기록했습니다. 이는 또래 100명 중 특정 순위에 해당하는 결과입니다. 성장기 아동의 특성상 이러한 결과는 향후 발달 과정에서 개선 가능성이 높습니다. BMI 수치는 해당 연령대에 적절한 범위에 속하며 운동 수행에 유리한 조건을 제공합니다. 좌우 밸런스는 성장기 운동 발달에 중요한 지표로 작용합니다.'"
+  "detailedReport": "ABSOLUTE CRITICAL: 이모티콘으로 시작하는 9개 섹션 구성. 해시태그나 번호 절대 금지. ${data.studentName}님 호칭 필수. 각 섹션 반드시 최소 5개 문장, 권장 6-7개 문장으로 작성. 실제 측정값과 W 단위 반드시 포함. BMI ${Math.round(data.bmi * 10) / 10}, 체중 ${data.weight}kg, 키 ${data.height}cm 활용. 좌우밸런스와 성장기 발달 관련성 언급. 현실적 목표 설정 (2%→5%→15% 정도). 자연스럽고 전문적인 문체. 백분위를 구체적 순위로 설명. 운동 방법은 시간/횟수/빈도 구체적 제시. 9개 섹션: 1)오늘 한눈에 보기 2)강점&잠재력 3)우선 개선영역 4)밸런스&자세 5)성장 예측 6)운동 처방 7)영양 가이드 8)일상 관리 9)3개월 목표"
 }
 
 **절대 금지 사항:**
