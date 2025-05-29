@@ -594,8 +594,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div>
                   <h4 className="font-semibold text-green-700 mb-3">📋 테스트 규모</h4>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>총 4개 기관</strong>, 1년간 무상 제공</li>
-                    <li>• (1개 기관 확정, 3개 기관 협의중)</li>
+                    <li>• <strong>IYC 유소년 스포츠센터</strong> 1개 기관 확정</li>
+                    <li>• 2025년 7월부터 1년간 운영</li>
 
                     <li>• <strong>측정 항목:</strong> 순발력, 파워, 좌우 밸런스, 심폐지구력 등 총 6종</li>
                   </ul>
@@ -603,7 +603,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div>
                   <h4 className="font-semibold text-green-700 mb-3">📊 데이터 확보 목표</h4>
                   <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>예상 측정 대상 아동 수:</strong> 300명</li>
+                    <li>• <strong>측정 대상 아동 수:</strong> 100명</li>
                     <li>• <strong>목표:</strong> 1년 내 한국 유아 전용 체력 기준선 자체 생성</li>
                     <li>• <strong>최종 목적:</strong> 데이터 기반 AI 피드백 알고리즘 개발의 기반 확보</li>
                   </ul>
