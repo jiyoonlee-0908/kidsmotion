@@ -366,7 +366,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           <div className="grid grid-cols-2 gap-6">
             {/* 종합 백분위 */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center py-4">
               <div className="relative w-48 h-48 mb-4">
                 <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 36 36">
                   <path
@@ -483,14 +483,22 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       </Card>
 
       {/* Card 6: AI Comprehensive Analysis */}
-      <Card className="fitness-card">
+      <Card className="fitness-card border-2 border-purple-100 bg-gradient-to-br from-purple-50 via-white to-blue-50">
         <CardContent>
           <div className="flex items-center space-x-3 mb-6">
-            <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-white text-xs font-bold">AI</span>
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white text-sm font-bold">AI</span>
             </div>
-            <h3 className="text-xl font-bold text-gray-900">체력 종합 해설</h3>
-            <div className="text-sm text-purple-600 font-medium">AI 기반</div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-gray-900">체력 종합 해설</h3>
+              <div className="flex items-center space-x-2 mt-1">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <span className="text-sm text-purple-600 font-medium">AI 기반 전문 분석</span>
+              </div>
+            </div>
+            <div className="px-3 py-1 bg-purple-100 rounded-full">
+              <span className="text-xs font-semibold text-purple-700">PREMIUM</span>
+            </div>
           </div>
           
           <div className="space-y-6">

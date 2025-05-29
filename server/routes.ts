@@ -299,6 +299,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
 
       // Generate AI analysis with complete data
+      console.log("AI 분석 생성 시작...");
       const aiAnalysis = await generateFitnessAnalysis({
         studentName: measurementData.studentName,
         age,
@@ -330,6 +331,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         balanceDifference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
         strengths,
         improvements
+      });
+      
+      console.log("AI 분석 완료:", {
+        coreInsights: aiAnalysis.coreInsights ? "생성됨" : "없음",
+        overallAssessment: aiAnalysis.overallAssessment ? "생성됨" : "없음"
       });
       
       // Create analysis result
@@ -406,8 +412,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             : "체력 분석을 완료했습니다.",
         overallAssessment: aiAnalysis.overallAssessment,
         strengths: strengthsText,
-        improvements: improvementsText,
-        aiAnalysis
+        improvements: improvementsText
       };
       
       console.log("=== 측정 결과 계산 완료 (저장하지 않음) ===");
