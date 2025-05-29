@@ -431,7 +431,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   }}
                 />
               </div>
-              <div className="space-y-4">
+              <div className="w-80 mx-auto space-y-8">
                 {/* 지구력 스펙트럼 (180초, 360초 측정이 있는 경우에만 표시) */}
                 {(measurement.power180s || measurement.power360s) && (
                   <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
