@@ -366,7 +366,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           <div className="grid grid-cols-2 gap-6">
             {/* 종합 백분위 */}
-            <div className="flex flex-col items-center py-4">
+            <div className="flex flex-col items-center pt-14 pb-4">
               <div className="relative w-48 h-48 mb-4">
                 <svg className="w-48 h-48 transform -rotate-90" viewBox="0 0 36 36">
                   <path
