@@ -136,7 +136,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           percentile360s: analysis.percentile360s || null,
           strengths: analysis.strengths,
           improvements: analysis.improvements,
-          aiSummary: analysis.aiSummary,
+          aiSummary: analysis.expertReport,
           balanceStatus: analysis.balanceStatus
         };
       });
