@@ -302,6 +302,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const aiAnalysis = await generateFitnessAnalysis({
         studentName: measurementData.studentName,
         age,
+        height: measurementData.height,
+        weight: measurementData.weight,
         overallPercentile,
         percentiles: {
           power: percentiles["5s"],
@@ -310,6 +312,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           cardioEndurance: percentiles["60s"],
           longEndurance180s: percentiles["180s"],
           longEndurance360s: percentiles["360s"]
+        },
+        rawPowerData: {
+          power5s: measurementData.power5s,
+          power15s: measurementData.power15s,
+          power30s: measurementData.power30s,
+          power60s: measurementData.power60s,
+          power180s: measurementData.power180s || null,
+          power360s: measurementData.power360s || null
         },
         advancedPowerData: {
           power180s: absolutePowers["180s"],

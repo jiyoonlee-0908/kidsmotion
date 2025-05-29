@@ -8,6 +8,8 @@ const openai = new OpenAI({
 export interface FitnessAnalysisRequest {
   studentName: string;
   age: number;
+  height: number;
+  weight: number;
   overallPercentile: number;
   percentiles: {
     power: number;
@@ -16,6 +18,14 @@ export interface FitnessAnalysisRequest {
     cardioEndurance: number;
     longEndurance180s?: number | null;
     longEndurance360s?: number | null;
+  };
+  rawPowerData: {
+    power5s: number;
+    power15s: number;
+    power30s: number;
+    power60s: number;
+    power180s?: number | null;
+    power360s?: number | null;
   };
   advancedPowerData?: {
     power180s: number;
@@ -56,14 +66,14 @@ export async function generateFitnessAnalysis(
 **측정 대상 정보:**
 - 이름: ${data.studentName}
 - 나이: ${data.age}세
-- 신체정보: 키 ${data.height || 120}cm, 체중 ${data.weight || 20}kg, BMI ${bmi}
+- 신체정보: 키 ${data.height}cm, 체중 ${data.weight}kg, BMI ${bmi}
 - 종합 백분위: ${Math.round(data.overallPercentile)}% (100명 중 ${Math.round(100 - data.overallPercentile)}등 수준)
 
 **기본 측정 항목별 상세 결과:**
-- 순발력 (5초): ${data.rawPower5s || 0}W → 백분위 ${Math.round(data.percentiles.power)}% (100명 중 ${Math.round(100 - data.percentiles.power)}등)
-- 스프린트 파워 (15초): ${data.rawPower15s || 0}W → 백분위 ${Math.round(data.percentiles.strength)}% (100명 중 ${Math.round(100 - data.percentiles.strength)}등)
-- 파워 지속력 (30초): ${data.rawPower30s || 0}W → 백분위 ${Math.round(data.percentiles.muscleEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등)
-- 근력 (60초): ${data.rawPower60s || 0}W → 백분위 ${Math.round(data.percentiles.cardioEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등)`;
+- 순발력 (5초): ${data.rawPowerData.power5s}W → 백분위 ${Math.round(data.percentiles.power)}% (100명 중 ${Math.round(100 - data.percentiles.power)}등)
+- 스프린트 파워 (15초): ${data.rawPowerData.power15s}W → 백분위 ${Math.round(data.percentiles.strength)}% (100명 중 ${Math.round(100 - data.percentiles.strength)}등)
+- 파워 지속력 (30초): ${data.rawPowerData.power30s}W → 백분위 ${Math.round(data.percentiles.muscleEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등)
+- 근력 (60초): ${data.rawPowerData.power60s}W → 백분위 ${Math.round(data.percentiles.cardioEndurance)}% (100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등)`;
 
     // Add advanced measurements if available
     if (data.advancedPowerData?.hasAdvancedData) {
