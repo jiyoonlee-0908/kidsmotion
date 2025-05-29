@@ -371,96 +371,94 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
             <h3 className="text-xl font-bold text-gray-900">체력 종합 분석</h3>
           </div>
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex justify-center">
-                <RadarChart 
-                  data={{
-                    balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
-                    power: analysis.percentile5s,
-                    strength: analysis.percentile15s,
-                    muscleEndurance: analysis.percentile30s,
-                    cardioEndurance: analysis.percentile60s
-                  }}
-                />
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            {/* 종합 백분위 점수 */}
+            <div className="text-center">
+              <div className="relative w-24 h-24 mx-auto mb-3">
+                <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                  <path
+                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="#e5e7eb"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="2"
+                    strokeDasharray={`${analysis.overallPercentile}, 100`}
+                    strokeLinecap="round"
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#7c3aed" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
+                </div>
               </div>
-              <div className="w-80 mx-auto space-y-20">
-                {/* 지구력 스펙트럼 (180초, 360초 측정이 있는 경우에만 표시) */}
-                {(measurement.power180s || measurement.power360s) && (
-                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
-                    <div className="flex items-center justify-between">
-                      {measurement.power180s && analysis.percentile180s && (
-                        <div className="text-center flex-1">
-                          <div className="text-xs text-gray-600 mb-1">180초</div>
-                          <div className="text-lg font-bold text-blue-600">{Math.round(analysis.percentile180s)}%</div>
-                          <div className="text-xs text-gray-500">근지구력</div>
-                        </div>
-                      )}
-                      {measurement.power180s && measurement.power360s && (
-                        <div className="flex-shrink-0 mx-2">
-                          <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
-                        </div>
-                      )}
-                      {measurement.power360s && analysis.percentile360s && (
-                        <div className="text-center flex-1">
-                          <div className="text-xs text-gray-600 mb-1">360초</div>
-                          <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
-                          <div className="text-xs text-gray-500">심폐지구력</div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-                
-                {/* 종합 백분위 점수 */}
-                <div className="text-center">
-                  <div className="relative w-24 h-24 mx-auto mb-3">
-                    <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
-                      <path
-                        d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="#e5e7eb"
-                        strokeWidth="2"
-                      />
-                      <path
-                        d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke="url(#gradient)"
-                        strokeWidth="2"
-                        strokeDasharray={`${analysis.overallPercentile}, 100`}
-                        strokeLinecap="round"
-                      />
-                      <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                          <stop offset="0%" stopColor="#7c3aed" />
-                          <stop offset="100%" stopColor="#3b82f6" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600">종합 백분위</p>
-                  <p className="text-xs text-gray-400 mt-1">
-                    ({(measurement.power180s || measurement.power360s) ? '6개' : '4개'} 영역 기준)
-                  </p>
-                </div>
+              <p className="text-sm text-gray-600">종합 백분위</p>
+              <p className="text-xs text-gray-400 mt-1">
+                ({(measurement.power180s || measurement.power360s) ? '6개' : '4개'} 영역 기준)
+              </p>
+            </div>
 
-                {/* 최고/개선 항목 */}
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="text-center p-3 bg-green-50 rounded-lg">
-                    <p className="text-gray-600 mb-1">💪 최고 항목</p>
-                    <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
-                  </div>
-                  <div className="text-center p-3 bg-yellow-50 rounded-lg">
-                    <p className="text-gray-600 mb-1">🎯 개선 항목</p>
-                    <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
-                  </div>
-                </div>
+            {/* 방사형 그래프 */}
+            <div className="flex justify-center">
+              <RadarChart 
+                data={{
+                  power: analysis.percentile5s,
+                  strength: analysis.percentile15s,
+                  muscleEndurance: analysis.percentile30s,
+                  cardioEndurance: analysis.percentile60s
+                }}
+              />
+            </div>
+
+            {/* 최고/개선 항목 */}
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="text-center p-3 bg-green-50 rounded-lg">
+                <p className="text-gray-600 mb-1">💪 최고 항목</p>
+                <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
+              </div>
+              <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                <p className="text-gray-600 mb-1">🎯 개선 항목</p>
+                <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
               </div>
             </div>
+
+            {/* 지구력 스펙트럼 */}
+            {(measurement.power180s || measurement.power360s) && (
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
+                <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
+                <div className="flex items-center justify-between">
+                  {measurement.power180s && analysis.percentile180s && (
+                    <div className="text-center flex-1">
+                      <div className="text-xs text-gray-600 mb-1">180초</div>
+                      <div className="text-lg font-bold text-blue-600">{Math.round(analysis.percentile180s)}%</div>
+                      <div className="text-xs text-gray-500">근지구력</div>
+                    </div>
+                  )}
+                  {measurement.power180s && measurement.power360s && (
+                    <div className="flex-shrink-0 mx-2">
+                      <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
+                    </div>
+                  )}
+                  {measurement.power360s && analysis.percentile360s && (
+                    <div className="text-center flex-1">
+                      <div className="text-xs text-gray-600 mb-1">360초</div>
+                      <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
+                      <div className="text-xs text-gray-500">심폐지구력</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
             
             <div className="bg-blue-50 rounded-lg p-6">
               <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석 요약</h4>
