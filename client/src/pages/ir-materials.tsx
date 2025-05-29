@@ -199,15 +199,52 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
             
-            {/* 정부 정책 간소화 */}
+            {/* 정부 정책: 국민체육진흥공단 국민체력100 */}
             <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-lg font-bold text-blue-700 mb-3">🏛️ 정부 정책과의 연결점</h3>
+              <h3 className="text-lg font-bold text-blue-700 mb-4">🏛️ 정부 정책: 국민건강 데이터화 추진</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <p className="text-gray-700 mb-2"><strong>현재 한계:</strong> 아날로그 측정으로 정확성 부족, 국민건강 빅데이터 구축 불가</p>
+                  <h4 className="font-semibold text-blue-800 mb-3">국민체육진흥공단 국민체력100의 한계</h4>
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-orange-500">
+                      <h5 className="font-semibold text-orange-600 mb-2">현재 측정 방식 (아날로그)</h5>
+                      <ul className="space-y-1 text-gray-700 text-sm">
+                        <li>• 제자리 멀리뛰기 → 줄자로 측정</li>
+                        <li>• 윗몸말아올리기 → 사람이 카운트</li>
+                        <li>• 왕복오래달리기 → 수동 기록</li>
+                      </ul>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
+                      <h5 className="font-semibold text-red-600 mb-2">결과</h5>
+                      <ul className="space-y-1 text-gray-700 text-sm">
+                        <li>• 정확성 부족</li>
+                        <li>• 데이터 축적 어려움</li>
+                        <li>• 국민건강 빅데이터 구축 불가</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
                 <div>
-                  <p className="text-gray-700"><strong>우리의 기여:</strong> 디지털 체력측정으로 정량적 데이터 제공, 정책 수립 기초자료 구축</p>
+                  <h4 className="font-semibold text-blue-800 mb-3">디지털 전환 필요성</h4>
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-500">
+                      <h5 className="font-semibold text-green-600 mb-2">정부 추진 방향</h5>
+                      <ul className="space-y-1 text-gray-700 text-sm">
+                        <li>• <strong>정량적 데이터</strong> 수집 시스템</li>
+                        <li>• <strong>국민체력 빅데이터</strong> 구축</li>
+                        <li>• <strong>객관적 평가</strong>로 정책 수립</li>
+                        <li>• <strong>비만 예방</strong> 조기 개입</li>
+                      </ul>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                      <h5 className="font-semibold text-green-600 mb-2">우리의 해결책</h5>
+                      <ul className="space-y-1 text-gray-700 text-sm">
+                        <li>• KidsMotion으로 디지털 체력측정 실현</li>
+                        <li>• 정확한 데이터로 정책 수립 지원</li>
+                        <li>• 국민체력 빅데이터 구축에 기여</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
