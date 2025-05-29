@@ -795,7 +795,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="text-gray-700 text-sm">A: B2B가 더 안정적이고 큰 시장입니다. 공공기관(보건소 261개, 스포츠센터 수백 개)은 정부 예산으로 안정적이며, 의료기관은 지속적 수익을 보장합니다.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "5년차 500억 근거가 있나요?"</p>
+                    <p className="font-semibold text-gray-800 mb-2">Q: "매출 계획의 근거가 궁금합니다"</p>
                     <p className="text-gray-700 text-sm">A: 2025년 파일럿 테스트(사이클아카데미에서 100명 데이터 검증)를 바탕으로 한 보수적 계산입니다. 스포츠학원 1,000개(연 6억) + 하드웨어 1,000대(55억) + 공공기관 500개(연 3억) = 연 64억. 실제 검증된 수요를 기반으로 한 현실적 목표입니다.</p>
                   </div>
                 </div>
