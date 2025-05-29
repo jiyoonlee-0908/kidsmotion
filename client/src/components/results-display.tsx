@@ -502,7 +502,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
           </div>
           
           <div className="space-y-6">
-            {analysis.overallAssessment && typeof analysis.overallAssessment === 'string' ? (
+            {console.log("AI 분석 데이터:", analysis.overallAssessment) || analysis.overallAssessment && typeof analysis.overallAssessment === 'string' && analysis.overallAssessment.trim() !== '' ? (
               <div 
                 className="text-gray-700 leading-relaxed text-base space-y-4"
                 dangerouslySetInnerHTML={{ 
@@ -519,9 +519,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500">
                   <h4 className="font-bold text-purple-800 text-lg mb-2 flex items-center">
                     <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">1</span>
-                    오늘 한눈에 보기
+                    AI 분석 생성 중
                   </h4>
-                  <p className="text-gray-700">전문적인 체력 분석을 생성하고 있습니다.</p>
+                  <p className="text-gray-700">전문적인 체력 분석을 준비하고 있습니다.</p>
+                  <p className="text-xs text-gray-500 mt-2">분석 데이터: {JSON.stringify(analysis.overallAssessment)}</p>
                 </div>
               </div>
             )}

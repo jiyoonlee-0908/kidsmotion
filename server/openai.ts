@@ -165,28 +165,29 @@ JSON 형식으로 응답하세요:
           content: prompt,
         },
       ],
-      response_format: { type: "json_object" },
+
       temperature: 0.7,
       max_tokens: 3000,
     });
 
-    const result = JSON.parse(response.choices[0].message.content || "{}");
+    const responseContent = response.choices[0].message.content || "";
+    console.log("OpenAI 응답:", responseContent);
 
     return {
-      coreInsights: result.coreInsights || "체력 분석을 완료했습니다.",
-      balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
+      coreInsights: responseContent.substring(0, 200) + "...",
+      balanceComment: `좌우밸런스 차이는 ${data.balanceDifference}%입니다. ${data.balanceDifference <= 5 ? '정상 범위입니다.' : data.balanceDifference <= 10 ? '주의가 필요합니다.' : '교정이 필요합니다.'}`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
         strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
         muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
         cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
       },
-      comprehensiveAnalysis: result.comprehensiveAnalysis || [
+      comprehensiveAnalysis: [
         "전반적인 체력 상태를 분석 중입니다.",
         "개선점과 강점을 파악하고 있습니다.",
         "맞춤형 운동 계획을 수립하겠습니다.",
       ],
-      overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
+      overallAssessment: responseContent || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);
