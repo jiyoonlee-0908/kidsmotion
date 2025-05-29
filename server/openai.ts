@@ -108,10 +108,10 @@ ${measurementData}
   "summary": "강점과 보완점을 바탕으로 한 한줄 요약",
   "balanceComment": "좌우 밸런스 차이에 대한 구체적 분석과 개선방안 (3-7줄로 상세하게 작성하되, 반드시 '좌우 밸런스 차이는 ${data.balanceDifference}%'로 시작)",
   "explanations": {
-    "power": "순발력 ${data.percentiles.power}% 수준입니다. 달리기에서 출발 순간의 폭발력이나 점프할 때의 순간적인 힘을 평가합니다.",
-    "strength": "스프린트 파워 ${data.percentiles.strength}% 수준입니다. 단거리 달리기나 자전거 페달을 힘껏 밟는 능력을 평가합니다.",
-    "muscleEndurance": "파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 계속해서 힘을 내는 능력, 계단 오르기나 언덕 뛰기에 필요합니다.",
-    "cardioEndurance": "근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속할 수 있는 능력을 평가합니다."
+    "power": "순발력 ${data.percentiles.power}% 수준입니다. 순간적으로 최대의 힘을 발휘하는 능력을 평가합니다.",
+    "strength": "스프린트 파워 ${data.percentiles.strength}% 수준입니다. 15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다.",
+    "muscleEndurance": "파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다.",
+    "cardioEndurance": "근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다."
   },
   "comprehensiveAnalysis": [
     "종합평가 포인트 1 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
