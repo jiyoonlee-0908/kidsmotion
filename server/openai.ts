@@ -52,6 +52,7 @@ export interface AIAnalysisResponse {
 export async function generateFitnessAnalysis(
   data: FitnessAnalysisRequest,
 ): Promise<AIAnalysisResponse> {
+  console.log("=== AI 분석 시작 ===", data.studentName);
   try {
     // Build measurement data based on available information
     let measurementData = `
@@ -138,6 +139,7 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
 5. 전문 의학용어와 연결어 필수 사용
 `;
 
+    console.log("=== OpenAI 요청 전송 중 ===");
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
@@ -179,7 +181,10 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
       max_tokens: 3000,
     });
 
+    console.log("=== OpenAI 응답 받음 ===", response.choices[0].message.content?.substring(0, 200));
+    
     const result = JSON.parse(response.choices[0].message.content || "{}");
+    console.log("=== JSON 파싱 완료 ===", Object.keys(result));
 
     return {
       expertReport: result.expertAnalysis || "체력 분석을 완료했습니다.",
