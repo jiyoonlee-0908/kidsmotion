@@ -238,61 +238,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
         </CardContent>
       </Card>
 
-      {/* Card 2: Fitness Summary */}
-      <Card className="fitness-card">
-        <CardContent>
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Trophy className="text-white" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900">체력 요약</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="relative w-24 h-24 mx-auto mb-3">
-                <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
-                  <path
-                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    fill="none"
-                    stroke="#e5e7eb"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                    fill="none"
-                    stroke="url(#gradient)"
-                    strokeWidth="2"
-                    strokeDasharray={`${analysis.overallPercentile}, 100`}
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#7c3aed" />
-                      <stop offset="100%" stopColor="#3b82f6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-600">종합 백분위</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 mb-2">강점</p>
-              <p className="font-semibold text-green-600">{strengths.join(", ")}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 mb-2">보완점</p>
-              <p className="font-semibold text-yellow-600">{improvements.join(", ")}</p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 mb-2">한줄 요약</p>
-              <p className="text-sm text-gray-900">{analysis.aiSummary || "체력 분석을 완료했습니다."}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+
 
       {/* Card 3: Balance Analysis */}
       <Card className="fitness-card">
@@ -467,6 +413,41 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                   </div>
                 )}
                 
+                {/* 종합 백분위 점수 */}
+                <div className="text-center">
+                  <div className="relative w-24 h-24 mx-auto mb-3">
+                    <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                      <path
+                        d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="#e5e7eb"
+                        strokeWidth="2"
+                      />
+                      <path
+                        d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke="url(#gradient)"
+                        strokeWidth="2"
+                        strokeDasharray={`${analysis.overallPercentile}, 100`}
+                        strokeLinecap="round"
+                      />
+                      <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" stopColor="#7c3aed" />
+                          <stop offset="100%" stopColor="#3b82f6" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600">종합 백분위</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    ({(measurement.power180s || measurement.power360s) ? '6개' : '4개'} 영역 기준)
+                  </p>
+                </div>
+
                 {/* 최고/개선 항목 */}
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="text-center p-3 bg-green-50 rounded-lg">
@@ -483,21 +464,8 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             
             <div className="bg-blue-50 rounded-lg p-6">
               <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석 요약</h4>
-              <div className="text-gray-700 leading-relaxed text-base space-y-3">
-                {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
-                  <div 
-                    className="whitespace-pre-line"
-                    dangerouslySetInnerHTML={{ 
-                      __html: analysis.comprehensiveAnalysis
-                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\n/g, '<br />')
-                    }}
-                  />
-                ) : (
-                  comprehensiveAnalysisPoints.map((point, index) => (
-                    <p key={index}>{point}</p>
-                  ))
-                )}
+              <div className="text-gray-700 leading-relaxed text-base">
+                <p>{analysis.aiSummary || "체력 분석을 완료했습니다."}</p>
               </div>
             </div>
           </div>
