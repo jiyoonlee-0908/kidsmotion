@@ -103,11 +103,12 @@ export async function generateFitnessAnalysis(
 
 ${measurementData}
 
-AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세요:
+AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
   "summary": "15년 경력의 아동 운동생리학 박사 관점에서 부모가 이해하기 쉽게 강점과 보완점을 1-3줄로 요약 (3줄일 경우 한 문장으로 끊어지지 않게)",
   "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. 성장과의 관련성을 포함하되 의학적 진단/치료 문구는 피하고, 4-7줄로 상세 작성",
-  "comprehensiveAnalysis": "체력 종합분석 AI 해설. 줄바꿈(\\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성. ${data.studentName}의 이름을 자연스럽게 활용하여 개인 맞춤형 분석 제공"
+  "comprehensiveAnalysis": "체력 종합분석 AI 해설. 줄바꿈(\\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성. ${data.studentName}의 이름을 자연스럽게 활용하여 개인 맞춤형 분석 제공",
+  "detailedReport": "9단계 구조의 상세 종합해설을 마크다운 형식으로 작성: # 1. ${data.studentName}의 오늘 한눈에 보기, # 2. 강점 & 잠재력, # 3. 우선 개선 영역, # 4. 이번 주 해야 할 일, # 5. 이번 달 목표, # 6. 3개월 로드맵, # 7. 부모 참여 운동법, # 8. 안전 주의사항, # 9. 다음 측정 예상 개선치. 각 섹션마다 구체적이고 실용적인 내용으로 작성"
 }
 
 **중요 지침:**
@@ -176,6 +177,7 @@ AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세�
         "맞춤형 운동 계획을 수립하겠습니다.",
       ],
       overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
+      detailedReport: result.detailedReport || `# 1. ${data.studentName}의 오늘 한눈에 보기\n체력 측정이 완료되었습니다.\n\n# 2. 강점 & 잠재력\n개인별 강점을 분석하고 있습니다.\n\n# 3. 우선 개선 영역\n개선이 필요한 부분을 확인하고 있습니다.`,
     };
   } catch (error) {
     console.error("OpenAI API 오류:", error);
