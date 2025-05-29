@@ -515,8 +515,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               __html: analysis.detailedReport 
                 ? analysis.detailedReport
                     .replace(/\n/g, '<br>')
-                    .replace(/# (\d+)\. ([^\n]+)/g, '<h4 class="text-base font-bold text-gray-800 mt-4 mb-2">$1. $2</h4>')
-                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/(🔍|🌟|🎯|📅|🎲|🗺️|👨‍👩‍👧‍👦|⚠️|📈) ([^\n]+)/g, '<h4 class="text-base font-bold text-purple-700 mt-6 mb-3 flex items-center gap-2"><span class="text-lg">$1</span> $2</h4>')
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-purple-600 font-semibold">$1</strong>')
                 : "상세 종합해설을 준비하고 있습니다..."
             }} />
           </div>

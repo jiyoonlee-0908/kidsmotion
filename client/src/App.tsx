@@ -48,6 +48,8 @@ function App() {
     const path = window.location.pathname;
     if (path === '/about') setCurrentPage('about');
     else if (path === '/contact') setCurrentPage('contact');
+    else if (path === '/measurement') setCurrentPage('measurement');
+    else if (path === '/measurement-history') setCurrentPage('measurement-history');
     else if (path === '/records') setCurrentPage('records');
     else if (path === '/user-guide') setCurrentPage('user-guide');
     else if (path === '/faq') setCurrentPage('faq');
