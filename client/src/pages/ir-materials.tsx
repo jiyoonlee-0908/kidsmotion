@@ -657,11 +657,53 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
+        {/* 투자자에게 드리는 편지 */}
+        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
+          <CardHeader>
+            <CardTitle className="text-2xl text-purple-700 mb-4">💌 당신과 함께 성장하고 싶습니다</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
+              <div className="space-y-4 text-gray-700 leading-relaxed">
+                <p className="text-lg font-medium text-purple-700">투자자님께,</p>
+                
+                <p>이 제안서는 단순한 사업 계획이 아닙니다.<br/>
+                한 엄마의 걱정에서 시작된, 아이들을 위한 진심입니다.</p>
+
+                <p>저희는 거창한 매출 목표나 화려한 성장 계획을 약속드리지 않겠습니다.<br/>
+                대신, 정직하게 말씀드리겠습니다.</p>
+
+                <div className="bg-blue-50 p-4 rounded-lg my-6">
+                  <p className="font-medium">• IYC 스포츠센터에서 2025년 7월부터 실제 파일럿을 진행합니다<br/>
+                  • 300명의 아동 데이터로 한국형 체력 기준을 만들어가고 있습니다<br/>
+                  • 24년간 사이클 선수로 쌓은 경험과 노하우가 이 장비에 담겨있습니다</p>
+                </div>
+
+                <p>저희가 원하는 건 투자금만이 아닙니다.<br/>
+                이 일을 함께 해낼 수 있는 든든한 동반자를 찾고 있습니다.</p>
+
+                <p className="font-medium text-red-600">아이들이 "괜찮을 거예요"라는 막연한 말 대신<br/>
+                "지금 이 상태고, 이렇게 도와주면 됩니다"라는 명확한 답을 들을 수 있는 세상.</p>
+
+                <p className="font-medium text-green-600">부모가 감이 아닌 데이터로 아이의 성장을 확인할 수 있는 세상.</p>
+
+                <p>그런 세상을 만들어가고 싶습니다.<br/>
+                혼자서는 할 수 없는 일이라는 걸 잘 알고 있습니다.</p>
+
+                <p className="text-lg font-bold text-purple-700">숫자보다 더 중요한 것은 이 일을 해내려는 저희의 마음입니다.<br/>
+                그 마음을 믿어주신다면, 함께 아이들의 미래를 바꿔나갈 수 있을 거라 확신합니다.</p>
+
+                <p className="text-right font-medium text-gray-600 mt-6">감사합니다.<br/>– 모션바이크 팀 일동</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* 투자자 예상 질문 & 답변 */}
         <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
           <CardHeader>
             <CardTitle className="text-2xl">
-              🔥 투자자가 묻기 전에 미리 답하는 FAQ
+              🔥 투자자와의 솔직한 대화
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -764,148 +806,48 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardContent>
         </Card>
 
-        {/* 투자 요청 */}
+        {/* Contact */}
         <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">💎 지금이 골든타임! 투자 기회</CardTitle>
+            <CardTitle className="text-2xl text-center">🤝 함께 만들어가요</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4">왜 지금 투자해야 하는가?</h3>
-                <div className="space-y-3">
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">1. 시장 타이밍</h4>
-                    <p className="text-sm">디지털 헬스케어 급성장, 정부 정책 지원</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2. 독점 기술</h4>
-                    <p className="text-sm">아동 운동발달 정량화 최초 솔루션</p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">3. 확장성</h4>
-                    <p className="text-sm">B2B → B2G → 해외진출 단계적 성장</p>
-                  </div>
-                </div>
+            <div className="text-center">
+              <div className="mb-8">
+                <h3 className="text-3xl font-bold mb-4 text-center">
+                  이 팀에게 손을 내밀어주시면,<br/>
+                  아이들의 미래가 달라집니다
+                </h3>
+                <p className="text-xl opacity-90 mb-8">
+                  투자가 아닌 동반자로서, 함께 아이들의 성장을 지켜봐 주세요
+                </p>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4">투자 수익 전망</h3>
-                <div className="space-y-3">
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2027년: 스포츠학원 진입</h4>
-                    <p className="text-sm">파일럿 검증 완료 후 100개 학원 × 월 5만원 = 연 6억 매출<br/>
-                    <span className="text-xs opacity-90">+ 하드웨어 판매 100대 × 550만원 = 5.5억</span></p>
-                  </div>
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2028년: 의료기기 신청</h4>
-                    <p className="text-sm">임상시험 진행, 하드웨어 판매 확대</p>
-                  </div>
 
-                  <div className="bg-white/20 p-3 rounded">
-                    <h4 className="font-semibold">2029년: 의료기관 진출</h4>
-                    <p className="text-sm">병원 + 보건소 진입으로 본격적 확산</p>
+              <div className="bg-white/10 p-8 rounded-lg border border-white/20 mb-8">
+                <h3 className="text-xl font-bold mb-6">📞 연락처</h3>
+                <div className="grid md:grid-cols-2 gap-8 text-left">
+                  <div>
+                    <h4 className="font-semibold mb-3">모션바이크 대표</h4>
+                    <p className="mb-2">📱 전화: 010-8445-0908</p>
+                    <p className="mb-2">📧 이메일: dayinj@naver.com</p>
+                    <p>🏢 주소: 서울시 강서구 금낭화로 234, GX2</p>
+                    <p className="text-sm opacity-80">지하철 5호선 방화역 4번 출구</p>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ROI 계산서 구체화 */}
-            <div className="mt-8 bg-white/10 p-6 rounded-lg border border-white/20">
-              <h3 className="text-xl font-bold mb-4">📊 구체적 ROI 계산서</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                
-                {/* 스포츠학원 ROI */}
-                <div className="bg-white/20 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-3">🏃‍♂️ 스포츠학원 ROI (월 5만원)</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>월 구독료:</span>
-                      <span className="font-semibold">-5만원</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>회원 증가 효과:</span>
-                      <span className="font-semibold">월 10명 추가</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>추가 수업료 수익:</span>
-                      <span className="font-semibold">+50만원</span>
-                    </div>
-                    <div className="border-t border-white/30 pt-2 flex justify-between font-bold">
-                      <span>순수익:</span>
-                      <span className="text-green-300">월 45만원</span>
-                    </div>
-                    <p className="text-xs text-white/80 mt-2">
-                      "체력 측정으로 우리 학원 효과 증명 → 학부모 만족도 ↑ → 신규 회원 유치"
-                    </p>
-                  </div>
-                </div>
-
-                {/* 병원 ROI */}
-                <div className="bg-white/20 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-3">🏥 병원 ROI (월 5만원)</h4>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>월 구독료:</span>
-                      <span className="font-semibold">-5만원</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>차별화 검진료:</span>
-                      <span className="font-semibold">+30만원</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>재방문 환자 증가:</span>
-                      <span className="font-semibold">+20만원</span>
-                    </div>
-                    <div className="border-t border-white/30 pt-2 flex justify-between font-bold">
-                      <span>순수익:</span>
-                      <span className="text-green-300">월 45만원</span>
-                    </div>
-                    <p className="text-xs text-white/80 mt-2">
-                      "최신 장비 도입병원 → 브랜딩 효과 → 환자 만족도 ↑ → 재방문율 증가"
-                    </p>
+                  <div>
+                    <h4 className="font-semibold mb-3">파일럿 진행 상황</h4>
+                    <p className="mb-2">🏃‍♂️ IYC 유소년 스포츠센터 (2025.7월 시작)</p>
+                    <p className="mb-2">📊 목표: 300명 아동 데이터 수집</p>
+                    <p className="mb-2">📋 한국형 체력 기준 데이터베이스 구축</p>
+                    <p className="text-sm opacity-80">실제 성과로 증명해드리겠습니다</p>
                   </div>
                 </div>
               </div>
 
-              {/* 하드웨어 ROI */}
-              <div className="mt-6 bg-white/20 p-4 rounded-lg">
-                <h4 className="font-semibold mb-3">💰 하드웨어 투자 회수 계산 (스포츠학원 기준)</h4>
-                <div className="grid md:grid-cols-3 gap-4 text-sm">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-yellow-300">550만원</div>
-                    <p>초기 하드웨어 비용</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-300">12개월</div>
-                    <p>투자 회수 기간<br/>(월 45만원 순수익 기준)</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-300">540만원</div>
-                    <p>2년차 순수익<br/>(연 540만원)</p>
-                  </div>
-                </div>
-                
-                <div className="mt-4 bg-green-600/20 p-3 rounded-lg border border-green-500/30">
-                  <p className="text-center text-sm">
-                    <strong>결론:</strong> 1년 투자 회수 후 매년 540만원 순수익 → 
-                    <span className="text-green-300 font-bold">5년간 2,700만원 수익</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 text-center">
-              <h3 className="text-2xl font-bold mb-4">부모의 걱정을 데이터로 해결하는 기업</h3>
-              <p className="text-lg mb-6 opacity-90">
-                "우리 아이 성장이 걱정이에요" → "정확한 수치로 알려드릴게요"
-              </p>
-              <Button className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-3 text-lg font-bold">
-                💼 투자 상담 신청
-              </Button>
-              <div className="mt-6 space-y-2">
-                <p className="text-lg font-semibold">📞 010-8445-0908</p>
-                <p>📍 서울시 강서구 금낭화로 234, GX2</p>
-                <p className="text-sm opacity-75 mt-4">지하철 5호선 방화역 4번 출구</p>
+              <div className="text-lg opacity-90">
+                <p>저희는 빠른 성공보다는 확실한 성장을 약속드립니다.</p>
+                <p className="font-bold text-yellow-200 mt-4">
+                  함께 아이들이 건강하게 자랄 수 있는 세상을 만들어주세요.
+                </p>
               </div>
             </div>
           </CardContent>
