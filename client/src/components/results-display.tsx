@@ -21,9 +21,10 @@ interface ResultsDisplayProps {
     improvements: string[];
   };
   onNewMeasurement: () => void;
+  onNavigate?: (page: string) => void;
 }
 
-export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDisplayProps) {
+export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
   
   const getGradeColor = (percentile: number) => {
@@ -182,7 +183,13 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             <Printer className="w-5 h-5 text-white" />
           </Button>
           <Button 
-            onClick={() => window.location.href = '/'}
+            onClick={() => {
+              if (onNavigate) {
+                onNavigate('measurement');
+              } else {
+                onNewMeasurement();
+              }
+            }}
             variant="outline" 
             className="px-6 py-3 rounded-2xl border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2"
           >

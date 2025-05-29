@@ -226,6 +226,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <ResultsDisplay 
                 data={measurementData}
                 onNewMeasurement={handleNewMeasurement}
+                onNavigate={onNavigate}
               />
             )}
           </div>
