@@ -395,6 +395,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             ? aiAnalysis.comprehensiveAnalysis.join(" | ")
             : "체력 분석을 완료했습니다.",
         overallAssessment: aiAnalysis.overallAssessment,
+        detailedReport: aiAnalysis.detailedReport,
         strengths: strengthsText,
         improvements: improvementsText,
         aiAnalysis

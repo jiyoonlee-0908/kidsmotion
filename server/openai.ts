@@ -43,6 +43,7 @@ export interface AIAnalysisResponse {
   };
   comprehensiveAnalysis: string[];
   overallAssessment: string;
+  detailedReport: string;
 }
 
 export async function generateFitnessAnalysis(
@@ -199,6 +200,7 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
         "규칙적인 운동 습관 형성이 중요합니다.",
       ],
       overallAssessment: `${data.studentName}은(는) 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 꾸준한 노력을 통해 더 큰 발전이 가능합니다. 특히 강점 영역을 활용하여 부족한 부분을 보완하는 방향으로 훈련하면 좋은 결과를 얻을 수 있을 것입니다. 균형잡힌 신체 발달을 위해 다양한 운동을 경험하고, 정기적인 측정을 통해 진전 상황을 확인하기를 권장합니다. 현재의 체력 기반을 바탕으로 지속적인 관리와 적절한 운동 프로그램 참여를 통해 건강한 성장이 이루어질 것으로 기대됩니다.`,
+      detailedReport: `# 1. ${data.studentName}의 오늘 한눈에 보기\n체력 측정이 완료되었습니다.\n\n# 2. 강점 & 잠재력\n개인별 강점을 분석하고 있습니다.\n\n# 3. 우선 개선 영역\n개선이 필요한 부분을 확인하고 있습니다.`,
     };
   }
 }
