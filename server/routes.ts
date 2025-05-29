@@ -389,7 +389,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         explanation15s: aiAnalysis.explanations.strength,
         explanation30s: aiAnalysis.explanations.muscleEndurance,
         explanation60s: aiAnalysis.explanations.cardioEndurance,
-        comprehensiveAnalysis: aiAnalysis.comprehensiveAnalysis.join(" | "),
+        comprehensiveAnalysis: typeof aiAnalysis.comprehensiveAnalysis === 'string' 
+          ? aiAnalysis.comprehensiveAnalysis 
+          : Array.isArray(aiAnalysis.comprehensiveAnalysis) 
+            ? aiAnalysis.comprehensiveAnalysis.join(" | ")
+            : "체력 분석이 완료되었습니다.",
         overallAssessment: aiAnalysis.overallAssessment,
         strengths: strengthsText,
         improvements: improvementsText,
