@@ -182,7 +182,6 @@ AI는 다음 4개 부분만 작성해주세요. JSON 형식으로 응답하세�
     const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      summary: result.expertAnalysis || "체력 분석을 완료했습니다.",
       aiSummary: result.expertAnalysis || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
