@@ -44,11 +44,13 @@ function App() {
       }
     }
     
-    // Check URL for current page
+    // Check URL for current page (both pathname and hash)
     const path = window.location.pathname;
+    const hash = window.location.hash.substring(1); // Remove the '#'
+    
     if (path === '/about') setCurrentPage('about');
     else if (path === '/contact') setCurrentPage('contact');
-    else if (path === '/measurement') setCurrentPage('measurement');
+    else if (path === '/measurement' || hash === 'analysis') setCurrentPage('measurement');
     else if (path === '/measurement-history') setCurrentPage('measurement-history');
     else if (path === '/records') setCurrentPage('records');
     else if (path === '/user-guide') setCurrentPage('user-guide');
