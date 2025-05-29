@@ -481,7 +481,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           <div className="text-gray-700 leading-relaxed space-y-4">
             {analysis.detailedReport ? (
               <div 
-                className="prose prose-sm max-w-none"
+                className="prose prose-base max-w-none"
                 dangerouslySetInnerHTML={{ 
                   __html: analysis.detailedReport
                     .replace(/\n\n/g, '</div><div class="mt-4">')
