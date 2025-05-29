@@ -688,8 +688,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p>이 제안서는 단순한 사업 계획이 아닙니다.<br/>
                 한 엄마의 걱정에서 시작된, 아이들을 위한 진심입니다.</p>
 
-                <p>저희는 거창한 매출 목표나 화려한 성장 계획을 약속드리지 않겠습니다.<br/>
-                대신, 정직하게 말씀드리겠습니다.</p>
+                <p>저희는 단계별 검증을 통해 확실한 성장을 보여드리겠습니다.<br/>
+                실제 데이터와 성과로 증명하겠습니다.</p>
 
                 <div className="bg-blue-50 p-4 rounded-lg my-6">
                   <p className="font-medium">• IYC 스포츠센터에서 2025년 7월부터 실제 파일럿을 진행합니다<br/>
