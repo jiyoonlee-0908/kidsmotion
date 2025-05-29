@@ -431,22 +431,33 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               />
             </div>
             <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 mb-3">AI 종합 해설</h4>
-                <div className="space-y-2 text-sm text-gray-700">
-                  {comprehensiveAnalysisPoints.map((point, index) => (
-                    <p key={index}>{point}</p>
-                  ))}
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="text-center p-3 bg-green-50 rounded-lg">
+                  <p className="text-gray-600 mb-1">💪 최고 항목</p>
+                  <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
+                </div>
+                <div className="text-center p-3 bg-yellow-50 rounded-lg">
+                  <p className="text-gray-600 mb-1">🎯 개선 항목</p>
+                  <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="text-center">
-                  <p className="text-gray-600">최고 항목</p>
-                  <p className="font-semibold text-green-600">{strengths[0]}</p>
-                </div>
-                <div className="text-center">
-                  <p className="text-gray-600">개선 항목</p>
-                  <p className="font-semibold text-yellow-600">{improvements[0]}</p>
+              <div className="bg-blue-50 rounded-lg p-6">
+                <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 AI 종합 해설</h4>
+                <div className="text-gray-700 leading-relaxed text-base space-y-3">
+                  {analysis.aiAnalysis?.comprehensiveAnalysis && typeof analysis.aiAnalysis.comprehensiveAnalysis === 'string' ? (
+                    <div 
+                      className="whitespace-pre-line"
+                      dangerouslySetInnerHTML={{ 
+                        __html: analysis.aiAnalysis.comprehensiveAnalysis
+                          .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                          .replace(/\n/g, '<br />')
+                      }}
+                    />
+                  ) : (
+                    comprehensiveAnalysisPoints.map((point, index) => (
+                      <p key={index}>{point}</p>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -520,22 +531,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         </CardContent>
       </Card>
 
-      {/* Card 7: Overall Assessment */}
-      <Card className="fitness-card">
-        <CardContent>
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center">
-              <FileText className="text-emerald-600" />
-            </div>
-            <h3 className="text-xl font-bold text-gray-900">종합 평가</h3>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-6">
-            <div className="space-y-3 text-gray-700 leading-relaxed">
-              <p>{analysis.overallAssessment}</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+
 
       {/* Card 8: Next Measurement Guide */}
       <Card className="fitness-card">

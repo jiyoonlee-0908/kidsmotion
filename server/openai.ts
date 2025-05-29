@@ -103,32 +103,17 @@ export async function generateFitnessAnalysis(
 
 ${measurementData}
 
-다음 형식의 JSON으로 응답해주세요:
+AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세요:
 {
-  "summary": "강점과 보완점을 바탕으로 한 한줄 요약",
-  "balanceComment": "좌우 밸런스 차이에 대한 구체적 분석과 개선방안 (3-7줄로 상세하게 작성하되, 반드시 '좌우 밸런스 차이는 ${data.balanceDifference}%'로 시작)",
-  "explanations": {
-    "power": "순발력 ${data.percentiles.power}% 수준입니다. 순간적으로 최대의 힘을 발휘하는 능력을 평가합니다.",
-    "strength": "스프린트 파워 ${data.percentiles.strength}% 수준입니다. 15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다.",
-    "muscleEndurance": "파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다.",
-    "cardioEndurance": "근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다."
-  },
-  "comprehensiveAnalysis": [
-    "종합평가 포인트 1 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
-    "종합평가 포인트 2 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
-    "종합평가 포인트 3 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
-    "종합평가 포인트 4 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
-    "종합평가 포인트 5 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)",
-    "종합평가 포인트 6 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성)"
-  ],
-  "overallAssessment": "종합적인 체력 평가 (줄바꿈과 강조를 포함하여 읽기 쉽게 작성, 아동 이름 포함)"
+  "summary": "15년 경력의 아동 운동생리학 박사 관점에서 부모가 이해하기 쉽게 강점과 보완점을 1-3줄로 요약 (3줄일 경우 한 문장으로 끊어지지 않게)",
+  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. 성장과의 관련성을 포함하되 의학적 진단/치료 문구는 피하고, 4-7줄로 상세 작성",
+  "comprehensiveAnalysis": "체력 종합분석 AI 해설. 줄바꿈(\\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성. ${data.studentName}의 이름을 자연스럽게 활용하여 개인 맞춤형 분석 제공"
 }
 
 **중요 지침:**
-1. 밸런스 코멘트는 반드시 3-7줄로 상세하게 작성
-2. 각 체력 항목 설명은 비전문가인 부모도 쉽게 이해할 수 있도록 일상적인 운동 예시 포함
-3. 종합분석과 종합평가는 줄바꿈(\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성
-4. 아동의 이름을 자연스럽게 활용하여 개인 맞춤형 느낌 강화
+1. 체력요약카드 한줄요약: 전문가적이지만 부모가 쉽게 이해할 수 있게
+2. 좌우밸런스 AI 코멘트: 성장 관련성 포함, 의료법 준수
+3. 체력종합분석 AI 종합해설: 가독성 최우선, 줄바꿈과 강조 필수
 `;
 
     const response = await openai.chat.completions.create({
@@ -178,10 +163,12 @@ ${measurementData}
       summary: result.summary || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
-        power: result.explanations?.power || `순발력 ${data.percentiles.power}% 수준입니다. 달리기에서 출발 순간의 폭발력이나 점프할 때의 순간적인 힘을 평가합니다.`,
-        strength: result.explanations?.strength || `스프린트 파워 ${data.percentiles.strength}% 수준입니다. 단거리 달리기나 자전거 페달을 힘껏 밟는 능력을 평가합니다.`,
-        muscleEndurance: result.explanations?.muscleEndurance || `파워 지속력 ${data.percentiles.muscleEndurance}% 수준입니다. 30초간 계속해서 힘을 내는 능력, 계단 오르기나 언덕 뛰기에 필요합니다.`,
-        cardioEndurance: result.explanations?.cardioEndurance || `근력 ${data.percentiles.cardioEndurance}% 수준입니다. 1분간 근육이 지치지 않고 운동을 계속할 수 있는 능력을 평가합니다.`,
+        power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
+        strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
+        muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
+        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
+        longEndurance180s: data.percentiles.longEndurance180s ? `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance180s)}등 수준입니다.` : null,
+        longEndurance360s: data.percentiles.longEndurance360s ? `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance360s)}등 수준입니다.` : null,
       },
       comprehensiveAnalysis: result.comprehensiveAnalysis || [
         "전반적인 체력 상태를 분석 중입니다.",
