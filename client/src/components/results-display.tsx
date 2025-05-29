@@ -401,7 +401,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
 
             {/* 방사형 그래프 */}
-            <div className="flex justify-center">
+            <div className="flex justify-center -mt-5">
               <RadarChart 
                 data={{
                   balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
@@ -414,19 +414,19 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
 
             {/* 최고/개선 항목 */}
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-center p-4 bg-green-50 rounded-lg flex flex-col justify-center items-center h-20">
+            <div className="grid grid-cols-2 gap-4 text-sm -mt-5">
+              <div className="text-center p-4 bg-green-50 rounded-lg flex flex-col justify-center items-center h-[88px]">
                 <p className="text-gray-600 mb-2">💪 최고 항목</p>
                 <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
               </div>
-              <div className="text-center p-4 bg-yellow-50 rounded-lg flex flex-col justify-center items-center h-20">
+              <div className="text-center p-4 bg-yellow-50 rounded-lg flex flex-col justify-center items-center h-[88px]">
                 <p className="text-gray-600 mb-2">🎯 개선 항목</p>
                 <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
               </div>
             </div>
 
             {/* 지구력 스펙트럼 */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center -mt-5">
               {(measurement.power180s || measurement.power360s) ? (
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 w-full">
                   <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
