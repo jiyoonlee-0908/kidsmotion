@@ -374,8 +374,8 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           <div className="grid grid-cols-2 gap-6 mb-6">
             {/* 종합 백분위 점수 */}
             <div className="text-center">
-              <div className="relative w-24 h-24 mx-auto mb-3">
-                <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+              <div className="relative w-40 h-40 mx-auto mb-4">
+                <svg className="w-40 h-40 transform -rotate-90" viewBox="0 0 36 36">
                   <path
                     d="m18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     fill="none"
@@ -398,11 +398,11 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-lg font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
+                  <span className="text-3xl font-bold text-gray-900">{Math.round(analysis.overallPercentile)}</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600">종합 백분위</p>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-base font-semibold text-gray-700">종합 백분위</p>
+              <p className="text-sm text-gray-400 mt-1">
                 ({(measurement.power180s || measurement.power360s) ? '6개' : '4개'} 영역 기준)
               </p>
             </div>
