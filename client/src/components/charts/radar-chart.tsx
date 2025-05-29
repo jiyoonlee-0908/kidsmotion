@@ -40,7 +40,7 @@ export default function RadarChart({ data }: RadarChartProps) {
     chartInstance.current = new Chart(ctx, {
       type: "radar",
       data: {
-        labels: ["좌우밸런스", "순발력", "근력", "근지구력", "심폐지구력"],
+        labels: ["좌우밸런스", "순발력", "스프린트 파워", "파워 지속력", "근력"],
         datasets: [
           {
             label: "현재 수준",
