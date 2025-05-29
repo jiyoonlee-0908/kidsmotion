@@ -70,6 +70,24 @@ export default function RadarChart({ data }: RadarChartProps) {
             max: 100,
             ticks: {
               stepSize: 20,
+              font: {
+                size: 10,
+              },
+              color: '#6B7280',
+            },
+            pointLabels: {
+              font: {
+                size: 13,
+                weight: 'bold',
+              },
+              color: '#374151',
+              padding: 15,
+            },
+            grid: {
+              color: '#E5E7EB',
+            },
+            angleLines: {
+              color: '#E5E7EB',
             },
           },
         },

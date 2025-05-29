@@ -33,7 +33,7 @@ export interface FitnessAnalysisRequest {
 }
 
 export interface AIAnalysisResponse {
-  summary: string;
+  coreInsights: string;
   balanceComment: string;
   explanations: {
     power: string;
@@ -103,17 +103,18 @@ export async function generateFitnessAnalysis(
 
 ${measurementData}
 
-AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세요:
+JSON 형식으로 응답하세요:
 {
-  "summary": "15년 경력의 아동 운동생리학 박사 관점에서 부모가 이해하기 쉽게 강점과 보완점을 1-3줄로 요약 (3줄일 경우 한 문장으로 끊어지지 않게)",
+  "coreInsights": "전문가 관점에서 핵심 강점과 보완점을 1-2줄로 요약",
   "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. 성장과의 관련성을 포함하되 의학적 진단/치료 문구는 피하고, 4-7줄로 상세 작성",
-  "comprehensiveAnalysis": "체력 종합분석 AI 해설. 줄바꿈(\\n)과 강조(**굵게**)를 적절히 사용하여 읽기 쉽게 작성. ${data.studentName}의 이름을 자연스럽게 활용하여 개인 맞춤형 분석 제공"
+  "comprehensiveAnalysis": "정확히 3개 문단으로 구성된 전문 분석. 각 문단은 3줄씩 작성하며, 문단 간 구분을 위해 반드시 줄바꿈(\\n\\n) 사용. **굵게** 강조를 활용하여 핵심 포인트 부각. ${data.studentName}의 이름을 자연스럽게 포함하여 개인 맞춤형 분석 제공"
 }
 
 **중요 지침:**
-1. 체력요약카드 한줄요약: 전문가적이지만 부모가 쉽게 이해할 수 있게
-2. 좌우밸런스 AI 코멘트: 성장 관련성 포함, 의료법 준수
-3. 체력종합분석 AI 종합해설: 가독성 최우선, 줄바꿈과 강조 필수
+1. 15년 경력 아동운동생리학 박사 수준의 전문성 유지
+2. 의학적 용어와 생리학적 근거를 적절히 활용
+3. comprehensiveAnalysis는 반드시 3문단 × 3줄 구조로 고정
+4. 문단별 주제: 신경근 발달/에너지시스템/운동처방
 `;
 
     const response = await openai.chat.completions.create({
@@ -160,15 +161,13 @@ AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세�
     const result = JSON.parse(response.choices[0].message.content || "{}");
 
     return {
-      summary: result.summary || "체력 분석을 완료했습니다.",
+      coreInsights: result.coreInsights || "체력 분석을 완료했습니다.",
       balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
       explanations: {
         power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
         strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
         muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
         cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
-        longEndurance180s: data.percentiles.longEndurance180s ? `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance180s)}등 수준입니다.` : null,
-        longEndurance360s: data.percentiles.longEndurance360s ? `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.longEndurance360s)}등 수준입니다.` : null,
       },
       comprehensiveAnalysis: result.comprehensiveAnalysis || [
         "전반적인 체력 상태를 분석 중입니다.",
@@ -182,7 +181,7 @@ AI는 다음 3개 부분만 작성해주세요. JSON 형식으로 응답하세�
 
     // Fallback response in case of API failure
     return {
-      summary: "체력 분석을 완료했습니다.",
+      coreInsights: "체력 분석을 완료했습니다.",
       balanceComment: "좌우 밸런스 개선을 위한 균형 훈련이 권장됩니다.",
       explanations: {
         power: "순발력 수준이 양호하며, 폭발적인 힘 발휘 능력을 보입니다.",
