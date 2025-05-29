@@ -432,32 +432,28 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
 
             {/* 지구력 스펙트럼 */}
-            {(measurement.power180s || measurement.power360s) && (
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
-                <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
-                <div className="flex items-center justify-between">
-                  {measurement.power180s && analysis.percentile180s && (
-                    <div className="text-center flex-1">
-                      <div className="text-xs text-gray-600 mb-1">180초</div>
-                      <div className="text-lg font-bold text-blue-600">{Math.round(analysis.percentile180s)}%</div>
-                      <div className="text-xs text-gray-500">근지구력</div>
-                    </div>
-                  )}
-                  {measurement.power180s && measurement.power360s && (
-                    <div className="flex-shrink-0 mx-2">
-                      <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
-                    </div>
-                  )}
-                  {measurement.power360s && analysis.percentile360s && (
-                    <div className="text-center flex-1">
-                      <div className="text-xs text-gray-600 mb-1">360초</div>
-                      <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
-                      <div className="text-xs text-gray-500">심폐지구력</div>
-                    </div>
-                  )}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4">
+              <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
+              <div className="flex items-center justify-between">
+                <div className="text-center flex-1">
+                  <div className="text-xs text-gray-600 mb-1">180초</div>
+                  <div className="text-lg font-bold text-blue-600">
+                    {measurement.power180s && analysis.percentile180s ? Math.round(analysis.percentile180s) : 0}%
+                  </div>
+                  <div className="text-xs text-gray-500">근지구력</div>
+                </div>
+                <div className="flex-shrink-0 mx-2">
+                  <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
+                </div>
+                <div className="text-center flex-1">
+                  <div className="text-xs text-gray-600 mb-1">360초</div>
+                  <div className="text-lg font-bold text-purple-600">
+                    {measurement.power360s && analysis.percentile360s ? Math.round(analysis.percentile360s) : 0}%
+                  </div>
+                  <div className="text-xs text-gray-500">심폐지구력</div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
             
           <div className="bg-blue-50 rounded-lg p-6">
