@@ -105,6 +105,10 @@ function App() {
         return <About onNavigate={navigateTo} />;
       case 'contact':
         return <Contact onNavigate={navigateTo} />;
+      case 'measurement':
+        return <Home onNavigate={navigateTo} />;
+      case 'measurement-history':
+        return <Records onNavigate={navigateTo} />;
       case 'records':
         return <Records onNavigate={navigateTo} />;
       case 'user-guide':
