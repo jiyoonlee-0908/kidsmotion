@@ -373,7 +373,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           </div>
           <div className="grid grid-cols-2 gap-6 mb-6">
             {/* 종합 백분위 점수 */}
-            <div className="text-center mt-7">
+            <div className="text-center mt-12">
               <div className="relative w-40 h-40 mx-auto mb-4">
                 <svg className="w-40 h-40 transform -rotate-90" viewBox="0 0 36 36">
                   <path
