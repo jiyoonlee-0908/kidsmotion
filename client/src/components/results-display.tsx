@@ -478,20 +478,27 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
           </div>
           
-          <div className="text-gray-700 text-sm leading-relaxed prose prose-sm max-w-none">
-            <div dangerouslySetInnerHTML={{ 
-              __html: analysis.detailedReport 
-                ? analysis.detailedReport
+          <div className="text-gray-700 leading-relaxed space-y-4">
+            {analysis.detailedReport ? (
+              <div 
+                className="prose prose-sm max-w-none"
+                dangerouslySetInnerHTML={{ 
+                  __html: analysis.detailedReport
+                    .replace(/\n\n/g, '</div><div class="mt-4">')
                     .replace(/\n/g, '<br>')
-                    .replace(/(🔍|🌟|💡|🏃|📅|🗓️|👪|⚠️|📈) ([^\n]+)/g, '<h4 class="text-base font-bold text-gray-900 mt-6 mb-3 flex items-center gap-2"><span class="text-lg">$1</span> $2</h4>')
+                    .replace(/(🔍|🌟|💡|🏃|📅|🗓️|👪|⚠️|📈) ([^\n<]+)/g, '<div class="mt-6 mb-4"><h4 class="text-base font-bold text-gray-900 mb-3 flex items-start gap-2"><span class="text-lg flex-shrink-0">$1</span> <span>$2</span></h4><div class="pl-8">')
                     .replace(/상위 (\d+)%/g, '<span class="text-purple-600 font-semibold">상위 $1%</span>')
                     .replace(/하위 (\d+)%/g, '<span class="text-orange-600 font-semibold">하위 $1%</span>')
                     .replace(/(\d+)등/g, '<span class="text-purple-600 font-semibold">$1등</span>')
                     .replace(/(\d+)분간/g, '<span class="text-blue-600 font-semibold">$1분간</span>')
                     .replace(/(\d+)%로/g, '<span class="text-purple-600 font-semibold">$1%로</span>')
                     .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-gray-900 font-semibold">$1</strong>')
-                : "상세 종합해설을 준비하고 있습니다..."
-            }} />
+                    + '</div>'
+                }} 
+              />
+            ) : (
+              <p className="text-gray-500">상세 종합해설을 준비하고 있습니다...</p>
+            )}
           </div>
         </CardContent>
       </Card>
