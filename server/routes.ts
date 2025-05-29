@@ -383,7 +383,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         avgBpm: heartRateData.avgBpm,
         restingBpm: heartRateData.restingBpm,
         balanceStatus,
-        aiSummary: aiAnalysis.summary,
+        aiSummary: aiAnalysis.coreInsights,
         balanceComment: aiAnalysis.balanceComment,
         explanation5s: aiAnalysis.explanations.power,
         explanation15s: aiAnalysis.explanations.strength,
