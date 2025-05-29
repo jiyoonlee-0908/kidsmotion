@@ -16,109 +16,145 @@ const cutoffData = {
     "power": { "P96": 28, "P80": 24, "P20": 16, "P4": 12 },
     "strength": { "P96": 22, "P80": 18, "P20": 12, "P4": 8 },
     "muscleEndurance": { "P96": 18, "P80": 15, "P20": 10, "P4": 6 },
-    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 8, "P4": 5 }
+    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 8, "P4": 5 },
+    "longEndurance180s": { "P96": 10.5, "P80": 8.4, "P20": 5.6, "P4": 3.5 },
+    "longEndurance360s": { "P96": 8.25, "P80": 6.6, "P20": 4.4, "P4": 2.75 }
   },
   "4_F": {
     "power": { "P96": 24, "P80": 20, "P20": 14, "P4": 10 },
     "strength": { "P96": 19, "P80": 15, "P20": 10, "P4": 7 },
     "muscleEndurance": { "P96": 15, "P80": 13, "P20": 9, "P4": 5 },
-    "cardioEndurance": { "P96": 13, "P80": 10, "P20": 7, "P4": 4 }
+    "cardioEndurance": { "P96": 13, "P80": 10, "P20": 7, "P4": 4 },
+    "longEndurance180s": { "P96": 9.1, "P80": 7, "P20": 4.9, "P4": 2.8 },
+    "longEndurance360s": { "P96": 7.15, "P80": 5.5, "P20": 3.85, "P4": 2.2 }
   },
   "5_M": {
     "power": { "P96": 30, "P80": 26, "P20": 18, "P4": 14 },
     "strength": { "P96": 24, "P80": 20, "P20": 14, "P4": 10 },
     "muscleEndurance": { "P96": 20, "P80": 17, "P20": 12, "P4": 8 },
-    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 10, "P4": 7 }
+    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 10, "P4": 7 },
+    "longEndurance180s": { "P96": 11.9, "P80": 9.8, "P20": 7, "P4": 4.9 },
+    "longEndurance360s": { "P96": 9.35, "P80": 7.7, "P20": 5.5, "P4": 3.85 }
   },
   "5_F": {
     "power": { "P96": 26, "P80": 22, "P20": 16, "P4": 12 },
     "strength": { "P96": 21, "P80": 17, "P20": 12, "P4": 9 },
     "muscleEndurance": { "P96": 17, "P80": 15, "P20": 11, "P4": 7 },
-    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 9, "P4": 6 }
+    "cardioEndurance": { "P96": 15, "P80": 12, "P20": 9, "P4": 6 },
+    "longEndurance180s": { "P96": 10.5, "P80": 8.4, "P20": 6.3, "P4": 4.2 },
+    "longEndurance360s": { "P96": 8.25, "P80": 6.6, "P20": 4.95, "P4": 3.3 }
   },
   "6_M": {
     "power": { "P96": 32, "P80": 28, "P20": 20, "P4": 16 },
     "strength": { "P96": 26, "P80": 22, "P20": 16, "P4": 12 },
     "muscleEndurance": { "P96": 22, "P80": 19, "P20": 14, "P4": 10 },
-    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 12, "P4": 9 }
+    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 12, "P4": 9 },
+    "longEndurance180s": { "P96": 13.3, "P80": 11.2, "P20": 8.4, "P4": 6.3 },
+    "longEndurance360s": { "P96": 10.45, "P80": 8.8, "P20": 6.6, "P4": 4.95 }
   },
   "6_F": {
     "power": { "P96": 28, "P80": 24, "P20": 18, "P4": 14 },
     "strength": { "P96": 23, "P80": 19, "P20": 14, "P4": 11 },
     "muscleEndurance": { "P96": 19, "P80": 17, "P20": 13, "P4": 9 },
-    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 11, "P4": 8 }
+    "cardioEndurance": { "P96": 17, "P80": 14, "P20": 11, "P4": 8 },
+    "longEndurance180s": { "P96": 11.9, "P80": 9.8, "P20": 7.7, "P4": 5.6 },
+    "longEndurance360s": { "P96": 9.35, "P80": 7.7, "P20": 6.05, "P4": 4.4 }
   },
   "7_M": {
     "power": { "P96": 34, "P80": 30, "P20": 22, "P4": 18 },
     "strength": { "P96": 28, "P80": 24, "P20": 18, "P4": 14 },
     "muscleEndurance": { "P96": 24, "P80": 21, "P20": 16, "P4": 12 },
-    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 14, "P4": 11 }
+    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 14, "P4": 11 },
+    "longEndurance180s": { "P96": 14.7, "P80": 12.6, "P20": 9.8, "P4": 7.7 },
+    "longEndurance360s": { "P96": 11.55, "P80": 9.9, "P20": 7.7, "P4": 6.05 }
   },
   "7_F": {
     "power": { "P96": 30, "P80": 26, "P20": 20, "P4": 16 },
     "strength": { "P96": 25, "P80": 21, "P20": 16, "P4": 13 },
     "muscleEndurance": { "P96": 21, "P80": 19, "P20": 15, "P4": 11 },
-    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 13, "P4": 10 }
+    "cardioEndurance": { "P96": 19, "P80": 16, "P20": 13, "P4": 10 },
+    "longEndurance180s": { "P96": 13.3, "P80": 11.2, "P20": 9.1, "P4": 7 },
+    "longEndurance360s": { "P96": 10.45, "P80": 8.8, "P20": 7.15, "P4": 5.5 }
   },
   "8_M": {
     "power": { "P96": 36, "P80": 32, "P20": 24, "P4": 20 },
     "strength": { "P96": 30, "P80": 26, "P20": 20, "P4": 16 },
     "muscleEndurance": { "P96": 26, "P80": 23, "P20": 18, "P4": 14 },
-    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 16, "P4": 13 }
+    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 16, "P4": 13 },
+    "longEndurance180s": { "P96": 16.1, "P80": 14, "P20": 11.2, "P4": 9.1 },
+    "longEndurance360s": { "P96": 12.65, "P80": 11, "P20": 8.8, "P4": 7.15 }
   },
   "8_F": {
     "power": { "P96": 32, "P80": 28, "P20": 22, "P4": 18 },
     "strength": { "P96": 27, "P80": 23, "P20": 18, "P4": 15 },
     "muscleEndurance": { "P96": 23, "P80": 21, "P20": 17, "P4": 13 },
-    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 15, "P4": 12 }
+    "cardioEndurance": { "P96": 21, "P80": 18, "P20": 15, "P4": 12 },
+    "longEndurance180s": { "P96": 14.7, "P80": 12.6, "P20": 10.5, "P4": 8.4 },
+    "longEndurance360s": { "P96": 11.55, "P80": 9.9, "P20": 8.25, "P4": 6.6 }
   },
   "9_M": {
     "power": { "P96": 38, "P80": 34, "P20": 26, "P4": 22 },
     "strength": { "P96": 32, "P80": 28, "P20": 22, "P4": 18 },
     "muscleEndurance": { "P96": 28, "P80": 25, "P20": 20, "P4": 16 },
-    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 18, "P4": 15 }
+    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 18, "P4": 15 },
+    "longEndurance180s": { "P96": 17.5, "P80": 15.4, "P20": 12.6, "P4": 10.5 },
+    "longEndurance360s": { "P96": 13.75, "P80": 12.1, "P20": 9.9, "P4": 8.25 }
   },
   "9_F": {
     "power": { "P96": 34, "P80": 30, "P20": 24, "P4": 20 },
     "strength": { "P96": 29, "P80": 25, "P20": 20, "P4": 17 },
     "muscleEndurance": { "P96": 25, "P80": 23, "P20": 19, "P4": 15 },
-    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 17, "P4": 14 }
+    "cardioEndurance": { "P96": 23, "P80": 20, "P20": 17, "P4": 14 },
+    "longEndurance180s": { "P96": 16.1, "P80": 14, "P20": 11.9, "P4": 9.8 },
+    "longEndurance360s": { "P96": 12.65, "P80": 11, "P20": 9.35, "P4": 7.7 }
   },
   "10_M": {
     "power": { "P96": 40, "P80": 36, "P20": 28, "P4": 24 },
     "strength": { "P96": 34, "P80": 30, "P20": 24, "P4": 20 },
     "muscleEndurance": { "P96": 30, "P80": 27, "P20": 22, "P4": 18 },
-    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 20, "P4": 17 }
+    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 20, "P4": 17 },
+    "longEndurance180s": { "P96": 18.9, "P80": 16.8, "P20": 14, "P4": 11.9 },
+    "longEndurance360s": { "P96": 14.85, "P80": 13.2, "P20": 11, "P4": 9.35 }
   },
   "10_F": {
     "power": { "P96": 36, "P80": 32, "P20": 26, "P4": 22 },
     "strength": { "P96": 31, "P80": 27, "P20": 22, "P4": 19 },
     "muscleEndurance": { "P96": 27, "P80": 25, "P20": 21, "P4": 17 },
-    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 19, "P4": 16 }
+    "cardioEndurance": { "P96": 25, "P80": 22, "P20": 19, "P4": 16 },
+    "longEndurance180s": { "P96": 17.5, "P80": 15.4, "P20": 13.3, "P4": 11.2 },
+    "longEndurance360s": { "P96": 13.75, "P80": 12.1, "P20": 10.45, "P4": 8.8 }
   },
   "11_M": {
     "power": { "P96": 42, "P80": 38, "P20": 30, "P4": 26 },
     "strength": { "P96": 36, "P80": 32, "P20": 26, "P4": 22 },
     "muscleEndurance": { "P96": 32, "P80": 29, "P20": 24, "P4": 20 },
-    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 22, "P4": 19 }
+    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 22, "P4": 19 },
+    "longEndurance180s": { "P96": 20.3, "P80": 18.2, "P20": 15.4, "P4": 13.3 },
+    "longEndurance360s": { "P96": 15.95, "P80": 14.3, "P20": 12.1, "P4": 10.45 }
   },
   "11_F": {
     "power": { "P96": 38, "P80": 34, "P20": 28, "P4": 24 },
     "strength": { "P96": 33, "P80": 29, "P20": 24, "P4": 21 },
     "muscleEndurance": { "P96": 29, "P80": 27, "P20": 23, "P4": 19 },
-    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 21, "P4": 18 }
+    "cardioEndurance": { "P96": 27, "P80": 24, "P20": 21, "P4": 18 },
+    "longEndurance180s": { "P96": 18.9, "P80": 16.8, "P20": 14.7, "P4": 12.6 },
+    "longEndurance360s": { "P96": 14.85, "P80": 13.2, "P20": 11.55, "P4": 9.9 }
   },
   "12_M": {
     "power": { "P96": 44, "P80": 40, "P20": 32, "P4": 28 },
     "strength": { "P96": 38, "P80": 34, "P20": 28, "P4": 24 },
     "muscleEndurance": { "P96": 34, "P80": 31, "P20": 26, "P4": 22 },
-    "cardioEndurance": { "P96": 31, "P80": 28, "P20": 24, "P4": 21 }
+    "cardioEndurance": { "P96": 31, "P80": 28, "P20": 24, "P4": 21 },
+    "longEndurance180s": { "P96": 21.7, "P80": 19.6, "P20": 16.8, "P4": 14.7 },
+    "longEndurance360s": { "P96": 17.05, "P80": 15.4, "P20": 13.2, "P4": 11.55 }
   },
   "12_F": {
     "power": { "P96": 40, "P80": 36, "P20": 30, "P4": 26 },
     "strength": { "P96": 35, "P80": 31, "P20": 26, "P4": 23 },
     "muscleEndurance": { "P96": 31, "P80": 29, "P20": 25, "P4": 21 },
-    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 23, "P4": 20 }
+    "cardioEndurance": { "P96": 29, "P80": 26, "P20": 23, "P4": 20 },
+    "longEndurance180s": { "P96": 20.3, "P80": 18.2, "P20": 16.1, "P4": 14 },
+    "longEndurance360s": { "P96": 15.95, "P80": 14.3, "P20": 12.65, "P4": 11 }
   }
 };
 
@@ -226,8 +262,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "15s": calculatePercentile(relativePowers["15s"], cutoffs?.strength),
         "30s": calculatePercentile(relativePowers["30s"], cutoffs?.muscleEndurance),
         "60s": calculatePercentile(relativePowers["60s"], cutoffs?.cardioEndurance),
-        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.cardioEndurance) : null,
-        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.cardioEndurance) : null
+        "180s": absolutePowers["180s"] > 0 ? calculatePercentile(relativePowers["180s"], cutoffs?.longEndurance180s) : null,
+        "360s": absolutePowers["360s"] > 0 ? calculatePercentile(relativePowers["360s"], cutoffs?.longEndurance360s) : null
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
