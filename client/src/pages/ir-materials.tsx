@@ -693,7 +693,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
                 <div className="bg-blue-50 p-4 rounded-lg my-6">
                   <p className="font-medium">• IYC 스포츠센터에서 2025년 7월부터 실제 파일럿을 진행합니다<br/>
-                  • 300명의 아동 데이터로 한국형 체력 기준을 만들어가고 있습니다<br/>
+                  • 100명의 아동 데이터로 한국형 체력 기준을 만들어가고 있습니다<br/>
                   • 24년간 사이클 선수로 쌓은 경험과 노하우가 이 장비에 담겨있습니다</p>
                 </div>
 
@@ -854,7 +854,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div>
                     <h4 className="font-semibold mb-3">파일럿 진행 상황</h4>
                     <p className="mb-2">🏃‍♂️ IYC 유소년 스포츠센터 (2025.7월 시작)</p>
-                    <p className="mb-2">📊 목표: 300명 아동 데이터 수집</p>
+                    <p className="mb-2">📊 목표: 100명 아동 데이터 수집</p>
                     <p className="mb-2">📋 한국형 체력 기준 데이터베이스 구축</p>
                     <p className="text-sm opacity-80">실제 성과로 증명해드리겠습니다</p>
                   </div>
