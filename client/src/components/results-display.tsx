@@ -420,12 +420,12 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
 
             {/* 최고/개선 항목 */}
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="text-center p-3 bg-green-50 rounded-lg">
+            <div className="grid grid-cols-2 gap-4 text-sm items-center">
+              <div className="text-center p-3 bg-green-50 rounded-lg flex flex-col justify-center h-full">
                 <p className="text-gray-600 mb-1">💪 최고 항목</p>
                 <p className="font-semibold text-green-600">{strengths[0] || "균형잡힌 발달"}</p>
               </div>
-              <div className="text-center p-3 bg-yellow-50 rounded-lg">
+              <div className="text-center p-3 bg-yellow-50 rounded-lg flex flex-col justify-center h-full">
                 <p className="text-gray-600 mb-1">🎯 개선 항목</p>
                 <p className="font-semibold text-yellow-600">{improvements[0] || "지속적 관리"}</p>
               </div>
