@@ -1,9 +1,7 @@
 import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export interface FitnessAnalysisRequest {
   studentName: string;
@@ -59,7 +57,6 @@ export async function generateFitnessAnalysis(
   data: FitnessAnalysisRequest,
 ): Promise<AIAnalysisResponse> {
   try {
-    // Build measurement data based on available information
     const bmi = Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2) * 10) / 10;
     
     let measurementData = `
@@ -86,128 +83,234 @@ export async function generateFitnessAnalysis(
       }
     }
 
-    // Add heart rate analysis if available
-    if (
-      data.heartRateData?.maxBpm ||
-      data.heartRateData?.avgBpm ||
-      data.heartRateData?.restingBpm
-    ) {
-      measurementData += `\n\n**심박수 데이터 (에너지 시스템 분석):**`;
+    // Add heart rate data if available
+    if (data.heartRateData) {
+      measurementData += `\n\n**심박수 데이터:**`;
       if (data.heartRateData.maxBpm) {
         measurementData += `\n- 최대 심박수: ${data.heartRateData.maxBpm} bpm`;
       }
       if (data.heartRateData.avgBpm) {
-        measurementData += `\n- 운동 중 평균 심박수: ${data.heartRateData.avgBpm} bpm`;
+        measurementData += `\n- 평균 심박수: ${data.heartRateData.avgBpm} bpm`;
       }
       if (data.heartRateData.restingBpm) {
         measurementData += `\n- 안정시 심박수: ${data.heartRateData.restingBpm} bpm`;
       }
     }
 
-    measurementData += `
+    // Add balance information
+    measurementData += `\n\n**밸런스 분석:**`;
+    measurementData += `\n- 좌우 밸런스 차이: ${data.balanceDifference.toFixed(1)}%`;
+    
+    // Add strengths and improvements
+    measurementData += `\n\n**현재 강점:** ${data.strengths.join(", ")}`;
+    measurementData += `\n**개선 필요 영역:** ${data.improvements.join(", ")}`;
 
-**좌우 밸런스:**
-- 좌우 차이: ${data.balanceDifference}%
-- 주요 강점: ${data.strengths.join(", ")}
-- 개선 항목: ${data.improvements.join(", ")}`;
+    const prompt = `위 측정 결과를 바탕으로 전문적인 체력 분석을 작성해주세요.
 
-    const prompt = `
-아래 아동의 체력 측정 결과를 분석하여 전문적이고 구체적인 평가를 제공해주세요.
+특별 요구사항:
+1. BMI ${bmi} 해석과 체력에 미치는 영향 분석
+2. 모든 측정 항목의 구체적 의미와 실생활 적용
+3. 심박수 데이터로 심혈관 건강 평가
+4. 밸런스 차이의 의미와 개선 방향
+5. FITT 원칙 기반 구체적 운동 처방
+6. 보수적 성장 예측 (+1-3%p)
 
-${measurementData}
+${measurementData}`;
 
-JSON 형식으로 응답하세요:
-{
-  "coreInsights": "전문가 관점에서 핵심 강점과 보완점을 1-2줄로 요약",
-  "balanceComment": "좌우 밸런스 차이 ${data.balanceDifference}%에 대한 분석. 성장과의 관련성을 포함하되 의학적 진단/치료 문구는 피하고, 4-7줄로 상세 작성",
-  "comprehensiveAnalysis": "정확히 3개 문단으로 구성된 전문 분석. 각 문단은 3줄씩 작성하며, 문단 간 구분을 위해 반드시 줄바꿈(\\n\\n) 사용. **굵게** 강조를 활용하여 핵심 포인트 부각. ${data.studentName}의 이름을 자연스럽게 포함하여 개인 맞춤형 분석 제공"
-}
-
-**중요 지침:**
-1. 15년 경력 아동운동생리학 박사 수준의 전문성 유지
-2. 의학적 용어와 생리학적 근거를 적절히 활용
-3. comprehensiveAnalysis는 반드시 3문단 × 3줄 구조로 고정
-4. 문단별 주제: 신경근 발달/에너지시스템/운동처방
-`;
+    console.log("OpenAI 요청 데이터:", prompt.substring(0, 500) + "...");
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o",
       messages: [
-        {
-          role: "system",
-          content: `당신은 15년 경력의 아동 운동생리학 박사이자 스포츠 의학 컨설턴트입니다.
-※ 본 리포트는 건강증진 목적의 일반 가이드이며, 의학적 진단·치료를 대체하지 않습니다.
-
-중요 지침:
-1) BMI를 포함한 신체구성 분석으로 개별 특성 해석 ("BMI ${Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2))} 기준 또래 대비 체중이 가벼워 파워 유리" 등)
-2) 각 측정값의 원W 수치와 백분위의 구체적 의미 설명
-3) 운동 성장률은 보수적으로 1-2% 향상 목표 (상위권일수록 더 보수적)
-4) 한 항목당 최소 6줄 이상 자세한 설명
-5) 부모가 "전문적이고 돈값한다"고 느낄 정도로 길고 구체적으로
-6) 의학적 진단/치료 문구 절대 금지, 권장/가능성 수준으로만
-7) 아이 이름을 자연스럽게 활용하여 개인 맞춤형 분석
-
-출력 형식 (각 항목마다 아이콘과 함께):
-# 1. 📊 ${data.studentName}의 오늘 한눈에 보기
-# 2. 💪 강점 & 잠재력  
-# 3. 🎯 우선 개선 영역
-# 4. 📅 이번 주 해야 할 일
-# 5. 📈 이번 달 목표
-# 6. 🚀 3개월 로드맵
-# 7. 👨‍👩‍👧‍👦 부모 참여 운동법
-# 8. ⚠️ 안전 주의사항
-# 9. 🔮 다음 측정 예상 개선치
-
-각 항목은 최소 6줄 이상, 구체적 수치와 운동생리학적 근거를 포함하여 전문성을 드러내세요.`,
-        },
         {
           role: "user",
           content: prompt,
         },
       ],
       response_format: { type: "json_object" },
-      temperature: 0.7,
-      max_tokens: 3000,
+      temperature: 0.3,
+      max_tokens: 1200,
     });
 
     const result = JSON.parse(response.choices[0].message.content || "{}");
 
-    return {
-      coreInsights: result.coreInsights || "체력 분석을 완료했습니다.",
-      balanceComment: result.balanceComment || `좌우 밸런스 차이는 ${data.balanceDifference}%입니다. 균형 개선이 필요합니다.`,
-      explanations: {
-        power: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.power)}등 수준입니다.`,
-        strength: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.strength)}등 수준입니다.`,
-        muscleEndurance: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.muscleEndurance)}등 수준입니다.`,
-        cardioEndurance: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - data.percentiles.cardioEndurance)}등 수준입니다.`,
-      },
-      comprehensiveAnalysis: result.comprehensiveAnalysis || [
-        "전반적인 체력 상태를 분석 중입니다.",
-        "개선점과 강점을 파악하고 있습니다.",
-        "맞춤형 운동 계획을 수립하겠습니다.",
-      ],
-      overallAssessment: result.overallAssessment || `${data.studentName}의 종합적인 체력 평가를 진행하고 있습니다.`,
-    };
-  } catch (error) {
-    console.error("OpenAI API 오류:", error);
+    console.log("OpenAI 분석 완료:", { 
+      coreInsights: result.coreInsights ? "생성됨" : "실패", 
+      overallAssessment: result.overallAssessment ? "생성됨" : "실패" 
+    });
 
-    // Fallback response in case of API failure
     return {
-      coreInsights: "체력 분석을 완료했습니다.",
-      balanceComment: "좌우 밸런스 개선을 위한 균형 훈련이 권장됩니다.",
-      explanations: {
-        power: "순발력 수준이 양호하며, 폭발적인 힘 발휘 능력을 보입니다.",
-        strength: "근력 개발을 위한 지속적인 저항 훈련이 도움이 됩니다.",
-        muscleEndurance:
-          "근지구력 향상을 위해 점진적인 지구력 훈련을 권장합니다.",
-        cardioEndurance: "심폐지구력 강화를 위한 유산소 운동이 필요합니다.",
+      coreInsights: result.coreInsights || `${data.studentName}의 체력 측정이 완료되었습니다.`,
+      balanceComment: result.balanceComment || `좌우 밸런스 차이가 ${data.balanceDifference.toFixed(1)}%입니다.`,
+      explanations: result.explanations || {
+        power: "순발력 분석 중입니다.",
+        strength: "스프린트 파워 분석 중입니다.",
+        muscleEndurance: "파워 지속력 분석 중입니다.",
+        cardioEndurance: "근력 분석 중입니다.",
       },
-      comprehensiveAnalysis: [
-        "전체적으로 균형잡힌 체력 발달을 보이고 있습니다.",
-        "지속적인 훈련을 통해 더 큰 향상이 기대됩니다.",
-        "규칙적인 운동 습관 형성이 중요합니다.",
-      ],
-      overallAssessment: `${data.studentName}은(는) 전체적으로 ${data.overallPercentile}%의 체력 수준을 보이며, 꾸준한 노력을 통해 더 큰 발전이 가능합니다. 특히 강점 영역을 활용하여 부족한 부분을 보완하는 방향으로 훈련하면 좋은 결과를 얻을 수 있을 것입니다. 균형잡힌 신체 발달을 위해 다양한 운동을 경험하고, 정기적인 측정을 통해 진전 상황을 확인하기를 권장합니다. 현재의 체력 기반을 바탕으로 지속적인 관리와 적절한 운동 프로그램 참여를 통해 건강한 성장이 이루어질 것으로 기대됩니다.`,
+      comprehensiveAnalysis: result.comprehensiveAnalysis || ["상세 분석을 준비하고 있습니다."],
+      overallAssessment: result.overallAssessment || "종합 평가를 생성하고 있습니다.",
     };
+
+  } catch (error) {
+    console.error("OpenAI 분석 생성 오류:", error);
+    return {
+      coreInsights: `${data.studentName}의 체력 측정이 완료되었습니다. 상세 분석을 준비하고 있습니다.`,
+      balanceComment: `좌우 밸런스 차이가 ${data.balanceDifference.toFixed(1)}%로 측정되었습니다.`,
+      explanations: {
+        power: "순발력 데이터를 분석하고 있습니다.",
+        strength: "스프린트 파워 데이터를 분석하고 있습니다.",
+        muscleEndurance: "파워 지속력 데이터를 분석하고 있습니다.",
+        cardioEndurance: "근력 데이터를 분석하고 있습니다.",
+      },
+      comprehensiveAnalysis: ["전문적인 체력 분석을 준비하고 있습니다."],
+      overallAssessment: "종합적인 평가를 생성하고 있습니다.",
+    };
+  }
+}
+
+export async function generateComprehensiveAnalysis(
+  data: FitnessAnalysisRequest,
+): Promise<string> {
+  try {
+    const bmi = Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2) * 10) / 10;
+    
+    let measurementData = `
+<아동정보>
+이름: ${data.studentName}
+나이: ${data.age}
+성별: M
+키_cm: ${data.height}
+몸무게_kg: ${data.weight}
+
+<측정값>
+5초 순발력_W: ${data.rawPowerData.power5s}  백분위: ${Math.round(data.percentiles.power)}
+15초 스프린트_W: ${data.rawPowerData.power15s}  백분위: ${Math.round(data.percentiles.strength)}
+30초 지속력_W: ${data.rawPowerData.power30s}  백분위: ${Math.round(data.percentiles.muscleEndurance)}
+60초 근력_W: ${data.rawPowerData.power60s}  백분위: ${Math.round(data.percentiles.cardioEndurance)}`;
+
+    if (data.advancedPowerData?.hasAdvancedData) {
+      if (data.percentiles.longEndurance180s) {
+        measurementData += `\n180초 근지구력_W: ${data.advancedPowerData.power180s}  백분위: ${Math.round(data.percentiles.longEndurance180s)}`;
+      }
+      if (data.percentiles.longEndurance360s) {
+        measurementData += `\n360초 심폐_W: ${data.advancedPowerData.power360s}  백분위: ${Math.round(data.percentiles.longEndurance360s)}`;
+      }
+    }
+
+    measurementData += `\n밸런스_%차이: ${data.balanceDifference.toFixed(1)}`;
+    if (data.heartRateData?.maxBpm) {
+      measurementData += `\n최대심박: ${data.heartRateData.maxBpm}   운동평균: ${data.heartRateData.avgBpm || 'N/A'}`;
+    }
+
+    console.log("OpenAI 요청 데이터:", measurementData);
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [
+        {
+          role: "system",
+          content: `당신은 15년차 '소아 운동생리학·운동생체역학' 박사(Ph.D., CSCS)입니다.
+
+문체 지침:
+1) "~입니다." "~하세요." 문체로 실제 병원 상담처럼 차분하고 구체적으로 작성
+2) 'AI', '모델' 같은 어휘는 사용 금지
+3) 군더더기 형용사, 불필요한 반복 금지, 한 문장은 15-25 어절
+4) 학술용어는 괄호 속 1줄 풀이를 붙여 부모가 바로 이해하도록
+
+형식 지침:
+1) MarkDown 인용 박스 9개 사용
+2) 첫 박스 10줄 이상, 나머지 박스 6줄 이상
+3) BMI 값과 해석, 모든 체력 항목, 심박을 두 번 이상 언급
+4) FITT(빈도·강도·시간·유형) 표기
+5) 성장 예측은 보수적으로 +1-3%p 또는 +5%p 내로
+6) 의료진단, 질병명, 치료 단어 금지. 마지막 줄에 "필요하면 전문가 상담을 권장합니다." 삽입
+7) MarkDown 이외 JSON, HTML, 코드블록 사용 금지
+
+출력 형식 (아이콘+제목 9박스):
+> 🚀 오늘 한눈에 보기  
+> (10줄 이상)  
+>
+> 💪 강점 & 잠재력  
+> (6줄 이상)  
+>
+> 🔧 우선 개선 영역
+> (6줄 이상)
+>
+> 📅 이번 주 해야 할 일
+> (6줄 이상)
+>
+> 📈 이번 달 목표
+> (6줄 이상)
+>
+> 🚀 3개월 로드맵
+> (6줄 이상)
+>
+> 👨‍👩‍👧‍👦 부모 참여 운동법
+> (6줄 이상)
+>
+> ⚠️ 안전 주의사항
+> (6줄 이상)
+>
+> 🔮 다음 측정 보수적 예상
+> (6줄 이상, 마지막 줄에 "필요하면 전문가 상담을 권장합니다." 포함)
+
+BMI, 모든 측정값의 구체적 의미, 심박수 해석을 포함하여 전문적이고 길게 작성하세요.`,
+        },
+        {
+          role: "user",
+          content: measurementData,
+        },
+      ],
+      temperature: 0.4,
+      max_tokens: 1500,
+    });
+
+    const content = response.choices[0]?.message?.content || "";
+    
+    console.log("OpenAI 종합 분석 응답:", content.substring(0, 200) + "...");
+    
+    return content;
+
+  } catch (error) {
+    console.error("OpenAI 종합 분석 생성 오류:", error);
+    return `
+> 🚀 오늘 한눈에 보기
+> 
+> 측정이 완료되었습니다. 전문적인 분석을 위해 잠시만 기다려 주세요.
+> 현재 시스템에서 상세 분석을 준비하고 있습니다.
+> 
+> 💪 강점 & 잠재력
+> 
+> 측정 결과를 바탕으로 개별적인 강점을 분석하고 있습니다.
+> 
+> 🔧 우선 개선 영역
+> 
+> 체력 향상을 위한 개선 포인트를 정리하고 있습니다.
+> 
+> 📅 이번 주 해야 할 일
+> 
+> 맞춤형 운동 계획을 수립하고 있습니다.
+> 
+> 📈 이번 달 목표
+> 
+> 단기 목표를 설정하고 있습니다.
+> 
+> 🚀 3개월 로드맵
+> 
+> 중장기 발전 계획을 준비하고 있습니다.
+> 
+> 👨‍👩‍👧‍👦 부모 참여 운동법
+> 
+> 가정에서 실천할 수 있는 운동법을 정리하고 있습니다.
+> 
+> ⚠️ 안전 주의사항
+> 
+> 안전한 운동을 위한 지침을 마련하고 있습니다.
+> 
+> 🔮 다음 측정 보수적 예상
+> 
+> 성장 예측과 재측정 일정을 조정하고 있습니다. 필요하면 전문가 상담을 권장합니다.
+    `;
   }
 }
