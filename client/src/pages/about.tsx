@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { BarChart, Star, Bike, Phone, Mail, MapPin } from "lucide-react";
-import Navigation from "@/components/navigation";
 import CommonFooter from "@/components/common-footer";
 
 interface AboutProps {

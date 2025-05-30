@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Bike, HelpCircle, Settings, Shield, Users, BarChart, Phone, Mail, MapPin, Star, Scale, Smartphone, ChevronDown, Search, History } from "lucide-react";
-import { Link, useLocation } from "wouter";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Shield, Users, BarChart, Phone, Mail, MapPin, Scale, HelpCircle, Settings } from "lucide-react";
+import { useLocation } from "wouter";
 import {
   Dialog,
   DialogContent,
@@ -19,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import MeasurementForm from "@/components/measurement-form";
 import ResultsDisplay from "@/components/results-display";
 import SimpleLoadingAnimation from "@/components/simple-loading-animation";
-import MobileAppIntegration from "@/components/mobile-app-integration";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
 interface MeasurementResponse {
@@ -67,11 +60,6 @@ export default function Home({ onNavigate }: HomeProps) {
     setIsAnalyzing(true);
   };
 
-  const handleAnimationComplete = () => {
-    // 애니메이션이 완료되면 실제 분석 결과를 보여줌
-    // 실제로는 분석이 완료되었을 때 handleMeasurementComplete가 호출됨
-  };
-
   const handleNewMeasurement = () => {
     setShowResults(false);
     setMeasurementData(null);
@@ -80,93 +68,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {/* Modern Header */}
-      <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-5">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
-                <Bike className="text-white w-8 h-8" />
-              </div>
-              <div className="flex items-baseline space-x-2">
-                <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  KidsBike
-                </h1>
-                <span className="text-lg font-medium text-gray-500 tracking-wide">
-                  MotionBike
-                </span>
-                <span 
-                  onClick={() => onNavigate && onNavigate('ir-materials')}
-                  className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors border-2 border-purple-400 px-3 py-1 rounded-lg hover:border-purple-600 hover:bg-purple-50"
-                >
-                  IR자료
-                </span>
-              </div>
-              <div className="hidden">
-                <p className="text-sm text-gray-500 font-medium tracking-wide mt-1">AI 기반 아동 체력 분석 플랫폼</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-8">
-              <nav className="hidden md:flex items-center space-x-8">
-                <a href="#home" className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">홈</a>
-                
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 flex items-center space-x-1">
-                      <span>분석</span>
-                      <ChevronDown className="w-4 h-4" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48">
-                    <DropdownMenuItem asChild>
-                      <a href="#analysis" className="flex items-center space-x-2 w-full cursor-pointer">
-                        <Search className="w-4 h-4" />
-                        <span>측정</span>
-                      </a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem 
-                      onClick={() => onNavigate && onNavigate('records')}
-                      className="flex items-center space-x-2 w-full cursor-pointer"
-                    >
-                      <History className="w-4 h-4" />
-                      <span>기록</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-                
-                <span 
-                  onClick={() => onNavigate && onNavigate('about')}
-                  className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
-                >
-                  소개
-                </span>
-                <span 
-                  onClick={() => onNavigate && onNavigate('contact')}
-                  className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 cursor-pointer"
-                >
-                  문의
-                </span>
-              </nav>
-              <div className="flex items-center space-x-3">
-                <button 
-                  onClick={() => setHelpOpen(true)}
-                  className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  <HelpCircle className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={() => setSettingsOpen(true)}
-                  className="p-3 rounded-2xl bg-white/60 hover:bg-white/80 text-gray-700 hover:text-primary transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  <Settings className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
         {!showResults ? (
           <>
             {/* Hero Section */}
@@ -217,8 +119,6 @@ export default function Home({ onNavigate }: HomeProps) {
                 onStart={handleMeasurementStart}
               />
             </div>
-
-
           </>
         ) : (
           <div id="results-container">
@@ -347,7 +247,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {/* Simple Loading Animation */}
       <SimpleLoadingAnimation 
         isVisible={isAnalyzing} 
-        onAnimationComplete={handleAnimationComplete}
+        onAnimationComplete={() => {}}
       />
 
       {/* Help Modal */}
