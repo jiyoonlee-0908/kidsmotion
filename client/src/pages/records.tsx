@@ -1,4 +1,3 @@
-import Navigation from "@/components/navigation";
 import SimpleMeasurementHistory from "@/components/simple-measurement-history";
 import CommonFooter from "@/components/common-footer";
 
@@ -9,8 +8,7 @@ interface RecordsProps {
 export default function Records({ onNavigate }: RecordsProps) {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation onNavigate={onNavigate} />
-      <div className="pt-20">
+      <div className="pt-24">
         <SimpleMeasurementHistory />
       </div>
       <CommonFooter onNavigate={onNavigate} />
