@@ -547,7 +547,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           <FormControl>
                             <Input
                               type="number"
-                              placeholder="예: 85"
                               className="bg-white"
                               value={field.value || ""}
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
@@ -571,7 +570,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           <FormControl>
                             <Input
                               type="number"
-                              placeholder="예: 70"
                               className="bg-white"
                               value={field.value || ""}
                               onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
