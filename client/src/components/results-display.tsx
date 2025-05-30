@@ -6,7 +6,7 @@ import {
   FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart,
   Brain, Sparkles
 } from "lucide-react";
-import Navigation from "@/components/navigation";
+
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
 import ProgressChart from "@/components/charts/progress-chart";
@@ -168,8 +168,6 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
 
   return (
     <div className="space-y-6">
-      {/* Navigation */}
-      <Navigation onNavigate={onNavigate} />
       {/* Header with Action Buttons */}
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold gradient-text">체력 분석 결과</h2>
