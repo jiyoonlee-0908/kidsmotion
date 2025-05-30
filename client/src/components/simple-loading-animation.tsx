@@ -10,11 +10,10 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
   const [currentMessage, setCurrentMessage] = useState(0);
 
   const messages = [
-    "체력 데이터를 분석하고 있습니다...",
-    "AI가 개인 맞춤 운동을 처방하고 있습니다...",
-    "또래 대비 체력 수준을 계산하고 있습니다...",
-    "전문가급 리포트를 생성하고 있습니다...",
-    "분석이 거의 완료되었습니다!"
+    "입력된 체력데이터를 스마트 알고리즘이 실시간 분석하고 있습니다...",
+    "AI가 체력 데이터를 실시간 해석하고 있습니다...",
+    "또래 대비 우리 아이 체력 수준을 계산하고 있습니다...",
+    "전문가 리포트를 생성하고 있습니다..."
   ];
 
   useEffect(() => {
@@ -29,8 +28,8 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
         if (prev >= 100) {
           return 100;
         }
-        // 0-70%는 빠르게, 70-100%는 천천히 진행
-        const increment = prev < 70 ? 1 : 0.25;
+        // 0-100% 구간을 모두 동일 속도로(0.25씩) 진행
+        const increment = 0.25;
         return Math.min(prev + increment, 100);
       });
     }, 300);
