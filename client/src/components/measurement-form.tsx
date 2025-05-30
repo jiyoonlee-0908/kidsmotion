@@ -303,8 +303,11 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
-                          {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : parseFloat(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -323,8 +326,11 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
-                          {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : parseFloat(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
