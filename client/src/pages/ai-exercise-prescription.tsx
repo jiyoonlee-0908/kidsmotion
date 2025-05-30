@@ -18,7 +18,7 @@ import {
   BarChart3,
   Lightbulb
 } from "lucide-react";
-import Navigation from "@/components/navigation";
+
 import CommonFooter from "@/components/common-footer";
 
 interface AIExercisePrescriptionProps {
@@ -130,7 +130,6 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation onNavigate={onNavigate} />
       <main className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}

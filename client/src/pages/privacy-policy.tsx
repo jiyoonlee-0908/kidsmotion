@@ -14,7 +14,7 @@ import {
   UserCheck,
   Settings
 } from "lucide-react";
-import Navigation from "@/components/navigation";
+
 
 interface PrivacyPolicyProps {
   onNavigate?: (page: string) => void;
@@ -217,7 +217,6 @@ export default function PrivacyPolicy({ onNavigate }: PrivacyPolicyProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation onNavigate={onNavigate} />
       <main className="pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}

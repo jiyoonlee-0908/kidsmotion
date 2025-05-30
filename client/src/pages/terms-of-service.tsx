@@ -15,7 +15,7 @@ import {
   Gavel,
   RefreshCw
 } from "lucide-react";
-import Navigation from "@/components/navigation";
+
 
 interface TermsOfServiceProps {
   onNavigate?: (page: string) => void;
