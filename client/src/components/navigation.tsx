@@ -68,7 +68,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               <Link
                 href="/"
                 onClick={() => notifyParent("home")}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
+                className="text-xl font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
               >
                 홈
               </Link>
@@ -76,7 +76,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               {/* 분석 ▼ */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <button className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 flex items-center space-x-1">
+                  <button className="text-xl font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5 flex items-center space-x-1">
                     <span>분석</span>
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -89,9 +89,9 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     <Link
                       href="/#analysis"
                       onClick={() => notifyParent("measurement")}
-                      className="w-full cursor-pointer hover:bg-primary/10 leading-none px-2 py-1.5"
+                      className="w-full cursor-pointer text-xl font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
                     >
-                      📊 체력 측정
+                      체력 측정
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -99,9 +99,9 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     <Link
                       href="/records"
                       onClick={() => notifyParent("records")}
-                      className="w-full cursor-pointer hover:bg-primary/10 leading-none px-2 py-1.5"
+                      className="w-full cursor-pointer text-xl font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
                     >
-                      📈 측정 기록
+                      측정 기록
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -111,14 +111,14 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
               <Link
                 href="/about"
                 onClick={() => notifyParent("about")}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
+                className="text-xl font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
               >
                 소개
               </Link>
               <Link
                 href="/contact"
                 onClick={() => notifyParent("contact")}
-                className="text-lg font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
+                className="text-xl font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5"
               >
                 문의
               </Link>
@@ -132,7 +132,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 onClick={() => setHelpCenterOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
-                <HelpCircle className="w-5 h-5" />
+                <HelpCircle className="w-8 h-8" />
               </Button>
 
               <Button
@@ -141,7 +141,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 onClick={() => setSettingsOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
-                <Settings className="w-5 h-5" />
+                <Settings className="w-10 h-10" />
               </Button>
             </div>
           </div>
