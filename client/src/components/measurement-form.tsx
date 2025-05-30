@@ -347,11 +347,13 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input 
                           type="number" 
-
                           min="0" 
                           max="1000"
-                          {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : parseFloat(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -368,11 +370,13 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input 
                           type="number" 
-
                           min="0" 
                           max="1000"
-                          {...field}
-                          onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : parseFloat(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -452,10 +456,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="예: 185"
                           className="bg-white"
-                          {...field}
-                          onChange={e => field.onChange(Number(e.target.value))}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={e => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : Number(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
@@ -472,10 +478,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input
                           type="number"
-                          placeholder="예: 145"
                           className="bg-white"
-                          {...field}
-                          onChange={e => field.onChange(Number(e.target.value))}
+                          value={field.value === 0 ? "" : field.value}
+                          onChange={e => {
+                            const value = e.target.value;
+                            field.onChange(value === '' ? 0 : Number(value) || 0);
+                          }}
                         />
                       </FormControl>
                       <FormMessage />
