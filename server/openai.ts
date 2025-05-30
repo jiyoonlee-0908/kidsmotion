@@ -63,7 +63,7 @@ async function generateBalanceAnalysis(balanceDifference: number, studentName: s
       messages: [
         {
           role: "system",
-          content: `당신은 15년차 소아 운동생리학·운동생체역학 박사입니다. 좌우 밸런스에 대해 전문적이고 상세하게 분석해주세요. 반드시 6줄 이상 작성하고, 의학적 진단 용어는 피하고 "권장" 수준으로만 표현하세요.`,
+          content: `당신은 15년차 소아 운동생리학·운동생체역학 박사입니다. 좌우 밸런스에 대해 전문적이고 상세하게 분석해주세요. 반드시 6줄 이상 작성하고, 의학적 진단 용어는 피하고 "권장" 수준으로만 표현하세요. 성별 대명사 대신 "아이", "학생", 또는 이름을 사용하세요`,
         },
         {
           role: "user",
@@ -77,10 +77,10 @@ async function generateBalanceAnalysis(balanceDifference: number, studentName: s
       temperature: 0.3,
       max_tokens: 800,
     });
-    
+
     return response.choices[0].message.content || `좌우 밸런스 차이 ${balanceDifference}%에 대한 전문적 분석을 진행하고 있습니다.`;
   } catch (error) {
-    return `좌우 밸런스 차이 ${balanceDifference}%는 ${balanceDifference < 5 ? '정상 범위' : '개선이 필요한 수준'}입니다. 성장기 아동의 경우 좌우 비대칭성은 신경계 발달 과정에서 자연스럽게 나타날 수 있는 현상입니다. 하지만 지속적인 관찰과 균형 운동을 통해 개선할 수 있습니다. 한쪽 다리로 서기, 평균대 걷기 등의 운동이 도움이 됩니다. 정기적인 측정을 통해 변화를 모니터링하는 것이 중요합니다. 필요하면 전문가 상담을 권장합니다.`;
+    return `좌우 밸런스 차이 ${balanceDifference}%는 ${balanceDifference < 5 ? '정상 범위' : '개선이 필요한 수준'}입니다. 성장기 아동의 경우 좌우 비대칭성은 신경계 발달 과정에서 자연스럽게 나타날 수 있는 현상입니다. 하지만 지속적인 관찰과 균형 운동을 통해 개선할 수 있습니다. 한쪽 다리로 서기, 평균대 걷기 등의 운동이 도움이 됩니다. 정기적인 측정을 통해 변화를 관찰하는 것이 중요합니다.`;
   }
 }
 
@@ -90,17 +90,17 @@ export async function generateFitnessAnalysis(
   try {
     // BMI 계산
     const bmi = Math.round((data.weight / Math.pow(data.height / 100, 2)) * 10) / 10;
-    
+
     // 성별에 따른 표현
     const genderText = data.studentName.includes('지윤') || data.studentName.includes('예은') ? 'F' : 'M';
-    
+
     // 심박수 데이터 처리
     const maxHR = data.heartRateData?.maxBpm || null;
     const avgHR = data.heartRateData?.avgBpm || null;
 
     const systemPrompt = `당신은 15년차 소아 운동생리학·운동생체역학 박사(Ph.D., CSCS)입니다.
 비전문가인 학부모와 교육기관, 학생 모두를 설득할 수 있도록 전문가 수준의 상세한 분석을 제공하세요.
-각 항목의 생리학적 의미와 실용적 조언을 포함하여 부모가 완전히 이해할 수 있도록 구체적이고 상세하게 해설해주세요.
+각 항목의 생리학적 의미와 실용적 조언을 포함하여 부모가 완전히 이해할 수 있도록 아주 구체적이고 상세하게 해설해주세요. 간단하거나 핵심만 담지 말고, 아주 아주 상세하게가 중요합니다.
 학생 이름에는 반드시 '님'을 붙여서 정중하게 작성하세요. 절대로 '양', '군', '씨' 등 다른 호칭은 사용하지 마세요.
 
 반드시 다음 지침을 따르세요:
@@ -118,9 +118,11 @@ export async function generateFitnessAnalysis(
 13. 백분위 해석: 91%는 "100명 중 91등"이라는 의미로, 상위 9%에 해당한다고 명확히 설명
 14. 각 측정 항목별로 그 능력이 일상생활과 운동에서 어떤 의미인지 구체적 예시 제공
 15. 5초(순발력), 15초(스프린트), 30초(지속력), 60초(근력) 각각의 생리학적 의미와 실생활 적용 설명
+16. 성별 대명사 대신 "아이", "학생", 또는 이름을 사용하세요
+17. 모든 문장을 정중한 존댓말 문체로 작성하세요 (~합니다, ~습니다, ~입니다)
 
 출력 형식은 8개 섹션으로 구성:
-🚀 한눈에 보기 (20줄 이상) - 각 측정값의 와트수, 백분위(100명 중 몇 등), 생리학적 의미, 실생활 적용 예시 모두 포함
+🚀 한눈에 보기 (20줄 이상) - 각 측정값의 와트수, 백분위(100명 중 몇 등), 해당항목 수치(측정값)의 생리학적 의미, 실생활 적용 예시 모두 포함
 💪 강점 & 잠재력 (15줄 이상) - 높은 백분위 항목들의 구체적 의미와 활용 방안
 🔧 보완할 부분 (15줄 이상) - 낮은 백분위 항목들의 개선 필요성과 방법
 📅 이번 주 해야 할 일 (12줄 이상) - 구체적 운동법과 실행 계획
@@ -136,7 +138,7 @@ export async function generateFitnessAnalysis(
 
     const userPrompt = `아동정보:
 - 이름: ${data.studentName}님
-- 나이: ${data.age}세 ${genderText === 'F' ? '여아' : '남아'}
+- 나이: ${data.age}세 아이
 - 신체: 키 ${data.height}cm, 체중 ${data.weight}kg (BMI ${bmi})
 
 측정 결과:
@@ -150,7 +152,7 @@ ${data.rawPowerData.power360s ? `- 360초 심폐력: ${data.rawPowerData.power36
 ${maxHR ? `- 최대심박: ${maxHR}bpm` : ''}
 ${avgHR ? `- 운동평균심박: ${avgHR}bpm` : ''}
 
-위 데이터를 바탕으로 15년차 전문가 수준의 상세한 분석을 제공하세요. 각 항목의 생리학적 의미와 실용적 조언을 포함하여 부모가 완전히 이해할 수 있도록 작성하세요.`;
+위 데이터를 바탕으로 15년차 전문가 수준의 아주 상세한 분석을 제공하세요. 각 항목의 생리학적 의미와 실용적 조언을 포함하여 부모가 완전히 이해할 수 있도록 작성하세요.`;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o", // the newest OpenAI model is "gpt-4o" which was released May 13, 2024. do not change this unless explicitly requested by the user
@@ -169,10 +171,10 @@ ${avgHR ? `- 운동평균심박: ${avgHR}bpm` : ''}
     });
 
     const analysisContent = response.choices[0].message.content || "";
-    
+
     // 응답을 파싱하여 구조화
     const sections = analysisContent.split('>').filter(section => section.trim());
-    
+
     // 좌우 밸런스 상세 분석 생성
     const balanceAnalysis = await generateBalanceAnalysis(data.balanceDifference, data.studentName, data.age);
 
@@ -204,151 +206,5 @@ ${avgHR ? `- 운동평균심박: ${avgHR}bpm` : ''}
       comprehensiveAnalysis: ["전문가 분석을 준비 중입니다."],
       overallAssessment: "상세한 분석 리포트를 생성하고 있습니다.",
     };
-  }
-}
-
-export async function generateComprehensiveAnalysis(
-  data: FitnessAnalysisRequest,
-): Promise<string> {
-  try {
-    const bmi = Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2) * 10) / 10;
-    
-    let measurementData = `
-<아동정보>
-이름: ${data.studentName}
-나이: ${data.age}
-성별: M
-키_cm: ${data.height}
-몸무게_kg: ${data.weight}
-
-<측정값>
-5초 순발력_W: ${data.rawPowerData.power5s}  백분위: ${Math.round(data.percentiles.power)}
-15초 스프린트_W: ${data.rawPowerData.power15s}  백분위: ${Math.round(data.percentiles.strength)}
-30초 지속력_W: ${data.rawPowerData.power30s}  백분위: ${Math.round(data.percentiles.muscleEndurance)}
-60초 근력_W: ${data.rawPowerData.power60s}  백분위: ${Math.round(data.percentiles.cardioEndurance)}`;
-
-    if (data.advancedPowerData?.hasAdvancedData) {
-      if (data.percentiles.longEndurance180s) {
-        measurementData += `\n180초 근지구력_W: ${data.advancedPowerData.power180s}  백분위: ${Math.round(data.percentiles.longEndurance180s)}`;
-      }
-      if (data.percentiles.longEndurance360s) {
-        measurementData += `\n360초 심폐_W: ${data.advancedPowerData.power360s}  백분위: ${Math.round(data.percentiles.longEndurance360s)}`;
-      }
-    }
-
-    measurementData += `\n밸런스_%차이: ${data.balanceDifference.toFixed(1)}`;
-    if (data.heartRateData?.maxBpm) {
-      measurementData += `\n최대심박: ${data.heartRateData.maxBpm}   운동평균: ${data.heartRateData.avgBpm || 'N/A'}`;
-    }
-
-    console.log("OpenAI 종합 분석 요청 데이터:", measurementData);
-
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "system",
-          content: `당신은 15년차 '소아 운동생리학·운동생체역학' 박사(Ph.D., CSCS)입니다.
-
-문체 지침:
-1) "~입니다." "~하세요." 문체로 실제 병원 상담처럼 차분하고 구체적으로 작성
-2) 'AI', '모델' 같은 어휘는 사용 금지
-3) 군더더기 형용사, 불필요한 반복 금지, 한 문장은 15-25 어절
-4) 학술용어는 괄호 속 1줄 풀이를 붙여 부모가 바로 이해하도록
-
-형식 지침:
-1) MarkDown 인용 박스 9개 사용
-2) 첫 박스 10줄 이상, 나머지 박스 6줄 이상
-3) BMI 값과 해석, 모든 체력 항목, 심박을 두 번 이상 언급
-4) FITT(빈도·강도·시간·유형) 표기
-5) 성장 예측은 보수적으로 +1-3%p 또는 +5%p 내로
-6) 의료진단, 질병명, 치료 단어 금지. 마지막 줄에 "필요하면 전문가 상담을 권장합니다." 삽입
-7) MarkDown 이외 JSON, HTML, 코드블록 사용 금지
-
-출력 형식 (아이콘+제목 9박스):
-> 🚀 오늘 한눈에 보기  
-> (10줄 이상)  
->
-> 💪 강점 & 잠재력  
-> (6줄 이상)  
->
-> 🔧 우선 개선 영역
-> (6줄 이상)
->
-> 📅 이번 주 해야 할 일
-> (6줄 이상)
->
-> 📈 이번 달 목표
-> (6줄 이상)
->
-> 🚀 3개월 로드맵
-> (6줄 이상)
->
-> 👨‍👩‍👧‍👦 부모 참여 운동법
-> (6줄 이상)
->
-> ⚠️ 안전 주의사항
-> (6줄 이상)
->
-> 🔮 다음 측정 보수적 예상
-> (6줄 이상, 마지막 줄에 "필요하면 전문가 상담을 권장합니다." 포함)
-
-BMI, 모든 측정값의 구체적 의미, 심박수 해석을 포함하여 전문적이고 길게 작성하세요.`,
-        },
-        {
-          role: "user",
-          content: measurementData,
-        },
-      ],
-      temperature: 0.3,
-      max_tokens: 1800,
-    });
-
-    const content = response.choices[0]?.message?.content || "";
-    
-    console.log("OpenAI 종합 분석 응답:", content.substring(0, 300) + "...");
-    
-    return content;
-
-  } catch (error) {
-    console.error("OpenAI 종합 분석 생성 오류:", error);
-    
-    return `
-> 🚀 ${data.studentName}의 오늘 한눈에 보기
-> 
-> ${data.studentName}는 BMI ${Math.round((data.weight || 20) / Math.pow((data.height || 120) / 100, 2) * 10) / 10}(정상 범위)로 체중 관리가 양호합니다. 측정이 완료되었으며 전문적인 분석을 준비하고 있습니다. 현재 시스템에서 상세한 운동생리학적 해석을 생성하고 있습니다. 각 측정값의 백분위를 바탕으로 개별 맞춤형 분석이 진행됩니다. 체력 특성과 성장 잠재력을 종합적으로 평가하고 있습니다.
-> 
-> 💪 강점 & 잠재력
-> 
-> 측정 결과를 바탕으로 개별적인 강점을 분석하고 있습니다. 신경근 발달 상태와 에너지 시스템 효율성을 평가하고 있습니다. 운동 수행 능력과 성장 가능성을 종합적으로 검토하고 있습니다. 또래 대비 우수한 영역과 발전 방향을 정리하고 있습니다. 체력 기반 강화 전략을 수립하고 있습니다. 장기적 성장 잠재력을 분석하고 있습니다.
-> 
-> 🔧 우선 개선 영역
-> 
-> 체력 향상을 위한 개선 포인트를 정리하고 있습니다. 취약 부분의 운동생리학적 원인을 분석하고 있습니다. 효과적인 개선 방법론을 연구하고 있습니다. 단계별 발전 계획을 수립하고 있습니다. 안전하고 효율적인 훈련 방법을 검토하고 있습니다. 개별 특성에 맞는 맞춤형 솔루션을 준비하고 있습니다.
-> 
-> 📅 이번 주 해야 할 일
-> 
-> 맞춤형 운동 계획을 수립하고 있습니다. FITT 원칙에 따른 구체적 프로그램을 설계하고 있습니다. 일주일 단위 목표를 설정하고 있습니다. 실행 가능한 운동 일정을 조정하고 있습니다. 안전 수칙과 주의사항을 정리하고 있습니다. 부모님과 함께할 수 있는 활동을 계획하고 있습니다.
-> 
-> 📈 이번 달 목표
-> 
-> 단기 목표를 설정하고 있습니다. 월별 발전 지표를 수립하고 있습니다. 체력 향상 목표치를 계산하고 있습니다. 진행 상황 점검 방법을 마련하고 있습니다. 동기 부여 전략을 개발하고 있습니다. 성취 인정 시스템을 구축하고 있습니다.
-> 
-> 🚀 3개월 로드맵
-> 
-> 중장기 발전 계획을 준비하고 있습니다. 3개월 단위 성장 목표를 설정하고 있습니다. 단계별 운동 프로그램을 설계하고 있습니다. 체력 요소별 발전 전략을 수립하고 있습니다. 정기 평가 일정을 계획하고 있습니다. 지속 가능한 건강 관리 시스템을 구축하고 있습니다.
-> 
-> 👨‍👩‍👧‍👦 부모 참여 운동법
-> 
-> 가정에서 실천할 수 있는 운동법을 정리하고 있습니다. 부모와 함께하는 놀이 운동을 개발하고 있습니다. 일상생활 속 체력 향상 방법을 제안하고 있습니다. 안전하고 재미있는 활동을 선별하고 있습니다. 가족 단위 건강 관리 전략을 수립하고 있습니다. 지속적인 동기 부여 방법을 연구하고 있습니다.
-> 
-> ⚠️ 안전 주의사항
-> 
-> 안전한 운동을 위한 지침을 마련하고 있습니다. 연령별 운동 강도 기준을 설정하고 있습니다. 부상 예방을 위한 준비운동을 계획하고 있습니다. 과도한 운동을 방지하는 체크리스트를 작성하고 있습니다. 응급상황 대응 방법을 정리하고 있습니다. 건강한 성장을 위한 종합 가이드를 준비하고 있습니다.
-> 
-> 🔮 다음 측정 보수적 예상
-> 
-> 성장 예측과 재측정 일정을 조정하고 있습니다. 보수적인 발전 목표를 설정하고 있습니다. 개별 성장 패턴을 분석하고 있습니다. 다음 측정 시점의 예상 수치를 계산하고 있습니다. 지속적인 관리 방향을 수립하고 있습니다. 필요하면 전문가 상담을 권장합니다.
-    `;
   }
 }

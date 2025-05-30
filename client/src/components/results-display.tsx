@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
   User, Trophy, Scale, BarChart3, TrendingUp, 
-  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart
+  FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart,
+  Brain, Sparkles
 } from "lucide-react";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
@@ -25,7 +26,7 @@ interface ResultsDisplayProps {
 
 export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
-  
+
   const getGradeColor = (percentile: number) => {
     if (percentile >= 90) return "bg-emerald-500";
     if (percentile >= 70) return "bg-blue-500";
@@ -33,7 +34,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
     if (percentile >= 20) return "bg-orange-500";
     return "bg-red-500";
   };
-  
+
   const getGradeText = (percentile: number) => {
     if (percentile >= 90) return "매우우수";
     if (percentile >= 70) return "우수";
@@ -69,7 +70,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
         scrollX: 0,
         scrollY: 0
       });
-      
+
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF('p', 'mm', 'a4');
       const imgWidth = 210;
@@ -93,10 +94,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
       // 파일명에서 특수문자 제거
       const fileName = `${measurement.studentName?.replace(/[^a-zA-Z0-9가-힣]/g, '_') || 'Unknown'}_체력분석_리포트.pdf`;
       pdf.save(fileName);
-      
+
       // 로딩 메시지 제거
       document.body.removeChild(loadingToast);
-      
+
       // 성공 메시지
       const successToast = document.createElement('div');
       successToast.textContent = 'PDF가 성공적으로 저장되었습니다!';
@@ -114,7 +115,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
   const handlePrint = () => {
     window.print();
   };
-  
+
   const fitnessItems = [
     {
       title: "순발력 (5초)",
@@ -243,25 +244,55 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             <h3 className="text-xl font-bold text-gray-900">좌우 밸런스 분석</h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="flex justify-center">
-              <BalanceChart 
-                leftBalance={measurement.leftBalance} 
-                rightBalance={measurement.rightBalance} 
-                status={analysis.balanceStatus}
-              />
-            </div>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">왼쪽</span>
-                <span className="font-semibold">{measurement.leftBalance}%</span>
+              <div className="flex justify-center">
+                <BalanceChart 
+                  leftBalance={measurement.leftBalance} 
+                  rightBalance={measurement.rightBalance} 
+                  status={analysis.balanceStatus}
+                />
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">오른쪽</span>
-                <span className="font-semibold">{measurement.rightBalance}%</span>
-              </div>
+              {/* 밸런스 데이터 표 */}
               <div className="bg-gray-50 rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 mb-2">AI 코멘트</h4>
-                <p className="text-sm text-gray-700">{analysis.balanceComment || "좌우 밸런스 분석을 통해 균형 상태를 확인했습니다."}</p>
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-2 text-sm font-semibold text-gray-700">측정 부위</th>
+                      <th className="text-right py-2 text-sm font-semibold text-gray-700">파워 비율</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-100">
+                      <td className="py-2 text-gray-600">왼쪽</td>
+                      <td className="text-right py-2 font-semibold text-gray-900">{measurement.leftBalance}%</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 text-gray-600">오른쪽</td>
+                      <td className="text-right py-2 font-semibold text-gray-900">{measurement.rightBalance}%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="space-y-4 mt-10">
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <Brain className="w-5 h-5 text-purple-600" />
+                  <h4 className="font-semibold text-purple-900">AI 전문가 분석</h4>
+                  <Badge variant="secondary" className="bg-purple-100 text-purple-700 text-xs">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    AI 분석
+                  </Badge>
+                </div>
+                <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+                  {analysis.balanceComment ? (
+                    analysis.balanceComment.split('\n\n').map((paragraph, index) => (
+                      <p key={index} className="text-gray-700">{paragraph}</p>
+                    ))
+                  ) : (
+                    <p>좌우 밸런스 분석을 통해 균형 상태를 확인했습니다.</p>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -328,7 +359,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   </p>
                 </div>
               )}
-              
+
               {/* 평균 심박수 */}
               {analysis.avgBpm && (
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
@@ -342,7 +373,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 </div>
               )}
             </div>
-            
+
             {/* 심박수 건강 요약 */}
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-2">💓 심박수 건강 포인트</h4>
@@ -459,26 +490,8 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               )}
             </div>
           </div>
-          
-          <div className="bg-blue-50 rounded-lg p-6 mt-6">
-            <h4 className="font-semibold text-gray-900 mb-4 text-lg">🤖 체력 분석</h4>
-            <div className="text-gray-700 leading-relaxed text-base space-y-3">
-              {analysis.comprehensiveAnalysis && typeof analysis.comprehensiveAnalysis === 'string' ? (
-                <div 
-                  className="whitespace-pre-line"
-                  dangerouslySetInnerHTML={{ 
-                    __html: analysis.comprehensiveAnalysis
-                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                      .replace(/\n/g, '<br />')
-                  }}
-                />
-              ) : (
-                comprehensiveAnalysisPoints.map((point, index) => (
-                  <p key={index}>{point}</p>
-                ))
-              )}
-            </div>
-          </div>
+
+
         </CardContent>
       </Card>
 
@@ -493,65 +506,64 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <h3 className="text-xl font-bold text-gray-900">체력 종합 해설</h3>
               <div className="flex items-center space-x-2 mt-1">
                 <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-purple-600 font-medium">15년차 소아운동생리학 박사</span>
+                <span className="text-sm text-purple-600 font-medium">AI 기반 전문 분석</span>
               </div>
             </div>
             <div className="px-3 py-1 bg-purple-100 rounded-full">
               <span className="text-xs font-semibold text-purple-700">PREMIUM</span>
             </div>
           </div>
-          
-          <div className="space-y-4">
+
+          <div className="space-y-6">
             {analysis.overallAssessment && typeof analysis.overallAssessment === 'string' ? (
               <div 
-                className="comprehensive-analysis-container"
+                className="text-gray-700 leading-relaxed text-base space-y-6"
                 dangerouslySetInnerHTML={{ 
                   __html: analysis.overallAssessment
-                    .replace(/> 🚀 (.*?)(?=\n)/g, '<div class="analysis-box bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🚀</span><h4 class="font-bold text-blue-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 💪 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">💪</span><h4 class="font-bold text-green-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 🔧 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🔧</span><h4 class="font-bold text-orange-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 📅 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">📅</span><h4 class="font-bold text-purple-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 📈 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">📈</span><h4 class="font-bold text-indigo-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 🚀 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🚀</span><h4 class="font-bold text-red-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 👨‍👩‍👧‍👦 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-teal-50 to-cyan-50 border-l-4 border-teal-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">👨‍👩‍👧‍👦</span><h4 class="font-bold text-teal-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> ⚠️ (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">⚠️</span><h4 class="font-bold text-amber-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/> 🔮 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-violet-50 to-purple-50 border-l-4 border-violet-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🔮</span><h4 class="font-bold text-violet-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
-                    .replace(/\n\n/g, '<br><br>')
-                    .replace(/\n/g, '<br>')
-                    + '</div></div>'
+                    .split(/(?=🚀|💪|🔧|📅|📈|👨‍👩‍👧‍👦|⚠️)/)
+                    .filter(section => section.trim())
+                    .map(section => {
+                      const lines = section.trim().split('\n');
+                      const title = lines[0];
+                      const content = lines.slice(1).join('\n');
+
+                      if (title.includes('🚀') || title.includes('💪') || title.includes('🔧') || 
+                          title.includes('📅') || title.includes('📈') || title.includes('👨‍👩‍👧‍👦') || 
+                          title.includes('⚠️')) {
+
+                        const getColorByTitle = (title) => {
+                          if (title.includes('🚀')) return 'border-red-500 from-red-50 to-red-100';
+                          if (title.includes('💪')) return 'border-orange-500 from-orange-50 to-orange-100';
+                          if (title.includes('🔧')) return 'border-yellow-500 from-yellow-50 to-yellow-100';
+                          if (title.includes('📅')) return 'border-green-500 from-green-50 to-green-100';
+                          if (title.includes('📈')) return 'border-blue-500 from-blue-50 to-blue-100';
+                          if (title.includes('👨‍👩‍👧‍👦')) return 'border-indigo-500 from-indigo-50 to-indigo-100';
+                          if (title.includes('⚠️')) return 'border-gray-500 from-gray-50 to-gray-100';
+                          return 'border-purple-500 from-purple-50 to-purple-100';
+                        };
+
+                        return `<div class="bg-gradient-to-r ${getColorByTitle(title)} rounded-lg p-5 border-l-4 mb-6 shadow-sm">
+                          <h4 class="font-bold text-gray-900 text-lg mb-1 flex items-center">
+                            ${title}
+                          </h4>
+                          <div class="text-gray-700 leading-relaxed space-y-3" style="white-space: pre-line;">
+                            ${content}
+                          </div>
+                        </div>`;
+                      }
+                      return `<p class="text-gray-700 leading-relaxed">${section}</p>`;
+                    })
+                    .join('')
                 }}
               />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="analysis-box bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 rounded-lg p-4">
-                  <div className="flex items-center mb-3">
-                    <span className="text-xl mr-2">🚀</span>
-                    <h4 className="font-bold text-blue-800 text-lg">오늘 한눈에 보기</h4>
-                  </div>
-                  <div className="text-gray-700 text-sm">
-                    전문적인 체력 분석을 생성하고 있습니다...
-                  </div>
-                </div>
-                
-                <div className="analysis-box bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-4">
-                  <div className="flex items-center mb-3">
-                    <span className="text-xl mr-2">💪</span>
-                    <h4 className="font-bold text-green-800 text-lg">강점 & 잠재력</h4>
-                  </div>
-                  <div className="text-gray-700 text-sm">
-                    개별 강점을 분석하고 있습니다...
-                  </div>
-                </div>
-                
-                <div className="analysis-box bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-lg p-4">
-                  <div className="flex items-center mb-3">
-                    <span className="text-xl mr-2">🔧</span>
-                    <h4 className="font-bold text-orange-800 text-lg">우선 개선 영역</h4>
-                  </div>
-                  <div className="text-gray-700 text-sm">
-                    개선 포인트를 정리하고 있습니다...
-                  </div>
+              <div className="space-y-4">
+                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500">
+                  <h4 className="font-bold text-purple-800 text-lg mb-2 flex items-center">
+                    <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">1</span>
+                    한눈에 보기
+                  </h4>
+                  <p className="text-gray-700">전문적인 체력 분석을 생성하고 있습니다.</p>
                 </div>
               </div>
             )}
@@ -590,7 +602,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                 ]}
               />
             </div>
-            
+
             <div>
               <h4 className="font-semibold text-gray-900 mb-4">좌우 밸런스 변화</h4>
               <div className="bg-gray-50 rounded-lg p-4">
@@ -681,7 +693,9 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   <User className="text-primary mr-2 w-4 h-4" />
                   지도선생님 참고
                 </p>
-                <p className="text-gray-600">중점 관리 항목: 근지구력 (180초)과 좌우균형</p>
+                <p className="text-gray-600">
+                  중점 관리 항목: {data.improvements.slice(0, 2).join(', ')}
+                </p>
               </div>
               <div>
                 <p className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -689,9 +703,10 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
                   보호자 참고
                 </p>
                 <ul className="space-y-1 text-gray-600">
-                  <li>• 체력 측정은 5분 내외로 간편하게 진행됩니다</li>
-                  <li>• 성장기 아이들의 체력 발달 추이를 지속적으로 관찰하세요</li>
-                  <li>• 총 체력 백분위: 4개 항목 백분위 평균으로 계산</li>
+                  <li>• 필수 측정: 5분 내외, 선택 측정: 10분 내외 소요</li>
+                  <li>• 측정 간 충분한 휴식으로 정확한 데이터 확보</li>
+                  <li>• 성장기 체력 발달 추이를 지속적으로 관찰 권장</li>
+                  <li>• 개인차를 고려한 맞춤형 운동 계획 수립</li>
                 </ul>
               </div>
             </div>
@@ -700,15 +715,15 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <div className="space-y-2 text-xs text-gray-600">
                 <div className="flex justify-between">
                   <span>데이터 버전:</span>
-                  <span>v2025-05-26</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>보정 지수:</span>
-                  <span>0.67</span>
+                  <span>v2025-05-29</span>
                 </div>
                 <div className="flex justify-between">
                   <span>평가 기준:</span>
                   <span>P4/P20/P80/P96</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>측정 방식:</span>
+                  <span>체중 보정 상대파워</span>
                 </div>
               </div>
             </div>
