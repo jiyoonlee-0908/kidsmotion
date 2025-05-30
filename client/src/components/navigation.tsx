@@ -89,7 +89,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     <Link
                       href="/#analysis"
                       onClick={() => notifyParent("measurement")}
-                      className="w-full cursor-pointer text-xl font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
+                      className="w-full cursor-pointer text-lg font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
                     >
                       체력 측정
                     </Link>
@@ -99,7 +99,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                     <Link
                       href="/records"
                       onClick={() => notifyParent("records")}
-                      className="w-full cursor-pointer text-xl font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
+                      className="w-full cursor-pointer text-lg font-semibold text-gray-700 hover:text-primary hover:bg-primary/10 transition-colors px-3 py-2 rounded-lg"
                     >
                       측정 기록
                     </Link>
@@ -132,7 +132,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 onClick={() => setHelpCenterOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
-                <HelpCircle className="w-8 h-8" />
+                <HelpCircle className="w-10 h-10" />
               </Button>
 
               <Button
