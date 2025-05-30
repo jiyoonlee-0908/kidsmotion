@@ -185,7 +185,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             <Printer className="w-5 h-5 text-white" />
           </Button>
           <Button 
-            onClick={onNewMeasurement}
+            onClick={() => window.location.href = '/'}
             variant="outline" 
             className="px-6 py-3 rounded-2xl border-2 border-purple-200 hover:border-purple-300 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2"
           >
