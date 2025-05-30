@@ -238,22 +238,15 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     <FormControl>
                       <Input 
                         type="number" 
-                        placeholder="150" 
                         min="100" 
                         max="200"
-                        {...field}
+                        value={field.value === 0 ? "" : field.value}
                         onChange={(e) => {
                           const value = e.target.value;
-                          if (value === '' || value === '0') {
-                            field.onChange('');
+                          if (value === '') {
+                            field.onChange(0);
                           } else {
-                            field.onChange(parseFloat(value) || '');
-                          }
-                        }}
-                        onFocus={(e) => {
-                          if (e.target.value === '0') {
-                            e.target.value = '';
-                            field.onChange('');
+                            field.onChange(parseFloat(value) || 0);
                           }
                         }}
                       />
@@ -272,23 +265,16 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     <FormControl>
                       <Input 
                         type="number" 
-                        placeholder="45" 
                         min="15" 
                         max="100"
                         step="0.1"
-                        {...field}
+                        value={field.value === 0 ? "" : field.value}
                         onChange={(e) => {
                           const value = e.target.value;
-                          if (value === '' || value === '0') {
-                            field.onChange('');
+                          if (value === '') {
+                            field.onChange(0);
                           } else {
-                            field.onChange(parseFloat(value) || '');
-                          }
-                        }}
-                        onFocus={(e) => {
-                          if (e.target.value === '0') {
-                            e.target.value = '';
-                            field.onChange('');
+                            field.onChange(parseFloat(value) || 0);
                           }
                         }}
                       />
