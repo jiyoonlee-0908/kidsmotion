@@ -493,7 +493,7 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
               <h3 className="text-xl font-bold text-gray-900">체력 종합 해설</h3>
               <div className="flex items-center space-x-2 mt-1">
                 <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <span className="text-sm text-purple-600 font-medium">AI 기반 전문 분석</span>
+                <span className="text-sm text-purple-600 font-medium">15년차 소아운동생리학 박사</span>
               </div>
             </div>
             <div className="px-3 py-1 bg-purple-100 rounded-full">
@@ -501,27 +501,57 @@ export default function ResultsDisplay({ data, onNewMeasurement }: ResultsDispla
             </div>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-4">
             {analysis.overallAssessment && typeof analysis.overallAssessment === 'string' ? (
               <div 
-                className="text-gray-700 leading-relaxed text-base space-y-4"
+                className="comprehensive-analysis-container"
                 dangerouslySetInnerHTML={{ 
                   __html: analysis.overallAssessment
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/# (\d+)\. (.*?)(?=\n|$)/g, '<div class="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500 mb-4"><h4 class="font-bold text-purple-800 text-lg mb-2 flex items-center"><span class="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">$1</span>$2</h4>')
-                    .replace(/\n\n/g, '</div><div class="text-gray-700 mb-3">')
-                    .replace(/\n/g, '<br />')
-                    + '</div>'
+                    .replace(/> 🚀 (.*?)(?=\n)/g, '<div class="analysis-box bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🚀</span><h4 class="font-bold text-blue-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 💪 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">💪</span><h4 class="font-bold text-green-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 🔧 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🔧</span><h4 class="font-bold text-orange-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 📅 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-purple-50 to-pink-50 border-l-4 border-purple-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">📅</span><h4 class="font-bold text-purple-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 📈 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-indigo-50 to-blue-50 border-l-4 border-indigo-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">📈</span><h4 class="font-bold text-indigo-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 🚀 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-red-50 to-orange-50 border-l-4 border-red-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🚀</span><h4 class="font-bold text-red-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 👨‍👩‍👧‍👦 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-teal-50 to-cyan-50 border-l-4 border-teal-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">👨‍👩‍👧‍👦</span><h4 class="font-bold text-teal-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> ⚠️ (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-amber-50 to-yellow-50 border-l-4 border-amber-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">⚠️</span><h4 class="font-bold text-amber-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/> 🔮 (.*?)(?=\n)/g, '</div></div><div class="analysis-box bg-gradient-to-r from-violet-50 to-purple-50 border-l-4 border-violet-500 rounded-lg p-4 mb-4"><div class="flex items-center mb-3"><span class="text-xl mr-2">🔮</span><h4 class="font-bold text-violet-800 text-lg">$1</h4></div><div class="analysis-content text-gray-700 text-sm leading-relaxed">')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+                    .replace(/\n\n/g, '<br><br>')
+                    .replace(/\n/g, '<br>')
+                    + '</div></div>'
                 }}
               />
             ) : (
-              <div className="space-y-4">
-                <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-4 border-l-4 border-purple-500">
-                  <h4 className="font-bold text-purple-800 text-lg mb-2 flex items-center">
-                    <span className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm mr-2">1</span>
-                    오늘 한눈에 보기
-                  </h4>
-                  <p className="text-gray-700">전문적인 체력 분석을 생성하고 있습니다.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="analysis-box bg-gradient-to-r from-blue-50 to-cyan-50 border-l-4 border-blue-500 rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <span className="text-xl mr-2">🚀</span>
+                    <h4 className="font-bold text-blue-800 text-lg">오늘 한눈에 보기</h4>
+                  </div>
+                  <div className="text-gray-700 text-sm">
+                    전문적인 체력 분석을 생성하고 있습니다...
+                  </div>
+                </div>
+                
+                <div className="analysis-box bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <span className="text-xl mr-2">💪</span>
+                    <h4 className="font-bold text-green-800 text-lg">강점 & 잠재력</h4>
+                  </div>
+                  <div className="text-gray-700 text-sm">
+                    개별 강점을 분석하고 있습니다...
+                  </div>
+                </div>
+                
+                <div className="analysis-box bg-gradient-to-r from-orange-50 to-yellow-50 border-l-4 border-orange-500 rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <span className="text-xl mr-2">🔧</span>
+                    <h4 className="font-bold text-orange-800 text-lg">우선 개선 영역</h4>
+                  </div>
+                  <div className="text-gray-700 text-sm">
+                    개선 포인트를 정리하고 있습니다...
+                  </div>
                 </div>
               </div>
             )}
