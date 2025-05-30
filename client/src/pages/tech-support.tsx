@@ -25,7 +25,7 @@ import {
   Shield,
   Globe
 } from "lucide-react";
-import Navigation from "@/components/navigation";
+
 import CommonFooter from "@/components/common-footer";
 
 interface TechSupportProps {
@@ -180,7 +180,6 @@ export default function TechSupport({ onNavigate }: TechSupportProps) {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation onNavigate={onNavigate} />
       <main className="pt-24 pb-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Section */}
