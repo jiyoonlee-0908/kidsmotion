@@ -43,7 +43,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             </div>
             <div className="flex items-baseline space-x-2">
               <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                KidsBike
+                KidsMotion
               </h1>
               <span className="text-lg font-medium text-gray-500 tracking-wide">
                 MotionBike
@@ -141,7 +141,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                 onClick={() => setSettingsOpen(true)}
                 className="text-gray-600 hover:text-gray-800 hover:bg-gray-100/80"
               >
-                <Settings className="w-10 h-10" />
+                <Settings className="w-8 h-8" />
               </Button>
             </div>
           </div>
