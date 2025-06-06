@@ -388,17 +388,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="w-full max-w-xs h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg mb-4 flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
+              <div className="flex flex-col">
+                <div className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
                   <img 
                     src="/kidsmotion.png" 
                     alt="KidsMotion 스마트 사이클" 
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <p className="text-sm text-gray-600 text-center bg-gray-50 p-2 rounded">
-                  * 실제 하드웨어 사진은 미팅 시 별도 공개
-                </p>
               </div>
             </div>
             
