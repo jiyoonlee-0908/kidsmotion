@@ -387,7 +387,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
               <div className="relative">
-                <div className="absolute top-[3.5rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
+                <div className="absolute top-[3rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
                   <img 
                     src="/kidsmotion.png" 
                     alt="KidsMotion 스마트 사이클" 
@@ -407,7 +407,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="font-semibold text-gray-800 mb-2">🔧 조절 가능한 프레임</h4>
                     <p className="text-gray-700">• 안장 높이/전후 조절로 모든 체형에 맞춤</p>
-                    <p className="text-gray-700">• 핸들 높이/각도 조절로 올바른 자세 유지</p>
+                    <p className="text-gray-700">• 핸들 높이/전후 조절로 올바른 자세 유지</p>
                     <p className="text-gray-700">• 성장하는 아동에게 지속 사용 가능</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
