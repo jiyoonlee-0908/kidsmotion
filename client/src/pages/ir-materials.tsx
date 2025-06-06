@@ -391,7 +391,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <img 
                     src="/kidsmotion.png" 
                     alt="KidsMotion 스마트 사이클" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>
@@ -418,11 +418,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden h-64">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                   <img 
                     src="/dsfaaf.PNG" 
                     alt="실시간 측정 화면" 
-                    className="w-full h-full object-contain"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               </div>
