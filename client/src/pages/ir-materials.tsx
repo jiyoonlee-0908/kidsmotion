@@ -634,7 +634,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="bg-white p-4 rounded-lg border-l-4 border-blue-400">
                   <h5 className="font-semibold text-blue-600 mb-2">개인별 맞춤 리포트</h5>
-                  <p className="text-gray-700 text-sm">AI가 생성하는 상세한 체력 분석과 개선 방안</p>
+                  <p className="text-gray-700 text-sm">AI 기반 체력 분석과 맞춤 개선 방안</p>
                 </div>
                 <div className="bg-white p-4 rounded-lg border-l-4 border-green-400">
                   <h5 className="font-semibold text-green-600 mb-2">백분위 및 등급 제공</h5>
