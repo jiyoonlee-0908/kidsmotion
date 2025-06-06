@@ -389,7 +389,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
               <div className="flex flex-col">
-                <div className="w-full h-64 bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
                   <img 
                     src="/kidsmotion.png" 
                     alt="KidsMotion 스마트 사이클" 
