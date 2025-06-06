@@ -795,7 +795,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "매출 계획의 근거가 궁금합니다"</p>
-                    <p className="text-gray-700 text-sm">A: 2025년 파일럿 테스트(사이클아카데미에서 100명 데이터 검증)를 바탕으로 한 보수적 계산입니다. 스포츠학원 1,000개(연 6억) + 하드웨어 1,000대(55억) + 공공기관 500개(연 3억) = 연 64억. 실제 검증된 수요를 기반으로 한 현실적 목표입니다.</p>
+                    <p className="text-gray-700 text-sm">A:  현재 제품 개발 및 시장 검증 단계입니다. 제시된 매출 수치는 시장 규모 분석을 바탕으로 한 잠재적 목표치로, 실제 매출 계획은 2025년 7월 IYC Youth Sports Center에서 진행될 100명 대상 파일럿 테스트 결과와 고객 피드백을 반영하여 구체화할 예정입니다. 스포츠학원 월 5만원 구독료, 하드웨어 550만원 판매가, 공공기관 연 60만원 서비스료는 시장 조사와 경쟁사 분석을 바탕으로 산정한 예상 가격입니다.</p>
                   </div>
                 </div>
               </div>
@@ -808,7 +808,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <p className="font-semibold text-gray-800 mb-2">Q: "현재 개발 상황은 어떻게 되나요?"</p>
                     <div className="text-gray-700 text-sm">
                       <p className="mb-2">A: 웹 MVP와 하드웨어 프로토타입이 모두 완성되었습니다.</p>
-                      <p className="text-gray-600 text-xs mb-2">(보안상 이유로 하드웨어 사진은 미팅 시 별도 공개)</p>
+                      <p className="text-gray-600 text-xs mb-2">(하드웨어 사진은 미팅 시 별도 공개)</p>
                       <p className="text-gray-700">단계별 진출 계획: 2027년 아동대상 스포츠 센터 시작 → 2028년 의료기기 신청 → 2029년 의료기관 진출</p>
                     </div>
                   </div>
