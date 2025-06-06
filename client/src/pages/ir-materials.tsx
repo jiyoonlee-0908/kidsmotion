@@ -368,7 +368,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="relative">
                   <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
                   <div className="space-y-3">
                     <div className="bg-blue-50 p-3 rounded-lg">
@@ -386,12 +386,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
-                <img 
-                  src="/kidsmotion.png" 
-                  alt="KidsMotion 스마트 사이클" 
-                  className="w-full h-full object-contain"
-                />
+              <div className="relative">
+                <div className="absolute top-[3.5rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
+                  <img 
+                    src="/kidsmotion.png" 
+                    alt="KidsMotion 스마트 사이클" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
             
