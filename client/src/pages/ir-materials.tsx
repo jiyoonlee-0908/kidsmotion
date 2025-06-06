@@ -387,7 +387,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
               <div className="relative">
-                <div className="absolute top-[3rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
+                <div className="absolute top-[3.5rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
                   <img 
                     src="/kidsmotion.png" 
                     alt="KidsMotion 스마트 사이클" 
@@ -396,8 +396,37 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
             </div>
-            
 
+            {/* 실시간 측정 인터페이스 */}
+            <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200">
+              <h3 className="text-xl font-bold text-purple-800 mb-6">🖥️ 실시간 측정 인터페이스</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-semibold text-purple-700 mb-4">아동 친화적 UI/UX</h4>
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-purple-400">
+                      <h5 className="font-semibold text-purple-600 mb-1">실시간 파워 표시</h5>
+                      <p className="text-gray-700 text-sm">큰 숫자와 색상으로 현재 파워를 직관적으로 표시</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-blue-400">
+                      <h5 className="font-semibold text-blue-600 mb-1">좌우 밸런스 게이지</h5>
+                      <p className="text-gray-700 text-sm">양쪽 다리 힘의 균형을 시각적으로 확인 가능</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-400">
+                      <h5 className="font-semibold text-green-600 mb-1">카운트다운 타이머</h5>
+                      <p className="text-gray-700 text-sm">테스트 시간을 명확하게 표시하여 집중도 향상</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <img 
+                    src="/attached_assets/dsfaaf.PNG" 
+                    alt="실시간 측정 화면" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
 
             {/* 하드웨어 상세 설명 */}
             <div className="border-t pt-8">
@@ -584,6 +613,37 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <li>• <strong>목표:</strong> 1년 내 한국 유아 전용 체력 기준선 자체 생성</li>
                     <li>• <strong>최종 목적:</strong> 데이터 기반 AI 피드백 알고리즘 개발의 기반 확보</li>
                   </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* AI 분석 리포트 */}
+            <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
+              <h3 className="text-xl font-bold text-blue-800 mb-6">📊 AI 기반 분석 리포트</h3>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className="font-semibold text-blue-700 mb-4">종합 분석 결과물</h4>
+                  <div className="space-y-3">
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-blue-400">
+                      <h5 className="font-semibold text-blue-600 mb-1">개인별 맞춤 리포트</h5>
+                      <p className="text-gray-700 text-sm">AI가 생성하는 상세한 체력 분석과 개선 방안</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-400">
+                      <h5 className="font-semibold text-green-600 mb-1">백분위 및 등급 제공</h5>
+                      <p className="text-gray-700 text-sm">동일 연령 대비 정확한 위치와 5등급 체계</p>
+                    </div>
+                    <div className="bg-white p-3 rounded-lg border-l-4 border-purple-400">
+                      <h5 className="font-semibold text-purple-600 mb-1">성장 추적 및 예측</h5>
+                      <p className="text-gray-700 text-sm">이전 측정과 비교하여 발달 상황 분석</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <img 
+                    src="/attached_assets/report.png" 
+                    alt="AI 분석 리포트 화면" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
