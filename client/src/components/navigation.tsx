@@ -33,33 +33,32 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           {/* ▶ 로고 & 브랜드 */}
-          <Link
-            href="/"
-            onClick={() => notifyParent("home")}
-            className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity"
-          >
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
-              <Bike className="text-white w-8 h-8" />
-            </div>
-            <div className="flex items-baseline space-x-2">
-              <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                KidsMotion
-              </h1>
-              <span className="text-lg font-medium text-gray-500 tracking-wide">
-                MotionBike
-              </span>
-              <Link
-                href="/ir-materials"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  notifyParent("ir-materials");
-                }}
-                className="text-lg font-medium text-purple-600 tracking-wide ml-4 cursor-pointer hover:text-purple-800 transition-colors border-2 border-purple-400 px-3 py-1 rounded-lg hover:border-purple-600 hover:bg-purple-50"
-              >
-                IR자료
-              </Link>
-            </div>
-          </Link>
+          <div className="flex items-center space-x-5">
+            <Link
+              href="/"
+              onClick={() => notifyParent("home")}
+              className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
+                <Bike className="text-white w-8 h-8" />
+              </div>
+              <div className="flex items-baseline space-x-2">
+                <h1 className="text-3xl font-black tracking-tight bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                  KidsMotion
+                </h1>
+                <span className="text-lg font-medium text-gray-500 tracking-wide">
+                  MotionBike
+                </span>
+              </div>
+            </Link>
+            <Link
+              href="/ir-materials"
+              onClick={() => notifyParent("ir-materials")}
+              className="text-lg font-medium text-purple-600 tracking-wide cursor-pointer hover:text-purple-800 transition-colors border-2 border-purple-400 px-3 py-1 rounded-lg hover:border-purple-600 hover:bg-purple-50"
+            >
+              IR자료
+            </Link>
+          </div>
 
           {/* ▶ 메인 네비게이션 + 우측 버튼들 */}
           <div className="flex items-center space-x-8">
