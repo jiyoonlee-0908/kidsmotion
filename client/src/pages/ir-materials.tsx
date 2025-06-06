@@ -420,7 +420,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                   <img 
-                    src="/attached_assets/dsfaaf.PNG" 
+                    src="/dsfaaf.PNG" 
                     alt="실시간 측정 화면" 
                     className="w-full h-full object-cover"
                   />
@@ -640,7 +640,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                   <img 
-                    src="/attached_assets/report.png" 
+                    src="/report.png" 
                     alt="AI 분석 리포트 화면" 
                     className="w-full h-full object-cover"
                   />
