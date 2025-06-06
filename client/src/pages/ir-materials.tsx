@@ -418,11 +418,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden h-64">
                   <img 
                     src="/dsfaaf.PNG" 
                     alt="실시간 측정 화면" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
               </div>
@@ -620,30 +620,29 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             {/* AI 분석 리포트 */}
             <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
               <h3 className="text-xl font-bold text-blue-800 mb-6">📊 AI 기반 분석 리포트</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h4 className="font-semibold text-blue-700 mb-4">종합 분석 결과물</h4>
-                  <div className="space-y-3">
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-blue-400">
-                      <h5 className="font-semibold text-blue-600 mb-1">개인별 맞춤 리포트</h5>
-                      <p className="text-gray-700 text-sm">AI가 생성하는 상세한 체력 분석과 개선 방안</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-400">
-                      <h5 className="font-semibold text-green-600 mb-1">백분위 및 등급 제공</h5>
-                      <p className="text-gray-700 text-sm">동일 연령 대비 정확한 위치와 5등급 체계</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-purple-400">
-                      <h5 className="font-semibold text-purple-600 mb-1">성장 추적 및 예측</h5>
-                      <p className="text-gray-700 text-sm">이전 측정과 비교하여 발달 상황 분석</p>
-                    </div>
-                  </div>
+              
+              {/* 이미지 먼저 크게 표시 */}
+              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
+                <img 
+                  src="/report.png" 
+                  alt="AI 분석 리포트 화면" 
+                  className="w-full h-auto object-contain"
+                />
+              </div>
+
+              {/* 3개 항목을 1행 3열로 배치 */}
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="bg-white p-4 rounded-lg border-l-4 border-blue-400">
+                  <h5 className="font-semibold text-blue-600 mb-2">개인별 맞춤 리포트</h5>
+                  <p className="text-gray-700 text-sm">AI가 생성하는 상세한 체력 분석과 개선 방안</p>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <img 
-                    src="/report.png" 
-                    alt="AI 분석 리포트 화면" 
-                    className="w-full h-full object-cover"
-                  />
+                <div className="bg-white p-4 rounded-lg border-l-4 border-green-400">
+                  <h5 className="font-semibold text-green-600 mb-2">백분위 및 등급 제공</h5>
+                  <p className="text-gray-700 text-sm">동일 연령 대비 정확한 위치와 5등급 체계</p>
+                </div>
+                <div className="bg-white p-4 rounded-lg border-l-4 border-purple-400">
+                  <h5 className="font-semibold text-purple-600 mb-2">성장 추적 및 예측</h5>
+                  <p className="text-gray-700 text-sm">이전 측정과 비교하여 발달 상황 분석</p>
                 </div>
               </div>
             </div>
