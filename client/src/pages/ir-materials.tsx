@@ -24,7 +24,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </h1>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
             아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
-            <span className="text-purple-600 font-semibold">우리가 5분 만에 답해드릴게요</span>
+            <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
           </p>
         </div>
 
@@ -418,11 +418,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     </div>
                   </div>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden h-72 flex items-center justify-center">
                   <img 
                     src="/dsfaaf.PNG" 
                     alt="실시간 측정 화면" 
-                    className="w-full h-auto object-contain"
+                    className="max-w-full max-h-full object-contain"
                   />
                 </div>
               </div>
