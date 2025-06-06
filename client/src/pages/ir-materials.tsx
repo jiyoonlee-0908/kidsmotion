@@ -350,52 +350,48 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-2">
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
-                    <div className="space-y-3">
-                      <div className="bg-purple-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-purple-800">대상 연령</h4>
-                        <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
-                      </div>
-                      <div className="bg-purple-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-purple-800">신장 대응</h4>
-                        <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
-                      </div>
-                      <div className="bg-purple-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
-                        <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
-                      </div>
+              <div className="md:col-span-2 grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
+                  <div className="space-y-3">
+                    <div className="bg-purple-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-purple-800">대상 연령</h4>
+                      <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
+                    </div>
+                    <div className="bg-purple-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-purple-800">신장 대응</h4>
+                      <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
+                    </div>
+                    <div className="bg-purple-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
+                      <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
                     </div>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
-                    <div className="space-y-3">
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
-                        <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
-                      </div>
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
-                        <p className="text-blue-700">정확한 수치로 불균형 감지</p>
-                      </div>
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
-                        <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
-                      </div>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
+                  <div className="space-y-3">
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
+                      <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
+                      <p className="text-blue-700">정확한 수치로 불균형 감지</p>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-lg">
+                      <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
+                      <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col">
-                <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
-                  <img 
-                    src="/kidsmotion.png" 
-                    alt="KidsMotion 스마트 사이클" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+              <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg shadow-lg flex items-center justify-center border-2 border-dashed border-gray-300 overflow-hidden">
+                <img 
+                  src="/kidsmotion.png" 
+                  alt="KidsMotion 스마트 사이클" 
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
             
