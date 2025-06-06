@@ -424,10 +424,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
                 <div className="space-y-4">
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">⚡ 공기 저항 시스템</h4>
-                    <p className="text-gray-700">• 페달링 강도에 따른 자동 저항 조절</p>
-                    <p className="text-gray-700">• 정확한 파워 측정을 위한 정밀 센서</p>
+                    <h4 className="font-semibold text-gray-800 mb-2">⚡ DC 모터 기반 자동 저항 시스템</h4>
+                    <p className="text-gray-700">• 전기 신호 기반 정밀 저항 제어</p>
+                    <p className="text-gray-700">• 실시간 디지털 데이터 수집 및 분석</p>
                     <p className="text-gray-700">• 좌우 독립 측정으로 밸런스 분석</p>
+                    <p className="text-gray-700">• 자가 충전 기능으로 무선 운영</p>
                   </div>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <h4 className="font-semibold text-gray-800 mb-2">🛡️ 안전 설계</h4>
@@ -527,8 +528,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div>
                   <h4 className="font-semibold text-red-600 mb-2">기술적 장벽</h4>
                   <ul className="space-y-1 text-gray-700 text-sm">
+                    <li>• DC 모터 기반 정밀 제어 시스템</li>
+                    <li>• 의료기기급 데이터 수집 알고리즘</li>
                     <li>• 아동 맞춤 하드웨어 설계 노하우</li>
-                    <li>• 체력 평가 알고리즘 새로 정립</li>
                     <li>• 연령별 체력 기준 데이터베이스화</li>
                   </ul>
                 </div>
@@ -756,14 +758,20 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div>
                     <p className="font-semibold text-gray-800 mb-2">Q: "자전거만 측정? 다양한 운동은 언제 하나요?"</p>
                     <div className="text-gray-700 text-sm">
-                      <p className="mb-2">A: 자전거가 유일하게 모든 조건을 만족합니다.</p>
+                      <p className="mb-2">A: DC 모터 기반 자전거가 의료기기급 정밀 측정에 최적입니다.</p>
                       <div className="mb-2">
                         <span className="text-green-600">✅ 좌우밸런스 정량측정</span> | 
                         <span className="text-blue-600"> ✅ 시공간 제약없음</span> | 
                         <span className="text-purple-600"> ✅ 전신체력 데이터</span>
                       </div>
-                      <p className="text-gray-600">
-                        달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 종합적 측정이 가능합니다.
+                      <div className="bg-blue-50 p-3 rounded-lg mt-2">
+                        <p className="font-medium text-blue-700 mb-1">DC 모터의 핵심 우위:</p>
+                        <p className="text-blue-700">• 초당 단위 정밀 제어로 의료기기급 데이터 수집</p>
+                        <p className="text-blue-700">• 자가 충전 시스템으로 무선 운영</p>
+                        <p className="text-blue-700">• 무소음 설계로 실내 환경 최적화</p>
+                      </div>
+                      <p className="text-gray-600 mt-2">
+                        달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 의료진이 신뢰할 수 있는 정량적 데이터를 제공합니다.
                       </p>
                     </div>
                   </div>
