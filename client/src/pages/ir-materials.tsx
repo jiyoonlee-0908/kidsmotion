@@ -122,10 +122,10 @@ function VideoPlayer() {
       <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
         <video
           ref={videoRef}
-          key={`video-${fallbackMethod}-${Date.now()}`}
+          key={`video-new-${Date.now()}`}
           controls
           playsInline
-          preload="auto"
+          preload="metadata"
           width="800"
           height="450"
           className="w-full h-auto max-w-full"
@@ -138,7 +138,7 @@ function VideoPlayer() {
           onError={handleVideoError}
           onLoadedMetadata={(e) => {
             const video = e.currentTarget as HTMLVideoElement;
-            console.log("Video metadata:", {
+            console.log("🎥 NEW VIDEO metadata:", {
               duration: video.duration,
               videoWidth: video.videoWidth,
               videoHeight: video.videoHeight,
@@ -147,24 +147,15 @@ function VideoPlayer() {
               readyState: video.readyState
             });
             
-            // 강제로 크기 설정 시도
-            if (video.videoWidth === 0 || video.videoHeight === 0) {
-              video.style.width = '100%';
-              video.style.height = 'auto';
-              console.warn("Video dimensions are 0, forcing CSS dimensions");
+            if (video.videoWidth > 0 && video.videoHeight > 0) {
+              console.log("✅ NEW VIDEO has valid dimensions!");
+              setVideoError(null);
+            } else {
+              console.warn("❌ NEW VIDEO still has 0 dimensions");
             }
           }}
           onCanPlay={() => {
-            console.log("Video can play");
-            if (videoRef.current) {
-              const video = videoRef.current;
-              console.log("Forcing video visibility:", {
-                offsetWidth: video.offsetWidth,
-                offsetHeight: video.offsetHeight,
-                clientWidth: video.clientWidth,
-                clientHeight: video.clientHeight
-              });
-            }
+            console.log("✅ NEW VIDEO can play");
           }}
         >
           <source src={blobUrl || videoSources[fallbackMethod]} type="video/mp4" />
