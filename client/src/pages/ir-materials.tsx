@@ -28,6 +28,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </p>
         </div>
 
+        {/* KidsMotion 영상 */}
+        <div className="mb-16">
+          <Card className="bg-white shadow-lg border-0">
+            <CardContent className="p-8">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">KidsMotion 시스템 소개</h2>
+                <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
+              </div>
+              <div className="relative w-full max-w-4xl mx-auto">
+                <video 
+                  className="w-full h-auto rounded-lg shadow-md"
+                  controls
+                  poster="/api/placeholder/800/450"
+                >
+                  <source src="/kidsmotion_video.mp4" type="video/mp4" />
+                  브라우저가 비디오 재생을 지원하지 않습니다.
+                </video>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Founder Letter */}
         <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardHeader>
