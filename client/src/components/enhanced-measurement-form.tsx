@@ -200,7 +200,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
     // Set new timeout for debounced search
     searchTimeoutRef.current = setTimeout(() => {
       searchSupabaseData(value);
-    }, 500); // 500ms delay
+    }, 300); // 300ms delay
   }, [searchSupabaseData]);
 
   const calculateAge = (birthDate: string) => {
@@ -238,16 +238,26 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        이름
+                        이름 (입력 후 0.3초 대기하면 자동 입력)
                         {isSearching && <Search className="w-4 h-4 animate-spin" />}
                       </FormLabel>
                       <FormControl>
                         <Input 
-                          placeholder="김아이" 
+                          placeholder="지윤짱" 
                           {...field}
                           onChange={(e) => {
                             field.onChange(e);
                             handleNameChange(e.target.value);
+                          }}
+                          onBlur={(e) => {
+                            // Trigger immediate search on blur if name is valid
+                            const value = e.target.value;
+                            if (value && value.length >= 2) {
+                              if (searchTimeoutRef.current) {
+                                clearTimeout(searchTimeoutRef.current);
+                              }
+                              searchSupabaseData(value);
+                            }
                           }}
                         />
                       </FormControl>
