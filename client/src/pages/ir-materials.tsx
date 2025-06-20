@@ -17,35 +17,47 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
     const video = videoRef.current;
     if (!video) return;
 
-    // 자동 재생 시작
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch (error) {
-        console.log('자동 재생이 차단됨:', error);
-      }
+    // 영상 로드 확인
+    const handleLoadedData = () => {
+      console.log('영상 로드 완료');
+      // 사용자 상호작용 후 자동재생 시도
+      const playVideo = async () => {
+        try {
+          await video.play();
+          console.log('자동 재생 성공');
+        } catch (error) {
+          console.log('자동 재생 차단됨:', error);
+        }
+      };
+      
+      // 페이지 클릭 시 자동재생 시작
+      const startAutoplay = () => {
+        playVideo();
+        document.removeEventListener('click', startAutoplay);
+      };
+      document.addEventListener('click', startAutoplay);
     };
 
     // Intersection Observer로 스크롤 감지
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // 영상이 화면에 보이면 재생
+          if (entry.isIntersecting && !video.paused) {
+            // 영상이 화면에 보이고 재생 중이면 계속 재생
             video.play().catch(() => {});
-          } else {
+          } else if (!entry.isIntersecting) {
             // 영상이 화면에서 사라지면 일시정지
             video.pause();
           }
         });
       },
       {
-        threshold: 0.5, // 50% 이상 보일 때
+        threshold: 0.3, // 30% 이상 보일 때
       }
     );
 
+    video.addEventListener('loadeddata', handleLoadedData);
     observer.observe(video);
-    playVideo(); // 초기 자동 재생
 
     return () => {
       observer.disconnect();
@@ -82,11 +94,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <video 
                   ref={videoRef}
                   className="w-full h-auto rounded-lg shadow-md"
-                  autoPlay
+                  controls
                   muted
                   loop
                   playsInline
-                  poster="/api/placeholder/800/450"
+                  preload="metadata"
                 >
                   <source src="/kidsmotion_video.mp4" type="video/mp4" />
                   브라우저가 비디오 재생을 지원하지 않습니다.
