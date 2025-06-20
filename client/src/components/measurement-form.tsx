@@ -125,8 +125,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       }
       
       const userData = await response.json();
+      console.log('받은 사용자 데이터:', userData);
       
-      if (userData.name) {
+      if (userData && userData.name) {
         // 기본 정보 자동 입력
         form.setValue("affiliation", userData.organization || "");
         form.setValue("birthDate", userData.birth_date || "");
@@ -150,7 +151,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         });
       } else {
         toast({
-          title: "데이터를 찾을 수 없습니다",
+          title: "정보 없음",
           description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
           variant: "destructive"
         });
