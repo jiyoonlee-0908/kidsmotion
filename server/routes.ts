@@ -835,8 +835,8 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       // 응답 데이터 구성
       const result = {
-        // 기본 정보 (항상 제공)
-        measureDate: testSession ? formatDate(testSession.endTime) : formatDate(new Date().toISOString()),
+        // 기본 정보 (항상 제공) - 한국 시간대 적용
+        measureDate: testSession ? formatDate(testSession.endTime) : new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
         studentName: participant.name,
         affiliation: participant.organization || '',
         birthDate: formatDate(participant.birthDate),
