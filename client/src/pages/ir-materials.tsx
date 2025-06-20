@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
-import { useEffect, useRef } from "react";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -11,58 +10,6 @@ interface IRMaterialsProps {
 }
 
 export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    // 영상 로드 확인
-    const handleLoadedData = () => {
-      console.log('영상 로드 완료');
-      // 사용자 상호작용 후 자동재생 시도
-      const playVideo = async () => {
-        try {
-          await video.play();
-          console.log('자동 재생 성공');
-        } catch (error) {
-          console.log('자동 재생 차단됨:', error);
-        }
-      };
-      
-      // 페이지 클릭 시 자동재생 시작
-      const startAutoplay = () => {
-        playVideo();
-        document.removeEventListener('click', startAutoplay);
-      };
-      document.addEventListener('click', startAutoplay);
-    };
-
-    // Intersection Observer로 스크롤 감지
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !video.paused) {
-            // 영상이 화면에 보이고 재생 중이면 계속 재생
-            video.play().catch(() => {});
-          } else if (!entry.isIntersecting) {
-            // 영상이 화면에서 사라지면 일시정지
-            video.pause();
-          }
-        });
-      },
-      {
-        threshold: 0.3, // 30% 이상 보일 때
-      }
-    );
-
-    video.addEventListener('loadeddata', handleLoadedData);
-    observer.observe(video);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
@@ -91,17 +38,15 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <video 
-                  ref={videoRef}
-                  className="w-full h-auto rounded-lg shadow-md"
-                  controls
+                <video
+                  src="/kidsmotion_ir.mp4"
+                  autoPlay
                   muted
                   loop
                   playsInline
-                  preload="metadata"
+                  style={{width: "100%", maxWidth: "720px", borderRadius: "16px"}}
                 >
-                  <source src="/kidsmotion_video.mp4" type="video/mp4" />
-                  브라우저가 비디오 재생을 지원하지 않습니다.
+                  브라우저가 video 태그를 지원하지 않습니다.
                 </video>
               </div>
             </CardContent>
