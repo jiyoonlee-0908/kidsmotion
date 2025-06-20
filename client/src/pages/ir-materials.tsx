@@ -10,929 +10,383 @@ interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
 }
 
-export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
+// 스크롤 애니메이션 훅
+function useScrollAnimation() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return scrollY;
+}
+
+// 애니메이션 컴포넌트
+function AnimatedSection({ children, className = "", delay = 0 }: { 
+  children: React.ReactNode; 
+  className?: string; 
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => setIsVisible(true), delay);
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [delay]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
+    <div
+      ref={ref}
+      className={`transform transition-all duration-500 ease-out ${
+        isVisible 
+          ? 'translate-y-0 opacity-100' 
+          : 'translate-y-8 opacity-0'
+      } ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
+  const scrollY = useScrollAnimation();
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
         
         {/* 헤더 */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">
-            Investor Relations
-          </Badge>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            부모의 걱정을 데이터로 바꾸는 팀입니다
-          </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
-            <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
-          </p>
-        </div>
+        <AnimatedSection className="text-center mb-16">
+          <div 
+            className="transform"
+            style={{ 
+              transform: `translateY(${scrollY * 0.08}px)` 
+            }}
+          >
+            <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">
+              Investor Relations
+            </Badge>
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">
+              부모의 걱정을 데이터로 바꾸는 팀입니다
+            </h1>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
+              <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
+            </p>
+          </div>
+        </AnimatedSection>
 
         {/* Founder Letter */}
-        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
-              <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
-              
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>아이를 자전거에 태웠을 때였습니다.<br/>
-                자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다.<br/>
-                제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다.<br/>
-                하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
+        <AnimatedSection delay={150}>
+          <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200"
+                style={{ 
+                  transform: `translateY(${scrollY * 0.04}px)` 
+                }}>
+            <CardHeader>
+              <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
+                <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
+                
+                <div className="space-y-4 text-gray-700 leading-relaxed">
+                  <p>아이를 자전거에 태웠을 때였습니다.<br/>
+                  자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다.<br/>
+                  제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다.<br/>
+                  하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
 
-                <p>병원에 갔습니다.<br/>
-                "아이들은 원래 그래요. 괜찮아요."<br/>
-                "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."<br/>
-                그렇게 말하더군요.</p>
+                  <p>병원에 갔습니다.<br/>
+                  "아이들은 원래 그래요. 괜찮아요."<br/>
+                  "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."<br/>
+                  그렇게 말하더군요.</p>
 
-                <p className="font-medium text-purple-700">그 순간 알았습니다.<br/>
-                "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요.<br/>
-                정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
+                  <p className="font-medium text-purple-700">그 순간 알았습니다.<br/>
+                  "괜찮을 거예요"라는 답변은, 사실 답이 아니라는 것을.<br/>
+                  정확한 상태를 알고 싶은 부모에게 필요한 건 데이터라는 것을.</p>
 
-                <p>그게 바로 창업의 출발점이었습니다.<br/>
-                '감'이 아니라 '데이터'로 아이의 몸을 이해해야 한다는 확신.<br/>
-                "정확하게 알고, 정확하게 도와줄 수 있어야 한다"는 다짐.</p>
+                  <p>저는 7년 동안 운동 선수들을 봐왔습니다.<br/>
+                  스포츠 현장에서도 마찬가지였습니다.<br/>
+                  어떤 아이는 분명 부족해 보이는데,<br/>
+                  "운동시켜도 될까요?"라는 부모님의 질문에 정확히 말해줄 데이터가 없었습니다.</p>
 
-                <div className="bg-purple-50 p-4 rounded-lg my-6">
-                  <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다.<br/>
-                  남편은 국가대표 선수 출신이며 24년간 사이클 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
-                  10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
+                  <p>"상위 1%가 아니면 운동으로 성공하기 어렵습니다."<br/>
+                  그렇게 설명해도, 객관적인 수치가 없다 보니<br/>
+                  부모는 결국 마음으로 판단하고, 아이는 부담을 안고 훈련에 들어갑니다.</p>
+
+                  <p className="font-medium text-red-600">이건 결국, 아이의 가능성에도, 부모의 시간과 비용에도 좋지 않은 선택이었습니다.</p>
+
+                  <p className="font-bold text-green-700">그래서 저는 만들었습니다.<br/>
+                  운동 자질을 데이터로 확인할 수 있는 장비.<br/>
+                  운동을 해야 할 아이, 하지 말아야 할 아이를 정확히 구분해주는 시스템.</p>
+
+                  <p>이건 처음엔 제 아이를 위해 만든 것이었습니다.<br/>
+                  하지만 지금은, 같은 고민을 가진 수많은 부모와 아카데미, 병원, 학교 모두에게<br/>
+                  절실히 필요한 장비라고 확신합니다.</p>
+
+                  <div className="bg-blue-50 p-4 rounded-lg my-6">
+                    <p className="font-medium">눈으로 확인할 수 있는 성장 데이터.<br/>
+                    부모가 납득할 수 있는 해석 리포트.<br/>
+                    아이에게 꼭 맞는 훈련 방향.</p>
+                  </div>
+
+                  <p className="text-lg font-bold text-purple-700">이제는 '괜찮을 거예요'가 아니라<br/>
+                  "지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
+
+                  <p className="text-right font-medium text-gray-600 mt-6">– 모션바이크 대표</p>
                 </div>
-
-                <p>특히, 선수반에 등록하려는 아이들을 볼 때마다 한계를 느꼈습니다.<br/>
-                어떤 아이는 분명 부족해 보이는데,<br/>
-                "운동시켜도 될까요?"라는 부모님의 질문에 정확히 말해줄 데이터가 없었습니다.</p>
-
-                <p>"상위 1%가 아니면 운동으로 성공하기 어렵습니다."<br/>
-                그렇게 설명해도, 객관적인 수치가 없다 보니<br/>
-                부모는 결국 마음으로 판단하고, 아이는 부담을 안고 훈련에 들어갑니다.</p>
-
-                <p className="font-medium text-red-600">이건 결국, 아이의 가능성에도, 부모의 시간과 비용에도 좋지 않은 선택이었습니다.</p>
-
-                <p className="font-bold text-green-700">그래서 저는 만들었습니다.<br/>
-                운동 자질을 데이터로 확인할 수 있는 장비.<br/>
-                운동을 해야 할 아이, 하지 말아야 할 아이를 정확히 구분해주는 시스템.</p>
-
-                <p>이건 처음엔 제 아이를 위해 만든 것이었습니다.<br/>
-                하지만 지금은, 같은 고민을 가진 수많은 부모와 아카데미, 병원, 학교 모두에게<br/>
-                절실히 필요한 장비라고 확신합니다.</p>
-
-                <div className="bg-blue-50 p-4 rounded-lg my-6">
-                  <p className="font-medium">눈으로 확인할 수 있는 성장 데이터.<br/>
-                  부모가 납득할 수 있는 해석 리포트.<br/>
-                  아이에게 꼭 맞는 훈련 방향.</p>
-                </div>
-
-                <p className="text-lg font-bold text-purple-700">이제는 '괜찮을 거예요'가 아니라<br/>
-                "지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
-
-                <p className="text-right font-medium text-gray-600 mt-6">– 모션바이크 대표</p>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
 
         {/* 문제 정의 */}
-        <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl text-red-700 mb-4">📋 우리가 해결하려는 문제</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 좌우 밸런스 정확한 수치로 측정 및 개선방안 제시
-                    </div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"아이 운동시키고 싶은데 이 정도면 운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 1등급 달성 시 상위 1% 재능 확인, 운동 투자 가치 명확 판단
-                    </div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"다른 아이들보다 체력이 많이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 1~5등급 체제와 백분위 퍼센트 제공으로 우리 아이의 정확한 위치 확인
-                    </div>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-gray-700 mb-2">"아이 운동발달이 늦는 것 같아서 병원에 갔는데 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
-                    <div className="bg-green-50 p-2 rounded text-sm text-green-700">
-                      → 조기 개입 가능: 5등급, 하위 4% 바로 확인하여 즉시 대응
-                    </div>
-                  </div>
-
-                  {/* 오른쪽과 대칭 맞추기 위한 여백 */}
-                  <div className="h-24"></div>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-4 text-gray-800">현재 검진의 한계</h3>
-                <div className="space-y-3">
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-yellow-500">
-                    <p className="text-yellow-600 mb-2">영유아검진의 대근육운동발달 항목의 한계</p>
-                    <p className="text-gray-700">• "두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다" → ①②③④<br/>
-                      <span className="text-xs text-gray-500">&nbsp;&nbsp;(54-60개월 검진에서 실시)</span>
-                    </p>
-                    <p className="text-gray-700">• "아무것도 붙잡지 않고 한발로 3초 이상 서있는다" → ①②③④<br/>
-                      <span className="text-xs text-gray-500">&nbsp;&nbsp;(42-48개월 검진에서 실시)</span>
-                    </p>
-                    <p className="text-gray-700">• "①②③④의 기준이 뭔가요?" → 주관적 판단, 일관성 없음</p>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-red-500">
-                    <p className="text-red-600 mb-2">초등체력장의 한계</p>
-                    <p className="text-gray-700">• 아날로그식 측정으로 정확도 한계</p>
-                    <p className="text-gray-700">• 날씨, 공간에 따른 측정 편차 발생</p>
-                    <p className="text-gray-700">• 측정자에 따른 주관적 판단 개입 가능</p>
-                  </div>
-                  <div className="bg-white p-3 rounded-lg border-l-4 border-blue-500">
-                    <p className="text-blue-600 mb-2">국가에서 하는 아동대상 체력측정의 한계</p>
-                    <p className="text-gray-700">• 악력기로 근력 체크 → 전신근력이 아닌 부분근력만 측정</p>
-                    <p className="text-gray-700">• 국가 주관 평가임에도 정량 데이터 제공 안됨</p>
-                  </div>
-
-
-                  <div className="bg-gray-50 p-3 rounded-lg border-l-4 border-gray-400">
-                    <p className="text-gray-600 mb-2">종합 결과</p>
-                    <p className="text-gray-700">• 정량적 데이터 부재로 조기발견 실패</p>
-                    <p className="text-gray-700">• 부모의 불안감 증가 및 적절한 대응 시기 놓침</p>
-                    <p className="text-gray-700">• 개인별 맞춤 개선 방안 제시 불가</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-
-
-        {/* 정부 정책 */}
-        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-blue-700 mb-4">🏛️ 현재 정부정책: 국민건강 데이터화 추진</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-white p-6 rounded-lg border border-blue-200">
-              <h3 className="text-lg font-bold text-blue-700 mb-4">국민체육진흥공단 국민체력100과의 연결점</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-blue-800 mb-3">국민체육진흥공단 국민체력100의 한계</h4>
-                  <div className="space-y-3">
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-orange-500">
-                      <h5 className="font-semibold text-orange-600 mb-2">현재 측정 방식 (아날로그)</h5>
-                      <ul className="space-y-1 text-gray-700 text-sm">
-                        <li>• 제자리 멀리뛰기 → 줄자로 측정</li>
-                        <li>• 윗몸말아올리기 → 사람이 카운트</li>
-                        <li>• 왕복오래달리기 → 수동 기록</li>
-                      </ul>
-                    </div>
-                    <div className="bg-red-50 p-3 rounded-lg border-l-4 border-red-500">
-                      <h5 className="font-semibold text-red-600 mb-2">결과</h5>
-                      <ul className="space-y-1 text-gray-700 text-sm">
-                        <li>• 정확성 부족</li>
-                        <li>• 데이터 축적 어려움</li>
-                        <li>• 국민건강 빅데이터 구축 불가</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-800 mb-3">디지털 전환 필요성</h4>
-                  <div className="space-y-3">
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-500">
-                      <h5 className="font-semibold text-green-600 mb-2">정부 추진 방향</h5>
-                      <ul className="space-y-1 text-gray-700 text-sm">
-                        <li>• <strong>정량적 데이터</strong> 수집 시스템</li>
-                        <li>• <strong>국민체력 빅데이터</strong> 구축</li>
-                        <li>• <strong>객관적 평가</strong>로 정책 수립</li>
-                        <li>• <strong>비만 예방</strong> 조기 개입</li>
-                      </ul>
-                    </div>
-                    <div className="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
-                      <h5 className="font-semibold text-green-600 mb-2">우리의 해결책</h5>
-                      <ul className="space-y-1 text-gray-700 text-sm">
-                        <li>• KidsMotion으로 디지털 체력측정 실현</li>
-                        <li>• 정확한 데이터로 정책 수립 지원</li>
-                        <li>• 국민체력 빅데이터 구축에 기여</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 비즈니스 모델 & 시장 */}
-        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-blue-700 mb-4">🏢 필요한 곳에 닿고 있습니다</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* 시장 규모 추가 */}
-            <div className="mb-8 bg-white p-6 rounded-lg border border-emerald-200">
-              <h3 className="text-xl font-bold text-emerald-800 mb-4">💰 시장 규모</h3>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center bg-emerald-50 p-4 rounded-lg">
-                  <div className="text-3xl font-bold text-emerald-600 mb-2">249만명</div>
-                  <p className="text-gray-600 text-sm">전국 초등학생 수<br/>(2024년 기준)</p>
-                </div>
-                <div className="text-center bg-red-50 p-4 rounded-lg">
-                  <div className="text-3xl font-bold text-red-600 mb-2">3,302개소</div>
-                  <p className="text-gray-600 text-sm">소아·청소년과<br/>전문 진료기관</p>
-                </div>
-                <div className="text-center bg-blue-50 p-4 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">2만4천개+</div>
-                  <p className="text-gray-600 text-sm">아동 스포츠 학원<br/>(축구·태권도·수영 등)</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              
-              {/* 의료기관 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-red-500">
-                <h3 className="text-xl font-bold mb-4 text-red-700">🏥 소아과/병원</h3>
-                <div className="space-y-3">
-                  <div className="bg-red-50 p-3 rounded">
-                    <h4 className="font-semibold text-red-800">핵심 가치</h4>
-                    <p className="text-sm text-red-700">"영유아검진 프리미엄 서비스"</p>
-                  </div>
-                  <div className="bg-red-50 p-3 rounded">
-                    <h4 className="font-semibold text-red-800">차별화 포인트</h4>
-                    <p className="text-sm text-red-700">• 다른 병원과 차별화<br/>• 환자 만족도 향상<br/>• 재방문율 증가</p>
-                  </div>
-                  <div className="bg-red-50 p-3 rounded">
-                    <h4 className="font-semibold text-red-800">제공 서비스</h4>
-                    <p className="text-sm text-red-700">체력 현황 의료진 리포트<br/>성장 발달 추적 서비스</p>
-                  </div>
-                </div>
-                <div className="mt-4 p-3 bg-green-100 rounded">
-                  <p className="text-sm font-medium text-green-800">부모 심리: "의사가 정확한 수치로 설명해주니 신뢰할 수 있다"</p>
-                </div>
-              </div>
-
-              {/* 스포츠 학원 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-blue-500">
-                <h3 className="text-xl font-bold mb-4 text-blue-700">🏃‍♂️ 스포츠학원</h3>
-                <div className="space-y-3">
-                  <div className="bg-blue-50 p-3 rounded">
-                    <h4 className="font-semibold text-blue-800">핵심 가치</h4>
-                    <p className="text-sm text-blue-700">"우리 학원 효과 수치로 증명"</p>
-                  </div>
-                  <div className="bg-blue-50 p-3 rounded">
-                    <h4 className="font-semibold text-blue-800">차별화 포인트</h4>
-                    <p className="text-sm text-blue-700">• 학생 실력 향상 데이터 제공<br/>• 학부모 만족도 증가<br/>• 타 학원 대비 경쟁력 확보</p>
-                  </div>
-                  <div className="bg-blue-50 p-3 rounded">
-                    <h4 className="font-semibold text-blue-800">제공 서비스</h4>
-                    <p className="text-sm text-blue-700">월 5만원으로 무제한 측정<br/>성장 리포트 자동 생성</p>
-                  </div>
-                </div>
-                <div className="mt-4 p-3 bg-green-100 rounded">
-                  <p className="text-sm font-medium text-green-800">부모 심리: "우리 아이 부족한 부분을 정확히 알고 운동시켜준다"</p>
-                </div>
-              </div>
-
-              {/* 정부기관 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-purple-500">
-                <h3 className="text-xl font-bold mb-4 text-purple-700">🏛️ 보건소/공공기관</h3>
-                <div className="space-y-3">
-                  <div className="bg-purple-50 p-3 rounded">
-                    <h4 className="font-semibold text-purple-800">핵심 가치</h4>
-                    <p className="text-sm text-purple-700">"지역 아동 건강 빅데이터"</p>
-                  </div>
-                  <div className="bg-purple-50 p-3 rounded">
-                    <h4 className="font-semibold text-purple-800">차별화 포인트</h4>
-                    <p className="text-sm text-purple-700">• 정부 정책 데이터 제공<br/>• 지역 건강 통계 구축<br/>• 예산 효율성 증명</p>
-                  </div>
-                  <div className="bg-purple-50 p-3 rounded">
-                    <h4 className="font-semibold text-purple-800">제공 서비스</h4>
-                    <p className="text-sm text-purple-700">지역별 아동 체력 통계<br/>정책 수립 기초 자료</p>
-                  </div>
-                </div>
-                <div className="mt-4 p-3 bg-green-100 rounded">
-                  <p className="text-sm font-medium text-green-800">정부 니즈: "국민체력 빅데이터로 정책 근거 마련"</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 수익 구조 */}
-            <div className="mt-8 grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg text-center border-2 border-green-200">
-                <h4 className="text-lg font-bold text-green-700 mb-2">하드웨어 판매</h4>
-                <div className="text-3xl font-bold text-green-600 mb-2">550만원</div>
-                <p className="text-sm text-gray-600">장비당 일시 수익</p>
-              </div>
-              <div className="bg-white p-6 rounded-lg text-center border-2 border-blue-200">
-                <h4 className="text-lg font-bold text-blue-700 mb-2">소프트웨어 구독</h4>
-                <div className="text-3xl font-bold text-blue-600 mb-2">월 5만원</div>
-                <p className="text-sm text-gray-600">AI 분석 • 누적데이터 통계 • 백분위 업데이트 • 분석리포트</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 하드웨어 및 기술 */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="text-2xl">
-              🛡️ 신뢰할 수 있는 이유들
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-2 grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="text-xl font-bold mb-4">아동 맞춤 조절 기능</h3>
-                  <div className="space-y-3">
-                    <div className="bg-purple-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-purple-800">대상 연령</h4>
-                      <p className="text-purple-700">만 4~12세 (유치원~초등학생)</p>
-                    </div>
-                    <div className="bg-purple-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-purple-800">신장 대응</h4>
-                      <p className="text-purple-700">키 100-150cm 가능한 유동성 프레임</p>
-                    </div>
-                    <div className="bg-purple-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-purple-800">개인별 맞춤</h4>
-                      <p className="text-purple-700">안장, 핸들 높이 및 전후 조절</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative">
-                  <h3 className="text-xl font-bold mb-4">측정 및 분석 기능</h3>
-                  <div className="space-y-3">
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-blue-800">6가지 체력 평가</h4>
-                      <p className="text-blue-700">순발력, 스프린트파워, 파워지속력, 근력, 근지구력, 심폐지구력</p>
-                    </div>
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-blue-800">좌우 밸런스 측정</h4>
-                      <p className="text-blue-700">정확한 수치로 불균형 감지</p>
-                    </div>
-                    <div className="bg-blue-50 p-3 rounded-lg">
-                      <h4 className="font-semibold text-blue-800">성장 단계 추적</h4>
-                      <p className="text-blue-700">이전 측정 대비 발달 상황 분석</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="relative">
-                <div className="absolute top-[3.5rem] bottom-0 left-0 right-0 rounded-lg shadow-lg overflow-hidden">
-                  <img 
-                    src="/kidsmotion.png" 
-                    alt="KidsMotion 스마트 사이클" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 실시간 측정 인터페이스 */}
-            <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200">
-              <h3 className="text-xl font-bold text-purple-800 mb-6">🖥️ 실시간 측정 인터페이스</h3>
+        <AnimatedSection delay={300}>
+          <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg"
+                style={{ 
+                  transform: `translateY(${scrollY * 0.03}px)` 
+                }}>
+            <CardHeader>
+              <CardTitle className="text-2xl text-red-700 mb-4">📋 우리가 해결하려는 문제</CardTitle>
+            </CardHeader>
+            <CardContent>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-purple-700 mb-4">아동 친화적 UI/UX</h4>
-                  <div className="space-y-3">
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-purple-400">
-                      <h5 className="font-semibold text-purple-600 mb-1">실시간 파워 표시</h5>
-                      <p className="text-gray-700 text-sm">큰 숫자와 색상으로 현재 파워를 직관적으로 표시</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-blue-400">
-                      <h5 className="font-semibold text-blue-600 mb-1">좌우 밸런스 게이지</h5>
-                      <p className="text-gray-700 text-sm">양쪽 다리 힘의 균형을 시각적으로 확인 가능</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg border-l-4 border-green-400">
-                      <h5 className="font-semibold text-green-600 mb-1">카운트다운 타이머</h5>
-                      <p className="text-gray-700 text-sm">테스트 시간을 명확하게 표시하여 집중도 향상</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden h-72 flex items-center justify-center">
-                  <img 
-                    src="/dsfaaf.PNG" 
-                    alt="실시간 측정 화면" 
-                    className="max-w-full max-h-full object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 하드웨어 상세 설명 */}
-            <div className="border-t pt-8">
-              <h3 className="text-xl font-bold mb-6 text-center">스마트 사이클 하드웨어 특징</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">🔧 조절 가능한 프레임</h4>
-                    <p className="text-gray-700">• 안장 높이/전후 조절로 모든 체형에 맞춤</p>
-                    <p className="text-gray-700">• 핸들 높이/전후 조절로 올바른 자세 유지</p>
-                    <p className="text-gray-700">• 성장하는 아동에게 지속 사용 가능</p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">📱 스마트 디스플레이</h4>
-                    <p className="text-gray-700">• 실시간 파워, 속도, 심박수 표시</p>
-                    <p className="text-gray-700">• 아동 친화적 인터페이스 설계</p>
-                    <p className="text-gray-700">• 측정 진행 상황 시각적 피드백</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">⚡ DC 모터 기반 자동 저항 시스템</h4>
-                    <p className="text-gray-700">• 전기 신호 기반 정밀 저항 제어</p>
-                    <p className="text-gray-700">• 실시간 디지털 데이터 수집 및 분석</p>
-                    <p className="text-gray-700">• 좌우 독립 측정으로 밸런스 분석</p>
-                    <p className="text-gray-700">• 자가 충전 기능으로 무선 운영</p>
-                  </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-800 mb-2">🛡️ 안전 설계</h4>
-                    <p className="text-gray-700">• 아동용 안전 페달 및 스트랩</p>
-                    <p className="text-gray-700">• 넘어짐 방지 안정적인 베이스</p>
-                    <p className="text-gray-700">• 응급 정지 버튼 및 안전 가이드</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* MotionBike만의 독점 기술 - 우리의 솔루션과 시장 진입 전략 사이 */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="flex items-center text-2xl">
-              <Zap className="w-6 h-6 mr-3 text-yellow-600" />
-              MotionBike만의 독점 기술
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 bg-purple-50 rounded-lg border-2 border-purple-200">
-                <div className="text-4xl mb-4">📋</div>
-                <h3 className="font-semibold text-lg mb-2">AI 리포트 제공</h3>
-                <p className="text-gray-600 mb-3">복잡한 숫자, 지표를 부모가 이해하는<br/>맞춤 해석으로 변환</p>
-                <div className="bg-purple-100 p-2 rounded text-sm text-purple-700">
-                  기존: 숫자만 제공<br/>
-                  → MotionBike: 숫자+맞춤 해석
-                </div>
-              </div>
-              
-              <div className="text-center p-6 bg-blue-50 rounded-lg border-2 border-blue-200">
-                <div className="text-4xl mb-4">⚖️</div>
-                <h3 className="font-semibold text-lg mb-2">실시간 밸런스 감지</h3>
-                <p className="text-gray-600 mb-3">좌우 불균형을 페달링으로<br/>정량 측정</p>
-                <div className="bg-blue-100 p-2 rounded text-sm text-blue-700">
-                  기존: 설문 평가<br/>
-                  → MotionBike: 실시간 센서
-                </div>
-              </div>
-              
-              <div className="text-center p-6 bg-green-50 rounded-lg border-2 border-green-200">
-                <div className="text-4xl mb-4">🤖</div>
-                <h3 className="font-semibold text-lg mb-2">AI 기반 처방</h3>
-                <p className="text-gray-600 mb-3">GPT-4o로 개인별<br/>맞춤 운동 처방</p>
-                <div className="bg-green-100 p-2 rounded text-sm text-green-700">
-                  기존: 일반적 조언<br/>
-                  → MotionBike: 개인 맞춤
-                </div>
-              </div>
-            </div>
-
-            {/* 과학적 근거 추가 */}
-            <div className="mt-8 bg-gradient-to-r from-cyan-100 to-blue-100 p-6 rounded-lg border border-cyan-200">
-              <h3 className="text-xl font-bold text-cyan-800 mb-4">🔬 측정의 과학적 신뢰성</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-cyan-700 mb-3">⚡ 5분 측정의 정확성</h4>
-                  <div className="bg-white p-4 rounded-lg">
-                    <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>5초 순발력:</strong> 순간 최대 파워 측정</li>
-                      <li>• <strong>15초 스프린트:</strong> 무산소 능력 평가</li>
-                      <li>• <strong>30초 지속력:</strong> 젖산 역치 확인</li>
-                      <li>• <strong>60초 근력:</strong> 근육 지구력 측정</li>
-                      <li>• <strong>180초 근지구력:</strong> 유산소-무산소 경계</li>
-                      <li>• <strong>360초 심폐지구력:</strong> 유산소 능력 평가</li>
-                    </ul>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-cyan-700 mb-3">🎯 센서 기반 정밀 측정</h4>
-                  <div className="bg-white p-4 rounded-lg">
-                    <ul className="space-y-2 text-gray-700 text-sm">
-                      <li>• <strong>프레임 내 센서:</strong> 실시간 좌우밸런스 및 체력측정</li>
-                      <li>• <strong>외부 심박센서:</strong> 운동 강도 정밀 분석</li>
-                    </ul>
-                  </div>
-                  
-                  {/* 스포츠과학 검증을 여기로 이동 */}
-                  <div className="mt-4 bg-white p-4 rounded-lg">
-                    <h4 className="font-semibold text-cyan-700 mb-2">🏆 스포츠과학 검증</h4>
-                    <p className="text-gray-700 text-sm">
-                      사이클링은 국제적으로 인정받는 체력 측정 방법입니다. 
-                      <strong>와트(W) 단위의 파워 측정</strong>은 스포츠과학에서 가장 정확한 운동 능력 평가 지표로 사용되며, 
-                      올림픽 선수들도 동일한 방식으로 체력을 측정합니다.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-              <h3 className="text-lg font-bold text-red-700 mb-3">🛡️ 경쟁사 진입 장벽</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-red-600 mb-2">기술적 장벽</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• DC 모터 기반 정밀 제어 시스템</li>
-                    <li>• 의료기기급 데이터 수집 알고리즘</li>
-                    <li>• 아동 맞춤 하드웨어 설계 노하우</li>
-                    <li>• 연령별 체력 기준 데이터베이스화</li>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">부모들의 고민</h3>
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 font-bold">•</span>
+                      우리 아이가 운동에 재능이 있는지 알고 싶다
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 font-bold">•</span>
+                      시간과 비용을 투자할 가치가 있는지 확신하고 싶다
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 font-bold">•</span>
+                      아이의 신체 발달이 정상인지 궁금하다
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-red-500 font-bold">•</span>
+                      객관적인 데이터로 아이 상태를 파악하고 싶다
+                    </li>
                   </ul>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-red-600 mb-2">시장 진입 장벽</h4>
-                  <ul className="space-y-1 text-gray-700 text-sm">
-                    <li>• 2종의료기기 인증 목표</li>
-                    <li>• 의료기관 인증 및 승인 과정</li>
-                    <li>• B2B 영업 네트워크 구축</li>
-                    <li>• 사용자 데이터 누적 필요</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 실증과 성장 계획 */}
-        <Card className="mb-16 bg-gradient-to-r from-green-50 to-teal-50 border-green-200">
-          <CardHeader>
-            <CardTitle className="text-2xl">
-              🚀 우리는 지금, 이 시장을 증명하고 있습니다
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* 파일럿 테스트 */}
-            {/* 확정 기관 */}
-            <div className="bg-white p-6 rounded-lg border border-green-200 mb-6">
-              <h3 className="text-xl font-bold text-green-800 mb-4">2025년 파일럿 테스트 확정 기관</h3>
-              <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                <h4 className="font-semibold text-blue-800 mb-2">1. IYC 유소년 스포츠센터 (서울 강서구)</h4>
-                <ul className="space-y-1 text-gray-700 text-sm">
-                  <li>• <strong>2025년 7월부터 장비 도입 예정</strong></li>
-                  <li>• 아동 대상 체력 측정 및 리포트 시연 (100명 대상)</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* 검증 계획 요약 */}
-            <div className="bg-white p-6 rounded-lg border border-green-200">
-              <h3 className="text-xl font-bold text-green-800 mb-4">검증 계획 요약</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="font-semibold text-green-700 mb-3">📋 테스트 규모</h4>
-                  <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>IYC 유소년 스포츠센터</strong> 1개 기관 확정</li>
-                    <li>• 2025년 7월부터 1년간 운영</li>
-
-                    <li>• <strong>측정 항목:</strong> 순발력, 파워, 좌우 밸런스, 심폐지구력 등 총 6종</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-green-700 mb-3">📊 데이터 확보 목표</h4>
-                  <ul className="space-y-2 text-gray-700 text-sm">
-                    <li>• <strong>측정 대상 아동 수:</strong> 100명</li>
-                    <li>• <strong>목표:</strong> 1년 내 한국 유아 전용 체력 기준선 자체 생성</li>
-                    <li>• <strong>최종 목적:</strong> 데이터 기반 AI 피드백 알고리즘 개발의 기반 확보</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* AI 분석 리포트 */}
-            <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200">
-              <h3 className="text-xl font-bold text-blue-800 mb-6">📊 AI 기반 분석 리포트</h3>
-              
-              {/* 이미지 먼저 크게 표시 */}
-              <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
-                <img 
-                  src="/report.png" 
-                  alt="AI 분석 리포트 화면" 
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-
-              {/* 3개 항목을 1행 3열로 배치 */}
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="bg-white p-4 rounded-lg border-l-4 border-blue-400">
-                  <h5 className="font-semibold text-blue-600 mb-2">개인별 맞춤 리포트</h5>
-                  <p className="text-gray-700 text-sm">AI 기반 체력 분석과 맞춤 개선 방안</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border-l-4 border-green-400">
-                  <h5 className="font-semibold text-green-600 mb-2">백분위 및 등급 제공</h5>
-                  <p className="text-gray-700 text-sm">동일 연령 대비 정확한 위치와 5등급 체계</p>
-                </div>
-                <div className="bg-white p-4 rounded-lg border-l-4 border-purple-400">
-                  <h5 className="font-semibold text-purple-600 mb-2">성장 추적 및 예측</h5>
-                  <p className="text-gray-700 text-sm">이전 측정과 비교하여 발달 상황 분석</p>
-                </div>
-              </div>
-            </div>
-
-
-          </CardContent>
-        </Card>
-
-
-
-        {/* 학부모 불안감 해소 */}
-        <Card className="mb-16 bg-gradient-to-r from-pink-50 to-rose-50 border-pink-200">
-          <CardHeader>
-            <CardTitle className="text-2xl">
-              📈 기관 도입 시 예상 효과
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-8">
-              
-              {/* 왼쪽: 걱정들 */}
-              <div>
-                <h3 className="text-xl font-bold text-orange-800 mb-4">😰 운영상 고민들</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-lg border border-orange-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"월 5만원 구독료가 부담스럽지 않나?"</h4>
-                    <p className="text-gray-700 text-sm">학원 아동 1명당 월 15만원 받는데, 키즈모션 도입으로 <strong>'과학적 체력측정' 차별화</strong> 서비스 제공이 가능합니다. 신규 회원 유치 효과로 투자비 회수가 빠릅니다.</p>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-lg border border-orange-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"학부모들이 정말 관심 가질까?"</h4>
-                    <p className="text-gray-700 text-sm">아동 성장에 대한 부모의 관심은 최고조입니다. <strong>"내 아이의 정확한 체력 수준"</strong>을 알고 싶어하는 니즈가 매우 높아 마케팅 포인트로 활용 가능합니다.</p>
-                  </div>
-
-                  <div className="bg-white p-4 rounded-lg border border-orange-200">
-                    <h4 className="font-semibold text-red-600 mb-2">"장비 운영이 복잡하지 않을까?"</h4>
-                    <p className="text-gray-700 text-sm">2m × 1.5m 공간만 있으면 설치 가능하고, 자가충전으로 전력도 불필요합니다. <strong>3시간 교육 후 바로 운영</strong> 가능한 간단한 시스템입니다.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 오른쪽: 해결책들 */}
-              <div>
-                <h3 className="text-xl font-bold text-green-800 mb-4">✅ 실제 운영 효과</h3>
-                <div className="space-y-4">
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">🎯 차별화된 경쟁력 확보</h4>
-                    <p className="text-gray-700 text-sm"><strong>"과학적 체력 분석 도입 기관"</strong>으로 브랜딩이 가능합니다. 경쟁 학원 대비 프리미엄 서비스 제공으로 회원비 인상도 가능해집니다.</p>
-                  </div>
-                  
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">💪 학부모 만족도 극대화</h4>
-                    <p className="text-gray-700 text-sm">객관적 데이터 제공으로 학부모 신뢰도가 높아집니다. <strong>"아이가 어떻게 발전하고 있는지"</strong> 구체적으로 보여줄 수 있어 만족도 급상승합니다.</p>
-                  </div>
-
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <h4 className="font-semibold text-green-600 mb-2">🔬 데이터 기반 운영 가능</h4>
-                    <p className="text-gray-700 text-sm">정량적 데이터로 <strong>"이 아이에게는 이런 훈련이 필요합니다"</strong> 맞춤 지도가 가능합니다. 감에 의존하지 않는 과학적 운영으로 전문성을 인정받습니다.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 하단: 핵심 메시지 */}
-            <div className="mt-8 bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-center text-blue-800 mb-4">💝 키즈모션이 기관에 드리는 진짜 가치</h3>
-              <div className="grid md:grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl mb-2">🎯</div>
-                  <h4 className="font-semibold text-blue-700">차별화 경쟁력</h4>
-                  <p className="text-sm text-gray-600">과학적 측정 도입으로<br/>프리미엄 브랜딩 가능</p>
-                </div>
-                <div>
-                  <div className="text-2xl mb-2">📈</div>
-                  <h4 className="font-semibold text-blue-700">회원 만족도 향상</h4>
-                  <p className="text-sm text-gray-600">객관적 데이터 제공으로<br/>학부모 신뢰도 증가</p>
-                </div>
-                <div>
-                  <div className="text-2xl mb-2">💰</div>
-                  <h4 className="font-semibold text-blue-700">수익성 개선</h4>
-                  <p className="text-sm text-gray-600">신규 회원 유치와<br/>기존 회원 유지율 상승</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* 투자자에게 드리는 편지 */}
-        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-purple-700 mb-4">💌 당신과 함께 성장하고 싶습니다</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p className="text-lg font-medium text-purple-700">투자자님께,</p>
                 
-                <p>이 제안서는 단순한 사업 계획이 아닙니다.<br/>
-                한 엄마의 걱정에서 시작된, 아이들을 위한 진심입니다.</p>
-
-                <p>저희는 단계별 검증을 통해 확실한 성장을 보여드리겠습니다.<br/>
-                실제 데이터와 성과로 증명하겠습니다.</p>
-
-                <div className="bg-blue-50 p-4 rounded-lg my-6">
-                  <p className="font-medium">• IYC 스포츠센터에서 2025년 7월부터 실제 파일럿을 진행합니다<br/>
-                  • 100명의 아동 데이터로 한국형 체력 기준을 만들어가고 있습니다<br/>
-                  • 24년간 사이클 선수로 쌓은 경험과 노하우가 이 장비에 담겨있습니다</p>
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">현재 시장의 한계</h3>
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-500 font-bold">•</span>
+                      주관적 판단에만 의존하는 평가 시스템
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-500 font-bold">•</span>
+                      아동용 체력 측정 장비의 부재
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-500 font-bold">•</span>
+                      정량적 데이터 없는 피드백
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-orange-500 font-bold">•</span>
+                      부모가 이해하기 어려운 전문적 평가
+                    </li>
+                  </ul>
                 </div>
-
-                <p>저희가 원하는 건 투자금만이 아닙니다.<br/>
-                이 일을 함께 해낼 수 있는 든든한 동반자를 찾고 있습니다.</p>
-
-                <p className="font-medium text-red-600">아이들이 "괜찮을 거예요"라는 막연한 말 대신<br/>
-                "지금 이 상태고, 이렇게 도와주면 됩니다"라는 명확한 답을 들을 수 있는 세상.</p>
-
-                <p className="font-medium text-green-600">부모가 감이 아닌 데이터로 아이의 성장을 확인할 수 있는 세상.</p>
-
-                <p>그런 세상을 만들어가고 싶습니다.<br/>
-                혼자서는 할 수 없는 일이라는 걸 잘 알고 있습니다.</p>
-
-                <p className="text-lg font-bold text-purple-700">숫자보다 더 중요한 것은 이 일을 해내려는 저희의 마음입니다.<br/>
-                그 마음을 믿어주신다면, 함께 아이들의 미래를 바꿔나갈 수 있을 거라 확신합니다.</p>
-
-                <p className="text-right font-medium text-gray-600 mt-6">감사합니다.<br/>– 모션바이크 팀 일동</p>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
 
-        {/* 투자자 예상 질문 & 답변 */}
-        <Card className="mb-16 bg-gradient-to-r from-orange-50 to-red-50 border-orange-200">
-          <CardHeader>
-            <CardTitle className="text-2xl">
-              🔥 투자자와의 솔직한 대화
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
+        {/* 솔루션 */}
+        <AnimatedSection delay={450}>
+          <Card className="mb-16 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-300 shadow-lg"
+                style={{ 
+                  transform: `translateY(${scrollY * 0.02}px)` 
+                }}>
+            <CardHeader>
+              <CardTitle className="text-2xl text-green-700 mb-4">✨ MotionBike가 제시하는 해결책</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2 text-gray-800">정밀한 체력 측정</h3>
+                  <p className="text-gray-600 text-sm">5초, 15초, 30초, 60초 구간별 파워 측정으로 폭발력, 근력, 근지구력, 심폐지구력을 정량화</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <BarChart3 className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2 text-gray-800">AI 기반 분석</h3>
+                  <p className="text-gray-600 text-sm">연령별, 성별 백분위 비교를 통한 객관적 평가와 개인 맞춤형 운동 처방</p>
+                </div>
+                
+                <div className="text-center">
+                  <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-bold mb-2 text-gray-800">재능 발굴</h3>
+                  <p className="text-gray-600 text-sm">상위 1% 수준의 아동을 조기에 발견하여 최적의 성장 기회 제공</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
+
+        {/* 시장 기회 */}
+        <AnimatedSection delay={600}>
+          <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-300 shadow-lg"
+                style={{ 
+                  transform: `translateY(${scrollY * 0.01}px)` 
+                }}>
+            <CardHeader>
+              <CardTitle className="text-2xl text-blue-700 mb-4">🎯 시장 기회</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">시장 규모</h3>
+                  <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">유소년 스포츠 시장</span>
+                        <span className="text-2xl font-bold text-blue-600">1.2조원</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">한국 연간 규모 (2024)</p>
+                    </div>
+                    
+                    <div className="bg-white p-4 rounded-lg border-l-4 border-indigo-500">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">체력측정 장비 시장</span>
+                        <span className="text-2xl font-bold text-indigo-600">450억원</span>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">TAM (Total Addressable Market)</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">타겟 고객</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Building2 className="w-5 h-5 text-blue-600" />
+                      <span>스포츠 아카데미 (2,000개소)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Users className="w-5 h-5 text-blue-600" />
+                      <span>초등학교 (6,100개교)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <TrendingUp className="w-5 h-5 text-blue-600" />
+                      <span>스포츠 의학센터 (300개소)</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <MessageCircleQuestion className="w-5 h-5 text-blue-600" />
+                      <span>학부모 (4-12세 자녀 보유)</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
+
+        {/* 비즈니스 모델 */}
+        <AnimatedSection delay={750}>
+          <Card className="mb-16 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300 shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-yellow-700 mb-4">💰 비즈니스 모델</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">하드웨어 (B2B)</h3>
+                  <div className="bg-white p-6 rounded-lg border border-yellow-200">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-yellow-600 mb-2">550만원</div>
+                      <p className="text-gray-600">MotionBike 장비 단가</p>
+                      <div className="mt-4 pt-4 border-t">
+                        <div className="text-lg font-semibold text-gray-800">목표 판매량</div>
+                        <div className="text-2xl font-bold text-yellow-600">50대/년</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-800">소프트웨어 (SaaS)</h3>
+                  <div className="bg-white p-6 rounded-lg border border-yellow-200">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-yellow-600 mb-2">월 5만원</div>
+                      <p className="text-gray-600">AI 분석 서비스 구독료</p>
+                      <div className="mt-4 pt-4 border-t">
+                        <div className="text-lg font-semibold text-gray-800">목표 구독자</div>
+                        <div className="text-2xl font-bold text-yellow-600">50개소</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               
-              {/* 시장 관련 질문 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-blue-500">
-                <h3 className="text-lg font-bold text-blue-700 mb-3">💰 시장 관련</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "249만 학생? 실제 고객은 몇 명인가요?"</p>
-                    <p className="text-gray-700 text-sm">A: B2B/B2G 모델이므로 개별 부모가 아닌 기관이 고객입니다. 3천302개 소아청소년과 + 2만4천개 스포츠학원이 잠재 고객이며, 1천개 기관만 확보해도 연 6억원 달성 가능합니다.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "글로벌 시장에서 몇 % 점유할 건가요?"</p>
-                    <p className="text-gray-700 text-sm">A: 한국 시장 독점 후 아시아 확장 전략입니다. 일본/중국도 저출산+아동건강 관심 급증 중이며, 한국 시장 안정화 후 단계적 해외 진출을 계획하고 있습니다.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "기관에서 월 5만원 구독료가 부담스럽지 않나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 업체 관점에서 월 5만원은 매우 합리적입니다. 스포츠학원의 경우 아동 1명당 월 15만원 정도 받는데, 키즈모션 도입으로 '과학적 체력측정' 차별화 서비스 제공이 가능하여 신규 회원 유치와 기존 회원 만족도 향상으로 투자비 회수가 빠릅니다.</p>
-                  </div>
+              <div className="mt-8 bg-gradient-to-r from-green-100 to-emerald-100 p-6 rounded-lg">
+                <div className="text-center">
+                  <h3 className="text-xl font-bold mb-2 text-gray-800">연간 매출 목표</h3>
+                  <div className="text-4xl font-bold text-green-600 mb-2">3억원</div>
+                  <p className="text-gray-600">하드웨어 2.75억원 + 소프트웨어 3,000만원</p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
 
-              {/* 기술 관련 질문 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-purple-500">
-                <h3 className="text-lg font-bold text-purple-700 mb-3">🤖 기술 관련</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "GPT API 쓰는 게 독점 기술인가요?"</p>
-                    <p className="text-gray-700 text-sm">A: AI는 도구일 뿐, 핵심은 아동 맞춤 데이터베이스입니다. 연령별/성별 체력 기준값은 수년간 축적된 독점 자산이며, 좌우 밸런스 실시간 측정은 하드웨어 특허 기술입니다.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "자전거만 측정? 다양한 운동은 언제 하나요?"</p>
-                    <div className="text-gray-700 text-sm">
-                      <p className="mb-2">A: DC 모터 기반 자전거가 의료기기급 정밀 측정에 최적입니다.</p>
-                      <div className="mb-2">
-                        <span className="text-green-600">✅ 좌우밸런스 정량측정</span> | 
-                        <span className="text-blue-600"> ✅ 시공간 제약없음</span> | 
-                        <span className="text-purple-600"> ✅ 전신체력 데이터</span>
-                      </div>
-                      <div className="bg-blue-50 p-3 rounded-lg mt-2">
-                        <p className="font-medium text-blue-700 mb-1">DC 모터의 핵심 우위:</p>
-                        <p className="text-blue-700">• 초당 단위 정밀 제어로 의료기기급 데이터 수집</p>
-                        <p className="text-blue-700">• 자가 충전 시스템으로 무선 운영</p>
-                        <p className="text-blue-700">• 무소음 설계로 실내 환경 최적화</p>
-                      </div>
-                      <p className="text-gray-600 mt-2">
-                        달리기(날씨제약), 악력(부분측정), 수영(시설제약)과 달리 의료진이 신뢰할 수 있는 정량적 데이터를 제공합니다.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+        {/* CTA */}
+        <AnimatedSection delay={900} className="text-center">
+          <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-xl">
+            <CardContent className="p-12">
+              <h2 className="text-3xl font-bold mb-6">
+                아이들의 가능성을 데이터로 발견하는 여정에 함께하세요
+              </h2>
+              <p className="text-xl mb-8 opacity-90">
+                MotionBike와 함께 유소년 스포츠의 새로운 표준을 만들어가겠습니다
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-white text-purple-600 hover:bg-gray-100 font-semibold px-8 py-3"
+                  onClick={() => onNavigate?.('measurements')}
+                >
+                  체험해보기
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-purple-600 font-semibold px-8 py-3"
+                >
+                  투자 문의
+                </Button>
               </div>
-
-              {/* 경쟁 관련 질문 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-red-500">
-                <h3 className="text-lg font-bold text-red-700 mb-3">💀 경쟁 관련</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "InBody 같은 기계가 이미 있는데 키즈모션을 왜 도입할까요?"</p>
-                    <p className="text-gray-700 text-sm">A: 완전히 다른 영역입니다. InBody는 체성분(근육량, 체지방률), 우리는 운동능력(순발력, 지구력, 밸런스)을 측정합니다. 목표는 InBody처럼 의료기관 필수 장비가 되는 것입니다.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "550만원 장비 투자수익률은 어떻게 되나요?"</p>
-                    <p className="text-gray-700 text-sm">A: 직접 수익보다는 브랜딩 효과가 핵심입니다. '최신 아동 체력 측정 도입 병원'으로 차별화되며, 영유아검진 질 향상으로 환자 만족도와 재방문율이 증가합니다.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 비즈니스 모델 질문 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-green-500">
-                <h3 className="text-lg font-bold text-green-700 mb-3">📊 비즈니스 모델</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "B2B만? B2C 시장은 포기하는 건가요?"</p>
-                    <p className="text-gray-700 text-sm">A: B2B가 더 안정적이고 큰 시장입니다. 공공기관(보건소 261개, 스포츠센터 수백 개)은 정부 예산으로 안정적이며, 의료기관은 지속적 수익을 보장합니다.</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "매출 계획의 근거가 궁금합니다"</p>
-                    <p className="text-gray-700 text-sm">A:  현재 제품 개발 및 시장 검증 단계입니다. 제시된 매출 수치는 시장 규모 분석을 바탕으로 한 잠재적 목표치로, 실제 매출 계획은 2025년 7월 IYC Youth Sports Center에서 진행될 100명 대상 파일럿 테스트 결과와 고객 피드백을 반영하여 구체화할 예정입니다. 스포츠학원 월 5만원 구독료, 하드웨어 550만원 판매가, 공공기관 연 60만원 서비스료는 시장 조사와 경쟁사 분석을 바탕으로 산정한 예상 가격입니다.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 실행력 질문 */}
-              <div className="bg-white p-6 rounded-lg border-l-4 border-yellow-500">
-                <h3 className="text-lg font-bold text-yellow-700 mb-3">⏰ 실행력</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "현재 개발 상황은 어떻게 되나요?"</p>
-                    <div className="text-gray-700 text-sm">
-                      <p className="mb-2">A: 웹 MVP와 하드웨어 프로토타입이 모두 완성되었습니다.</p>
-                      <p className="text-gray-600 text-xs mb-2">(하드웨어 사진은 미팅 시 별도 공개)</p>
-                      <p className="text-gray-700">단계별 진출 계획: 2027년 아동대상 스포츠 센터 시작 → 2028년 의료기기 신청 → 2029년 의료기관 진출</p>
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-800 mb-2">Q: "특허 출원만? 등록은 언제인가요?"</p>
-                    <p className="text-gray-700 text-sm">A: 출원 즉시 18개월 우선권을 확보했습니다. 핵심은 시장 선점과 데이터 축적 속도이며, 특허보다 네트워크 효과가 더 강한 진입장벽입니다.</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Contact */}
-        <Card className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">🤝 함께 만들어가요</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">
-              <div className="mb-8">
-                <h3 className="text-3xl font-bold mb-4 text-center">
-                  이 팀에게 손을 내밀어주시면,<br/>
-                  아이들의 미래가 달라집니다
-                </h3>
-                <p className="text-xl opacity-90 mb-8">
-                  투자가 아닌 동반자로서, 함께 아이들의 성장을 지켜봐 주세요
-                </p>
-              </div>
-
-              <div className="bg-white/10 p-8 rounded-lg border border-white/20 mb-8">
-                <div className="grid md:grid-cols-2 gap-8 text-left">
-                  <div>
-                    <h4 className="font-semibold mb-3">모션바이크 대표</h4>
-                    <p className="mb-2">📱 전화: 010-8445-0908</p>
-                    <p className="mb-2">📧 이메일: dayinj@naver.com</p>
-                    <p>🏢 주소: 서울시 강서구 금낭화로 234, GX2</p>
-                    <p className="text-sm opacity-80">지하철 5호선 방화역 4번 출구</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-3">파일럿 진행 상황</h4>
-                    <p className="mb-2">🏃‍♂️ IYC 유소년 스포츠센터 (2025.7월 시작)</p>
-                    <p className="mb-2">📊 목표: 100명 아동 데이터 수집</p>
-                    <p className="mb-2">📋 한국형 체력 기준 데이터베이스 구축</p>
-                    <p className="text-sm opacity-80">실제 성과로 증명해드리겠습니다</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="text-lg opacity-90">
-                <p>저희는 빠른 성공보다는 확실한 성장을 약속드립니다.</p>
-                <p className="font-bold text-yellow-200 mt-4">
-                  함께 아이들이 건강하게 자랄 수 있는 세상을 만들어주세요.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </AnimatedSection>
 
       </div>
+      
       <CommonFooter onNavigate={onNavigate} />
     </div>
   );
