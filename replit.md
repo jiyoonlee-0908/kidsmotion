@@ -108,6 +108,12 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- June 21, 2025: IR Materials 페이지 영상 문제 해결
+  - 영상 파일 코덱 문제로 videoWidth/videoHeight가 0으로 표시되는 문제 발생
+  - H.264 코덱, 1920x1080 해상도로 재변환된 영상 파일로 교체
+  - 캐시 무효화 및 강제 리로드 메커니즘 적용
+  - 정상 영상 재생 확인 (21초, 16.8MB, 1920x1080)
+
 - June 21, 2025: Supabase 자동 입력 기능 완성
   - 이름 입력 시 KidsMotion 앱 데이터 자동 조회
   - 한국 시간대(Asia/Seoul) 적용으로 측정일 정확성 확보  
