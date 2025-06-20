@@ -106,6 +106,15 @@ KidsMotion is a comprehensive web application that provides scientific measureme
 
 Preferred communication style: Simple, everyday language.
 
+## Recent Changes
+
+- June 21, 2025: Supabase 자동 입력 기능 완성
+  - 이름 입력 시 KidsMotion 앱 데이터 자동 조회
+  - 한국 시간대(Asia/Seoul) 적용으로 측정일 정확성 확보  
+  - 완료된 테스트가 없어도 기본 정보(이름, 성별, 생년월일, 소속) 자동 입력
+  - 가민 데이터 없을 시 수기 입력 가능하도록 null 값 처리
+  - 데이터베이스 필드 매핑 수정(camelCase → snake_case)
+
 ## Changelog
 
 Changelog:
