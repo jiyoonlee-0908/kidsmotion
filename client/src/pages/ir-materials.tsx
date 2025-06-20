@@ -104,7 +104,7 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -125,11 +125,11 @@ function ProblemSection() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-5 gap-8 items-center mb-16">
-        {/* 부모들의 고민 - 3칸 */}
-        <div className="lg:col-span-3">
-          <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">부모들의 현실적 고민</h3>
-          <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        {/* 왼쪽: 부모들의 고민 */}
+        <div>
+          <h3 className="text-2xl font-bold text-gray-800 mb-8">부모들의 현실적 고민</h3>
+          <div className="space-y-4">
             <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border border-red-100 shadow-sm">
               <div className="flex items-start space-x-3">
                 <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
@@ -169,14 +169,14 @@ function ProblemSection() {
           </div>
         </div>
 
-        {/* 제품 이미지 - 2칸 */}
-        <div className="lg:col-span-2 flex justify-center">
+        {/* 오른쪽: 제품 이미지 */}
+        <div className="flex justify-center">
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-purple-200 to-blue-200 rounded-2xl opacity-30"></div>
             <img 
               src="/kidsmotion.png" 
               alt="KidsMotion 스마트 사이클" 
-              className="relative w-full max-w-sm rounded-xl shadow-2xl"
+              className="relative w-full max-w-md rounded-xl shadow-2xl"
             />
             <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-3">
               <p className="text-xs font-bold text-purple-600">정밀 측정 장비</p>
@@ -435,19 +435,59 @@ function StrategySection() {
   );
 }
 
-// TRACTION 섹션 - 정부 정책과 성장성
+// TRACTION 섹션 - 팀빌딩과 파일럿 성과
 function TractionSection() {
   return (
     <AnimatedSection className="mb-24">
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-gray-900 mb-4">
-          <span className="text-purple-600">Traction</span> | 정부 정책과 완벽한 타이밍
+          <span className="text-purple-600">Traction</span> | 팀빌딩과 검증된 성과
         </h2>
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          국민건강 데이터화 정책과 완벽하게 일치하는 솔루션으로 확실한 성장 기회
+          탄탄한 팀 구성과 파일럿 테스트로 입증된 시장 검증과 확실한 성장 기회
         </p>
       </div>
+
+      {/* 팀빌딩 */}
+      <div className="grid lg:grid-cols-2 gap-12 mb-16">
+        <div className="bg-gradient-to-br from-purple-50 to-indigo-100 rounded-2xl p-8">
+          <h3 className="text-2xl font-bold text-purple-800 mb-6">전문가 팀 구성</h3>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+              <h4 className="font-bold text-purple-600 mb-2">체육학박사 (CSCS)</h4>
+              <p className="text-gray-700 text-sm">아동 체력 측정 및 분석 전문가</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+              <h4 className="font-bold text-blue-600 mb-2">개발팀</h4>
+              <p className="text-gray-700 text-sm">하드웨어·소프트웨어 통합 솔루션</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <h4 className="font-bold text-green-600 mb-2">의료진 자문</h4>
+              <p className="text-gray-700 text-sm">소아청소년과 전문의 협력</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8">
+          <h3 className="text-2xl font-bold text-green-800 mb-6">파일럿 테스트 성과</h3>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-lg border-l-4 border-emerald-500">
+              <h4 className="font-bold text-emerald-600 mb-2">초등학교 3곳</h4>
+              <p className="text-gray-700 text-sm">총 150명 아동 측정 완료</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+              <h4 className="font-bold text-blue-600 mb-2">학부모 만족도</h4>
+              <p className="text-gray-700 text-sm">95% "매우 유용" 평가</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+              <h4 className="font-bold text-orange-600 mb-2">교사 피드백</h4>
+              <p className="text-gray-700 text-sm">"객관적 데이터로 아이 이해도 향상"</p>
+            </div>
+          </div>
+        </div>
+      </div>
       
+      {/* 정부 정책 연계 */}
       <div className="grid lg:grid-cols-2 gap-12 mb-16">
         <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8">
           <h3 className="text-2xl font-bold text-blue-800 mb-6">국민체력100의 한계</h3>
@@ -464,33 +504,33 @@ function TractionSection() {
         </div>
         
         <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-green-800 mb-6">우리의 해결책</h3>
+          <h3 className="text-2xl font-bold text-green-800 mb-6">우리의 디지털 혁신</h3>
           <div className="space-y-4">
             <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-              <h4 className="font-bold text-green-600 mb-2">디지털 측정</h4>
-              <p className="text-gray-700 text-sm">정밀 센서, 실시간 데이터 수집</p>
+              <h4 className="font-bold text-green-600 mb-2">정밀 디지털 측정</h4>
+              <p className="text-gray-700 text-sm">0.1W 단위 정확도, 실시간 수집</p>
             </div>
             <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
-              <h4 className="font-bold text-blue-600 mb-2">빅데이터 기여</h4>
-              <p className="text-gray-700 text-sm">국민체력 데이터베이스 구축 지원</p>
+              <h4 className="font-bold text-blue-600 mb-2">국가 빅데이터 기여</h4>
+              <p className="text-gray-700 text-sm">정부 정책 수립 핵심 데이터 제공</p>
             </div>
           </div>
         </div>
       </div>
       
       <div className="text-center bg-gradient-to-r from-indigo-100 to-purple-100 rounded-2xl p-12">
-        <h3 className="text-3xl font-bold text-indigo-800 mb-6">투자 기회의 완벽한 타이밍</h3>
+        <h3 className="text-3xl font-bold text-indigo-800 mb-6">함께 만들어가요</h3>
         <p className="text-xl text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
-          정부의 국민건강 데이터화 정책과 부모들의 정량적 데이터 니즈가 만나는 지점에서<br/>
-          <span className="font-bold text-purple-700">독점 기술을 보유한 유일한 솔루션</span>
+          이 팀에게 손을 내밀어주시면,<br/>
+          <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
         </p>
         <div className="inline-flex items-center space-x-4 bg-white rounded-xl p-6 shadow-lg">
           <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-            <TrendingUp className="w-6 h-6 text-white" />
+            <Heart className="w-6 h-6 text-white" />
           </div>
           <div className="text-left">
-            <div className="text-2xl font-bold text-purple-600">함께 성장할 파트너를 기다립니다</div>
-            <p className="text-gray-600">지속 가능한 사회적 가치와 수익성을 동시에 실현하는 투자</p>
+            <div className="text-2xl font-bold text-purple-600">투자가 아닌 동반자로서,</div>
+            <p className="text-gray-600">함께 아이들의 성장을 지켜봐 주세요</p>
           </div>
         </div>
       </div>
