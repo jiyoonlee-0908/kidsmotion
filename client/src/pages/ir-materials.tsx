@@ -152,25 +152,22 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
         
-        {/* 헤더 */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">
-            Investor Relations
-          </Badge>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            부모의 걱정을 데이터로 바꾸는 팀입니다
+        {/* KidsMotion 영상 - 첫 인상 */}
+        <div className="mb-20">
+          <div className="relative w-full max-w-5xl mx-auto">
+            <VideoPlayer />
+          </div>
+        </div>
+
+        {/* 메인 메시지 - 영상 시청 후 자연스럽게 전달 */}
+        <div className="text-center mb-20">
+          <h1 className="text-5xl font-bold text-gray-900 mb-8 leading-tight">
+            부모의 걱정을 <span className="text-purple-600">데이터</span>로 바꾸는 팀입니다
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
             아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
             <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
           </p>
-        </div>
-
-        {/* KidsMotion 영상 */}
-        <div className="mb-16">
-          <div className="relative w-full max-w-4xl mx-auto">
-            <VideoPlayer />
-          </div>
         </div>
 
         {/* Founder Letter */}
