@@ -45,10 +45,17 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showHeartRate, setShowHeartRate] = useState(false);
   
+  // 한국 시간 기준 오늘 날짜 가져오기
+  const getKoreanDate = () => {
+    const now = new Date();
+    const koreanTime = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
+    return koreanTime.toISOString().split('T')[0];
+  };
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      measureDate: "2025-06-21",
+      measureDate: getKoreanDate(),
       studentName: "",
       affiliation: "",
       birthDate: "",
@@ -123,7 +130,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         // 기본 정보 자동 입력
         form.setValue("affiliation", userData.organization || "");
         form.setValue("birthDate", userData.birth_date || "");
-        form.setValue("gender", userData.gender || "");
+        // 성별 변환: "남성" -> "M", "여성" -> "F"
+        const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
+        form.setValue("gender", genderCode);
         
         // 가민 데이터가 있으면 파워 값들도 입력
         if (userData.power5s) {
@@ -202,7 +211,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     <FormLabel>이름</FormLabel>
                     <div className="flex gap-2">
                       <FormControl>
-                        <Input {...field} placeholder="예: 지윤짱" />
+                        <Input {...field} placeholder="예: 홍길동" />
                       </FormControl>
                       <Button 
                         type="button" 

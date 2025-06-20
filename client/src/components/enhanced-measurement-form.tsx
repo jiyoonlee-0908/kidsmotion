@@ -46,7 +46,11 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
   const form = useForm<EnhancedFormData>({
     resolver: zodResolver(enhancedFormSchema),
     defaultValues: {
-      measureDate: "2025-06-21", // Korean date
+      measureDate: (() => {
+        const now = new Date();
+        const koreanTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+        return koreanTime.toISOString().split('T')[0];
+      })(),
       studentName: "",
       affiliation: "",
       birthDate: "",
