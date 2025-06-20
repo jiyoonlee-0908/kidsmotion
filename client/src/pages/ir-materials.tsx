@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
-import kidsMotionVideo from "@assets/kidsmotion_video_1750458006588.mp4";
+import kidsMotionVideo from "@/assets/kidsmotion_video.mp4";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -42,16 +42,22 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-gray-900 rounded-lg p-2">
                   <video
                     key={kidsMotionVideo}
+                    src={kidsMotionVideo}
+                    autoPlay
+                    loop
                     controls
-                    controlsList="play pause volume"
+                    playsInline
                     width="720"
                     height="405"
-                    className="w-full max-w-3xl mx-auto rounded"
-                    poster=""
+                    className="w-full max-w-3xl mx-auto rounded block"
+                    style={{ maxHeight: '405px' }}
+                    onLoadStart={() => console.log('Video loading started')}
+                    onCanPlay={() => console.log('Video can play')}
+                    onPlay={() => console.log('Video started playing')}
+                    onError={(e) => console.error('Video error:', e)}
                   >
                     <source src={kidsMotionVideo} type="video/mp4" />
-                    <source src={kidsMotionVideo} type="video/webm" />
-                    영상을 재생할 수 없습니다.
+                    브라우저가 이 영상을 재생할 수 없습니다.
                   </video>
                   <p className="text-white text-sm text-center mt-2">KidsMotion 시스템 소개</p>
                 </div>
