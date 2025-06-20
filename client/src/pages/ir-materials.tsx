@@ -39,25 +39,21 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                  <p className="text-gray-600 mb-4">영상 테스트</p>
-                  
+                <div className="bg-gray-900 rounded-lg p-2">
                   <video
-                    src={kidsMotionVideo}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
+                    key={kidsMotionVideo}
                     controls
+                    controlsList="play pause volume"
                     width="720"
                     height="405"
-                    className="mx-auto rounded-lg"
+                    className="w-full max-w-3xl mx-auto rounded"
+                    poster=""
                   >
                     <source src={kidsMotionVideo} type="video/mp4" />
-                    브라우저가 video 태그를 지원하지 않습니다.
+                    <source src={kidsMotionVideo} type="video/webm" />
+                    영상을 재생할 수 없습니다.
                   </video>
-                  
-                  <p className="text-sm text-gray-500 mt-2">영상 소스: {kidsMotionVideo}</p>
+                  <p className="text-white text-sm text-center mt-2">KidsMotion 시스템 소개</p>
                 </div>
               </div>
             </CardContent>
