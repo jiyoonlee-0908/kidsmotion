@@ -174,7 +174,19 @@ export function calculateBalance(garminData: GarminDataPoint[]) {
 // 날짜 형식 변환 (YYYY-MM-DD)
 export function formatDate(dateString: string): string {
   try {
+    if (!dateString) return '';
+    
+    // 이미 YYYY-MM-DD 형식인 경우 그대로 반환
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+      return dateString;
+    }
+    
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      console.error('Invalid date string:', dateString);
+      return '';
+    }
+    
     return date.toISOString().split('T')[0];
   } catch (error) {
     console.error('Error formatting date:', error);

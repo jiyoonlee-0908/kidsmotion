@@ -6,6 +6,7 @@ import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
 import OpenAI from "openai";
 import { 
+  supabase,
   getLatestCompletedTest, 
   getGarminDataByDisplayName, 
   extractPowerValues, 
@@ -793,60 +794,65 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Supabase 사용자 검색 ===", name);
       
-      // 최신 완료된 테스트 세션 찾기
+      // 1단계: 이름으로 참가자 기본 정보 찾기 (테스트 완료 여부와 무관)
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .or(`name.eq.${name},name.ilike.%${name}%`)
+        .order('created_at', { ascending: false })
+        .limit(1);
+
+      if (participantError || !participants || participants.length === 0) {
+        console.log("참가자를 찾을 수 없음:", name);
+        return res.json(null);
+      }
+
+      const participant = participants[0];
+      console.log("참가자 발견:", participant.name);
+
+      // 2단계: 완료된 테스트 세션 찾기 (선택사항)
       const testSession = await getLatestCompletedTest(name);
       
-      if (!testSession) {
-        console.log("해당 이름의 완료된 테스트를 찾을 수 없음:", name);
-        return res.json(null);
-      }
+      let powerValues = null;
+      let balance = null;
 
-      console.log("테스트 세션 발견:", testSession.id, testSession.userDisplayName);
-      
-      // 가민 데이터 가져오기
-      const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
-      
-      if (!garminData || garminData.length === 0) {
-        console.log("가민 데이터가 없음:", testSession.userDisplayName);
-        return res.json(null);
-      }
-
-      console.log("가민 데이터 포인트 수:", garminData.length);
-      
-      // 파워 값들 추출
-      const powerValues = extractPowerValues(garminData);
-      
-      // 좌우 밸런스 계산
-      const balance = calculateBalance(garminData);
-      
-      // 참가자 정보 (테스트 세션에 포함됨)
-      const participant = testSession.participants;
-      
-      if (!participant) {
-        console.log("참가자 정보가 없음");
-        return res.json(null);
+      if (testSession) {
+        console.log("테스트 세션 발견:", testSession.id, testSession.userDisplayName);
+        
+        // 가민 데이터 가져오기 (있으면)
+        const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
+        
+        if (garminData && garminData.length > 0) {
+          console.log("가민 데이터 포인트 수:", garminData.length);
+          powerValues = extractPowerValues(garminData);
+          balance = calculateBalance(garminData);
+        } else {
+          console.log("가민 데이터 없음 - 수기 입력 필요");
+        }
+      } else {
+        console.log("완료된 테스트 없음 - 기본 정보만 제공");
       }
 
       // 응답 데이터 구성
       const result = {
-        // 기본 정보
-        measureDate: formatDate(testSession.endTime),
+        // 기본 정보 (항상 제공)
+        measureDate: testSession ? formatDate(testSession.endTime) : formatDate(new Date().toISOString()),
         studentName: participant.name,
         affiliation: participant.organization || '',
         birthDate: formatDate(participant.birthDate),
         gender: formatGender(participant.gender),
         
-        // 파워 측정값
-        power5s: powerValues.power5s,
-        power15s: powerValues.power15s,
-        power30s: powerValues.power30s,
-        power60s: powerValues.power60s,
-        power180s: powerValues.power180s,
-        power360s: powerValues.power360s,
+        // 파워 측정값 (가민 데이터가 있을 때만)
+        power5s: powerValues?.power5s || null,
+        power15s: powerValues?.power15s || null,
+        power30s: powerValues?.power30s || null,
+        power60s: powerValues?.power60s || null,
+        power180s: powerValues?.power180s || null,
+        power360s: powerValues?.power360s || null,
         
-        // 밸런스
-        leftBalance: balance.leftBalance,
-        rightBalance: balance.rightBalance,
+        // 밸런스 (가민 데이터가 있을 때만)
+        leftBalance: balance?.leftBalance || null,
+        rightBalance: balance?.rightBalance || null,
         
         // 키, 체중, 심박수는 빈 상태로 유지 (수동 입력 필요)
         height: null,
