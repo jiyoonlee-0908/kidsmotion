@@ -1,15 +1,139 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
-import { useEffect, useRef } from "react";
-// 정적 파일로 영상 경로 설정
-const kidsMotionVideo = "/videos/kidsmotion.mp4";
+import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion, Play, Activity, Heart, Timer } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import CommonFooter from "@/components/common-footer";
 
 interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
+}
+
+function KidsMotionDemo() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const demoSteps = [
+    {
+      title: "아이가 자전거에 앉습니다",
+      description: "안전한 고정형 자전거에서 측정을 시작합니다",
+      icon: <Activity className="w-12 h-12 text-blue-500" />,
+      color: "bg-blue-100"
+    },
+    {
+      title: "5초간 최대 파워 측정",
+      description: "폭발적인 순간 파워를 정확히 측정합니다",
+      icon: <Zap className="w-12 h-12 text-yellow-500" />,
+      color: "bg-yellow-100"
+    },
+    {
+      title: "지구력 측정 (15초, 30초, 60초)",
+      description: "지속적인 운동 능력을 단계별로 평가합니다",
+      icon: <Timer className="w-12 h-12 text-green-500" />,
+      color: "bg-green-100"
+    },
+    {
+      title: "심박수 및 밸런스 분석",
+      description: "심폐기능과 좌우 균형을 동시에 확인합니다",
+      icon: <Heart className="w-12 h-12 text-red-500" />,
+      color: "bg-red-100"
+    }
+  ];
+
+  useEffect(() => {
+    if (isPlaying) {
+      const interval = setInterval(() => {
+        setCurrentStep((prev) => (prev + 1) % demoSteps.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isPlaying, demoSteps.length]);
+
+  return (
+    <div className="border-2 border-purple-300 rounded-lg p-6 bg-gradient-to-br from-purple-50 to-indigo-50">
+      <div className="text-center mb-6">
+        <h3 className="text-2xl font-bold text-purple-800 mb-2">KidsMotion 시스템 체험</h3>
+        <p className="text-gray-600">아이들의 체력 측정 과정을 단계별로 확인하세요</p>
+      </div>
+
+      <div className="relative bg-white rounded-lg p-8 min-h-[400px] shadow-inner">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentStep}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="text-center"
+          >
+            <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full ${demoSteps[currentStep].color} mb-6`}>
+              {demoSteps[currentStep].icon}
+            </div>
+            
+            <h4 className="text-xl font-bold text-gray-800 mb-4">
+              {demoSteps[currentStep].title}
+            </h4>
+            
+            <p className="text-gray-600 text-lg mb-8">
+              {demoSteps[currentStep].description}
+            </p>
+
+            <div className="flex justify-center space-x-2 mb-6">
+              {demoSteps.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentStep ? 'bg-purple-500' : 'bg-gray-300'
+                  }`}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="absolute bottom-4 right-4">
+          <Button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className={`${isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-purple-500 hover:bg-purple-600'} text-white`}
+          >
+            {isPlaying ? '일시정지' : <><Play className="w-4 h-4 mr-2" />자동 재생</>}
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {demoSteps.map((step, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentStep(index)}
+            className={`p-3 rounded-lg border-2 transition-all ${
+              currentStep === index 
+                ? 'border-purple-500 bg-purple-100' 
+                : 'border-gray-200 bg-white hover:bg-gray-50'
+            }`}
+          >
+            <div className="flex flex-col items-center space-y-2">
+              <div className={`w-8 h-8 rounded-full ${step.color} flex items-center justify-center`}>
+                {index === 0 && <Activity className="w-4 h-4 text-blue-500" />}
+                {index === 1 && <Zap className="w-4 h-4 text-yellow-500" />}
+                {index === 2 && <Timer className="w-4 h-4 text-green-500" />}
+                {index === 3 && <Heart className="w-4 h-4 text-red-500" />}
+              </div>
+              <span className="text-xs font-medium text-center">{step.title}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+        <p className="text-sm text-blue-800">
+          <strong>실제 측정:</strong> 전 과정이 5분 내외로 완료되며, 즉시 정확한 데이터와 분석 결과를 제공합니다.
+        </p>
+      </div>
+    </div>
+  );
 }
 
 export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
@@ -58,69 +182,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <div className="border-2 border-blue-500 rounded-lg p-4 bg-gray-50">
-                  <h3 className="text-lg font-bold text-center mb-4 text-blue-700">KidsMotion 시스템 영상</h3>
-                  
-                  {/* 영상 테스트 영역 */}
-                  <div className="mb-4 p-3 bg-yellow-100 rounded border-l-4 border-yellow-500">
-                    <p className="text-sm text-yellow-800">
-                      <strong>영상 경로:</strong> {kidsMotionVideo}
-                    </p>
-                    <p className="text-sm text-yellow-800 mt-1">
-                      영상이 보이지 않는다면 파일 형식이나 경로에 문제가 있을 수 있습니다.
-                    </p>
-                  </div>
-
-                  <div className="relative bg-black rounded-lg overflow-hidden" style={{ minHeight: '400px' }}>
-                    <video
-                      ref={videoRef}
-                      controls
-                      preload="metadata"
-                      className="w-full h-full"
-                      style={{ minHeight: '400px', objectFit: 'contain' }}
-                      onLoadStart={() => console.log('✅ Video loading started:', kidsMotionVideo)}
-                      onLoadedData={() => console.log('✅ Video data loaded')}
-                      onLoadedMetadata={(e) => {
-                        const video = e.currentTarget as HTMLVideoElement;
-                        console.log('✅ Video metadata loaded:', {
-                          duration: video.duration,
-                          width: video.videoWidth,
-                          height: video.videoHeight,
-                          src: video.currentSrc
-                        });
-                      }}
-                      onCanPlay={() => console.log('✅ Video can play')}
-                      onError={(e) => {
-                        const video = e.currentTarget as HTMLVideoElement;
-                        console.error('❌ Video error:', {
-                          error: video.error,
-                          networkState: video.networkState,
-                          readyState: video.readyState,
-                          src: video.src
-                        });
-                      }}
-                    >
-                      <source src={kidsMotionVideo} type="video/mp4" />
-                      <source src={kidsMotionVideo} type="video/webm" />
-                      
-                      <div className="flex items-center justify-center h-full text-white">
-                        <p>브라우저에서 이 영상을 재생할 수 없습니다.</p>
-                      </div>
-                    </video>
-                  </div>
-
-                  {/* 대체 링크 제공 */}
-                  <div className="mt-4 text-center">
-                    <a 
-                      href={kidsMotionVideo} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                    >
-                      영상 파일 직접 열기
-                    </a>
-                  </div>
-                </div>
+                <VideoPlayer />
               </div>
             </CardContent>
           </Card>
