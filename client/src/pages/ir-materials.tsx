@@ -11,125 +11,244 @@ interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
 }
 
-function KidsMotionDemo() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+function VideoPlayer() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [videoError, setVideoError] = useState<string | null>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [fallbackMethod, setFallbackMethod] = useState(0);
+  const [useIframe, setUseIframe] = useState(false);
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
 
-  const demoSteps = [
-    {
-      title: "아이가 자전거에 앉습니다",
-      description: "안전한 고정형 자전거에서 측정을 시작합니다",
-      icon: <Activity className="w-12 h-12 text-blue-500" />,
-      color: "bg-blue-100"
-    },
-    {
-      title: "5초간 최대 파워 측정",
-      description: "폭발적인 순간 파워를 정확히 측정합니다",
-      icon: <Zap className="w-12 h-12 text-yellow-500" />,
-      color: "bg-yellow-100"
-    },
-    {
-      title: "지구력 측정 (15초, 30초, 60초)",
-      description: "지속적인 운동 능력을 단계별로 평가합니다",
-      icon: <Timer className="w-12 h-12 text-green-500" />,
-      color: "bg-green-100"
-    },
-    {
-      title: "심박수 및 밸런스 분석",
-      description: "심폐기능과 좌우 균형을 동시에 확인합니다",
-      icon: <Heart className="w-12 h-12 text-red-500" />,
-      color: "bg-red-100"
-    }
+  // 여러 영상 소스 경로 시도
+  const videoSources = [
+    "/videos/kidsmotion.mp4",
+    "/videos/kidsmotion_original.mp4"
   ];
 
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setCurrentStep((prev) => (prev + 1) % demoSteps.length);
-      }, 3000);
-      return () => clearInterval(interval);
+  // Blob URL로 영상 로드 시도
+  const loadVideoAsBlob = async (src: string) => {
+    try {
+      const response = await fetch(src);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      setBlobUrl(url);
+      console.log("Blob URL created:", url);
+      return url;
+    } catch (error) {
+      console.error("Failed to load video as blob:", error);
+      return null;
     }
-  }, [isPlaying, demoSteps.length]);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (blobUrl) {
+        URL.revokeObjectURL(blobUrl);
+      }
+    };
+  }, [blobUrl]);
+
+  const handleVideoError = async () => {
+    console.error(`Video source failed: ${videoSources[fallbackMethod]}`);
+    
+    // Blob URL 시도
+    if (!blobUrl) {
+      const blob = await loadVideoAsBlob(videoSources[fallbackMethod]);
+      if (blob) {
+        return;
+      }
+    }
+    
+    if (fallbackMethod < videoSources.length - 1) {
+      setFallbackMethod(prev => prev + 1);
+      setVideoError(null);
+    } else {
+      setVideoError("모든 영상 소스에서 로드에 실패했습니다. iframe 방식을 시도합니다.");
+      setUseIframe(true);
+    }
+  };
+
+  const handleVideoLoad = () => {
+    console.log("Video loaded successfully:", blobUrl || videoSources[fallbackMethod]);
+    setVideoLoaded(true);
+    setVideoError(null);
+  };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
+  }, [fallbackMethod, blobUrl]);
+
+  // 강제로 영상 표시 시도
+  useEffect(() => {
+    if (videoLoaded && videoRef.current) {
+      const video = videoRef.current;
+      
+      // CSS 강제 적용
+      video.style.cssText = `
+        width: 100% !important;
+        height: auto !important;
+        min-height: 300px !important;
+        background: #000 !important;
+        display: block !important;
+        object-fit: contain !important;
+      `;
+      
+      // 재생 시도
+      video.play().catch(() => {
+        console.log("Autoplay blocked, requiring user interaction");
+      });
+    }
+  }, [videoLoaded]);
 
   return (
-    <div className="border-2 border-purple-300 rounded-lg p-6 bg-gradient-to-br from-purple-50 to-indigo-50">
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold text-purple-800 mb-2">KidsMotion 시스템 체험</h3>
-        <p className="text-gray-600">아이들의 체력 측정 과정을 단계별로 확인하세요</p>
+    <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+      <div className="text-center mb-4">
+        <h3 className="text-xl font-bold text-gray-800">KidsMotion 시스템 영상</h3>
+        <p className="text-gray-600 text-sm">실제 측정 과정을 확인해보세요</p>
       </div>
 
-      <div className="relative bg-white rounded-lg p-8 min-h-[400px] shadow-inner">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
-          >
-            <div className={`inline-flex items-center justify-center w-24 h-24 rounded-full ${demoSteps[currentStep].color} mb-6`}>
-              {demoSteps[currentStep].icon}
-            </div>
-            
-            <h4 className="text-xl font-bold text-gray-800 mb-4">
-              {demoSteps[currentStep].title}
-            </h4>
-            
-            <p className="text-gray-600 text-lg mb-8">
-              {demoSteps[currentStep].description}
-            </p>
-
-            <div className="flex justify-center space-x-2 mb-6">
-              {demoSteps.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentStep ? 'bg-purple-500' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        <div className="absolute bottom-4 right-4">
-          <Button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className={`${isPlaying ? 'bg-red-500 hover:bg-red-600' : 'bg-purple-500 hover:bg-purple-600'} text-white`}
-          >
-            {isPlaying ? '일시정지' : <><Play className="w-4 h-4 mr-2" />자동 재생</>}
-          </Button>
-        </div>
+      {/* 디버깅 정보 */}
+      <div className="mb-4 p-3 bg-blue-50 rounded border-l-4 border-blue-500 text-sm">
+        <p><strong>현재 시도 중인 소스:</strong> {videoSources[fallbackMethod]}</p>
+        <p><strong>상태:</strong> {videoLoaded ? "로드됨" : "로딩 중..."}</p>
+        {videoError && <p className="text-red-600"><strong>오류:</strong> {videoError}</p>}
       </div>
 
-      <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-        {demoSteps.map((step, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentStep(index)}
-            className={`p-3 rounded-lg border-2 transition-all ${
-              currentStep === index 
-                ? 'border-purple-500 bg-purple-100' 
-                : 'border-gray-200 bg-white hover:bg-gray-50'
-            }`}
-          >
-            <div className="flex flex-col items-center space-y-2">
-              <div className={`w-8 h-8 rounded-full ${step.color} flex items-center justify-center`}>
-                {index === 0 && <Activity className="w-4 h-4 text-blue-500" />}
-                {index === 1 && <Zap className="w-4 h-4 text-yellow-500" />}
-                {index === 2 && <Timer className="w-4 h-4 text-green-500" />}
-                {index === 3 && <Heart className="w-4 h-4 text-red-500" />}
+      <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
+        <video
+          ref={videoRef}
+          key={`video-${fallbackMethod}-${Date.now()}`}
+          controls
+          playsInline
+          preload="auto"
+          width="800"
+          height="450"
+          className="w-full h-auto max-w-full"
+          style={{ 
+            minHeight: '300px',
+            backgroundColor: '#000',
+            display: 'block'
+          }}
+          onLoadedData={handleVideoLoad}
+          onError={handleVideoError}
+          onLoadedMetadata={(e) => {
+            const video = e.currentTarget as HTMLVideoElement;
+            console.log("Video metadata:", {
+              duration: video.duration,
+              videoWidth: video.videoWidth,
+              videoHeight: video.videoHeight,
+              currentSrc: video.currentSrc,
+              networkState: video.networkState,
+              readyState: video.readyState
+            });
+            
+            // 강제로 크기 설정 시도
+            if (video.videoWidth === 0 || video.videoHeight === 0) {
+              video.style.width = '100%';
+              video.style.height = 'auto';
+              console.warn("Video dimensions are 0, forcing CSS dimensions");
+            }
+          }}
+          onCanPlay={() => {
+            console.log("Video can play");
+            if (videoRef.current) {
+              const video = videoRef.current;
+              console.log("Forcing video visibility:", {
+                offsetWidth: video.offsetWidth,
+                offsetHeight: video.offsetHeight,
+                clientWidth: video.clientWidth,
+                clientHeight: video.clientHeight
+              });
+            }
+          }}
+        >
+          <source src={blobUrl || videoSources[fallbackMethod]} type="video/mp4" />
+          
+          <div className="flex items-center justify-center h-full text-white p-8">
+            <div className="text-center">
+              <p className="mb-4">브라우저에서 영상을 재생할 수 없습니다.</p>
+              <div className="space-y-2">
+                <a 
+                  href={videoSources[fallbackMethod]} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mr-2"
+                >
+                  영상 파일 직접 열기
+                </a>
+                <Button 
+                  onClick={() => loadVideoAsBlob(videoSources[fallbackMethod])}
+                  className="bg-green-600 hover:bg-green-700"
+                >
+                  Blob 방식으로 다시 시도
+                </Button>
               </div>
-              <span className="text-xs font-medium text-center">{step.title}</span>
             </div>
-          </button>
+          </div>
+        </video>
+
+        {/* Canvas fallback for corrupted video files */}
+        {videoLoaded && videoRef.current && (
+          <canvas
+            ref={(canvas) => {
+              if (canvas && videoRef.current) {
+                const ctx = canvas.getContext('2d');
+                const video = videoRef.current;
+                
+                const drawFrame = () => {
+                  if (video.readyState >= 2) {
+                    canvas.width = video.offsetWidth || 800;
+                    canvas.height = video.offsetHeight || 450;
+                    ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
+                  }
+                  requestAnimationFrame(drawFrame);
+                };
+                
+                video.addEventListener('play', () => {
+                  drawFrame();
+                });
+              }
+            }}
+            className="absolute top-0 left-0 w-full h-full pointer-events-none"
+            style={{ display: videoRef.current?.videoWidth === 0 ? 'block' : 'none' }}
+          />
+        )}
+
+        {!videoLoaded && !videoError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
+            <div className="text-white text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+              <p>영상을 로딩하는 중...</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 영상 소스 테스트 버튼들 */}
+      <div className="mt-4 flex flex-wrap gap-2">
+        {videoSources.map((source, index) => (
+          <Button
+            key={index}
+            variant={index === fallbackMethod ? "default" : "outline"}
+            size="sm"
+            onClick={() => setFallbackMethod(index)}
+            className="text-xs"
+          >
+            소스 {index + 1}
+          </Button>
         ))}
       </div>
 
-      <div className="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-        <p className="text-sm text-blue-800">
-          <strong>실제 측정:</strong> 전 과정이 5분 내외로 완료되며, 즉시 정확한 데이터와 분석 결과를 제공합니다.
+      {/* 수동 영상 업로드 옵션 */}
+      <div className="mt-4 p-3 bg-yellow-50 rounded border-l-4 border-yellow-500">
+        <p className="text-sm text-yellow-800">
+          <strong>문제가 계속되는 경우:</strong> 영상 파일을 다시 변환하여 제공해주시면 즉시 교체하겠습니다.
+          권장 사양: MP4, H.264 코덱, 1920x1080 이하 해상도
         </p>
       </div>
     </div>
