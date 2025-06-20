@@ -127,10 +127,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       const userData = await response.json();
       console.log('받은 사용자 데이터:', userData);
       
-      if (userData && userData.name) {
+      if (userData && userData.studentName) {
         // 기본 정보 자동 입력
-        form.setValue("affiliation", userData.organization || "");
-        form.setValue("birthDate", userData.birth_date || "");
+        form.setValue("affiliation", userData.affiliation || "");
+        form.setValue("birthDate", userData.birthDate || "");
         // 성별 변환: "남성" -> "M", "여성" -> "F"
         const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
         form.setValue("gender", genderCode);
@@ -147,7 +147,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         
         toast({
           title: "자동 입력 완료",
-          description: `${userData.name}님의 정보를 불러왔습니다.`,
+          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
         });
       } else {
         toast({
