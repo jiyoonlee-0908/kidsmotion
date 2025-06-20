@@ -3,7 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
 import { useEffect, useRef } from "react";
-import kidsMotionVideo from "@assets/kidsmotion_video_1750459475656.mp4";
+// 정적 파일로 영상 경로 설정
+const kidsMotionVideo = "/videos/kidsmotion.mp4";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -57,7 +58,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <div className="bg-gray-900 rounded-lg p-2">
+                <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
                   <video
                     ref={videoRef}
                     key={kidsMotionVideo}
@@ -66,19 +67,39 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     loop
                     controls
                     playsInline
-                    width="720"
-                    height="405"
-                    className="w-full max-w-3xl mx-auto rounded block"
-                    style={{ maxHeight: '405px' }}
+                    muted
+                    width="800"
+                    height="450"
+                    className="w-full max-w-4xl mx-auto rounded-lg bg-black"
+                    style={{ 
+                      display: 'block',
+                      minHeight: '300px',
+                      backgroundColor: '#000'
+                    }}
                     onLoadStart={() => console.log('Video loading started')}
                     onCanPlay={() => console.log('Video can play')}
                     onPlay={() => console.log('Video started playing')}
-                    onError={(e) => console.error('Video error:', e)}
+                    onLoadedData={() => console.log('Video data loaded:', kidsMotionVideo)}
+                    onLoadedMetadata={(e) => {
+                      console.log('Video metadata:', {
+                        duration: e.target.duration,
+                        videoWidth: e.target.videoWidth,
+                        videoHeight: e.target.videoHeight
+                      });
+                    }}
+                    onError={(e) => {
+                      console.error('Video error:', e);
+                      console.error('Video src:', kidsMotionVideo);
+                      console.error('Video element:', e.target);
+                    }}
                   >
                     <source src={kidsMotionVideo} type="video/mp4" />
                     브라우저가 이 영상을 재생할 수 없습니다.
                   </video>
-                  <p className="text-white text-sm text-center mt-2">KidsMotion 시스템 소개</p>
+                  <div className="mt-4 text-center">
+                    <p className="text-gray-700 text-sm font-medium">KidsMotion 시스템 소개 영상</p>
+                    <p className="text-gray-500 text-xs mt-1">파일 경로: {kidsMotionVideo}</p>
+                  </div>
                 </div>
               </div>
             </CardContent>
