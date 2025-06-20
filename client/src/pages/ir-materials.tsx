@@ -104,7 +104,7 @@ function AnimatedSection({ children, className = "" }: { children: React.ReactNo
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
+      transition={{ duration: 0.1, ease: "easeOut" }}
       className={className}
     >
       {children}
@@ -128,42 +128,49 @@ function ProblemSection() {
       <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
         {/* 왼쪽: 부모들의 고민 */}
         <div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-8">부모들의 현실적 고민</h3>
-          <div className="space-y-4">
-            <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border border-red-100 shadow-sm">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">"좌우가 틀어진 것 같은데..."</p>
-                  <p className="text-green-700 text-sm font-medium">→ 좌우 밸런스 정확한 수치 측정</p>
-                </div>
+          <h3 className="text-3xl font-bold text-gray-800 mb-8">부모들의 현실적 고민</h3>
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-red-500 to-orange-500 p-8 rounded-2xl shadow-lg text-white">
+              <div className="mb-4">
+                <div className="text-2xl font-bold mb-4">"아이 좌우가 심하게 틀어진 것 같은데..."</div>
+                <div className="text-lg opacity-90">"혹시 성장에 문제가 생기는 건 아니겠지?"</div>
+              </div>
+              <div className="bg-white/20 p-4 rounded-xl">
+                <div className="text-lg font-bold text-yellow-200">→ 좌우 밸런스 정확한 수치로 측정</div>
+                <div className="text-lg font-bold text-yellow-200">→ 개선방안 제시</div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border border-red-100 shadow-sm">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">2</div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">"운동 재능이 있을까?"</p>
-                  <p className="text-green-700 text-sm font-medium">→ 상위 1% 재능 확인 가능</p>
-                </div>
+            
+            <div className="bg-gradient-to-br from-purple-500 to-blue-500 p-8 rounded-2xl shadow-lg text-white">
+              <div className="mb-4">
+                <div className="text-2xl font-bold mb-4">"아이 운동시키고 싶은데 이 정도면 운동시켜도 될까?"</div>
+                <div className="text-lg opacity-90">"상위 1%도 살아남지 못하는데..."</div>
+              </div>
+              <div className="bg-white/20 p-4 rounded-xl">
+                <div className="text-lg font-bold text-yellow-200">→ 1등급 달성 시 상위 1% 재능 확인</div>
+                <div className="text-lg font-bold text-yellow-200">→ 운동 투자 가치 명확 판단</div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border border-red-100 shadow-sm">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">"또래보다 뒤처지나?"</p>
-                  <p className="text-green-700 text-sm font-medium">→ 정확한 백분위 위치 제공</p>
-                </div>
+            
+            <div className="bg-gradient-to-br from-green-500 to-emerald-500 p-8 rounded-2xl shadow-lg text-white">
+              <div className="mb-4">
+                <div className="text-2xl font-bold mb-4">"다른 아이들보다 체력이 많이 떨어지는 것 같은데..."</div>
+                <div className="text-lg opacity-90">"정확히 얼마나 뒤처지는 거지?"</div>
+              </div>
+              <div className="bg-white/20 p-4 rounded-xl">
+                <div className="text-lg font-bold text-yellow-200">→ 1~5등급 체제와 백분위 퍼센트 제공</div>
+                <div className="text-lg font-bold text-yellow-200">→ 우리 아이의 정확한 위치 확인</div>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-red-50 to-orange-50 p-6 rounded-xl border border-red-100 shadow-sm">
-              <div className="flex items-start space-x-3">
-                <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold text-sm">4</div>
-                <div>
-                  <p className="text-gray-800 font-medium mb-2">"병원에서 괜찮다는데..."</p>
-                  <p className="text-green-700 text-sm font-medium">→ 조기 개입 가능한 정밀 진단</p>
-                </div>
+            
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-500 p-8 rounded-2xl shadow-lg text-white">
+              <div className="mb-4">
+                <div className="text-2xl font-bold mb-4">"아이 운동발달이 늦는 것 같아서 병원에 갔는데"</div>
+                <div className="text-lg opacity-90">"'괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</div>
+              </div>
+              <div className="bg-white/20 p-4 rounded-xl">
+                <div className="text-lg font-bold text-yellow-200">→ 조기 개입 가능: 5등급, 하위 4% 바로 확인</div>
+                <div className="text-lg font-bold text-yellow-200">→ 즉시 대응</div>
               </div>
             </div>
           </div>
@@ -186,28 +193,72 @@ function ProblemSection() {
       </div>
 
       {/* 현재 시스템의 치명적 한계 */}
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8">
-        <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">현재 측정 시스템의 치명적 한계</h3>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-yellow-400">
-            <h4 className="font-bold text-yellow-700 mb-3">영유아검진</h4>
-            <p className="text-gray-600 text-sm mb-3">"닭싸움 자세로 3번 점프"</p>
-            <div className="bg-yellow-50 p-2 rounded text-xs text-yellow-800">
-              주관적 판단 ・ 일관성 부족
+      <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-12 text-white">
+        <h3 className="text-4xl font-bold text-center mb-12">현재 검진의 한계</h3>
+        
+        <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="bg-yellow-500/20 rounded-2xl p-8 border-2 border-yellow-400">
+            <h4 className="text-3xl font-bold text-yellow-400 mb-6">영유아검진의 대근육운동발달 항목의 한계</h4>
+            <div className="space-y-4 text-lg">
+              <div className="bg-yellow-400/20 p-4 rounded-xl">
+                <p className="font-bold">"두 손으로 한 발을 잡고, 닭싸움 자세로 세번이상 점프한다"</p>
+                <p className="text-yellow-200">→ ①②③④ (54-60개월 검진에서 실시)</p>
+              </div>
+              <div className="bg-yellow-400/20 p-4 rounded-xl">
+                <p className="font-bold">"아무것도 붙잡지 않고 한발로 3초 이상 서있는다"</p>
+                <p className="text-yellow-200">→ ①②③④ (42-48개월 검진에서 실시)</p>
+              </div>
+              <div className="bg-red-500/30 p-4 rounded-xl">
+                <p className="text-2xl font-bold text-red-300">"①②③④의 기준이 뭔가요?"</p>
+                <p className="text-xl font-bold text-red-200">→ 주관적 판단, 일관성 없음</p>
+              </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-red-400">
-            <h4 className="font-bold text-red-700 mb-3">초등체력장</h4>
-            <p className="text-gray-600 text-sm mb-3">아날로그 측정 방식</p>
-            <div className="bg-red-50 p-2 rounded text-xs text-red-800">
-              날씨/공간 편차 ・ 정확도 한계
+          
+          <div className="bg-red-500/20 rounded-2xl p-8 border-2 border-red-400">
+            <h4 className="text-3xl font-bold text-red-400 mb-6">초등체력장의 한계</h4>
+            <div className="space-y-4 text-lg">
+              <div className="bg-red-400/20 p-4 rounded-xl">
+                <p className="font-bold">아날로그식 측정으로 정확도 한계</p>
+              </div>
+              <div className="bg-red-400/20 p-4 rounded-xl">
+                <p className="font-bold">날씨, 공간에 따른 측정 편차 발생</p>
+              </div>
+              <div className="bg-red-400/20 p-4 rounded-xl">
+                <p className="font-bold">측정자에 따른 주관적 판단 개입 가능</p>
+              </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-6 shadow-sm border-l-4 border-blue-400">
-            <h4 className="font-bold text-blue-700 mb-3">국가 체력측정</h4>
-            <p className="text-gray-600 text-sm mb-3">악력기 부분 측정</p>
-            <div className="bg-blue-50 p-2 rounded text-xs text-blue-800">
-              정량 데이터 부재 ・ 활용 불가
+          
+          <div className="bg-blue-500/20 rounded-2xl p-8 border-2 border-blue-400">
+            <h4 className="text-3xl font-bold text-blue-400 mb-6">국가 아동대상 체력측정의 한계</h4>
+            <div className="space-y-4 text-lg">
+              <div className="bg-blue-400/20 p-4 rounded-xl">
+                <p className="font-bold">악력기로 근력 체크</p>
+                <p className="text-blue-200">→ 전신근력이 아닌 부분근력만 측정</p>
+              </div>
+              <div className="bg-blue-400/20 p-4 rounded-xl">
+                <p className="font-bold">국가 주관 평가임에도 정량 데이터 제공 안됨</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* 종합 결과 */}
+        <div className="bg-gradient-to-r from-red-600 to-orange-600 rounded-2xl p-8">
+          <h4 className="text-3xl font-bold text-center mb-8">종합 결과</h4>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold mb-2">정량적 데이터 부재로</div>
+              <div className="text-xl">조기발견 실패</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold mb-2">부모의 불안감 증가 및</div>
+              <div className="text-xl">적절한 대응 시기 놓침</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold mb-2">개인별 맞춤</div>
+              <div className="text-xl">개선 방안 제시 불가</div>
             </div>
           </div>
         </div>
@@ -487,32 +538,74 @@ function TractionSection() {
         </div>
       </div>
       
-      {/* 정부 정책 연계 */}
-      <div className="grid lg:grid-cols-2 gap-12 mb-16">
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-blue-800 mb-6">국민체력100의 한계</h3>
-          <div className="space-y-4">
-            <div className="bg-white p-4 rounded-lg border-l-4 border-orange-500">
-              <h4 className="font-bold text-orange-600 mb-2">아날로그 측정</h4>
-              <p className="text-gray-700 text-sm">줄자, 수동 카운트, 수동 기록</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg border-l-4 border-red-500">
-              <h4 className="font-bold text-red-600 mb-2">결과</h4>
-              <p className="text-gray-700 text-sm">정확성 부족, 빅데이터 구축 불가</p>
-            </div>
-          </div>
+      {/* 정부 정책 연계 - 현재 정부정책: 국민건강 데이터화 추진 */}
+      <div className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-2xl p-12 text-white mb-16">
+        <div className="text-center mb-12">
+          <div className="text-5xl font-bold mb-4">🏛️ 현재 정부정책</div>
+          <div className="text-3xl font-bold text-blue-300">국민건강 데이터화 추진</div>
+          <div className="text-xl text-blue-200 mt-4">국민체육진흥공단 국민체력100과의 연결점</div>
         </div>
         
-        <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-green-800 mb-6">우리의 디지털 혁신</h3>
-          <div className="space-y-4">
-            <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
-              <h4 className="font-bold text-green-600 mb-2">정밀 디지털 측정</h4>
-              <p className="text-gray-700 text-sm">0.1W 단위 정확도, 실시간 수집</p>
+        <div className="grid lg:grid-cols-2 gap-12">
+          <div className="bg-red-500/20 rounded-2xl p-8 border-2 border-red-400">
+            <h3 className="text-3xl font-bold text-red-400 mb-8">국민체육진흥공단 국민체력100의 한계</h3>
+            
+            <div className="mb-8">
+              <h4 className="text-2xl font-bold text-red-300 mb-6">현재 측정 방식 (아날로그)</h4>
+              <div className="space-y-4">
+                <div className="bg-red-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">제자리 멀리뛰기</div>
+                  <div className="text-lg text-red-200">→ 줄자로 측정</div>
+                </div>
+                <div className="bg-red-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">윗몸말아올리기</div>
+                  <div className="text-lg text-red-200">→ 사람이 카운트</div>
+                </div>
+                <div className="bg-red-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">왕복오래달리기</div>
+                  <div className="text-lg text-red-200">→ 수동 기록</div>
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-lg border-l-4 border-blue-500">
-              <h4 className="font-bold text-blue-600 mb-2">국가 빅데이터 기여</h4>
-              <p className="text-gray-700 text-sm">정부 정책 수립 핵심 데이터 제공</p>
+            
+            <div className="bg-gradient-to-r from-red-600 to-orange-600 p-6 rounded-xl">
+              <h4 className="text-2xl font-bold text-center mb-4">결과</h4>
+              <div className="space-y-2 text-lg">
+                <div>• 정확성 부족</div>
+                <div>• 데이터 축적 어려움</div>
+                <div>• 국민건강 빅데이터 구축 불가</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-green-500/20 rounded-2xl p-8 border-2 border-green-400">
+            <h3 className="text-3xl font-bold text-green-400 mb-8">디지털 전환 필요성</h3>
+            
+            <div className="mb-8">
+              <h4 className="text-2xl font-bold text-green-300 mb-6">정부 추진 방향</h4>
+              <div className="space-y-4">
+                <div className="bg-green-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">정량적 데이터 수집 시스템</div>
+                </div>
+                <div className="bg-green-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">국민체력 빅데이터 구축</div>
+                </div>
+                <div className="bg-green-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">객관적 평가로 정책 수립</div>
+                </div>
+                <div className="bg-green-400/20 p-6 rounded-xl">
+                  <div className="text-xl font-bold">비만 예방 조기 개입</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-gradient-to-r from-green-600 to-blue-600 p-6 rounded-xl">
+              <h4 className="text-2xl font-bold text-center mb-4">우리의 해결책</h4>
+              <div className="space-y-2 text-lg">
+                <div>• KidsMotion으로 디지털 체력측정 실현</div>
+                <div>• 정확한 데이터로 정책 수립 지원</div>
+                <div>• 국민체력 빅데이터 구축에 기여</div>
+              </div>
             </div>
           </div>
         </div>
