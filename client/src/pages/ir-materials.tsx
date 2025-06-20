@@ -66,9 +66,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* Founder Letter */}
         <ScrollReveal direction="up" delay={0.2}>
           <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
-          </CardHeader>
+            <CardHeader>
+              <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
+            </CardHeader>
           <CardContent>
             <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
               <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
@@ -130,9 +130,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </CardContent>
         </Card>
+        </ScrollReveal>
 
         {/* 문제 정의 */}
-        <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
+        <ScrollReveal direction="up" delay={0.1}>
+          <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl text-red-700 mb-4">📋 우리가 해결하려는 문제</CardTitle>
           </CardHeader>
@@ -266,9 +268,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </CardContent>
         </Card>
+        </ScrollReveal>
 
         {/* 비즈니스 모델 & 시장 */}
-        <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+        <ScrollReveal direction="up" delay={0.1}>
+          <Card className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
           <CardHeader>
             <CardTitle className="text-2xl text-blue-700 mb-4">🏢 필요한 곳에 닿고 있습니다</CardTitle>
           </CardHeader>
