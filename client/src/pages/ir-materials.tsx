@@ -84,6 +84,38 @@ function VideoPlayer() {
     }
   }, [fallbackMethod, blobUrl]);
 
+  // 스크롤 감지로 영상 재생/정지 제어
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (videoRef.current) {
+          if (entry.isIntersecting) {
+            // 영상이 화면에 보이면 재생
+            videoRef.current.play().catch(() => {
+              console.log("Auto-play prevented by browser");
+            });
+          } else {
+            // 영상이 화면에서 벗어나면 정지
+            videoRef.current.pause();
+          }
+        }
+      },
+      {
+        threshold: 0.5, // 영상의 50% 이상이 보일 때 재생
+        rootMargin: "0px"
+      }
+    );
+
+    observer.observe(videoRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [videoLoaded]);
+
   // 강제로 영상 표시 시도
   useEffect(() => {
     if (videoLoaded && videoRef.current) {
@@ -98,11 +130,6 @@ function VideoPlayer() {
         display: block !important;
         object-fit: contain !important;
       `;
-      
-      // 재생 시도
-      video.play().catch(() => {
-        console.log("Autoplay blocked, requiring user interaction");
-      });
     }
   }, [videoLoaded]);
 
