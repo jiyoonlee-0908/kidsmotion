@@ -46,7 +46,9 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
   const form = useForm<EnhancedFormData>({
     resolver: zodResolver(enhancedFormSchema),
     defaultValues: {
+      measureDate: new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
       studentName: "",
+      affiliation: "",
       birthDate: "",
       gender: "",
       height: 0,
@@ -127,13 +129,17 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
       const userData = await response.json();
       
       if (userData) {
-        // Auto-fill form with Supabase data
-        const currentDate = new Date().toISOString().split('T')[0];
+        console.log('Auto-fill data received:', userData);
         
-        form.setValue('measureDate', userData.measureDate || currentDate);
+        // Auto-fill form with Supabase data
+        const koreaDate = new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"});
+        
+        form.setValue('measureDate', userData.measureDate || koreaDate);
         form.setValue('affiliation', userData.affiliation || '');
         form.setValue('birthDate', userData.birthDate || '');
         form.setValue('gender', userData.gender || '');
+        
+        console.log('Form values after auto-fill:', form.getValues());
         
         // Power values
         form.setValue('power5s', userData.power5s || 0);
