@@ -48,7 +48,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      measureDate: new Date().toISOString().split('T')[0],
+      measureDate: "2025-06-21",
       studentName: "",
       affiliation: "",
       birthDate: "",
@@ -98,6 +98,63 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     createMeasurement.mutate(measurementData);
   };
 
+  // 자동 입력 함수
+  const handleAutoFill = async () => {
+    const name = form.getValues("studentName");
+    if (!name || name.length < 2) {
+      toast({
+        title: "이름을 먼저 입력하세요",
+        description: "최소 2글자 이상의 이름을 입력한 후 자동 입력을 시도해주세요.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/supabase/search-user/${encodeURIComponent(name)}`);
+      
+      if (!response.ok) {
+        throw new Error('검색 실패');
+      }
+      
+      const userData = await response.json();
+      
+      if (userData.name) {
+        // 기본 정보 자동 입력
+        form.setValue("affiliation", userData.organization || "");
+        form.setValue("birthDate", userData.birth_date || "");
+        form.setValue("gender", userData.gender || "");
+        
+        // 가민 데이터가 있으면 파워 값들도 입력
+        if (userData.power5s) {
+          form.setValue("power5s", userData.power5s);
+          form.setValue("power15s", userData.power15s);
+          form.setValue("power30s", userData.power30s);
+          form.setValue("power60s", userData.power60s);
+          form.setValue("leftBalance", userData.leftBalance);
+          form.setValue("rightBalance", userData.rightBalance);
+        }
+        
+        toast({
+          title: "자동 입력 완료",
+          description: `${userData.name}님의 정보를 불러왔습니다.`,
+        });
+      } else {
+        toast({
+          title: "데이터를 찾을 수 없습니다",
+          description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
+          variant: "destructive"
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "자동 입력 실패",
+        description: "데이터를 불러오는 중 오류가 발생했습니다.",
+        variant: "destructive"
+      });
+    }
+  };
+
   // Auto-adjust right balance when left balance changes
   const handleLeftBalanceChange = (value: string) => {
     const leftValue = parseFloat(value) || 0;
@@ -143,9 +200,20 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>이름</FormLabel>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
+                    <div className="flex gap-2">
+                      <FormControl>
+                        <Input {...field} placeholder="예: 지윤짱" />
+                      </FormControl>
+                      <Button 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        onClick={handleAutoFill}
+                        className="whitespace-nowrap"
+                      >
+                        자동입력
+                      </Button>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
