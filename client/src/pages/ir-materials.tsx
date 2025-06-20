@@ -112,6 +112,9 @@ function VideoPlayer() {
         key={`video-latest-${Date.now()}`}
         src={`/videos/kidsmotion.mp4?v=${Date.now()}`}
         controls
+        autoPlay
+        loop
+        muted
         playsInline
         preload="metadata"
         className="w-full h-full rounded-lg shadow-lg"
@@ -121,6 +124,13 @@ function VideoPlayer() {
         }}
         onLoadedData={handleVideoLoad}
         onError={handleVideoError}
+        onEnded={() => {
+          // 영상 끝나면 즉시 다시 재생
+          if (videoRef.current) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play();
+          }
+        }}
       >
         <source src={`/videos/kidsmotion.mp4?v=${Date.now()}`} type="video/mp4" />
         브라우저에서 영상을 재생할 수 없습니다.
