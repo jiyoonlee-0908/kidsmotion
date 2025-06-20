@@ -44,6 +44,8 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   const { toast } = useToast();
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showHeartRate, setShowHeartRate] = useState(false);
+  const [showParticipantSelection, setShowParticipantSelection] = useState(false);
+  const [participantOptions, setParticipantOptions] = useState<any[]>([]);
   
   // 한국 시간 기준 오늘 날짜 가져오기
   const getKoreanDate = () => {
@@ -105,6 +107,55 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     createMeasurement.mutate(measurementData);
   };
 
+  // 폼 데이터 채우기 공통 함수
+  const fillFormData = (userData: any) => {
+    form.setValue("affiliation", userData.affiliation || "");
+    form.setValue("birthDate", userData.birthDate || "");
+    // 성별 변환: "남성" -> "M", "여성" -> "F"
+    const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
+    form.setValue("gender", genderCode);
+    
+    // 가민 데이터가 있으면 파워 값들도 입력
+    if (userData.power5s) {
+      form.setValue("power5s", userData.power5s);
+      form.setValue("power15s", userData.power15s);
+      form.setValue("power30s", userData.power30s);
+      form.setValue("power60s", userData.power60s);
+      form.setValue("leftBalance", userData.leftBalance);
+      form.setValue("rightBalance", userData.rightBalance);
+    }
+  };
+
+  // 특정 참가자 선택 함수
+  const handleParticipantSelect = async (participantId: number) => {
+    try {
+      const response = await fetch(`/api/supabase/participant/${participantId}`);
+      
+      if (!response.ok) {
+        throw new Error('참가자 데이터 불러오기 실패');
+      }
+      
+      const userData = await response.json();
+      
+      if (userData && userData.studentName) {
+        fillFormData(userData);
+        setShowParticipantSelection(false);
+        setParticipantOptions([]);
+        
+        toast({
+          title: "자동 입력 완료",
+          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "자동 입력 실패",
+        description: "선택한 참가자의 데이터를 불러오는 중 오류가 발생했습니다.",
+        variant: "destructive"
+      });
+    }
+  };
+
   // 자동 입력 함수
   const handleAutoFill = async () => {
     const name = form.getValues("studentName");
@@ -127,24 +178,20 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       const userData = await response.json();
       console.log('받은 사용자 데이터:', userData);
       
+      // 여러 명이 있는 경우
+      if (userData && userData.multiple) {
+        setParticipantOptions(userData.participants);
+        setShowParticipantSelection(true);
+        toast({
+          title: "여러 명 발견",
+          description: `"${name}" 이름으로 ${userData.participants.length}명이 등록되어 있습니다. 선택해주세요.`,
+        });
+        return;
+      }
+      
+      // 단일 사용자인 경우
       if (userData && userData.studentName) {
-        // 기본 정보 자동 입력
-        form.setValue("affiliation", userData.affiliation || "");
-        form.setValue("birthDate", userData.birthDate || "");
-        // 성별 변환: "남성" -> "M", "여성" -> "F"
-        const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
-        form.setValue("gender", genderCode);
-        
-        // 가민 데이터가 있으면 파워 값들도 입력
-        if (userData.power5s) {
-          form.setValue("power5s", userData.power5s);
-          form.setValue("power15s", userData.power15s);
-          form.setValue("power30s", userData.power30s);
-          form.setValue("power60s", userData.power60s);
-          form.setValue("leftBalance", userData.leftBalance);
-          form.setValue("rightBalance", userData.rightBalance);
-        }
-        
+        fillFormData(userData);
         toast({
           title: "자동 입력 완료",
           description: `${userData.studentName}님의 정보를 불러왔습니다.`,
@@ -304,6 +351,49 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 )}
               />
             </div>
+
+            {/* 참가자 선택 UI */}
+            {showParticipantSelection && (
+              <Card className="bg-blue-50 border-blue-200">
+                <CardHeader>
+                  <CardTitle className="text-blue-700">참가자 선택</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-blue-600 mb-4">
+                    동일한 이름의 참가자가 여러 명 있습니다. 올바른 참가자를 선택해주세요:
+                  </p>
+                  <div className="space-y-2">
+                    {participantOptions.map((participant) => (
+                      <div 
+                        key={participant.id}
+                        className="flex items-center justify-between p-3 bg-white rounded-lg border hover:bg-blue-50 cursor-pointer"
+                        onClick={() => handleParticipantSelect(participant.id)}
+                      >
+                        <div>
+                          <div className="font-semibold">{participant.name}</div>
+                          <div className="text-sm text-gray-600">
+                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
+                          </div>
+                        </div>
+                        <Button variant="outline" size="sm">
+                          선택
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    className="mt-4 w-full"
+                    onClick={() => {
+                      setShowParticipantSelection(false);
+                      setParticipantOptions([]);
+                    }}
+                  >
+                    취소
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Physical Info Section */}
             <div className="grid grid-cols-2 gap-6 mb-8">

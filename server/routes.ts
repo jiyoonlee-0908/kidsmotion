@@ -782,6 +782,75 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 특정 참가자 ID로 데이터 가져오기
+  app.get("/api/supabase/participant/:id", async (req, res) => {
+    try {
+      const participantId = parseInt(req.params.id);
+      
+      if (!participantId) {
+        return res.status(400).json({ error: "유효하지 않은 참가자 ID" });
+      }
+
+      console.log("=== 특정 참가자 데이터 검색 ===", participantId);
+      
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('id', participantId)
+        .limit(1);
+
+      if (participantError || !participants || participants.length === 0) {
+        console.log("참가자를 찾을 수 없음:", participantId);
+        return res.json(null);
+      }
+
+      const participant = participants[0];
+      console.log("참가자 발견:", participant.name);
+
+      // 테스트 세션 찾기
+      const testSession = await getLatestCompletedTest(participant.name);
+      
+      let powerValues = null;
+      let balance = null;
+
+      if (testSession) {
+        console.log("테스트 세션 발견:", testSession.id);
+        const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
+        
+        if (garminData && garminData.length > 0) {
+          powerValues = extractPowerValues(garminData);
+          balance = calculateBalance(garminData);
+        }
+      }
+
+      const result = {
+        measureDate: testSession ? formatDate(testSession.endTime) : new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
+        studentName: participant.name,
+        affiliation: participant.organization || '',
+        birthDate: formatDate(participant.birth_date),
+        gender: formatGender(participant.gender),
+        power5s: powerValues?.power5s || null,
+        power15s: powerValues?.power15s || null,
+        power30s: powerValues?.power30s || null,
+        power60s: powerValues?.power60s || null,
+        power180s: powerValues?.power180s || null,
+        power360s: powerValues?.power360s || null,
+        leftBalance: balance?.leftBalance || null,
+        rightBalance: balance?.rightBalance || null,
+        height: null,
+        weight: null,
+        maxHeartRate: null,
+        avgHeartRate: null
+      };
+
+      console.log("특정 참가자 데이터 준비 완료:", result);
+      res.json(result);
+    } catch (error) {
+      console.error("특정 참가자 검색 중 오류:", error);
+      res.status(500).json({ error: "참가자 검색 실패" });
+    }
+  });
+
   // Supabase integration endpoints
   app.get("/api/supabase/search-user/:name", async (req, res) => {
     try {
@@ -794,17 +863,33 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Supabase 사용자 검색 ===", name);
       
-      // 1단계: 정확한 이름으로 참가자 기본 정보 찾기
+      // 1단계: 정확한 이름으로 모든 참가자 찾기
       const { data: participants, error: participantError } = await supabase
         .from('participants')
         .select('*')
         .eq('name', name)
-        .order('created_at', { ascending: false })
-        .limit(1);
+        .order('created_at', { ascending: false });
 
       if (participantError || !participants || participants.length === 0) {
         console.log("참가자를 찾을 수 없음:", name);
         return res.json(null);
+      }
+
+      // 여러 명이 있을 때는 선택 목록 반환
+      if (participants.length > 1) {
+        console.log(`${name} 이름으로 ${participants.length}명 발견`);
+        const participantList = participants.map(p => ({
+          id: p.id,
+          name: p.name,
+          birthDate: p.birth_date,
+          gender: p.gender,
+          organization: p.organization || "",
+          createdAt: p.created_at
+        }));
+        return res.json({ 
+          multiple: true, 
+          participants: participantList 
+        });
       }
 
       const participant = participants[0];
