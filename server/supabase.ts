@@ -49,24 +49,40 @@ export interface GarminDataPoint {
 // 이름으로 최신 완료된 테스트 세션 찾기
 export async function getLatestCompletedTest(name: string): Promise<TestSessionData | null> {
   try {
-    const { data, error } = await supabase
-      .from('test_sessions')
-      .select(`
-        *,
-        participants!test_sessions_userId_fkey (*)
-      `)
-      .eq('participants.name', name)
-      .eq('status', 'completed')
-      .order('endTime', { ascending: false })
-      .limit(1)
-      .single();
+    // 먼저 이름으로 참가자 찾기 (부분 일치 포함)
+    const { data: participants, error: participantError } = await supabase
+      .from('participants')
+      .select('*')
+      .or(`name.eq.${name},name.ilike.%${name}%`)
+      .order('created_at', { ascending: false })
+      .limit(1);
 
-    if (error) {
-      console.error('Error fetching test session:', error);
+    if (participantError || !participants || participants.length === 0) {
+      console.log('No participant found for name:', name);
       return null;
     }
 
-    return data;
+    const participant = participants[0];
+    
+    // 해당 참가자의 테스트 세션 찾기
+    const { data: testSession, error: sessionError } = await supabase
+      .from('test_sessions')
+      .select('*')
+      .eq('user_id', participant.id)
+      .eq('status', 'completed')
+      .order('end_time', { ascending: false })
+      .limit(1);
+
+    if (sessionError || !testSession || testSession.length === 0) {
+      console.log('No completed test session found for participant:', participant.name);
+      return null;
+    }
+
+    // 참가자 정보를 포함한 결과 반환
+    return {
+      ...testSession[0],
+      participants: participant
+    };
   } catch (error) {
     console.error('Error in getLatestCompletedTest:', error);
     return null;
