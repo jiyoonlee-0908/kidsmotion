@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
+import kidsMotionVideo from "@assets/kidsmotion_video_1750458006588.mp4";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -41,33 +42,22 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
                   <p className="text-gray-600 mb-4">영상 테스트</p>
                   
-                  {/* 직접 링크 테스트 */}
-                  <div className="mb-4">
-                    <a 
-                      href="/kidsmotion_ir.mp4" 
-                      target="_blank" 
-                      className="text-blue-600 underline"
-                    >
-                      영상 파일 직접 열기 (새 탭)
-                    </a>
-                  </div>
-                  
-                  {/* 비디오 태그 */}
                   <video
-                    src="/kidsmotion_ir.mp4"
+                    src={kidsMotionVideo}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
                     controls
                     width="720"
                     height="405"
-                    className="mx-auto rounded-lg bg-black"
-                    onError={(e) => console.error('Video error:', e)}
-                    onLoadStart={() => console.log('Video load started')}
-                    onLoadedData={() => console.log('Video data loaded')}
+                    className="mx-auto rounded-lg"
                   >
-                    <source src="/kidsmotion_ir.mp4" type="video/mp4" />
+                    <source src={kidsMotionVideo} type="video/mp4" />
                     브라우저가 video 태그를 지원하지 않습니다.
                   </video>
                   
-                  <p className="text-sm text-gray-500 mt-2">파일 경로: /kidsmotion_ir.mp4</p>
+                  <p className="text-sm text-gray-500 mt-2">영상 소스: {kidsMotionVideo}</p>
                 </div>
               </div>
             </CardContent>
