@@ -94,21 +94,12 @@ function VideoPlayer() {
   );
 }
 
-// 애니메이션 컴포넌트
+// 애니메이션 제거 - 모든 내용 즉시 표시
 function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.1, ease: "easeOut" }}
-      className={className}
-    >
+    <div className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -185,9 +176,6 @@ function ProblemSection() {
               alt="KidsMotion 스마트 사이클" 
               className="relative w-full max-w-md rounded-xl shadow-2xl"
             />
-            <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-lg p-3">
-              <p className="text-xs font-bold text-purple-600">정밀 측정 장비</p>
-            </div>
           </div>
         </div>
       </div>
@@ -300,31 +288,48 @@ function SolutionSection() {
         </div>
 
         {/* 오른쪽: 핵심 기술 특징 */}
-        <div className="order-1 lg:order-2 space-y-8">
-          <h3 className="text-3xl font-bold text-gray-900">혁신적 측정 기술</h3>
-          
-          <div className="space-y-6">
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold">1</div>
-              <div>
-                <h4 className="text-xl font-bold text-gray-800 mb-2">유동성 프레임 설계</h4>
-                <p className="text-gray-600">키 100-150cm 완벽 대응, 성장하는 아동을 위한 조절 가능한 구조</p>
+        <div className="order-1 lg:order-2">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            {/* 왼쪽: 기술 특징 */}
+            <div className="space-y-8">
+              <h3 className="text-3xl font-bold text-gray-900">혁신적 측정 기술</h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-xl flex items-center justify-center text-white font-bold">1</div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-800 mb-2">유동성 프레임 설계</h4>
+                    <p className="text-gray-600">키 100-150cm 완벽 대응, 성장하는 아동을 위한 조절 가능한 구조</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-xl flex items-center justify-center text-white font-bold">2</div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-800 mb-2">DC 모터 정밀 측정</h4>
+                    <p className="text-gray-600">좌우 독립 센서로 0.1W 단위 정확도, 실시간 밸런스 분석</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold">3</div>
+                  <div>
+                    <h4 className="text-xl font-bold text-gray-800 mb-2">6가지 체력 지표</h4>
+                    <p className="text-gray-600">순발력・파워지속력・근력・근지구력・심폐지구력・밸런스</p>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-green-500 rounded-xl flex items-center justify-center text-white font-bold">2</div>
-              <div>
-                <h4 className="text-xl font-bold text-gray-800 mb-2">DC 모터 정밀 측정</h4>
-                <p className="text-gray-600">좌우 독립 센서로 0.1W 단위 정확도, 실시간 밸런스 분석</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white font-bold">3</div>
-              <div>
-                <h4 className="text-xl font-bold text-gray-800 mb-2">6가지 체력 지표</h4>
-                <p className="text-gray-600">순발력・파워지속력・근력・근지구력・심폐지구력・밸런스</p>
+
+            {/* 오른쪽: 키즈모션 사이클 이미지 */}
+            <div className="flex justify-center">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-purple-200 to-blue-200 rounded-2xl opacity-30"></div>
+                <img 
+                  src="/kidsmotion.png" 
+                  alt="KidsMotion 스마트 사이클" 
+                  className="relative w-full max-w-sm rounded-xl shadow-2xl"
+                />
               </div>
             </div>
           </div>
