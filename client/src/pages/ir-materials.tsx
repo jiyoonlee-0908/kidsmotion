@@ -245,11 +245,46 @@ function VideoPlayer() {
       </div>
 
       {/* 수동 영상 업로드 옵션 */}
-      <div className="mt-4 p-3 bg-yellow-50 rounded border-l-4 border-yellow-500">
-        <p className="text-sm text-yellow-800">
-          <strong>문제가 계속되는 경우:</strong> 영상 파일을 다시 변환하여 제공해주시면 즉시 교체하겠습니다.
-          권장 사양: MP4, H.264 코덱, 1920x1080 이하 해상도
-        </p>
+      <div className="mt-4 space-y-3">
+        <div className="p-3 bg-red-50 rounded border-l-4 border-red-500">
+          <p className="text-sm text-red-800">
+            <strong>현재 문제:</strong> 영상 파일의 비디오 트랙이 손상되어 소리만 재생됩니다. (videoWidth: 0, videoHeight: 0)
+          </p>
+        </div>
+        
+        <div className="p-3 bg-blue-50 rounded border-l-4 border-blue-500">
+          <p className="text-sm text-blue-800 font-semibold mb-2">영상 변환 방법:</p>
+          
+          <div className="space-y-2 text-xs text-blue-700">
+            <p><strong>1. 무료 변환 도구 Handbrake 사용:</strong></p>
+            <ul className="ml-4 space-y-1">
+              <li>• handbrake.fr 에서 다운로드</li>
+              <li>• 프리셋: "Fast 1080p30" 선택</li>
+              <li>• 비디오 탭에서 코덱: H.264 확인</li>
+              <li>• 변환 후 업로드</li>
+            </ul>
+            
+            <p><strong>2. 온라인 변환 (간단):</strong></p>
+            <ul className="ml-4 space-y-1">
+              <li>• cloudconvert.com 접속</li>
+              <li>• 파일 업로드 → MP4 H.264 선택</li>
+              <li>• 설정: 1920x1080, 30fps, 5Mbps</li>
+            </ul>
+            
+            <p><strong>3. VLC 플레이어로 변환:</strong></p>
+            <ul className="ml-4 space-y-1">
+              <li>• VLC → 미디어 → 변환/저장</li>
+              <li>• 프로파일: Video - H.264 + MP3 (MP4)</li>
+              <li>• 해상도 1920x1080으로 설정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="p-3 bg-green-50 rounded border-l-4 border-green-500">
+          <p className="text-sm text-green-800">
+            <strong>변환 완료 후:</strong> 새 파일을 채팅에 첨부하시면 즉시 교체하겠습니다.
+          </p>
+        </div>
       </div>
     </div>
   );
