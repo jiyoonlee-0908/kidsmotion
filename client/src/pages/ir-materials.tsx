@@ -118,26 +118,26 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 문제와 해결책 - 좌우 배치 */}
-        <div className="grid lg:grid-cols-2 gap-16 mb-20">
+        <div className="grid grid-cols-2 gap-16 mb-20">
           {/* 왼쪽: 부모들의 걱정 */}
           <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-3xl p-10">
             <h2 className="text-3xl font-bold text-red-800 mb-8 text-center">부모들의 현실적 걱정</h2>
             <div className="space-y-6">
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm">
-                <div className="text-lg font-bold text-red-700 mb-3">"아이 좌우가 심하게 틀어진 것 같은데..."</div>
-                <div className="text-red-600">"혹시 성장에 문제가 생기는 건 아니겠지?"</div>
+                <div className="text-xl font-bold text-red-700 mb-3">"아이 좌우가 심하게 틀어진 것 같은데..."</div>
+                <div className="text-lg text-red-600">"혹시 성장에 문제가 생기는 건 아니겠지?"</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm">
-                <div className="text-lg font-bold text-red-700 mb-3">"운동시키고 싶은데 이 정도면 괜찮을까?"</div>
-                <div className="text-red-600">"상위 1%도 살아남지 못하는데..."</div>
+                <div className="text-xl font-bold text-red-700 mb-3">"운동시키고 싶은데 이 정도면 괜찮을까?"</div>
+                <div className="text-lg text-red-600">"상위 1%도 살아남지 못하는데..."</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm">
-                <div className="text-lg font-bold text-red-700 mb-3">"다른 아이들보다 체력이 떨어지는 것 같은데..."</div>
-                <div className="text-red-600">"정확히 얼마나 뒤처지는 거지?"</div>
+                <div className="text-xl font-bold text-red-700 mb-3">"다른 아이들보다 체력이 떨어지는 것 같은데..."</div>
+                <div className="text-lg text-red-600">"정확히 얼마나 뒤처지는 거지?"</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm">
-                <div className="text-lg font-bold text-red-700 mb-3">"병원에서 '괜찮다'고만 하고..."</div>
-                <div className="text-red-600">"정말 괜찮은 건지 불안해!"</div>
+                <div className="text-xl font-bold text-red-700 mb-3">"병원에서 '괜찮다'고만 하고..."</div>
+                <div className="text-lg text-red-600">"정말 괜찮은 건지 불안해!"</div>
               </div>
             </div>
           </div>
@@ -147,20 +147,20 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <h2 className="text-3xl font-bold text-blue-800 mb-8 text-center">우리의 데이터 기반 해결책</h2>
             <div className="space-y-6">
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm border-l-4 border-blue-500">
-                <div className="text-lg font-bold text-blue-700 mb-2">좌우 밸런스 정확한 수치로 측정</div>
-                <div className="text-blue-600">→ 개선방안 제시</div>
+                <div className="text-xl font-bold text-blue-700 mb-2">좌우 밸런스 정확한 수치로 측정</div>
+                <div className="text-lg text-blue-600">→ 개선방안 제시</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm border-l-4 border-green-500">
-                <div className="text-lg font-bold text-green-700 mb-2">1등급 달성 시 상위 1% 재능 확인</div>
-                <div className="text-green-600">→ 운동 투자 가치 명확 판단</div>
+                <div className="text-xl font-bold text-green-700 mb-2">1등급 달성 시 상위 1% 재능 확인</div>
+                <div className="text-lg text-green-600">→ 운동 투자 가치 명확 판단</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm border-l-4 border-purple-500">
-                <div className="text-lg font-bold text-purple-700 mb-2">1~5등급 체제와 백분위 제공</div>
-                <div className="text-purple-600">→ 우리 아이의 정확한 위치 확인</div>
+                <div className="text-xl font-bold text-purple-700 mb-2">1~5등급 체제와 백분위 제공</div>
+                <div className="text-lg text-purple-600">→ 우리 아이의 정확한 위치 확인</div>
               </div>
               <div className="bg-white/80 p-6 rounded-2xl shadow-sm border-l-4 border-orange-500">
-                <div className="text-lg font-bold text-orange-700 mb-2">5등급, 하위 4% 바로 확인</div>
-                <div className="text-orange-600">→ 조기 개입으로 즉시 대응</div>
+                <div className="text-xl font-bold text-orange-700 mb-2">5등급, 하위 4% 바로 확인</div>
+                <div className="text-lg text-orange-600">→ 조기 개입으로 즉시 대응</div>
               </div>
             </div>
           </div>
