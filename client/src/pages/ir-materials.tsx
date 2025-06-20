@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion, Play, Activity, Heart, Timer } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -175,6 +175,232 @@ function VideoPlayer() {
   );
 }
 
+// 애니메이션 컴포넌트
+function AnimatedSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// PROBLEM 섹션
+function ProblemSection() {
+  return (
+    <AnimatedSection className="mb-16">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">부모들의 진짜 고민</h2>
+          <div className="space-y-6">
+            <div className="border-l-4 border-red-500 pl-6 bg-red-50 p-4 rounded-r-lg">
+              <p className="text-gray-800 mb-3">"아이 좌우가 심하게 틀어진 것 같은데..."</p>
+              <p className="text-green-700 font-medium">→ 좌우 밸런스 정확한 수치로 측정</p>
+            </div>
+            <div className="border-l-4 border-red-500 pl-6 bg-red-50 p-4 rounded-r-lg">
+              <p className="text-gray-800 mb-3">"운동시켜도 될까? 상위 1%도 살아남지 못하는데..."</p>
+              <p className="text-green-700 font-medium">→ 1등급 달성 시 상위 1% 재능 확인</p>
+            </div>
+            <div className="border-l-4 border-red-500 pl-6 bg-red-50 p-4 rounded-r-lg">
+              <p className="text-gray-800 mb-3">"정확히 얼마나 뒤처지는 거지?"</p>
+              <p className="text-green-700 font-medium">→ 1~5등급 체제로 정확한 위치 확인</p>
+            </div>
+            <div className="border-l-4 border-red-500 pl-6 bg-red-50 p-4 rounded-r-lg">
+              <p className="text-gray-800 mb-3">"병원에서 '괜찮다'고만 하고..."</p>
+              <p className="text-green-700 font-medium">→ 5등급, 하위 4% 즉시 확인</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <img 
+            src="/kidsmotion.png" 
+            alt="KidsMotion 장비" 
+            className="w-full max-w-md rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// 현재 시스템 한계 섹션
+function LimitationsSection() {
+  return (
+    <AnimatedSection className="mb-16">
+      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">현재 검진의 구조적 한계</h2>
+      <div className="grid md:grid-cols-3 gap-8">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-yellow-500">
+          <h3 className="text-xl font-bold text-yellow-700 mb-4">영유아검진</h3>
+          <p className="text-gray-700 mb-4">"닭싸움 자세로 3번 점프" → ①②③④</p>
+          <p className="text-red-600 font-medium">주관적 판단, 일관성 없음</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-red-500">
+          <h3 className="text-xl font-bold text-red-700 mb-4">초등체력장</h3>
+          <p className="text-gray-700 mb-4">아날로그 측정으로 정확도 한계</p>
+          <p className="text-red-600 font-medium">날씨, 공간에 따른 편차</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-l-4 border-blue-500">
+          <h3 className="text-xl font-bold text-blue-700 mb-4">국가 체력측정</h3>
+          <p className="text-gray-700 mb-4">악력기로 부분근력만 측정</p>
+          <p className="text-red-600 font-medium">정량 데이터 제공 안됨</p>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// SOLUTION 섹션
+function SolutionSection() {
+  return (
+    <AnimatedSection className="mb-16">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">KidsMotion의 차별점</h2>
+        <p className="text-xl text-gray-600">정량적 데이터로 아이의 진짜 실력을 측정합니다</p>
+      </div>
+      
+      <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+        <div>
+          <img 
+            src="/dsfaaf.PNG" 
+            alt="KidsMotion 인터페이스" 
+            className="w-full rounded-lg shadow-lg"
+          />
+        </div>
+        <div className="space-y-6">
+          <div className="bg-purple-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-purple-800 mb-3">유동성 프레임</h3>
+            <p className="text-gray-700">키 100-150cm 대응, 성장하는 아동에게 지속 사용</p>
+          </div>
+          <div className="bg-blue-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-blue-800 mb-3">6가지 체력 평가</h3>
+            <p className="text-gray-700">순발력, 파워지속력, 근력, 근지구력, 심폐지구력</p>
+          </div>
+          <div className="bg-green-50 p-6 rounded-lg">
+            <h3 className="text-xl font-bold text-green-800 mb-3">DC 모터 정밀 측정</h3>
+            <p className="text-gray-700">좌우 독립 측정으로 밸런스 분석</p>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// STRATEGY 섹션
+function StrategySection() {
+  return (
+    <AnimatedSection className="mb-16">
+      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
+      
+      {/* 시장 규모 */}
+      <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="text-center bg-emerald-50 p-8 rounded-lg">
+          <div className="text-4xl font-bold text-emerald-600 mb-2">249만명</div>
+          <p className="text-gray-600">전국 초등학생</p>
+        </div>
+        <div className="text-center bg-red-50 p-8 rounded-lg">
+          <div className="text-4xl font-bold text-red-600 mb-2">3,302개소</div>
+          <p className="text-gray-600">소아·청소년과</p>
+        </div>
+        <div className="text-center bg-blue-50 p-8 rounded-lg">
+          <div className="text-4xl font-bold text-blue-600 mb-2">2만4천개+</div>
+          <p className="text-gray-600">아동 스포츠 학원</p>
+        </div>
+      </div>
+
+      {/* 3개 시장 전략 */}
+      <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-red-500">
+          <h3 className="text-xl font-bold text-red-700 mb-4">병원 시장</h3>
+          <p className="text-gray-700 mb-4">영유아검진 프리미엄 서비스로 차별화</p>
+          <div className="text-2xl font-bold text-green-600">550만원</div>
+          <p className="text-sm text-gray-600">장비 판매</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-blue-500">
+          <h3 className="text-xl font-bold text-blue-700 mb-4">스포츠 학원</h3>
+          <p className="text-gray-700 mb-4">실력 향상 데이터로 학부모 만족도 증가</p>
+          <div className="text-2xl font-bold text-blue-600">월 5만원</div>
+          <p className="text-sm text-gray-600">구독 서비스</p>
+        </div>
+        <div className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-purple-500">
+          <h3 className="text-xl font-bold text-purple-700 mb-4">보건소</h3>
+          <p className="text-gray-700 mb-4">지역 아동 건강 빅데이터 구축</p>
+          <div className="text-2xl font-bold text-purple-600">정부 지원</div>
+          <p className="text-sm text-gray-600">정책 연계</p>
+        </div>
+      </div>
+
+      {/* 웹 리포트 이미지 */}
+      <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-lg">
+        <h3 className="text-2xl font-bold text-center text-purple-800 mb-6">전문가급 분석 리포트</h3>
+        <div className="flex justify-center">
+          <img 
+            src="/report.png" 
+            alt="KidsMotion 웹 리포트" 
+            className="max-w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+// TRACTION 섹션
+function TractionSection() {
+  return (
+    <AnimatedSection className="mb-16">
+      <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">정부 정책과 완벽한 타이밍</h2>
+      
+      <div className="grid lg:grid-cols-2 gap-12">
+        <div className="bg-blue-50 p-8 rounded-lg">
+          <h3 className="text-2xl font-bold text-blue-800 mb-6">국민체력100의 한계</h3>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded border-l-4 border-orange-500">
+              <h4 className="font-bold text-orange-600">아날로그 측정</h4>
+              <p className="text-gray-700">줄자, 수동 카운트, 수동 기록</p>
+            </div>
+            <div className="bg-white p-4 rounded border-l-4 border-red-500">
+              <h4 className="font-bold text-red-600">결과</h4>
+              <p className="text-gray-700">정확성 부족, 빅데이터 구축 불가</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="bg-green-50 p-8 rounded-lg">
+          <h3 className="text-2xl font-bold text-green-800 mb-6">우리의 해결책</h3>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded border-l-4 border-green-500">
+              <h4 className="font-bold text-green-600">디지털 측정</h4>
+              <p className="text-gray-700">정밀 센서, 실시간 데이터 수집</p>
+            </div>
+            <div className="bg-white p-4 rounded border-l-4 border-blue-500">
+              <h4 className="font-bold text-blue-600">빅데이터 기여</h4>
+              <p className="text-gray-700">국민체력 데이터베이스 구축 지원</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div className="mt-12 text-center bg-gradient-to-r from-indigo-50 to-purple-50 p-8 rounded-lg">
+        <h3 className="text-2xl font-bold text-indigo-800 mb-4">완벽한 타이밍</h3>
+        <p className="text-xl text-gray-700 mb-6">
+          정부의 국민건강 데이터화 정책과 부모들의 정량적 데이터 니즈가 만나는 지점
+        </p>
+        <div className="text-3xl font-bold text-purple-600">
+          지금이 바로 투자 시점입니다
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
 export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -205,83 +431,35 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-        {/* 메인 메시지 - 영상 시청 후 자연스럽게 전달 */}
-        <div className="text-center mb-20">
-          <h1 className="text-5xl font-bold text-gray-900 mb-8 leading-tight">
-            부모의 걱정을 <span className="text-purple-600">데이터</span>로 바꾸는 팀입니다
+        {/* 간단한 메인 메시지 */}
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            부모의 걱정을 <span className="text-purple-600">데이터</span>로 바꾸는 팀
           </h1>
-          <p className="text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
-            <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            정량적 측정으로 아이의 정확한 체력과 성장 상태를 파악합니다
           </p>
-        </div>
+        </motion.div>
 
-        {/* Founder Letter */}
-        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
-              <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
-              
-              <div className="space-y-4 text-gray-700 leading-relaxed">
-                <p>아이를 자전거에 태웠을 때였습니다.<br/>
-                자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다.<br/>
-                제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다.<br/>
-                하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
+        {/* PROBLEM: 부모들의 진짜 고민 */}
+        <ProblemSection />
 
-                <p>병원에 갔습니다.<br/>
-                "아이들은 원래 그래요. 괜찮아요."<br/>
-                "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."<br/>
-                그렇게 말하더군요.</p>
+        {/* 현재 시스템의 한계 */}
+        <LimitationsSection />
 
-                <p className="font-medium text-purple-700">그 순간 알았습니다.<br/>
-                "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요.<br/>
-                정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
+        {/* SOLUTION: KidsMotion의 해답 */}
+        <SolutionSection />
 
-                <p>그게 바로 창업의 출발점이었습니다.<br/>
-                '감'이 아니라 '데이터'로 아이의 몸을 이해해야 한다는 확신.<br/>
-                "정확하게 알고, 정확하게 도와줄 수 있어야 한다"는 다짐.</p>
+        {/* STRATEGY: 시장 진출 전략 */}
+        <StrategySection />
 
-                <div className="bg-purple-50 p-4 rounded-lg my-6">
-                  <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다.<br/>
-                  남편은 국가대표 선수 출신이며 24년간 사이클 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
-                  10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
-                </div>
-
-                <p>특히, 선수반에 등록하려는 아이들을 볼 때마다 한계를 느꼈습니다.<br/>
-                어떤 아이는 분명 부족해 보이는데,<br/>
-                "운동시켜도 될까요?"라는 부모님의 질문에 정확히 말해줄 데이터가 없었습니다.</p>
-
-                <p>"상위 1%가 아니면 운동으로 성공하기 어렵습니다."<br/>
-                그렇게 설명해도, 객관적인 수치가 없다 보니<br/>
-                부모는 결국 마음으로 판단하고, 아이는 부담을 안고 훈련에 들어갑니다.</p>
-
-                <p className="font-medium text-red-600">이건 결국, 아이의 가능성에도, 부모의 시간과 비용에도 좋지 않은 선택이었습니다.</p>
-
-                <p className="font-bold text-green-700">그래서 저는 만들었습니다.<br/>
-                운동 자질을 데이터로 확인할 수 있는 장비.<br/>
-                운동을 해야 할 아이, 하지 말아야 할 아이를 정확히 구분해주는 시스템.</p>
-
-                <p>이건 처음엔 제 아이를 위해 만든 것이었습니다.<br/>
-                하지만 지금은, 같은 고민을 가진 수많은 부모와 아카데미, 병원, 학교 모두에게<br/>
-                절실히 필요한 장비라고 확신합니다.</p>
-
-                <div className="bg-blue-50 p-4 rounded-lg my-6">
-                  <p className="font-medium">눈으로 확인할 수 있는 성장 데이터.<br/>
-                  부모가 납득할 수 있는 해석 리포트.<br/>
-                  아이에게 꼭 맞는 훈련 방향.</p>
-                </div>
-
-                <p className="text-lg font-bold text-purple-700">이제는 '괜찮을 거예요'가 아니라<br/>
-                "지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
-
-                <p className="text-right font-medium text-gray-600 mt-6">– 모션바이크 대표</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        {/* TRACTION: 정부 정책과 성장성 */}
+        <TractionSection />
 
         {/* 문제 정의 */}
         <Card className="mb-16 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 shadow-lg">
