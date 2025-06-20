@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
 import { useEffect, useRef } from "react";
-import kidsMotionVideo from "@/assets/kidsmotion_video.mp4";
+import kidsMotionVideo from "@assets/kidsmotion_video_1750459475656.mp4";
 
 import CommonFooter from "@/components/common-footer";
 
