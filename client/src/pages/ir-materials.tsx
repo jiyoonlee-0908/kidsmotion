@@ -58,47 +58,67 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
-                  <video
-                    ref={videoRef}
-                    key={kidsMotionVideo}
-                    src={kidsMotionVideo}
-                    autoPlay
-                    loop
-                    controls
-                    playsInline
-                    muted
-                    width="800"
-                    height="450"
-                    className="w-full max-w-4xl mx-auto rounded-lg bg-black"
-                    style={{ 
-                      display: 'block',
-                      minHeight: '300px',
-                      backgroundColor: '#000'
-                    }}
-                    onLoadStart={() => console.log('Video loading started')}
-                    onCanPlay={() => console.log('Video can play')}
-                    onPlay={() => console.log('Video started playing')}
-                    onLoadedData={() => console.log('Video data loaded:', kidsMotionVideo)}
-                    onLoadedMetadata={(e) => {
-                      console.log('Video metadata:', {
-                        duration: e.target.duration,
-                        videoWidth: e.target.videoWidth,
-                        videoHeight: e.target.videoHeight
-                      });
-                    }}
-                    onError={(e) => {
-                      console.error('Video error:', e);
-                      console.error('Video src:', kidsMotionVideo);
-                      console.error('Video element:', e.target);
-                    }}
-                  >
-                    <source src={kidsMotionVideo} type="video/mp4" />
-                    브라우저가 이 영상을 재생할 수 없습니다.
-                  </video>
+                <div className="border-2 border-blue-500 rounded-lg p-4 bg-gray-50">
+                  <h3 className="text-lg font-bold text-center mb-4 text-blue-700">KidsMotion 시스템 영상</h3>
+                  
+                  {/* 영상 테스트 영역 */}
+                  <div className="mb-4 p-3 bg-yellow-100 rounded border-l-4 border-yellow-500">
+                    <p className="text-sm text-yellow-800">
+                      <strong>영상 경로:</strong> {kidsMotionVideo}
+                    </p>
+                    <p className="text-sm text-yellow-800 mt-1">
+                      영상이 보이지 않는다면 파일 형식이나 경로에 문제가 있을 수 있습니다.
+                    </p>
+                  </div>
+
+                  <div className="relative bg-black rounded-lg overflow-hidden" style={{ minHeight: '400px' }}>
+                    <video
+                      ref={videoRef}
+                      controls
+                      preload="metadata"
+                      className="w-full h-full"
+                      style={{ minHeight: '400px', objectFit: 'contain' }}
+                      onLoadStart={() => console.log('✅ Video loading started:', kidsMotionVideo)}
+                      onLoadedData={() => console.log('✅ Video data loaded')}
+                      onLoadedMetadata={(e) => {
+                        const video = e.currentTarget as HTMLVideoElement;
+                        console.log('✅ Video metadata loaded:', {
+                          duration: video.duration,
+                          width: video.videoWidth,
+                          height: video.videoHeight,
+                          src: video.currentSrc
+                        });
+                      }}
+                      onCanPlay={() => console.log('✅ Video can play')}
+                      onError={(e) => {
+                        const video = e.currentTarget as HTMLVideoElement;
+                        console.error('❌ Video error:', {
+                          error: video.error,
+                          networkState: video.networkState,
+                          readyState: video.readyState,
+                          src: video.src
+                        });
+                      }}
+                    >
+                      <source src={kidsMotionVideo} type="video/mp4" />
+                      <source src={kidsMotionVideo} type="video/webm" />
+                      
+                      <div className="flex items-center justify-center h-full text-white">
+                        <p>브라우저에서 이 영상을 재생할 수 없습니다.</p>
+                      </div>
+                    </video>
+                  </div>
+
+                  {/* 대체 링크 제공 */}
                   <div className="mt-4 text-center">
-                    <p className="text-gray-700 text-sm font-medium">KidsMotion 시스템 소개 영상</p>
-                    <p className="text-gray-500 text-xs mt-1">파일 경로: {kidsMotionVideo}</p>
+                    <a 
+                      href={kidsMotionVideo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    >
+                      영상 파일 직접 열기
+                    </a>
                   </div>
                 </div>
               </div>
