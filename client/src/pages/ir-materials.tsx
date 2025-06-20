@@ -2,8 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import CommonFooter from "@/components/common-footer";
+import ScrollReveal from "@/components/scroll-reveal";
 
 interface IRMaterialsProps {
   onNavigate?: (page: string) => void;
@@ -15,21 +18,54 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
         
         {/* 헤더 */}
-        <div className="text-center mb-16">
-          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">
-            Investor Relations
-          </Badge>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            부모의 걱정을 데이터로 바꾸는 팀입니다
-          </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
-            <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
-          </p>
-        </div>
+        <ScrollReveal direction="fade" duration={0.8}>
+          <div className="text-center mb-16">
+            <ScrollReveal direction="up" delay={0.2}>
+              <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">
+                Investor Relations
+              </Badge>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.4}>
+              <h1 className="text-4xl font-bold text-gray-900 mb-6">
+                부모의 걱정을 데이터로 바꾸는 팀입니다
+              </h1>
+            </ScrollReveal>
+            <ScrollReveal direction="up" delay={0.6}>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                아이가 바르게 자라는지 알고 싶은 부모의 마음,<br/>
+                <span className="text-purple-600 font-semibold">MotionBike에서 정량 데이터로 답해드릴게요</span>
+              </p>
+            </ScrollReveal>
+          </div>
+        </ScrollReveal>
+
+        {/* 영상 섹션 */}
+        <ScrollReveal direction="up" delay={0.1}>
+          <Card className="mb-16 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+            <CardHeader>
+              <CardTitle className="text-2xl text-blue-700 mb-4">🚴‍♀️ KidsMotion 실제 체험 영상</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="relative rounded-lg overflow-hidden bg-gray-900 aspect-video">
+                <video 
+                  controls 
+                  className="w-full h-full object-cover"
+                  poster="/api/placeholder/800/450"
+                >
+                  <source src="/assets/kidsmotion-demo.mp4" type="video/mp4" />
+                  영상을 지원하지 않는 브라우저입니다.
+                </video>
+              </div>
+              <p className="text-center text-gray-600 mt-4">
+                실제 KidsMotion 장비를 사용하는 모습을 확인해보세요
+              </p>
+            </CardContent>
+          </Card>
+        </ScrollReveal>
 
         {/* Founder Letter */}
-        <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
+        <ScrollReveal direction="up" delay={0.2}>
+          <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
           <CardHeader>
             <CardTitle className="text-2xl text-purple-700 mb-4">💝 창업자 편지</CardTitle>
           </CardHeader>
@@ -930,6 +966,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </CardContent>
         </Card>
+        </ScrollReveal>
 
       </div>
       <CommonFooter onNavigate={onNavigate} />
