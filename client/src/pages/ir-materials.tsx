@@ -38,16 +38,20 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <video
-                  src="/kidsmotion_ir.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  style={{width: "100%", maxWidth: "720px", borderRadius: "16px"}}
-                >
-                  브라우저가 video 태그를 지원하지 않습니다.
-                </video>
+                <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                  <p className="text-gray-600 mb-4">영상 테스트</p>
+                  <video
+                    src="/kidsmotion_ir.mp4"
+                    controls
+                    width="720"
+                    height="405"
+                    className="mx-auto rounded-lg"
+                  >
+                    <source src="/kidsmotion_ir.mp4" type="video/mp4" />
+                    브라우저가 video 태그를 지원하지 않습니다.
+                  </video>
+                  <p className="text-sm text-gray-500 mt-2">파일 경로: /kidsmotion_ir.mp4</p>
+                </div>
               </div>
             </CardContent>
           </Card>
