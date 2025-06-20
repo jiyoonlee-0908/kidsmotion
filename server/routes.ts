@@ -5,6 +5,14 @@ import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSc
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
 import OpenAI from "openai";
+import { 
+  getLatestCompletedTest, 
+  getGarminDataByDisplayName, 
+  extractPowerValues, 
+  calculateBalance, 
+  formatDate, 
+  formatGender 
+} from "./supabase";
 
 // Constants
 const POWER_EXPONENT = 0.67;
@@ -770,6 +778,89 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     } catch (error) {
       console.error("이미지 생성 오류:", error);
       res.status(500).json({ error: "이미지 생성에 실패했습니다." });
+    }
+  });
+
+  // Supabase integration endpoints
+  app.get("/api/supabase/search-user/:name", async (req, res) => {
+    try {
+      const { name } = req.params;
+      
+      // 이름이 2글자 미만이면 빈 결과 반환
+      if (!name || name.length < 2) {
+        return res.json(null);
+      }
+
+      console.log("=== Supabase 사용자 검색 ===", name);
+      
+      // 최신 완료된 테스트 세션 찾기
+      const testSession = await getLatestCompletedTest(name);
+      
+      if (!testSession) {
+        console.log("해당 이름의 완료된 테스트를 찾을 수 없음:", name);
+        return res.json(null);
+      }
+
+      console.log("테스트 세션 발견:", testSession.id, testSession.userDisplayName);
+      
+      // 가민 데이터 가져오기
+      const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
+      
+      if (!garminData || garminData.length === 0) {
+        console.log("가민 데이터가 없음:", testSession.userDisplayName);
+        return res.json(null);
+      }
+
+      console.log("가민 데이터 포인트 수:", garminData.length);
+      
+      // 파워 값들 추출
+      const powerValues = extractPowerValues(garminData);
+      
+      // 좌우 밸런스 계산
+      const balance = calculateBalance(garminData);
+      
+      // 참가자 정보 (테스트 세션에 포함됨)
+      const participant = testSession.participants;
+      
+      if (!participant) {
+        console.log("참가자 정보가 없음");
+        return res.json(null);
+      }
+
+      // 응답 데이터 구성
+      const result = {
+        // 기본 정보
+        measureDate: formatDate(testSession.endTime),
+        studentName: participant.name,
+        affiliation: participant.organization || '',
+        birthDate: formatDate(participant.birthDate),
+        gender: formatGender(participant.gender),
+        
+        // 파워 측정값
+        power5s: powerValues.power5s,
+        power15s: powerValues.power15s,
+        power30s: powerValues.power30s,
+        power60s: powerValues.power60s,
+        power180s: powerValues.power180s,
+        power360s: powerValues.power360s,
+        
+        // 밸런스
+        leftBalance: balance.leftBalance,
+        rightBalance: balance.rightBalance,
+        
+        // 키, 체중, 심박수는 빈 상태로 유지 (수동 입력 필요)
+        height: null,
+        weight: null,
+        maxHeartRate: null,
+        avgHeartRate: null
+      };
+      
+      console.log("자동 입력 데이터 준비 완료:", result);
+      res.json(result);
+      
+    } catch (error) {
+      console.error("Supabase 사용자 검색 오류:", error);
+      res.status(500).json({ error: "사용자 검색 중 오류가 발생했습니다." });
     }
   });
 
