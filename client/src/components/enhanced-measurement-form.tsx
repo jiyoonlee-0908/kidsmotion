@@ -46,7 +46,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
   const form = useForm<EnhancedFormData>({
     resolver: zodResolver(enhancedFormSchema),
     defaultValues: {
-      measureDate: new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
+      measureDate: "2025-06-21", // Korean date
       studentName: "",
       affiliation: "",
       birthDate: "",
@@ -116,17 +116,23 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
       return;
     }
 
+    console.log('Starting search for:', name);
     setIsSearching(true);
     setAutoFillStatus("검색 중...");
 
     try {
-      const response = await fetch(`/api/supabase/search-user/${encodeURIComponent(name)}`);
+      const url = `/api/supabase/search-user/${encodeURIComponent(name)}`;
+      console.log('Fetching URL:', url);
+      
+      const response = await fetch(url);
+      console.log('Response status:', response.status);
       
       if (!response.ok) {
-        throw new Error('검색 실패');
+        throw new Error(`검색 실패: ${response.status}`);
       }
       
       const userData = await response.json();
+      console.log('Response data:', userData);
       
       if (userData) {
         console.log('Auto-fill data received:', userData);
@@ -186,6 +192,8 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
 
   // Handle name input change with debouncing
   const handleNameChange = useCallback((value: string) => {
+    console.log('Name input changed:', value);
+    
     // Clear previous timeout
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
@@ -197,8 +205,11 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
       return;
     }
     
+    setAutoFillStatus("검색 중...");
+    
     // Set new timeout for debounced search
     searchTimeoutRef.current = setTimeout(() => {
+      console.log('Triggering search for:', value);
       searchSupabaseData(value);
     }, 300); // 300ms delay
   }, [searchSupabaseData]);
