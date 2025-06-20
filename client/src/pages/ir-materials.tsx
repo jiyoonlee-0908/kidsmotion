@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
+import { useEffect, useRef } from "react";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -10,6 +11,47 @@ interface IRMaterialsProps {
 }
 
 export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // 자동 재생 시작
+    const playVideo = async () => {
+      try {
+        await video.play();
+      } catch (error) {
+        console.log('자동 재생이 차단됨:', error);
+      }
+    };
+
+    // Intersection Observer로 스크롤 감지
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // 영상이 화면에 보이면 재생
+            video.play().catch(() => {});
+          } else {
+            // 영상이 화면에서 사라지면 일시정지
+            video.pause();
+          }
+        });
+      },
+      {
+        threshold: 0.5, // 50% 이상 보일 때
+      }
+    );
+
+    observer.observe(video);
+    playVideo(); // 초기 자동 재생
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-indigo-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
@@ -38,8 +80,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
                 <video 
+                  ref={videoRef}
                   className="w-full h-auto rounded-lg shadow-md"
-                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                   poster="/api/placeholder/800/450"
                 >
                   <source src="/kidsmotion_video.mp4" type="video/mp4" />
