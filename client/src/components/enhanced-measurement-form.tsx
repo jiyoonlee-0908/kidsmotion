@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Badge } from "@/components/ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { Separator } from "@/components/ui/separator";
-import { Loader2, UserPlus, Zap, Scale, ChartLine, Plus, Minus, Info, Timer, Heart, ChevronDown, AlertTriangle } from "lucide-react";
+import { Loader2, UserPlus, Zap, Scale, ChartLine, Plus, Minus, Info, Timer, Heart, ChevronDown, AlertTriangle, Search } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertMeasurementSchema } from "@shared/schema";
@@ -38,7 +38,10 @@ interface EnhancedMeasurementFormProps {
 export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurementFormProps) {
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showHeartRate, setShowHeartRate] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [autoFillStatus, setAutoFillStatus] = useState<string>("");
   const { toast } = useToast();
+  const searchTimeoutRef = useRef<NodeJS.Timeout>();
 
   const form = useForm<EnhancedFormData>({
     resolver: zodResolver(enhancedFormSchema),
@@ -104,6 +107,96 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
     mutate(data);
   };
 
+  // Debounced search function for auto-fill
+  const searchSupabaseData = useCallback(async (name: string) => {
+    if (!name || name.length < 2) {
+      setAutoFillStatus("");
+      return;
+    }
+
+    setIsSearching(true);
+    setAutoFillStatus("검색 중...");
+
+    try {
+      const response = await fetch(`/api/supabase/search-user/${encodeURIComponent(name)}`);
+      
+      if (!response.ok) {
+        throw new Error('검색 실패');
+      }
+      
+      const userData = await response.json();
+      
+      if (userData) {
+        // Auto-fill form with Supabase data
+        const currentDate = new Date().toISOString().split('T')[0];
+        
+        form.setValue('measureDate', userData.measureDate || currentDate);
+        form.setValue('affiliation', userData.affiliation || '');
+        form.setValue('birthDate', userData.birthDate || '');
+        form.setValue('gender', userData.gender || '');
+        
+        // Power values
+        form.setValue('power5s', userData.power5s || 0);
+        form.setValue('power15s', userData.power15s || 0);
+        form.setValue('power30s', userData.power30s || 0);
+        form.setValue('power60s', userData.power60s || 0);
+        
+        // Optional power values
+        if (userData.power180s) {
+          form.setValue('power180s', userData.power180s);
+          setShowAdvanced(true);
+        }
+        if (userData.power360s) {
+          form.setValue('power360s', userData.power360s);
+          setShowAdvanced(true);
+        }
+        
+        // Balance values
+        form.setValue('leftBalance', userData.leftBalance || 50);
+        form.setValue('rightBalance', userData.rightBalance || 50);
+        
+        // Heart rate values (if available)
+        if (userData.maxHeartRate || userData.avgHeartRate) {
+          if (userData.maxHeartRate) form.setValue('maxHeartRate', userData.maxHeartRate);
+          if (userData.avgHeartRate) form.setValue('avgHeartRate', userData.avgHeartRate);
+          setShowHeartRate(true);
+        }
+        
+        setAutoFillStatus("✓ 앱 데이터 자동 입력 완료");
+        toast({
+          title: "자동 입력 완료",
+          description: "KidsMotion 앱에서 측정 데이터를 불러왔습니다.",
+        });
+      } else {
+        setAutoFillStatus("해당 이름의 데이터를 찾을 수 없습니다");
+      }
+    } catch (error) {
+      console.error('Supabase search error:', error);
+      setAutoFillStatus("검색 중 오류가 발생했습니다");
+    } finally {
+      setIsSearching(false);
+    }
+  }, [form, toast]);
+
+  // Handle name input change with debouncing
+  const handleNameChange = useCallback((value: string) => {
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    
+    // Reset status if input is too short
+    if (value.length < 2) {
+      setAutoFillStatus("");
+      return;
+    }
+    
+    // Set new timeout for debounced search
+    searchTimeoutRef.current = setTimeout(() => {
+      searchSupabaseData(value);
+    }, 500); // 500ms delay
+  }, [searchSupabaseData]);
+
   const calculateAge = (birthDate: string) => {
     if (!birthDate) return 0;
     const today = new Date();
@@ -138,10 +231,31 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
                   name="studentName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>이름</FormLabel>
+                      <FormLabel className="flex items-center gap-2">
+                        이름
+                        {isSearching && <Search className="w-4 h-4 animate-spin" />}
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder="김아이" {...field} />
+                        <Input 
+                          placeholder="김아이" 
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            handleNameChange(e.target.value);
+                          }}
+                        />
                       </FormControl>
+                      {autoFillStatus && (
+                        <div className={`text-sm ${
+                          autoFillStatus.includes("✓") 
+                            ? "text-green-600" 
+                            : autoFillStatus.includes("오류") || autoFillStatus.includes("찾을 수 없습니다")
+                              ? "text-red-600"
+                              : "text-blue-600"
+                        }`}>
+                          {autoFillStatus}
+                        </div>
+                      )}
                       <FormMessage />
                     </FormItem>
                   )}
@@ -599,6 +713,7 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
           </Button>
         </CardContent>
       </Card>
-    </div>
+      </form>
+    </Form>
   );
 }
