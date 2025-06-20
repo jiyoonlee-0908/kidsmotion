@@ -24,7 +24,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         ref={ref}
         initial={{ opacity: 0, y: 75 }}
         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 75 }}
-        transition={{ duration: 0.8, delay }}
+        transition={{ duration: 0.4, delay: delay * 0.1 }}
       >
         {children}
       </motion.div>
@@ -68,131 +68,195 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </AnimatedSection>
 
-        {/* Founder Letter */}
+        {/* KidsMotion 소개 */}
         <AnimatedSection delay={0.4}>
           <Card className="mb-16 bg-gradient-to-r from-purple-50 to-indigo-50 border-purple-200">
             <CardHeader>
-              <CardTitle className="text-2xl text-purple-700 mb-4">창업자 편지</CardTitle>
+              <CardTitle className="text-2xl text-purple-700 mb-4">사업 내용 소개</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="bg-white p-8 rounded-lg border-l-4 border-purple-500">
-                <h3 className="text-xl font-bold mb-6 text-gray-800">"엄마로서의 걱정이, 창업으로 이어졌습니다."</h3>
+                <h3 className="text-xl font-bold mb-6 text-gray-800">성장기 어린이의 체력과 신체 균형을 5분 만에 정량 분석</h3>
                 
                 <div className="space-y-4 text-gray-700 leading-relaxed">
-                  <p>아이를 자전거에 태웠을 때였습니다.<br/>
-                  자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다.<br/>
-                  제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다.<br/>
-                  하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
+                  <p><span className="font-semibold text-purple-700">KidsMotion</span>은 성장기 어린이의 체력과 신체 균형을 5분 만에 정량 분석해주는 국내 최초의 아동 전용 동적 체력 분석 장비 및 리포트 시스템입니다.</p>
 
-                  <p>병원에 갔습니다.<br/>
-                  "아이들은 원래 그래요. 괜찮아요."<br/>
-                  "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."<br/>
-                  그렇게 말하더군요.</p>
-
-                  <p className="font-medium text-purple-700">그 순간 알았습니다.<br/>
-                  "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요.<br/>
-                  정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
-
-                  <p>그게 바로 창업의 출발점이었습니다.<br/>
-                  '감'이 아니라 '데이터'로 아이의 몸을 이해해야 한다는 확신.<br/>
-                  "정확하게 알고, 정확하게 도와줄 수 있어야 한다"는 다짐.</p>
+                  <p>기존 아동 체력 평가는 대부분 보호자 설문지(K-DST)나 줄자·초시계에 의존하는 방식으로, 발달 지연이나 운동 기능 저하를 조기에 파악하는 데 구조적 한계가 존재합니다. 저희는 이 문제를 해결하기 위해 실시간 측정, AI 리포트, 성장 피드백이 연결되는 통합형 솔루션을 개발했습니다.</p>
 
                   <div className="bg-purple-50 p-4 rounded-lg my-6">
-                    <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다.<br/>
-                    남편은 국가대표 선수 출신이며 24년간 사이클 선수로 활동했고, 저는 그 곁에서 어시스트하며<br/>
-                    10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
+                    <h4 className="font-semibold mb-2">측정 항목</h4>
+                    <p>좌우 밸런스, 순발력, 무산소 파워, 유산소 파워, 근지구력 등 총 6가지</p>
                   </div>
 
-                  <p>특히, 선수반에 등록하려는 아이들을 볼 때마다 한계를 느꼈습니다.<br/>
-                  어떤 아이는 분명 부족해 보이는데,<br/>
-                  "운동시켜도 될까요?"라는 부모님의 질문에 정확히 말해줄 데이터가 없었습니다.</p>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-blue-50 p-4 rounded-lg">
+                      <h4 className="font-semibold mb-2">하드웨어</h4>
+                      <p>DC 모터 기반 저항 장치 / 파워·케이던스·좌우 센서 내장</p>
+                    </div>
+                    <div className="bg-green-50 p-4 rounded-lg">
+                      <h4 className="font-semibold mb-2">소프트웨어</h4>
+                      <p>실시간 분석 Web 대시보드 + 보호자용 앱 / AI 기반 성장 리포트 및 운동 피드백</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-orange-50 p-4 rounded-lg">
+                    <h4 className="font-semibold mb-2">납품 구조</h4>
+                    <p>병원, 보건소, 스포츠센터 등 B2B/B2G 기관 중심 설치 운영 구조 (1㎡ 설치 가능)</p>
+                  </div>
+
+                  <p className="font-medium text-purple-700">KidsMotion은 단순한 체력 측정 장비가 아니라, 운동 중 수집한 데이터를 기반으로 아이의 운동 기능과 성장 이상을 조기에 파악하고, 구체적인 개선 방향을 제시하는 플랫폼입니다.</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </AnimatedSection>
 
-        {/* Problem Statement */}
+        {/* 사업 성과 */}
         <AnimatedSection delay={0.6}>
           <Card className="mb-16">
             <CardHeader>
-              <CardTitle className="text-2xl">문제 정의</CardTitle>
+              <CardTitle className="text-2xl">사업 관련 성과</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
-                  <h3 className="text-xl font-bold mb-4 text-red-700">문제</h3>
-                  <ul className="space-y-3 text-gray-700">
-                    <li>• 아동 체력 평가의 부정확성과 주관성</li>
-                    <li>• 표준화된 측정 도구 부족</li>
-                    <li>• 개별 맞춤형 운동 처방의 어려움</li>
-                    <li>• 성장기 아동의 신체 불균형 조기 발견 한계</li>
-                  </ul>
+                <div className="space-y-4">
+                  <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                    <h3 className="text-xl font-bold mb-4 text-green-700">하드웨어 MVP 개발 완료</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• 키 95~140cm 아동 체형에 맞춘 커스텀 프레임 설계</li>
+                      <li>• DC 모터 기반 저항 시스템 개발 및 부품 금형 확보</li>
+                      <li>• 파워미터, 케이던스, 좌우 밸런스 센서 탑재</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                    <h3 className="text-xl font-bold mb-4 text-blue-700">웹 리포트 MVP 및 앱 프로토타입 개발</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• 실시간 그래프 및 파워 분석 기능 포함된 Web 대시보드 MVP 구축</li>
+                      <li>• 안드로이드 앱 프로토타입 개발</li>
+                      <li>• 보호자용 알림 기능 및 게이미피케이션 요소 탑재</li>
+                    </ul>
+                  </div>
                 </div>
-                <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
-                  <h3 className="text-xl font-bold mb-4 text-green-700">솔루션</h3>
-                  <ul className="space-y-3 text-gray-700">
-                    <li>• 의료급 정밀도의 체력 측정 시스템</li>
-                    <li>• AI 기반 개인 맞춤형 분석</li>
-                    <li>• 연령별 표준 데이터 기반 평가</li>
-                    <li>• 실시간 피드백과 운동 처방</li>
-                  </ul>
+                
+                <div className="space-y-4">
+                  <div className="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                    <h3 className="text-xl font-bold mb-4 text-purple-700">1차 파일럿 확정 (2025년 7월~)</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• 서울 강서구 IYC 유소년 스포츠센터와 협력</li>
+                      <li>• 100명 아동 대상 실측 및 성장 리포트 생성 예정</li>
+                      <li>• 국내 최초 아동 체력 기준선 구축의 출발점</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+                    <h3 className="text-xl font-bold mb-4 text-orange-700">초기 자금 투입</h3>
+                    <ul className="space-y-2 text-gray-700">
+                      <li>• 사이클 아카데미 자체 수익 1천만 원 선투입</li>
+                      <li>• 하드웨어 시제품 설계 및 부품 제작 실비 투입</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </CardContent>
           </Card>
         </AnimatedSection>
 
-        {/* Market Analysis */}
+        {/* 팀 구성 */}
         <AnimatedSection delay={0.8}>
           <Card className="mb-16">
             <CardHeader>
-              <CardTitle className="text-2xl">시장 분석</CardTitle>
+              <CardTitle className="text-2xl">팀의 핵심 멤버 구성 및 역량</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center p-6 bg-blue-50 rounded-lg">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">5조 6천억원</div>
-                  <div className="text-sm text-gray-600">글로벌 피트니스 시장 규모 (2024)</div>
+                <div className="bg-pink-50 p-6 rounded-lg border-l-4 border-pink-500">
+                  <h3 className="text-xl font-bold mb-4 text-pink-700">대표자 (기획 총괄)</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• 사이클 아카데미 운영 어시스트 경력 10년</li>
+                    <li>• 유소년 선수 및 보호자 대상 장비 운영·커뮤니케이션 실무 경험</li>
+                    <li>• 자녀의 체형 불균형 문제에서 출발한 문제의식</li>
+                    <li>• 현장 중심 기획 역량</li>
+                  </ul>
                 </div>
-                <div className="text-center p-6 bg-purple-50 rounded-lg">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">15.2%</div>
-                  <div className="text-sm text-gray-600">연평균 성장률 (CAGR)</div>
+                
+                <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                  <h3 className="text-xl font-bold mb-4 text-blue-700">기술 총괄 (운동역학 석사 / 前 국가대표)</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• 엘리트 선수 경력 24년 / 국가대표 출신 사이클리스트</li>
+                    <li>• DC 모터 기반 저항 제어 및 파워 분석 알고리즘 개발</li>
+                    <li>• 아동 피팅·체력 측정 설계</li>
+                    <li>• 페달링 분석 알고리즘 구현 경험</li>
+                  </ul>
                 </div>
-                <div className="text-center p-6 bg-orange-50 rounded-lg">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">85%</div>
-                  <div className="text-sm text-gray-600">한국 아동 운동부족률</div>
+                
+                <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                  <h3 className="text-xl font-bold mb-4 text-green-700">외부 파트너</h3>
+                  <ul className="space-y-2 text-gray-700">
+                    <li>• 자전거 부품 특허 보유 기업과 하드웨어 공동 개발</li>
+                    <li>• 실시간 데이터 분석 기반 헬스케어 앱 개발 전문 회사 협업 중</li>
+                    <li>• 소아청소년과 전문의 자문단 참여</li>
+                    <li>• 성장 기준 및 리포트 해석 구조 설계</li>
+                  </ul>
                 </div>
               </div>
             </CardContent>
           </Card>
         </AnimatedSection>
 
-        {/* Product Overview */}
+        {/* 투자 유치 계획 */}
         <AnimatedSection delay={1.0}>
-          <Card className="mb-16">
+          <Card className="mb-16 bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
             <CardHeader>
-              <CardTitle className="text-2xl">제품 개요</CardTitle>
+              <CardTitle className="text-2xl text-blue-700">투자 유치 계획</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">하드웨어: MotionBike</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• 조절 가능한 아동 전용 스마트 사이클</li>
-                    <li>• 실시간 파워, 심박수, 밸런스 측정</li>
-                    <li>• 의료급 센서 적용</li>
-                    <li>• 4~12세 아동 대상</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-4">소프트웨어: KidsMotion</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• AI 기반 체력 분석 플랫폼</li>
-                    <li>• 개인 맞춤형 운동 처방</li>
-                    <li>• 성장 추적 및 모니터링</li>
-                    <li>• 전문가 리포트 자동 생성</li>
-                  </ul>
+              <div className="bg-white p-8 rounded-lg border-l-4 border-blue-500">
+                <h3 className="text-xl font-bold mb-6 text-gray-800">MVP 고도화 및 1차 파일럿 운영을 준비 중</h3>
+                
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-blue-50 p-6 rounded-lg">
+                      <h4 className="text-lg font-semibold mb-3 text-blue-700">희망 투자금</h4>
+                      <p className="text-2xl font-bold text-blue-800">시드 단계 기준 약 2억 원</p>
+                    </div>
+                    <div className="bg-green-50 p-6 rounded-lg">
+                      <h4 className="text-lg font-semibold mb-3 text-green-700">투자 유치 히스토리</h4>
+                      <ul className="space-y-1 text-gray-700">
+                        <li>• 외부 투자 유치 이력 없음</li>
+                        <li>• 자체 자금 1천만 원 투입</li>
+                        <li>• 예비창업패키지, TIPS 등 정부 과제 신청 준비 중</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="bg-purple-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-3 text-purple-700">자금 사용 계획</h4>
+                    <div className="grid md:grid-cols-4 gap-4">
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-purple-600">25%</div>
+                        <div className="text-sm text-gray-600">파일럿 운영 후 제품 고도화</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-purple-600">30%</div>
+                        <div className="text-sm text-gray-600">성장 분석 SaaS 리포트 정식 출시</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-purple-600">25%</div>
+                        <div className="text-sm text-gray-600">IRB 기반 임상 구조 설계</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-xl font-bold text-purple-600">20%</div>
+                        <div className="text-sm text-gray-600">기관 납품 확대 기반 마련</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <h4 className="text-lg font-semibold mb-3 text-gray-700">기업가치 산정</h4>
+                    <p className="text-gray-700 italic">"현재 단계에서는 고정된 밸류를 주장하지 않으며, DHP 멘토링과 실증 결과를 바탕으로 현실적인 기준 수립 희망"</p>
+                    <p className="text-purple-700 font-medium mt-2">"데이터로 증명하고, 시장성과 기술성을 검증한 후 밸류에이션을 정하겠습니다."</p>
+                  </div>
                 </div>
               </div>
             </CardContent>
