@@ -49,13 +49,12 @@ export interface GarminDataPoint {
 // 이름으로 최신 완료된 테스트 세션 찾기
 export async function getLatestCompletedTest(name: string): Promise<TestSessionData | null> {
   try {
-    // 먼저 이름으로 참가자 찾기 (부분 일치 포함)
+    // 먼저 정확한 이름으로 참가자 찾기
     const { data: participants, error: participantError } = await supabase
       .from('participants')
       .select('*')
-      .or(`name.eq.${name},name.ilike.%${name}%`)
-      .order('created_at', { ascending: false })
-      .limit(1);
+      .eq('name', name)
+      .order('created_at', { ascending: false });
 
     if (participantError || !participants || participants.length === 0) {
       console.log('No participant found for name:', name);

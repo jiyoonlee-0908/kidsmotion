@@ -794,11 +794,11 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Supabase 사용자 검색 ===", name);
       
-      // 1단계: 이름으로 참가자 기본 정보 찾기 (테스트 완료 여부와 무관)
+      // 1단계: 정확한 이름으로 참가자 기본 정보 찾기
       const { data: participants, error: participantError } = await supabase
         .from('participants')
         .select('*')
-        .or(`name.eq.${name},name.ilike.%${name}%`)
+        .eq('name', name)
         .order('created_at', { ascending: false })
         .limit(1);
 
