@@ -59,7 +59,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       studentName: "",
       affiliation: "",
       birthDate: "",
-      gender: "M",
+      gender: "",
       height: 0,
       weight: 0,
       power5s: 0,
@@ -288,7 +288,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>성별</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
                           <SelectValue placeholder="성별 선택" />
