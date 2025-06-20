@@ -106,146 +106,25 @@ function VideoPlayer() {
   }, [videoLoaded]);
 
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-      <div className="text-center mb-4">
-        <h3 className="text-xl font-bold text-gray-800">KidsMotion 시스템 영상</h3>
-        <p className="text-gray-600 text-sm">실제 측정 과정을 확인해보세요</p>
-      </div>
-
-      {/* 디버깅 정보 */}
-      <div className="mb-4 p-3 bg-blue-50 rounded border-l-4 border-blue-500 text-sm">
-        <p><strong>현재 시도 중인 소스:</strong> {videoSources[fallbackMethod]}</p>
-        <p><strong>상태:</strong> {videoLoaded ? "로드됨" : "로딩 중..."}</p>
-        {videoError && <p className="text-red-600"><strong>오류:</strong> {videoError}</p>}
-      </div>
-
-      <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
-        <video
-          ref={videoRef}
-          key={`video-latest-${Date.now()}`}
-          src={`/videos/kidsmotion.mp4?v=${Date.now()}`}
-          controls
-          playsInline
-          preload="metadata"
-          width="800"
-          height="450"
-          className="w-full h-auto max-w-full"
-          style={{ 
-            minHeight: '300px',
-            backgroundColor: '#000',
-            display: 'block'
-          }}
-          onLoadedData={handleVideoLoad}
-          onError={handleVideoError}
-          onLoadedMetadata={(e) => {
-            const video = e.currentTarget as HTMLVideoElement;
-            console.log("🎬 LATEST VIDEO (16.8MB) metadata:", {
-              duration: video.duration,
-              videoWidth: video.videoWidth,
-              videoHeight: video.videoHeight,
-              currentSrc: video.currentSrc,
-              networkState: video.networkState,
-              readyState: video.readyState,
-              fileSize: "16.8MB"
-            });
-            
-            if (video.videoWidth > 0 && video.videoHeight > 0) {
-              console.log("🎉 SUCCESS! Video has valid dimensions:", video.videoWidth + "x" + video.videoHeight);
-              setVideoError(null);
-            } else {
-              console.warn("⚠️ Video still has 0 dimensions, trying alternative method");
-            }
-          }}
-          onCanPlay={() => {
-            console.log("▶️ LATEST VIDEO ready to play");
-            if (videoRef.current && videoRef.current.videoWidth > 0) {
-              console.log("✅ Video playback confirmed with dimensions");
-            }
-          }}
-        >
-          <source src={`/videos/kidsmotion.mp4?v=${Date.now()}`} type="video/mp4" />
-          
-          <div className="flex items-center justify-center h-full text-white p-8">
-            <div className="text-center">
-              <p className="mb-4">브라우저에서 영상을 재생할 수 없습니다.</p>
-              <div className="space-y-2">
-                <a 
-                  href={videoSources[fallbackMethod]} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mr-2"
-                >
-                  영상 파일 직접 열기
-                </a>
-                <Button 
-                  onClick={() => loadVideoAsBlob(videoSources[fallbackMethod])}
-                  className="bg-green-600 hover:bg-green-700"
-                >
-                  Blob 방식으로 다시 시도
-                </Button>
-              </div>
-            </div>
-          </div>
-        </video>
-
-        {/* Canvas fallback for corrupted video files */}
-        {videoLoaded && videoRef.current && (
-          <canvas
-            ref={(canvas) => {
-              if (canvas && videoRef.current) {
-                const ctx = canvas.getContext('2d');
-                const video = videoRef.current;
-                
-                const drawFrame = () => {
-                  if (video.readyState >= 2) {
-                    canvas.width = video.offsetWidth || 800;
-                    canvas.height = video.offsetHeight || 450;
-                    ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
-                  }
-                  requestAnimationFrame(drawFrame);
-                };
-                
-                video.addEventListener('play', () => {
-                  drawFrame();
-                });
-              }
-            }}
-            className="absolute top-0 left-0 w-full h-full pointer-events-none"
-            style={{ display: videoRef.current?.videoWidth === 0 ? 'block' : 'none' }}
-          />
-        )}
-
-        {!videoLoaded && !videoError && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
-            <div className="text-white text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-              <p>영상을 로딩하는 중...</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 영상 소스 테스트 버튼들 */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {videoSources.map((source, index) => (
-          <Button
-            key={index}
-            variant={index === fallbackMethod ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFallbackMethod(index)}
-            className="text-xs"
-          >
-            소스 {index + 1}
-          </Button>
-        ))}
-      </div>
-
-      {/* 수동 영상 업로드 옵션 */}
-      <div className="mt-4 p-3 bg-green-50 rounded border-l-4 border-green-500">
-        <p className="text-sm text-green-800">
-          <strong>영상 로드 성공!</strong> 1920x1080 해상도, 21초 분량의 KidsMotion 시스템 영상이 정상적으로 재생됩니다.
-        </p>
-      </div>
+    <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+      <video
+        ref={videoRef}
+        key={`video-latest-${Date.now()}`}
+        src={`/videos/kidsmotion.mp4?v=${Date.now()}`}
+        controls
+        playsInline
+        preload="metadata"
+        className="w-full h-full rounded-lg shadow-lg"
+        style={{ 
+          backgroundColor: '#000',
+          display: 'block'
+        }}
+        onLoadedData={handleVideoLoad}
+        onError={handleVideoError}
+      >
+        <source src={`/videos/kidsmotion.mp4?v=${Date.now()}`} type="video/mp4" />
+        브라우저에서 영상을 재생할 수 없습니다.
+      </video>
     </div>
   );
 }
@@ -289,17 +168,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* KidsMotion 영상 */}
         <div className="mb-16">
-          <Card className="bg-white shadow-lg border-0">
-            <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">KidsMotion 시스템 소개</h2>
-                <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
-              </div>
-              <div className="relative w-full max-w-4xl mx-auto">
-                <VideoPlayer />
-              </div>
-            </CardContent>
-          </Card>
+          <div className="relative w-full max-w-4xl mx-auto">
+            <VideoPlayer />
+          </div>
         </div>
 
         {/* Founder Letter */}
