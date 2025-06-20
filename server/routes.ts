@@ -809,6 +809,8 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       const participant = participants[0];
       console.log("참가자 발견:", participant.name);
+      console.log("참가자 생년월일 원본:", participant.birth_date);
+      console.log("참가자 전체 데이터:", JSON.stringify(participant, null, 2));
 
       // 2단계: 완료된 테스트 세션 찾기 (선택사항)
       const testSession = await getLatestCompletedTest(name);
@@ -839,7 +841,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         measureDate: testSession ? formatDate(testSession.endTime) : new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
         studentName: participant.name,
         affiliation: participant.organization || '',
-        birthDate: formatDate(participant.birthDate),
+        birthDate: formatDate(participant.birth_date),
         gender: formatGender(participant.gender),
         
         // 파워 측정값 (가민 데이터가 있을 때만)

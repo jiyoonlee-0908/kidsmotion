@@ -14,10 +14,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 export interface ParticipantData {
   id: string;
   name: string;
-  birthDate: string;
+  birth_date: string;
   gender: string;
   organization: string;
-  createdAt: string;
+  created_at: string;
 }
 
 export interface TestSessionData {
