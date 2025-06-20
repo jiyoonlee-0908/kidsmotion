@@ -19,6 +19,7 @@ function VideoPlayer() {
   const [fallbackMethod, setFallbackMethod] = useState(0);
   const [useIframe, setUseIframe] = useState(false);
   const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   // 여러 영상 소스 경로 시도
   const videoSources = [
@@ -114,7 +115,6 @@ function VideoPlayer() {
         controls
         autoPlay
         loop
-        muted
         playsInline
         preload="metadata"
         className="w-full h-full rounded-lg shadow-lg"
@@ -124,8 +124,17 @@ function VideoPlayer() {
         }}
         onLoadedData={handleVideoLoad}
         onError={handleVideoError}
+        onLoadedMetadata={() => {
+          // 로드 완료 후 소리와 함께 재생 시도
+          if (videoRef.current) {
+            videoRef.current.muted = false;
+            videoRef.current.play().catch(() => {
+              // 자동재생 실패 시 사용자 클릭 유도
+              console.log("자동재생을 위해 영상을 클릭해주세요");
+            });
+          }
+        }}
         onEnded={() => {
-          // 영상 끝나면 즉시 다시 재생
           if (videoRef.current) {
             videoRef.current.currentTime = 0;
             videoRef.current.play();
