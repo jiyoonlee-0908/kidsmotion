@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Target, Building2, BarChart3, Zap, MessageCircleQuestion } from "lucide-react";
 import { useEffect, useRef } from "react";
+import kidsMotionVideo from "@/assets/kidsmotion_video.mp4";
 
 import CommonFooter from "@/components/common-footer";
 
@@ -56,28 +57,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-gray-600">아이들의 체력을 과학적으로 측정하는 모습을 확인해보세요</p>
               </div>
               <div className="relative w-full max-w-4xl mx-auto">
-                <div className="bg-gray-900 rounded-lg p-4">
-                  <div className="bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg p-8 text-center text-white">
-                    <div className="mb-4">
-                      <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                      <h3 className="text-xl font-bold mb-2">영상 준비 중</h3>
-                      <p className="text-blue-100">KidsMotion 시스템 데모 영상을 준비하고 있습니다.</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 mt-6 text-sm">
-                      <div className="bg-white/10 rounded-lg p-3">
-                        <div className="font-semibold">실시간 측정</div>
-                        <div className="text-blue-200">파워, 심박수, 밸런스</div>
-                      </div>
-                      <div className="bg-white/10 rounded-lg p-3">
-                        <div className="font-semibold">AI 분석</div>
-                        <div className="text-blue-200">개인 맞춤 운동 처방</div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="bg-gray-900 rounded-lg p-2">
+                  <video
+                    ref={videoRef}
+                    key={kidsMotionVideo}
+                    src={kidsMotionVideo}
+                    autoPlay
+                    loop
+                    controls
+                    playsInline
+                    width="720"
+                    height="405"
+                    className="w-full max-w-3xl mx-auto rounded block"
+                    style={{ maxHeight: '405px' }}
+                    onLoadStart={() => console.log('Video loading started')}
+                    onCanPlay={() => console.log('Video can play')}
+                    onPlay={() => console.log('Video started playing')}
+                    onError={(e) => console.error('Video error:', e)}
+                  >
+                    <source src={kidsMotionVideo} type="video/mp4" />
+                    브라우저가 이 영상을 재생할 수 없습니다.
+                  </video>
+                  <p className="text-white text-sm text-center mt-2">KidsMotion 시스템 소개</p>
                 </div>
               </div>
             </CardContent>
