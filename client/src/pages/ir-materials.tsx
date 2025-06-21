@@ -137,10 +137,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-lg text-blue-700">→ 개선방안 제시</div>
                 </div>
               </div>
-              {/* 임팩트 화살표 */}
+              {/* 깔끔한 화살표 */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform rotate-3">
-                  <div className="text-3xl font-black text-white">⚡ SOLVE</div>
+                <div className="bg-white rounded-lg shadow-xl border-2 border-gray-200 px-6 py-3">
+                  <div className="text-4xl font-bold text-blue-600">→</div>
                 </div>
               </div>
             </div>
@@ -157,10 +157,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-lg text-blue-700">→ 운동 투자 가치 명확 판단</div>
                 </div>
               </div>
-              {/* 임팩트 화살표 */}
+              {/* 깔끔한 화살표 */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-gradient-to-r from-green-400 to-emerald-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform -rotate-3">
-                  <div className="text-3xl font-black text-white">💯 DATA</div>
+                <div className="bg-white rounded-lg shadow-xl border-2 border-gray-200 px-6 py-3">
+                  <div className="text-4xl font-bold text-blue-600">→</div>
                 </div>
               </div>
             </div>
@@ -177,10 +177,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-lg text-blue-700">→ 우리 아이의 정확한 위치 확인</div>
                 </div>
               </div>
-              {/* 임팩트 화살표 */}
+              {/* 깔끔한 화살표 */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-gradient-to-r from-purple-400 to-pink-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform rotate-2">
-                  <div className="text-3xl font-black text-white">📊 RANK</div>
+                <div className="bg-white rounded-lg shadow-xl border-2 border-gray-200 px-6 py-3">
+                  <div className="text-4xl font-bold text-blue-600">→</div>
                 </div>
               </div>
             </div>
@@ -197,10 +197,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-lg text-blue-700">→ 조기 개입으로 즉시 대응</div>
                 </div>
               </div>
-              {/* 임팩트 화살표 */}
+              {/* 깔끔한 화살표 */}
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-gradient-to-r from-red-400 to-orange-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform -rotate-2">
-                  <div className="text-3xl font-black text-white">🚨 ALERT</div>
+                <div className="bg-white rounded-lg shadow-xl border-2 border-gray-200 px-6 py-3">
+                  <div className="text-4xl font-bold text-blue-600">→</div>
                 </div>
               </div>
             </div>
