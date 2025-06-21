@@ -137,9 +137,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-lg text-blue-700">→ 개선방안 제시</div>
                 </div>
               </div>
-              {/* 연결 화살표 */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
-                <div className="text-2xl font-bold text-green-600">→</div>
+              {/* 임팩트 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-gradient-to-r from-yellow-400 to-orange-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform rotate-3">
+                  <div className="text-3xl font-black text-white">⚡ SOLVE</div>
+                </div>
               </div>
             </div>
 
@@ -150,14 +152,16 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-xl font-bold text-red-800 mb-3">"운동시키고 싶은데 이 정도면 괜찮을까?"</div>
                   <div className="text-lg text-red-700">"상위 1%도 살아남지 못하는데..."</div>
                 </div>
-                <div className="bg-gradient-to-r from-green-100 to-green-200 p-8 rounded-2xl shadow-lg border-2 border-green-300">
-                  <div className="text-xl font-bold text-green-800 mb-3">1등급 달성 시 상위 1% 재능 확인</div>
-                  <div className="text-lg text-green-700">→ 운동 투자 가치 명확 판단</div>
+                <div className="bg-gradient-to-r from-blue-100 to-blue-200 p-8 rounded-2xl shadow-lg border-2 border-blue-300">
+                  <div className="text-xl font-bold text-blue-800 mb-3">1등급 달성 시 상위 1% 재능 확인</div>
+                  <div className="text-lg text-blue-700">→ 운동 투자 가치 명확 판단</div>
                 </div>
               </div>
-              {/* 연결 화살표 */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
-                <div className="text-2xl font-bold text-green-600">→</div>
+              {/* 임팩트 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-gradient-to-r from-green-400 to-emerald-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform -rotate-3">
+                  <div className="text-3xl font-black text-white">💯 DATA</div>
+                </div>
               </div>
             </div>
 
@@ -168,14 +172,16 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-xl font-bold text-red-800 mb-3">"다른 아이들보다 체력이 떨어지는 것 같은데..."</div>
                   <div className="text-lg text-red-700">"정확히 얼마나 뒤처지는 거지?"</div>
                 </div>
-                <div className="bg-gradient-to-r from-purple-100 to-purple-200 p-8 rounded-2xl shadow-lg border-2 border-purple-300">
-                  <div className="text-xl font-bold text-purple-800 mb-3">1~5등급 체제와 백분위 제공</div>
-                  <div className="text-lg text-purple-700">→ 우리 아이의 정확한 위치 확인</div>
+                <div className="bg-gradient-to-r from-blue-100 to-blue-200 p-8 rounded-2xl shadow-lg border-2 border-blue-300">
+                  <div className="text-xl font-bold text-blue-800 mb-3">1~5등급 체제와 백분위 제공</div>
+                  <div className="text-lg text-blue-700">→ 우리 아이의 정확한 위치 확인</div>
                 </div>
               </div>
-              {/* 연결 화살표 */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
-                <div className="text-2xl font-bold text-green-600">→</div>
+              {/* 임팩트 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-gradient-to-r from-purple-400 to-pink-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform rotate-2">
+                  <div className="text-3xl font-black text-white">📊 RANK</div>
+                </div>
               </div>
             </div>
 
@@ -186,14 +192,16 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="text-xl font-bold text-red-800 mb-3">"병원에서 '괜찮다'고만 하고..."</div>
                   <div className="text-lg text-red-700">"정말 괜찮은 건지 불안해!"</div>
                 </div>
-                <div className="bg-gradient-to-r from-orange-100 to-orange-200 p-8 rounded-2xl shadow-lg border-2 border-orange-300">
-                  <div className="text-xl font-bold text-orange-800 mb-3">5등급, 하위 4% 바로 확인</div>
-                  <div className="text-lg text-orange-700">→ 조기 개입으로 즉시 대응</div>
+                <div className="bg-gradient-to-r from-blue-100 to-blue-200 p-8 rounded-2xl shadow-lg border-2 border-blue-300">
+                  <div className="text-xl font-bold text-blue-800 mb-3">5등급, 하위 4% 바로 확인</div>
+                  <div className="text-lg text-blue-700">→ 조기 개입으로 즉시 대응</div>
                 </div>
               </div>
-              {/* 연결 화살표 */}
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
-                <div className="text-2xl font-bold text-green-600">→</div>
+              {/* 임팩트 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-gradient-to-r from-red-400 to-orange-500 px-8 py-4 rounded-full shadow-2xl border-4 border-white transform -rotate-2">
+                  <div className="text-3xl font-black text-white">🚨 ALERT</div>
+                </div>
               </div>
             </div>
           </div>
