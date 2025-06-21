@@ -119,57 +119,81 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* 문제와 해결책 - 매칭된 좌우 배치 */}
         <div className="mb-20">
-          <div className="grid grid-cols-2 gap-8 mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 text-center">부모들의 현실적 걱정</h2>
-            <h2 className="text-3xl font-bold text-blue-800 text-center">우리의 데이터 기반 해결책</h2>
+          <div className="grid grid-cols-2 gap-8 mb-12">
+            <h2 className="text-3xl font-bold text-red-700 text-center">부모들의 현실적 걱정</h2>
+            <h2 className="text-3xl font-bold text-blue-700 text-center">우리의 데이터 기반 해결책</h2>
           </div>
           
-          <div className="space-y-8">
+          <div className="space-y-12">
             {/* 첫 번째 매칭 */}
-            <div className="grid grid-cols-2 gap-8">
-              <div className="bg-blue-50 p-8 rounded-2xl shadow-md border-l-4 border-blue-400">
-                <div className="text-xl font-bold text-blue-800 mb-3">"아이 좌우가 심하게 틀어진 것 같은데..."</div>
-                <div className="text-lg text-blue-600">"혹시 성장에 문제가 생기는 건 아니겠지?"</div>
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-8">
+                <div className="bg-gradient-to-r from-red-100 to-red-200 p-8 rounded-2xl shadow-lg border-2 border-red-300">
+                  <div className="text-xl font-bold text-red-800 mb-3">"아이 좌우가 심하게 틀어진 것 같은데..."</div>
+                  <div className="text-lg text-red-700">"혹시 성장에 문제가 생기는 건 아니겠지?"</div>
+                </div>
+                <div className="bg-gradient-to-r from-blue-100 to-blue-200 p-8 rounded-2xl shadow-lg border-2 border-blue-300">
+                  <div className="text-xl font-bold text-blue-800 mb-3">좌우 밸런스 정확한 수치로 측정</div>
+                  <div className="text-lg text-blue-700">→ 개선방안 제시</div>
+                </div>
               </div>
-              <div className="bg-blue-50 p-8 rounded-2xl shadow-md border-l-4 border-blue-500">
-                <div className="text-xl font-bold text-blue-700 mb-3">좌우 밸런스 정확한 수치로 측정</div>
-                <div className="text-lg text-blue-600">→ 개선방안 제시</div>
+              {/* 연결 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
+                <div className="text-2xl font-bold text-green-600">→</div>
               </div>
             </div>
 
             {/* 두 번째 매칭 */}
-            <div className="grid grid-cols-2 gap-8">
-              <div className="bg-green-50 p-8 rounded-2xl shadow-md border-l-4 border-green-400">
-                <div className="text-xl font-bold text-green-800 mb-3">"운동시키고 싶은데 이 정도면 괜찮을까?"</div>
-                <div className="text-lg text-green-600">"상위 1%도 살아남지 못하는데..."</div>
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-8">
+                <div className="bg-gradient-to-r from-red-100 to-red-200 p-8 rounded-2xl shadow-lg border-2 border-red-300">
+                  <div className="text-xl font-bold text-red-800 mb-3">"운동시키고 싶은데 이 정도면 괜찮을까?"</div>
+                  <div className="text-lg text-red-700">"상위 1%도 살아남지 못하는데..."</div>
+                </div>
+                <div className="bg-gradient-to-r from-green-100 to-green-200 p-8 rounded-2xl shadow-lg border-2 border-green-300">
+                  <div className="text-xl font-bold text-green-800 mb-3">1등급 달성 시 상위 1% 재능 확인</div>
+                  <div className="text-lg text-green-700">→ 운동 투자 가치 명확 판단</div>
+                </div>
               </div>
-              <div className="bg-green-50 p-8 rounded-2xl shadow-md border-l-4 border-green-500">
-                <div className="text-xl font-bold text-green-700 mb-3">1등급 달성 시 상위 1% 재능 확인</div>
-                <div className="text-lg text-green-600">→ 운동 투자 가치 명확 판단</div>
+              {/* 연결 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
+                <div className="text-2xl font-bold text-green-600">→</div>
               </div>
             </div>
 
             {/* 세 번째 매칭 */}
-            <div className="grid grid-cols-2 gap-8">
-              <div className="bg-purple-50 p-8 rounded-2xl shadow-md border-l-4 border-purple-400">
-                <div className="text-xl font-bold text-purple-800 mb-3">"다른 아이들보다 체력이 떨어지는 것 같은데..."</div>
-                <div className="text-lg text-purple-600">"정확히 얼마나 뒤처지는 거지?"</div>
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-8">
+                <div className="bg-gradient-to-r from-red-100 to-red-200 p-8 rounded-2xl shadow-lg border-2 border-red-300">
+                  <div className="text-xl font-bold text-red-800 mb-3">"다른 아이들보다 체력이 떨어지는 것 같은데..."</div>
+                  <div className="text-lg text-red-700">"정확히 얼마나 뒤처지는 거지?"</div>
+                </div>
+                <div className="bg-gradient-to-r from-purple-100 to-purple-200 p-8 rounded-2xl shadow-lg border-2 border-purple-300">
+                  <div className="text-xl font-bold text-purple-800 mb-3">1~5등급 체제와 백분위 제공</div>
+                  <div className="text-lg text-purple-700">→ 우리 아이의 정확한 위치 확인</div>
+                </div>
               </div>
-              <div className="bg-purple-50 p-8 rounded-2xl shadow-md border-l-4 border-purple-500">
-                <div className="text-xl font-bold text-purple-700 mb-3">1~5등급 체제와 백분위 제공</div>
-                <div className="text-lg text-purple-600">→ 우리 아이의 정확한 위치 확인</div>
+              {/* 연결 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
+                <div className="text-2xl font-bold text-green-600">→</div>
               </div>
             </div>
 
             {/* 네 번째 매칭 */}
-            <div className="grid grid-cols-2 gap-8">
-              <div className="bg-orange-50 p-8 rounded-2xl shadow-md border-l-4 border-orange-400">
-                <div className="text-xl font-bold text-orange-800 mb-3">"병원에서 '괜찮다'고만 하고..."</div>
-                <div className="text-lg text-orange-600">"정말 괜찮은 건지 불안해!"</div>
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-8">
+                <div className="bg-gradient-to-r from-red-100 to-red-200 p-8 rounded-2xl shadow-lg border-2 border-red-300">
+                  <div className="text-xl font-bold text-red-800 mb-3">"병원에서 '괜찮다'고만 하고..."</div>
+                  <div className="text-lg text-red-700">"정말 괜찮은 건지 불안해!"</div>
+                </div>
+                <div className="bg-gradient-to-r from-orange-100 to-orange-200 p-8 rounded-2xl shadow-lg border-2 border-orange-300">
+                  <div className="text-xl font-bold text-orange-800 mb-3">5등급, 하위 4% 바로 확인</div>
+                  <div className="text-lg text-orange-700">→ 조기 개입으로 즉시 대응</div>
+                </div>
               </div>
-              <div className="bg-orange-50 p-8 rounded-2xl shadow-md border-l-4 border-orange-500">
-                <div className="text-xl font-bold text-orange-700 mb-3">5등급, 하위 4% 바로 확인</div>
-                <div className="text-lg text-orange-600">→ 조기 개입으로 즉시 대응</div>
+              {/* 연결 화살표 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-full shadow-lg border-4 border-green-500 flex items-center justify-center z-10">
+                <div className="text-2xl font-bold text-green-600">→</div>
               </div>
             </div>
           </div>
