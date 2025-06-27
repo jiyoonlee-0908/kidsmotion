@@ -80,7 +80,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
                   과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고<br/>
                   개인별 최적화된 운동 처방을 제공합니다<br/>
-                  <span className="text-sm text-gray-500">PC 환경에 최적화되어 있습니다</span>
+                  <span className="text-sm text-gray-500">[PC 환경에 최적화되어 있습니다]</span>
                 </p>
                 <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16">
                   <div className="fitness-card text-center group">
