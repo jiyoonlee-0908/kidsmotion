@@ -195,38 +195,41 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           
           {/* 깔끔한 좌우 분할 레이아웃 */}
           <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
-            {/* 왼쪽: 3개 이미지 */}
-            <div className="space-y-8">
+            {/* 왼쪽: 3개 이미지 - 세로로 3줄 */}
+            <div className="space-y-6">
               {/* 키즈모션 사이클 */}
               <div className="text-center">
-                <img 
-                  src="/kidsmotion.png" 
-                  alt="MotionBike 스마트사이클" 
-                  className="w-full max-w-sm mx-auto rounded-2xl shadow-xl"
-                />
-                <p className="mt-4 text-lg font-semibold text-gray-800">키즈모션 사이클</p>
+                <div className="w-full max-w-md mx-auto">
+                  <img 
+                    src="/kidsmotion.png" 
+                    alt="MotionBike 스마트사이클" 
+                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
+                  />
+                  <p className="mt-3 text-lg font-semibold text-gray-800">키즈모션 사이클</p>
+                </div>
               </div>
               
-              {/* 모니터 앱과 웹리포트 결과지 - 나란히 배치 */}
-              <div className="grid grid-cols-2 gap-6">
-                {/* 모니터 앱 */}
-                <div className="text-center">
+              {/* 모니터 앱 */}
+              <div className="text-center">
+                <div className="w-full max-w-md mx-auto">
                   <img 
                     src="/dsfaaf.PNG" 
                     alt="모니터 앱" 
-                    className="w-full rounded-2xl shadow-xl"
+                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
                   />
-                  <p className="mt-3 text-sm font-semibold text-gray-800">모니터 앱</p>
+                  <p className="mt-3 text-lg font-semibold text-gray-800">모니터 앱</p>
                 </div>
-                
-                {/* 웹리포트 결과지 */}
-                <div className="text-center">
+              </div>
+              
+              {/* 웹리포트 결과지 */}
+              <div className="text-center">
+                <div className="w-full max-w-md mx-auto">
                   <img 
                     src="/report.png" 
                     alt="웹리포트 결과지" 
-                    className="w-full rounded-2xl shadow-xl"
+                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
                   />
-                  <p className="mt-3 text-sm font-semibold text-gray-800">웹리포트 결과지</p>
+                  <p className="mt-3 text-lg font-semibold text-gray-800">웹리포트 결과지</p>
                 </div>
               </div>
             </div>
