@@ -1072,54 +1072,65 @@ Style: Professional product photography, bright and clean, medical/fitness equip
   // 임시 테스트 엔드포인트
   app.get("/api/test-supabase", async (req, res) => {
     try {
-      console.log("=== Supabase 연결 테스트 ===");
+      console.log("=== 가장 많이 테스트한 참가자 찾기 ===");
       
-      // participants 테이블 확인
-      const { data: participants, error: participantError } = await supabase
-        .from('participants')
-        .select('name, id, birth_date, gender, organization')
-        .limit(5);
-
-      if (participantError) {
-        console.error("Participants 테이블 오류:", participantError);
-        return res.json({ error: "participants", details: participantError });
-      }
-
-      console.log("Participants 데이터:", participants);
-
-      // test_sessions 테이블 확인
-      const { data: sessions, error: sessionError } = await supabase
-        .from('test_sessions')
-        .select('id, user_id, participant_id, user_display_name, status, end_time')
-        .limit(5);
+      // session별 garmin_data 개수 확인
+      const { data: sessionCounts, error: sessionError } = await supabase
+        .from('garmin_data')
+        .select('session_id, user_display_name')
+        .order('session_id');
 
       if (sessionError) {
-        console.error("Test sessions 테이블 오류:", sessionError);
+        console.error("Session counts 오류:", sessionError);
+        return res.json({ error: "session_counts", details: sessionError });
       }
 
-      console.log("Test sessions 데이터:", sessions);
+      // session별로 데이터 개수 집계
+      const sessionStats = {};
+      sessionCounts.forEach(row => {
+        const key = `${row.session_id}_${row.user_display_name}`;
+        if (!sessionStats[key]) {
+          sessionStats[key] = {
+            sessionId: row.session_id,
+            userDisplayName: row.user_display_name,
+            count: 0
+          };
+        }
+        sessionStats[key].count++;
+      });
 
-      // garmin_data 테이블 확인
-      const { data: garmin, error: garminError } = await supabase
-        .from('garmin_data')
-        .select('session_id, user_display_name, power, left_balance, right_balance, timestamp')
-        .limit(5);
+      // 가장 많은 데이터를 가진 세션 찾기
+      const sortedSessions = Object.values(sessionStats)
+        .sort((a: any, b: any) => b.count - a.count)
+        .slice(0, 5);
 
-      if (garminError) {
-        console.error("Garmin data 테이블 오류:", garminError);
+      console.log("Session별 데이터 개수:", sortedSessions);
+
+      // 가장 많은 세션의 실제 데이터 확인
+      if (sortedSessions.length > 0) {
+        const topSession = sortedSessions[0] as any;
+        const { data: topSessionData, error: topDataError } = await supabase
+          .from('garmin_data')
+          .select('*')
+          .eq('session_id', topSession.sessionId)
+          .order('timestamp');
+
+        if (!topDataError && topSessionData) {
+          console.log(`Session ${topSession.sessionId} 전체 데이터 (${topSessionData.length}건):`);
+          console.log("첫 5건:", topSessionData.slice(0, 5));
+          console.log("마지막 5건:", topSessionData.slice(-5));
+        }
       }
 
-      console.log("Garmin data 데이터:", garmin);
+      // participants도 다시 확인
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('*');
 
       res.json({
         participants: participants || [],
-        sessions: sessions || [],
-        garmin: garmin || [],
-        errors: {
-          participantError,
-          sessionError,
-          garminError
-        }
+        sessionStats: sortedSessions,
+        totalSessions: Object.keys(sessionStats).length
       });
 
     } catch (error) {
