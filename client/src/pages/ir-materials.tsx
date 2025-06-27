@@ -126,7 +126,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <p className="text-xl font-bold text-purple-800 mb-4">그래서 저는 만들었습니다.</p>
               <ul className="space-y-2 text-purple-700">
                 <li>• 운동 자질을 데이터로 확인할 수 있는 장비</li>
-                <li>• 운동을 해야 할 아이, 하지 말아야 할 아이를 정확히 구분해주는 시스템</li>
+                <li>• 운동에 소질이 있는 아이를 조기에 발견할 수 있는 시스템</li>
                 <li>• 눈으로 확인할 수 있는 성장 데이터</li>
                 <li>• 부모가 납득할 수 있는 해석 리포트</li>
               </ul>
@@ -142,44 +142,44 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 데이터로 바꾸는 솔루션</h2>
           
-          <div className="grid lg:grid-cols-2 gap-16 items-center mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 mb-16">
             {/* 왼쪽: 문제 */}
             <div>
-              <h3 className="text-3xl font-bold text-red-700 mb-8">부모들의 현실적 걱정</h3>
-              <div className="space-y-6">
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                  <p className="text-lg font-bold text-red-800 mb-2">"아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모들의 현실적 걱정</h3>
+              <div className="space-y-4">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                 </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                  <p className="text-lg font-bold text-red-800 mb-2">"운동시키고 싶은데 이 정도면 괜찮을까? 상위 1%도 살아남지 못하는데..."</p>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"운동시키고 싶은데 이 정도면 괜찮을까? 상위 1%도 살아남지 못하는데..."</p>
                 </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                  <p className="text-lg font-bold text-red-800 mb-2">"다른 아이들보다 체력이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"다른 아이들보다 체력이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
                 </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
-                  <p className="text-lg font-bold text-red-800 mb-2">"병원에서 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"병원에서 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
                 </div>
               </div>
             </div>
 
             {/* 오른쪽: 해결책 */}
             <div>
-              <h3 className="text-3xl font-bold text-blue-700 mb-8">우리의 데이터 기반 해결책</h3>
-              <div className="space-y-6">
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-lg font-bold text-blue-800 mb-2">좌우 밸런스 정확한 수치로 측정</p>
+              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">우리의 데이터 기반 해결책</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">좌우 밸런스 정확한 수치로 측정</p>
                   <p className="text-blue-600">→ 개선방안 제시</p>
                 </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-lg font-bold text-blue-800 mb-2">1등급 달성 시 상위 1% 재능 확인</p>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">1등급 달성 시 상위 1% 재능 확인</p>
                   <p className="text-blue-600">→ 운동 투자 가치 명확 판단</p>
                 </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-lg font-bold text-blue-800 mb-2">1~5등급 체제와 백분위 제공</p>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">1~5등급 체제와 백분위 제공</p>
                   <p className="text-blue-600">→ 우리 아이의 정확한 위치 확인</p>
                 </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-lg font-bold text-blue-800 mb-2">5등급, 하위 4% 바로 확인</p>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">5등급, 하위 4% 바로 확인</p>
                   <p className="text-blue-600">→ 조기 개입으로 즉시 대응</p>
                 </div>
               </div>
