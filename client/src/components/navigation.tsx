@@ -62,7 +62,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
 
           {/* ▶ 메인 네비게이션 + 우측 버튼들 */}
           <div className="flex items-center space-x-8">
-            <nav className="flex items-center space-x-8">
+            <nav className="flex items-center space-x-6">
               {/* 홈 */}
               <Link
                 href="/"

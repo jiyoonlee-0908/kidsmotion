@@ -72,42 +72,43 @@ export default function Home({ onNavigate }: HomeProps) {
         {!showResults ? (
           <>
             {/* Hero Section */}
-            <section id="home" className="text-center mb-20 pt-12">
+            <section id="home" className="text-center mb-20 pt-4">
               <div className="max-w-7xl mx-auto">
                 <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 차세대 아동 체력 분석</span>
                 </h1>
                 <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
-                  과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고 개인별 최적화된 운동 처방을 제공합니다
+                  과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고<br/>
+                  개인별 최적화된 운동 처방을 제공합니다
                 </p>
                 <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16">
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Scale className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">좌우 밸런스</h3>
-                    <p className="text-gray-600 leading-relaxed">좌우 균형 상태를 정밀하게<br />측정하고 분석하여 제공</p>
+                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">좌우 밸런스</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">좌우 균형 상태를 정밀하게<br />측정하고 분석하여 제공</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
-                    <p className="text-gray-600 leading-relaxed">종합적인 체력 측정으로<br />정확한 백분위 평가 제공</p>
+                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">종합적인 체력 측정으로<br />정확한 백분위 평가 제공</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Shield className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">개인별 피드백</h3>
-                    <p className="text-gray-600 leading-relaxed">AI 기반 개인 맞춤형<br />운동 처방과 개선 방안 제시</p>
+                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">개인별 피드백</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">AI 기반 개인 맞춤형<br />운동 처방과 개선 방안 제시</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Users className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
-                    <p className="text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
+                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
                   </div>
                 </div>
               </div>
