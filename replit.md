@@ -108,14 +108,24 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- June 27, 2025: 커스텀 도메인 연결 완료
+  - kidsmotion.bike 도메인 구매 및 Cloudflare 설정
+  - Replit Autoscale Deployment와 연결
+  - SSL 인증서 발급 대기 중 (30분 내 완료 예정)
+  - 향후 확장 계획: silvermotion.bike, motion.bike (통합 브랜드 사이트)
+
+- June 27, 2025: 팀 구성 섹션 디자인 개선
+  - "핵심 역량 기반 팀 구성"으로 제목 변경
+  - 대표자/팀원/파트너 3단 구성으로 단순화
+  - 통일된 디자인 시스템 적용 (rounded-3xl, shadow-lg)
+  - MVP 개발 역량과 30년 엘리트 경력 강조
+  - 하드웨어 파트너십 명확화
+
 - June 21, 2025: IR Materials 페이지 고급 투자자용 완전 재구성
   - 실제 데이터 기반으로 정확성 확보 (첨부파일 MotionBike 정보 반영)
   - 좌우 대칭 레이아웃으로 문제-해결 구조 명확화
   - 스크롤 애니메이션 완전 제거 (투자자 즉시 정보 파악)
   - 통일된 디자인 시스템: rounded-3xl, 일관된 패딩, 색상 체계
-  - 팀 구성 정확히 반영: 대표(10년+ 아카데미 경험), 기술공동창업자(국가대표 24년)
-  - 파일럿 정보 정정: IYC 유소년 스포츠센터 1곳, 100명 대상
-  - 정부 정책 연계를 별도 섹션으로 강조
   - "부모의 걱정을 데이터로 바꾸는 팀" 메인 메시지로 차별화
 
 - June 21, 2025: Supabase 자동 입력 기능 완성
