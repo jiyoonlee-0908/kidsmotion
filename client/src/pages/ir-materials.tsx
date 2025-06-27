@@ -420,7 +420,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
           
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
             {/* 대표자 */}
             <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
               <div className="text-center mb-8">
