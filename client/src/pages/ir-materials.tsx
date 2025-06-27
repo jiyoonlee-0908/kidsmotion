@@ -419,74 +419,76 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* 핵심 역량 기반 팀 구성 */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">💪 핵심 역량 기반 팀 구성</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
           
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="max-w-5xl mx-auto space-y-8">
             {/* 대표자 카드 */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl border border-gray-200">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-3xl p-8 text-white shadow-2xl">
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <Users className="w-10 h-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">대표자</h3>
-                <p className="text-lg text-blue-600 font-medium">사업 기획 및 기술 실현 전문성</p>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">10년+ 아카데미 운영으로 유소년 체력측정·훈련 현장 전문성 보유</h4>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발 완료</h4>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">현장 피드백 기반 B2B 제품 설계 및 병원·보건소·체육시설 네트워크 확보</h4>
-                </div>
-                <div className="bg-blue-50 p-4 rounded-2xl">
-                  <p className="font-bold text-blue-800 text-center">기획부터 개발, 시장 검증까지 end-to-end 실현 역량 보유</p>
+                <div className="flex-1">
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold mb-2">대표자 카드</h3>
+                    <p className="text-xl text-blue-100">"사업 기획 및 기술 실현 전문성"</p>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <p className="text-lg leading-relaxed">10년+ 아카데미 운영으로 유소년 체력측정·훈련 현장 전문성 보유</p>
+                      <p className="text-lg leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발 완료</p>
+                    </div>
+                    <div className="space-y-3">
+                      <p className="text-lg leading-relaxed">현장 피드백 기반 B2B 제품 설계 및 병원·보건소·체육시설 네트워크 확보</p>
+                      <p className="text-lg leading-relaxed font-bold text-blue-100">기획부터 개발, 시장 검증까지 end-to-end 실현 역량 보유</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 팀원1 카드 */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl border border-gray-200">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-white" />
+            {/* 팀원 카드 */}
+            <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-3xl p-8 text-white shadow-2xl">
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <Award className="w-10 h-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">팀원1</h3>
-                <p className="text-lg text-green-600 font-medium">운동역학 및 데이터 분석 전문성</p>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">운동역학 석사 + 전 국가대표 선수 (30년 엘리트 경력 + 13년 아카데미 운영)</h4>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</h4>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</h4>
+                <div className="flex-1">
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold mb-2">팀원 카드</h3>
+                    <p className="text-xl text-green-100">"운동역학 및 데이터 분석 전문성"</p>
+                  </div>
+                  <div className="space-y-4">
+                    <p className="text-lg leading-relaxed">운동역학 석사 + 전 국가대표 선수 (30년 엘리트 경력 + 13년 아카데미 운영)</p>
+                    <p className="text-lg leading-relaxed">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</p>
+                    <p className="text-lg leading-relaxed">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* 파트너 카드 */}
-            <div className="bg-white rounded-3xl p-10 shadow-xl border border-gray-200">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Settings className="w-8 h-8 text-white" />
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-3xl p-8 text-white shadow-2xl">
+              <div className="flex items-start space-x-6">
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
+                    <Settings className="w-10 h-10 text-white" />
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">파트너</h3>
-                <p className="text-lg text-purple-600 font-medium">하드웨어 개발 파트너십</p>
-              </div>
-              <div className="space-y-6">
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">자전거 부품 설계 특허 보유 기업과 협력</h4>
-                </div>
-                <div>
-                  <h4 className="font-bold text-gray-900 mb-3 text-base">현재 MVP 시제품 공동 개발 진행 중</h4>
-                </div>
-                <div className="bg-purple-50 p-4 rounded-2xl">
-                  <p className="font-bold text-purple-800 text-center">검증된 기술력으로 제품 실현 가능성 확보</p>
+                <div className="flex-1">
+                  <div className="mb-6">
+                    <h3 className="text-3xl font-bold mb-2">파트너 카드</h3>
+                    <p className="text-xl text-purple-100">"하드웨어 개발 파트너십"</p>
+                  </div>
+                  <div className="space-y-4">
+                    <p className="text-lg leading-relaxed">자전거 부품 설계 특허 보유 기업과 협력</p>
+                    <p className="text-lg leading-relaxed">현재 MVP 시제품 공동 개발 진행 중</p>
+                    <p className="text-lg leading-relaxed font-bold text-purple-100">검증된 기술력으로 제품 실현 가능성 확보</p>
+                  </div>
                 </div>
               </div>
             </div>
