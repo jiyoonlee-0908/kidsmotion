@@ -252,24 +252,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </div>
 
-          {/* 통합 솔루션 가격 */}
-          <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl p-8 mb-12">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-indigo-800 mb-4">MotionBike 솔루션</h3>
-              <div className="flex items-center justify-center space-x-4">
-                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
-                  <div className="text-3xl font-bold text-indigo-600">550만원</div>
-                  <p className="text-gray-600">장비 도입</p>
-                </div>
-                <div className="text-3xl text-indigo-500">+</div>
-                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
-                  <div className="text-3xl font-bold text-blue-600">월 5만원</div>
-                  <p className="text-gray-600">서비스 구독</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* 3개 시장별 특화 서비스 */}
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
@@ -298,6 +280,32 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-purple-50 p-4 rounded-xl">
                   <p className="font-bold text-purple-800 mb-2">✓ 지역 아동 건강 빅데이터</p>
                   <p className="text-gray-600 text-sm">정책 수립을 위한 데이터 구축</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 통합 솔루션 가격 */}
+        <div className="mb-20">
+          <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl p-8 mb-12">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-indigo-800 mb-4">MotionBike 솔루션</h3>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
+                  <div className="text-3xl font-bold text-indigo-600">550만원</div>
+                  <p className="text-gray-600">장비 도입</p>
+                </div>
+                <div className="text-3xl text-indigo-500">+</div>
+                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
+                  <div className="text-3xl font-bold text-blue-600">월 5만원</div>
+                  <p className="text-gray-600">서비스 구독</p>
+                  <div className="mt-2 text-sm text-blue-500">
+                    <div>• AI 분석</div>
+                    <div>• 누적 데이터 통계</div>
+                    <div>• 백분위 업데이트</div>
+                    <div>• 분석 리포트</div>
+                  </div>
                 </div>
               </div>
             </div>
