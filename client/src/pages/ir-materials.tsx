@@ -429,7 +429,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <Users className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-blue-800">CEO</h3>
-                <p className="text-lg text-blue-600 font-medium">김다인</p>
+                <p className="text-lg text-blue-600 font-medium">대표자</p>
               </div>
               <div className="space-y-4 text-gray-700">
                 <div>
