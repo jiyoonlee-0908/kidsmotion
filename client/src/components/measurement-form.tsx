@@ -23,9 +23,9 @@ const formSchema = insertMeasurementSchema.extend({
   weight: z.number().min(15, "체중은 최소 15kg 이상이어야 합니다.").max(100, "체중은 최대 100kg까지 입력 가능합니다."),
   leftBalance: z.number().min(0).max(100),
   rightBalance: z.number().min(0).max(100),
-  // 필수 심박수 필드들
-  maxHeartRate: z.number().min(60).max(220),
-  avgHeartRate: z.number().min(50).max(200),
+  // 선택 사항 심박수 필드들
+  maxHeartRate: z.number().min(60).max(220).optional().nullable(),
+  avgHeartRate: z.number().min(50).max(200).optional().nullable(),
 }).refine((data) => {
   return Math.abs((data.leftBalance + data.rightBalance) - 100) < 0.1;
 }, {
@@ -70,8 +70,8 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       power60s: 0,
       leftBalance: 50,
       rightBalance: 50,
-      maxHeartRate: 0,
-      avgHeartRate: 0,
+      maxHeartRate: null,
+      avgHeartRate: null,
     },
   });
 
@@ -620,15 +620,18 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                   name="maxHeartRate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">최대 심박수 (BPM)</FormLabel>
+                      <FormLabel className="text-sm font-medium text-gray-700">
+                        최대 심박수 (BPM) <Badge variant="secondary" className="ml-2">선택사항</Badge>
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
                           className="bg-white"
-                          value={field.value === 0 ? "" : field.value}
+                          placeholder="심박계 미연결 시 공란 가능"
+                          value={field.value === 0 || field.value === null ? "" : field.value?.toString() || ""}
                           onChange={e => {
                             const value = e.target.value;
-                            field.onChange(value === '' ? 0 : Number(value) || 0);
+                            field.onChange(value === '' ? null : Number(value) || null);
                           }}
                         />
                       </FormControl>
@@ -642,15 +645,18 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                   name="avgHeartRate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-sm font-medium text-gray-700">평균 심박수 (BPM)</FormLabel>
+                      <FormLabel className="text-sm font-medium text-gray-700">
+                        평균 심박수 (BPM) <Badge variant="secondary" className="ml-2">선택사항</Badge>
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type="number"
                           className="bg-white"
-                          value={field.value === 0 ? "" : field.value}
+                          placeholder="심박계 미연결 시 공란 가능"
+                          value={field.value === 0 || field.value === null ? "" : field.value?.toString() || ""}
                           onChange={e => {
                             const value = e.target.value;
-                            field.onChange(value === '' ? 0 : Number(value) || 0);
+                            field.onChange(value === '' ? null : Number(value) || null);
                           }}
                         />
                       </FormControl>

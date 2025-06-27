@@ -350,38 +350,47 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 최대 심박수 */}
-              {analysis.maxBpm && (
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-3">
-                    <span className="text-xl font-bold text-red-600">{analysis.maxBpm}</span>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">최대 심박수</h4>
-                  <p className="text-sm text-gray-600">
-                    해당 나이 평균 최대심박수: {220 - analysis.age}
-                  </p>
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="w-16 h-16 mx-auto bg-red-100 rounded-full flex items-center justify-center mb-3">
+                  <span className="text-xl font-bold text-red-600">
+                    {analysis.maxBpm || "기록없음"}
+                  </span>
                 </div>
-              )}
+                <h4 className="font-semibold text-gray-900 mb-2">최대 심박수</h4>
+                <p className="text-sm text-gray-600">
+                  {analysis.maxBpm ? `해당 나이 평균 최대심박수: ${220 - analysis.age}` : "심박계 연결 시 측정됩니다"}
+                </p>
+              </div>
 
               {/* 평균 심박수 */}
-              {analysis.avgBpm && (
-                <div className="text-center p-4 bg-gray-50 rounded-lg">
-                  <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
-                    <span className="text-xl font-bold text-green-600">{analysis.avgBpm}</span>
-                  </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">운동시 평균 심박수</h4>
-                  <p className="text-sm text-gray-600">
-                    {analysis.maxBpm ? `최대 심박수 대비 ${Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%로 운동` : "운동 적응도 평가"}
-                  </p>
+              <div className="text-center p-4 bg-gray-50 rounded-lg">
+                <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-3">
+                  <span className="text-xl font-bold text-green-600">
+                    {analysis.avgBpm || "기록없음"}
+                  </span>
                 </div>
-              )}
+                <h4 className="font-semibold text-gray-900 mb-2">운동시 평균 심박수</h4>
+                <p className="text-sm text-gray-600">
+                  {analysis.maxBpm && analysis.avgBpm ? `최대 심박수 대비 ${Math.round((analysis.avgBpm / analysis.maxBpm) * 100)}%로 운동` : "심박계 연결 시 분석됩니다"}
+                </p>
+              </div>
             </div>
 
             {/* 심박수 건강 요약 */}
             <div className="mt-6 p-4 bg-blue-50 rounded-lg">
               <h4 className="font-semibold text-gray-900 mb-2">💓 심박수 건강 포인트</h4>
               <div className="space-y-2 text-sm text-gray-700">
-                <p>🏃‍♀️ 규칙적인 운동으로 심박을 더 건강하게 만들어봐요!</p>
-                <p>📈 시간이 지나면서 운동시 평균 심박수가 낮아지는 것을 목표로 해봐요!</p>
+                {analysis.maxBpm && analysis.avgBpm ? (
+                  <>
+                    <p>🏃‍♀️ 규칙적인 운동으로 심박을 더 건강하게 만들어봐요!</p>
+                    <p>📈 시간이 지나면서 운동시 평균 심박수가 낮아지는 것을 목표로 해봐요!</p>
+                  </>
+                ) : (
+                  <>
+                    <p>⌚ 다음 측정 시 심박계를 연결하면 더 정확한 운동 강도 분석이 가능해요!</p>
+                    <p>💡 심박수 데이터로 개인 맞춤 운동 처방을 받을 수 있습니다</p>
+                  </>
+                )}
               </div>
             </div>
           </CardContent>
