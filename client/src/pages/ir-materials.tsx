@@ -240,9 +240,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
 
             {/* 오른쪽: 6개 기술 리스트 */}
-            <div className="space-y-6 flex flex-col justify-between h-full">
+            <div className="space-y-6">
               {/* 기술 1: 유동성 프레임 설계 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
                   <div>
@@ -257,7 +257,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 2: DC 모터 정밀 측정 시스템 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
                   <div>
@@ -271,7 +271,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 3: 파워 & 밸런스 센서 기술 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
                   <div>
@@ -286,29 +286,25 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 4: 6단계 정밀 체력 측정 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[160px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">6단계 정밀 체력 측정</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-700">
-                      <div className="space-y-1">
-                        <p>• 5초 순발력: 순간 최대 파워 측정</p>
-                        <p>• 15초 스프린트: 무산소 능력 평가</p>
-                        <p>• 30초 지속력: 젖산 역치 확인</p>
-                      </div>
-                      <div className="space-y-1">
-                        <p>• 60초 근력: 근육 지구력 측정</p>
-                        <p>• 180초 근지구력: 유산소-무산소 경계</p>
-                        <p>• 360초 심폐지구력: 유산소 능력 평가</p>
-                      </div>
+                    <div className="space-y-1 text-gray-700">
+                      <p>• 5초 순발력: 순간 최대 파워 측정</p>
+                      <p>• 15초 스프린트: 무산소 능력 평가</p>
+                      <p>• 30초 지속력: 젖산 역치 확인</p>
+                      <p>• 60초 근력: 근육 지구력 측정</p>
+                      <p>• 180초 근지구력: 유산소-무산소 경계</p>
+                      <p>• 360초 심폐지구력: 유산소 능력 평가</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* 기술 5: AI 맞춤 리포트 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">5</div>
                   <div>
@@ -322,7 +318,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 6: 기술발전계획 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
                   <div>
