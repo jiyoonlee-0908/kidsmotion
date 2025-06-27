@@ -143,13 +143,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 데이터로 바꾸는 솔루션</h2>
           
-          <div className="grid lg:grid-cols-2 gap-8 mb-16">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-16">
             {/* 왼쪽: 문제 */}
             <div>
-              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모들의 현실적 걱정</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-red-700 mb-8 text-center">부모들의 현실적 걱정</h3>
               <div className="space-y-4">
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"우리아이 몸이 비대칭인 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+                  <p className="text-sm sm:text-lg font-bold text-red-800">"우리아이 몸이 비대칭인 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
                   <p className="text-lg font-bold text-red-800">"운동시키고 싶은데 이 정도면 괜찮을까? 상위 1%도 살아남지 못하는데..."</p>
@@ -165,7 +165,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
             {/* 오른쪽: 해결책 */}
             <div>
-              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">우리의 데이터 기반 해결책</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-8 text-center">우리의 데이터 기반 해결책</h3>
               <div className="space-y-4">
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
                   <p className="text-lg font-bold text-blue-800 mb-1">좌우 밸런스 정확한 수치로 측정</p>
@@ -195,7 +195,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
           {/* 깔끔한 좌우 분할 레이아웃 */}
-          <div className="grid lg:grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start max-w-7xl mx-auto">
             {/* 왼쪽: 3개 이미지 - 세로로 3줄 */}
             <div className="space-y-6">
               {/* 키즈모션 사이클 */}
@@ -339,7 +339,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 시장 규모 */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12">
             <div className="text-center bg-emerald-50 p-8 rounded-3xl shadow-lg">
               <div className="text-5xl font-bold text-emerald-600 mb-4">249만명</div>
               <div className="text-xl font-medium text-gray-700">전국 초등학생 수</div>
@@ -358,7 +358,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
 
           {/* 3개 시장별 특화 서비스 */}
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
               <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원 시장</h3>
               <div className="space-y-4">
@@ -563,7 +563,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </div>
           
-          <div className="mt-12 grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
             <div className="bg-white p-6 rounded-xl shadow-md">
               <div className="text-lg font-bold text-gray-800 mb-2">📱 전화</div>
               <div className="text-blue-600">010-8445-0908</div>
