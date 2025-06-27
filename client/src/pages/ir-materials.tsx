@@ -247,7 +247,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">유동성 프레임 설계</h3>
-                    <div className="space-y-2 text-gray-700">
+                    <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 키 100-150cm 대응</p>
                       <p>• 성장하는 아동을 위한 조절 가능한 구조</p>
                       <p>• 단일 장비로 만4-12세 연령대 커버</p>
@@ -262,7 +262,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">DC 모터 정밀 측정 시스템</h3>
-                    <div className="space-y-2 text-gray-700">
+                    <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 아동 체형에 맞춘 맞춤형 부하 조절</p>
                       <p>• 정밀한 와트(W) 단위 파워 데이터 수집</p>
                     </div>
@@ -276,7 +276,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">파워 & 밸런스 센서 기술</h3>
-                    <div className="space-y-2 text-gray-700">
+                    <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 실시간 파워 센서: 객관적 체력 데이터 측정</p>
                       <p>• 좌우 밸런스 센서: 페달링 중 불균형을 정량 측정</p>
                       <p>• 성장기 자세 교정을 위한 데이터 기반 피드백</p>
@@ -291,7 +291,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">6단계 정밀 체력 측정</h3>
-                    <div className="space-y-1 text-gray-700">
+                    <div className="space-y-1 text-gray-700 text-lg">
                       <p>• 5초 순발력: 순간 최대 파워 측정</p>
                       <p>• 15초 스프린트: 무산소 능력 평가</p>
                       <p>• 30초 지속력: 젖산 역치 확인</p>
@@ -309,7 +309,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">5</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">AI 맞춤 리포트</h3>
-                    <div className="space-y-2 text-gray-700">
+                    <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 복잡한 체력 데이터를 부모가 이해하는 언어로 자동 변환</p>
                       <p>• GPT-4 기반 개인별 맞춤 해석 및 운동 가이드 제공</p>
                     </div>
@@ -323,7 +323,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">기술발전계획</h3>
-                    <div className="space-y-2 text-gray-700">
+                    <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 외장→내장 센서 전환으로 정밀도 향상</p>
                       <p>• 의료기기 인증으로 신뢰성 확보</p>
                       <p>• 의료기관 진단용 장비로 확장</p>
