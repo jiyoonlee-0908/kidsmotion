@@ -475,7 +475,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">지금, 이 시장을 증명하고 있습니다</h2>
           <div className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-3xl p-12 text-white">
             <h3 className="text-3xl font-bold text-center mb-8">2025년 파일럿 테스트 확정</h3>
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
               <div className="bg-white/20 rounded-2xl p-8">
                 <h4 className="text-2xl font-bold text-blue-300 mb-6">IYC 유소년 스포츠센터</h4>
                 <div className="space-y-4 text-lg">
@@ -506,7 +506,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <p className="text-2xl text-indigo-600">국민건강 데이터화 추진</p>
             </div>
             
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
               <div className="bg-red-100 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-red-700 mb-6">국민체력100의 한계</h3>
                 <div className="space-y-4">
