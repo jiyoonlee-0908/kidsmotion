@@ -95,6 +95,8 @@ function VideoPlayer() {
 }
 
 export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
@@ -199,11 +201,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div className="space-y-6">
               {/* 키즈모션 사이클 */}
               <div className="text-center">
-                <div className="w-full max-w-md mx-auto">
+                <div className="w-full max-w-lg mx-auto">
                   <img 
                     src="/kidsmotion.png" 
                     alt="MotionBike 스마트사이클" 
-                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/kidsmotion.png')}
                   />
                   <p className="mt-3 text-lg font-semibold text-gray-800">키즈모션 사이클</p>
                 </div>
@@ -211,11 +214,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               {/* 모니터 앱 */}
               <div className="text-center">
-                <div className="w-full max-w-md mx-auto">
+                <div className="w-full max-w-lg mx-auto">
                   <img 
                     src="/dsfaaf.PNG" 
                     alt="모니터 앱" 
-                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/dsfaaf.PNG')}
                   />
                   <p className="mt-3 text-lg font-semibold text-gray-800">모니터 앱</p>
                 </div>
@@ -223,11 +227,12 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               {/* 웹리포트 결과지 */}
               <div className="text-center">
-                <div className="w-full max-w-md mx-auto">
+                <div className="w-full max-w-lg mx-auto">
                   <img 
                     src="/report.png" 
                     alt="웹리포트 결과지" 
-                    className="w-full h-48 object-contain bg-gray-50 rounded-2xl shadow-xl"
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/report.png')}
                   />
                   <p className="mt-3 text-lg font-semibold text-gray-800">웹리포트 결과지</p>
                 </div>
@@ -565,6 +570,29 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
       </div>
 
       <CommonFooter onNavigate={onNavigate} />
+
+      {/* 이미지 팝업 모달 */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative max-w-5xl max-h-full">
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 text-2xl font-bold z-10"
+            >
+              ✕ 닫기
+            </button>
+            <img
+              src={selectedImage}
+              alt="원본 이미지"
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
