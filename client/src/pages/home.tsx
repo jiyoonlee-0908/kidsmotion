@@ -77,9 +77,12 @@ export default function Home({ onNavigate }: HomeProps) {
                 <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 차세대 아동 체력 분석</span>
                 </h1>
-                <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
+                <p className="text-xl text-black mb-4 leading-relaxed max-w-6xl mx-auto font-medium">
                   과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고<br/>
                   개인별 최적화된 운동 처방을 제공합니다
+                </p>
+                <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
+                  PC 환경에 최적화되어 있습니다
                 </p>
                 <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16">
                   <div className="fitness-card text-center group">
@@ -110,11 +113,6 @@ export default function Home({ onNavigate }: HomeProps) {
                     <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
                     <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
                   </div>
-                </div>
-                
-                {/* PC 최적화 안내 */}
-                <div className="text-center mb-8">
-                  <p className="text-sm text-gray-500 font-medium">PC 환경에 최적화되어 있습니다</p>
                 </div>
               </div>
             </section>
