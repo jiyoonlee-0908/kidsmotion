@@ -193,62 +193,43 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
-          {/* 헥사곤 그리드 레이아웃 */}
-          <div className="relative max-w-7xl mx-auto">
-            {/* 중앙 스마트사이클 이미지 */}
-            <div className="flex justify-center mb-16">
+          {/* 깔끔한 좌우 분할 레이아웃 */}
+          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
+            {/* 왼쪽: 스마트사이클 이미지 */}
+            <div className="flex justify-center">
               <div className="relative">
-                <div className="w-96 h-96 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-full flex items-center justify-center shadow-2xl border-4 border-white">
-                  <img 
-                    src="/kidsmotion.png" 
-                    alt="MotionBike 스마트사이클" 
-                    className="w-80 h-80 object-contain"
-                  />
-                </div>
-                {/* 중앙 로고/브랜드 오버레이 */}
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-full px-6 py-2 shadow-lg">
-                  <span className="text-lg font-bold text-gray-800">MotionBike</span>
-                </div>
+                <img 
+                  src="/kidsmotion.png" 
+                  alt="MotionBike 스마트사이클" 
+                  className="w-full max-w-lg rounded-2xl shadow-2xl"
+                />
               </div>
             </div>
 
-            {/* 5개 기술 카드들 - 2-3-2 배치 */}
+            {/* 오른쪽: 5개 기술 리스트 */}
             <div className="space-y-8">
-              {/* 상단 2개 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {/* 유동성 프레임 설계 */}
-                <div className="group">
-                  <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl p-8 text-white shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                    <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-sm">
-                        <span className="text-3xl">🔧</span>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">유동성 프레임 설계</h3>
-                        <div className="w-12 h-1 bg-white/30 rounded-full mt-2"></div>
-                      </div>
-                    </div>
-                    <div className="space-y-3 text-purple-100">
+              {/* 기술 1: 유동성 프레임 설계 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">유동성 프레임 설계</h3>
+                    <div className="space-y-2 text-gray-700">
                       <p>• 키 100-150cm 대응</p>
                       <p>• 성장하는 아동을 위한 조절 가능한 구조</p>
                       <p>• 단일 장비로 만4-12세 연령대 커버</p>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* DC 모터 정밀 측정 시스템 */}
-                <div className="group">
-                  <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-3xl p-8 text-white shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                    <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-sm">
-                        <span className="text-3xl">⚡</span>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">DC 모터 정밀 측정 시스템</h3>
-                        <div className="w-12 h-1 bg-white/30 rounded-full mt-2"></div>
-                      </div>
-                    </div>
-                    <div className="space-y-3 text-blue-100">
+              {/* 기술 2: DC 모터 정밀 측정 시스템 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">DC 모터 정밀 측정 시스템</h3>
+                    <div className="space-y-2 text-gray-700">
                       <p>• 아동 체형에 맞춘 맞춤형 부하 조절</p>
                       <p>• 정밀한 와트(W) 단위 파워 데이터 수집</p>
                     </div>
@@ -256,26 +237,34 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
 
-              {/* 중앙 1개 - 6단계 정밀 체력 측정 */}
-              <div className="max-w-2xl mx-auto">
-                <div className="group">
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-8 text-white shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                    <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-sm">
-                        <span className="text-3xl">📈</span>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">6단계 정밀 체력 측정</h3>
-                        <div className="w-12 h-1 bg-white/30 rounded-full mt-2"></div>
-                      </div>
+              {/* 기술 3: 파워 & 밸런스 센서 기술 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">파워 & 밸런스 센서 기술</h3>
+                    <div className="space-y-2 text-gray-700">
+                      <p>• 실시간 파워 센서: 객관적 체력 데이터 측정</p>
+                      <p>• 좌우 밸런스 센서: 페달링 중 불균형을 정량 측정</p>
+                      <p>• 성장기 자세 교정을 위한 데이터 기반 피드백</p>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 text-orange-100">
-                      <div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 기술 4: 6단계 정밀 체력 측정 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">6단계 정밀 체력 측정</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-gray-700">
+                      <div className="space-y-1">
                         <p>• 5초 순발력: 순간 최대 파워 측정</p>
                         <p>• 15초 스프린트: 무산소 능력 평가</p>
                         <p>• 30초 지속력: 젖산 역치 확인</p>
                       </div>
-                      <div>
+                      <div className="space-y-1">
                         <p>• 60초 근력: 근육 지구력 측정</p>
                         <p>• 180초 근지구력: 유산소-무산소 경계</p>
                         <p>• 360초 심폐지구력: 유산소 능력 평가</p>
@@ -285,41 +274,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
 
-              {/* 하단 2개 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                {/* 파워 & 밸런스 센서 기술 */}
-                <div className="group">
-                  <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 text-white shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                    <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-sm">
-                        <span className="text-3xl">📊</span>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">파워 & 밸런스 센서 기술</h3>
-                        <div className="w-12 h-1 bg-white/30 rounded-full mt-2"></div>
-                      </div>
-                    </div>
-                    <div className="space-y-3 text-green-100">
-                      <p>• 실시간 파워 센서: 객관적 체력 데이터 측정</p>
-                      <p>• 좌우 밸런스 센서: 페달링 중 불균형을 정량 측정</p>
-                      <p>• 성장기 자세 교정을 위한 데이터 기반 피드백</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* AI 맞춤 리포트 */}
-                <div className="group">
-                  <div className="bg-gradient-to-br from-red-500 to-pink-600 rounded-3xl p-8 text-white shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl">
-                    <div className="flex items-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-4 backdrop-blur-sm">
-                        <span className="text-3xl">🤖</span>
-                      </div>
-                      <div>
-                        <h3 className="text-2xl font-bold">AI 맞춤 리포트</h3>
-                        <div className="w-12 h-1 bg-white/30 rounded-full mt-2"></div>
-                      </div>
-                    </div>
-                    <div className="space-y-3 text-red-100">
+              {/* 기술 5: AI 맞춤 리포트 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">5</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">AI 맞춤 리포트</h3>
+                    <div className="space-y-2 text-gray-700">
                       <p>• 복잡한 체력 데이터를 부모가 이해하는 언어로 자동 변환</p>
                       <p>• GPT-4 기반 개인별 맞춤 해석 및 운동 가이드 제공</p>
                     </div>
@@ -327,20 +288,20 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* 기술 발전 계획 */}
-            <div className="mt-20 max-w-4xl mx-auto">
-              <div className="bg-gradient-to-r from-gray-100 to-blue-100 rounded-3xl p-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">기술 발전 계획</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <h4 className="text-lg font-bold text-blue-600 mb-3">프레임 내장 센서 시스템 개발</h4>
-                    <p className="text-gray-700">외장→내장 센서 전환으로 더욱 정밀하고 편리한 측정 환경 구축</p>
-                  </div>
-                  <div className="bg-white rounded-2xl p-6 shadow-lg">
-                    <h4 className="text-lg font-bold text-blue-600 mb-3">의료기기 인증 추진</h4>
-                    <p className="text-gray-700">의료기관에서 신뢰할 수 있는 공인된 측정 장비로 인증 획득 목표</p>
-                  </div>
+          {/* 기술 발전 계획 */}
+          <div className="mt-20 max-w-4xl mx-auto">
+            <div className="bg-gray-50 rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">기술 발전 계획</h3>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <h4 className="text-lg font-bold text-blue-600 mb-3">프레임 내장 센서 시스템 개발</h4>
+                  <p className="text-gray-700">외장→내장 센서 전환으로 더욱 정밀하고 편리한 측정 환경 구축</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <h4 className="text-lg font-bold text-blue-600 mb-3">의료기기 인증 추진</h4>
+                  <p className="text-gray-700">의료기관에서 신뢰할 수 있는 공인된 측정 장비로 인증 획득 목표</p>
                 </div>
               </div>
             </div>
