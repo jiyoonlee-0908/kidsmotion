@@ -111,6 +111,14 @@ export default function Home({ onNavigate }: HomeProps) {
                     <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
                   </div>
                 </div>
+                
+                {/* PC 최적화 안내 */}
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-purple-200">
+                    <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+                    <span className="text-gray-700 font-medium">💻 PC 환경에 최적화되어 정확한 측정이 가능합니다</span>
+                  </div>
+                </div>
               </div>
             </section>
             
