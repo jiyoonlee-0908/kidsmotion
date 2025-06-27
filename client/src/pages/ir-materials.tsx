@@ -239,10 +239,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
 
-            {/* 오른쪽: 5개 기술 리스트 */}
-            <div className="space-y-8">
+            {/* 오른쪽: 6개 기술 리스트 */}
+            <div className="space-y-6 flex flex-col justify-between h-full">
               {/* 기술 1: 유동성 프레임 설계 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">1</div>
                   <div>
@@ -257,7 +257,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 2: DC 모터 정밀 측정 시스템 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
                   <div>
@@ -271,7 +271,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 3: 파워 & 밸런스 센서 기술 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
                   <div>
@@ -320,25 +320,25 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* 기술 발전 계획 */}
-          <div className="mt-20 max-w-4xl mx-auto">
-            <div className="bg-gray-50 rounded-3xl p-8">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">기술 발전 계획</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <h4 className="text-lg font-bold text-blue-600 mb-3">프레임 내장 센서 시스템 개발</h4>
-                  <p className="text-gray-700">외장→내장 센서 전환으로 더욱 정밀하고 편리한 측정 환경 구축</p>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <h4 className="text-lg font-bold text-blue-600 mb-3">의료기기 인증 추진</h4>
-                  <p className="text-gray-700">의료기관에서 신뢰할 수 있는 공인된 측정 장비로 인증 획득 목표</p>
+              {/* 기술 6: 기술발전계획 */}
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+                <div className="flex items-start space-x-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">기술발전계획</h3>
+                    <div className="space-y-2 text-gray-700">
+                      <p>• 외장→내장 센서 전환으로 정밀도 향상</p>
+                      <p>• 의료기기 인증으로 신뢰성 확보</p>
+                      <p>• 의료기관 진단용 장비로 확장</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+
         </div>
 
         {/* 시장 규모 */}
