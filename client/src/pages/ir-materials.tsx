@@ -286,7 +286,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 4: 6단계 정밀 체력 측정 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[160px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">4</div>
                   <div>
@@ -308,7 +308,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 5: AI 맞춤 리포트 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">5</div>
                   <div>
@@ -322,7 +322,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
 
               {/* 기술 6: 기술발전계획 */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600">
+              <div className="bg-white rounded-2xl p-8 shadow-lg border-l-4 border-blue-600 flex-1 min-h-[140px] flex flex-col justify-center">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
                   <div>
