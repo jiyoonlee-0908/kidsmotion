@@ -80,7 +80,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
                   과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고 개인별 최적화된 운동 처방을 제공합니다
                 </p>
-                <div className="grid grid-cols-4 gap-8 mb-16">
+                <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16">
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Scale className="w-8 h-8 text-white" />
@@ -138,7 +138,7 @@ export default function Home({ onNavigate }: HomeProps) {
         <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
               <div className="flex flex-col h-full">
                 <h4 className="text-xl font-bold mb-4">서비스</h4>
                 <ul className="space-y-2 text-gray-300 flex-grow">
@@ -263,7 +263,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-3 gap-4 sm:gap-6">
             <Card>
               <CardContent className="p-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
