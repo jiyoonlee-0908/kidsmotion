@@ -47,6 +47,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   const [showHeartRate, setShowHeartRate] = useState(false);
   const [showParticipantSelection, setShowParticipantSelection] = useState(false);
   const [participantOptions, setParticipantOptions] = useState<any[]>([]);
+  const [studentNameInput, setStudentNameInput] = useState("");
+  
+  // usePrefill 훅 사용
+  const { data: prefillData, loading: prefillLoading } = usePrefill(studentNameInput);
   
   // 한국 시간 기준 오늘 날짜 가져오기
   const getKoreanDate = () => {
@@ -62,7 +66,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       studentName: "",
       affiliation: "",
       birthDate: "",
-      gender: "",
+      gender: "M" as "M" | "F",
       height: 0,
       weight: 0,
       power5s: 0,
@@ -75,6 +79,35 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       avgHeartRate: null,
     },
   });
+
+  // prefillData가 변경될 때 폼 자동 채우기
+  useEffect(() => {
+    if (prefillData?.recentSession) {
+      console.log('Prefill 데이터로 폼 자동 채움:', prefillData);
+      
+      // stage별 maxPower 데이터 채우기
+      form.setValue('power5s', prefillData.recentSession.stage1?.maxPower || 0);
+      form.setValue('power15s', prefillData.recentSession.stage2?.maxPower || 0);
+      form.setValue('power30s', prefillData.recentSession.stage3?.maxPower || 0);
+      form.setValue('power60s', prefillData.recentSession.stage4?.maxPower || 0);
+      
+      // 고급 데이터가 있는 경우
+      if (prefillData.recentSession.stage5?.maxPower || prefillData.recentSession.stage6?.maxPower) {
+        form.setValue('power180s', prefillData.recentSession.stage5?.maxPower || undefined);
+        form.setValue('power360s', prefillData.recentSession.stage6?.maxPower || undefined);
+        setShowAdvanced(true);
+      }
+      
+      // 좌우 밸런스 데이터 채우기
+      form.setValue('leftBalance', prefillData.avgBalance.left);
+      form.setValue('rightBalance', prefillData.avgBalance.right);
+      
+      toast({
+        title: "자동 입력 완료",
+        description: "이전 측정 데이터를 불러왔습니다.",
+      });
+    }
+  }, [prefillData, form]);
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
@@ -257,10 +290,17 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="studentName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>이름</FormLabel>
+                    <FormLabel>이름 {prefillLoading && <Loader2 className="inline h-4 w-4 animate-spin ml-2" />}</FormLabel>
                     <div className="flex gap-2">
                       <FormControl>
-                        <Input {...field} placeholder="예: 홍길동" />
+                        <Input 
+                          {...field} 
+                          placeholder="예: 홍길동"
+                          onBlur={(e) => {
+                            field.onBlur(e);
+                            setStudentNameInput(e.target.value);
+                          }}
+                        />
                       </FormControl>
                       <Button 
                         type="button" 

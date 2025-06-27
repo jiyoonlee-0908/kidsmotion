@@ -1,0 +1,160 @@
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = process.env.SUPABASE_URL!;
+const supabaseKey = process.env.SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// 가민 데이터 테이블 생성 및 확인
+export async function ensureGarminDataTable() {
+  try {
+    // 테이블이 이미 존재하는지 확인
+    const { data, error } = await supabase
+      .from('garmin_data')
+      .select('id')
+      .limit(1);
+    
+    if (error && error.code === 'PGRST116') {
+      // 테이블이 존재하지 않으면 생성
+      console.log('Creating garmin_data table...');
+      // 이 부분은 Supabase 대시보드에서 직접 생성해야 함
+    } else {
+      console.log('Garmin data table ready');
+    }
+  } catch (error) {
+    console.error('Error checking garmin_data table:', error);
+  }
+}
+
+// 테스트 세션 테이블 생성 및 확인  
+export async function ensureTestSessionsTable() {
+  try {
+    const { data, error } = await supabase
+      .from('test_sessions')
+      .select('id')
+      .limit(1);
+    
+    if (error && error.code === 'PGRST116') {
+      console.log('Creating test_sessions table...');
+      // 이 부분은 Supabase 대시보드에서 직접 생성해야 함
+    } else {
+      console.log('Test sessions table ready');
+    }
+  } catch (error) {
+    console.error('Error checking test_sessions table:', error);
+  }
+}
+
+// 가민 데이터 저장 (실제 가민 연결시만)
+export async function saveGarminData(garminData: {
+  sessionId: number;
+  userDisplayName: string;
+  power: number;
+  cadence: number;
+  leftBalance: number;
+  rightBalance: number;
+  pedalingSmoothness: number;
+  torqueEffectiveness: number;
+}) {
+  try {
+    // 한국 시간으로 현재 시간 생성 (UTC+9)
+    const koreaTime = new Date(new Date().getTime() + (9 * 60 * 60 * 1000));
+    
+    const { data, error } = await supabase
+      .from('garmin_data')
+      .insert([{
+        session_id: garminData.sessionId,
+        user_display_name: garminData.userDisplayName,
+        power: garminData.power,
+        cadence: garminData.cadence,
+        left_balance: garminData.leftBalance,
+        right_balance: garminData.rightBalance,
+        pedaling_smoothness: garminData.pedalingSmoothness,
+        torque_effectiveness: garminData.torqueEffectiveness,
+        timestamp: koreaTime.toISOString()
+      }])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error saving garmin data:', error);
+      return null;
+    }
+
+    console.log('Garmin data saved to Supabase:', data);
+    return data;
+  } catch (error) {
+    console.error('Error saving garmin data:', error);
+    return null;
+  }
+}
+
+// 테스트 세션 저장
+export async function saveTestSession(sessionData: {
+  userId?: number;
+  userDisplayName?: string;
+  status?: string;
+  totalStages?: number;
+  completedStages?: number;
+  testData?: any;
+}) {
+  try {
+    // 한국 시간으로 현재 시간 생성 (UTC+9)
+    const koreaTime = new Date(new Date().getTime() + (9 * 60 * 60 * 1000));
+    
+    const { data, error } = await supabase
+      .from('test_sessions')
+      .insert([{
+        user_id: sessionData.userId,
+        user_display_name: sessionData.userDisplayName,
+        status: sessionData.status || 'active',
+        total_stages: sessionData.totalStages || 6,
+        completed_stages: sessionData.completedStages || 0,
+        test_data: sessionData.testData,
+        start_time: koreaTime.toISOString()
+      }])
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error saving test session:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error saving test session:', error);
+    return null;
+  }
+}
+
+// 테스트 세션 업데이트
+export async function updateTestSession(sessionId: number, updates: {
+  endTime?: string;
+  status?: string;
+  completedStages?: number;
+  testData?: any;
+}) {
+  try {
+    const { data, error } = await supabase
+      .from('test_sessions')
+      .update({
+        end_time: updates.endTime,
+        status: updates.status,
+        completed_stages: updates.completedStages,
+        test_data: updates.testData
+      })
+      .eq('id', sessionId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Error updating test session:', error);
+      return null;
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Error updating test session:', error);
+    return null;
+  }
+}
