@@ -450,7 +450,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="leading-relaxed">운동역학 석사 + 전 국가대표 선수 (30년 엘리트 경력 + 13년 아카데미 운영)</p>
                 <p className="leading-relaxed">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</p>
                 <p className="leading-relaxed">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</p>
-                <p className="leading-relaxed">현장 피드백 기반 B2B 제품 설계</p>
               </div>
             </div>
 
@@ -465,6 +464,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div className="space-y-4 text-gray-700">
                 <p className="leading-relaxed">자전거 부품 설계 특허 보유 기업과 협력</p>
+                <p className="leading-relaxed">키즈모션 사이클 부품 설계</p>
                 <p className="leading-relaxed">현재 MVP 시제품 공동 개발 진행 중</p>
               </div>
             </div>
