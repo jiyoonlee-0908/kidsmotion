@@ -114,10 +114,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 
                 {/* PC 최적화 안내 */}
                 <div className="text-center mb-8">
-                  <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-purple-200">
-                    <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
-                    <span className="text-gray-700 font-medium">💻 PC 환경에 최적화되어 정확한 측정이 가능합니다</span>
-                  </div>
+                  <p className="text-sm text-gray-500 font-medium">PC 환경에 최적화되어 있습니다</p>
                 </div>
               </div>
             </section>
