@@ -300,11 +300,28 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
                   <div className="text-3xl font-bold text-blue-600">월 5만원</div>
                   <p className="text-gray-600">서비스 구독</p>
-                  <div className="mt-2 text-sm text-blue-500">
-                    <div>• AI 분석</div>
-                    <div>• 누적 데이터 통계</div>
-                    <div>• 백분위 업데이트</div>
-                    <div>• 분석 리포트</div>
+                </div>
+              </div>
+              
+              {/* 서비스 구독 내용 */}
+              <div className="mt-8 bg-white rounded-2xl p-6 shadow-lg max-w-md mx-auto">
+                <div className="text-lg font-bold text-blue-800 mb-4">구독 서비스 포함 내용</div>
+                <div className="grid grid-cols-2 gap-3 text-sm text-blue-600">
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    AI 분석
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    누적 데이터 통계
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    백분위 업데이트
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+                    분석 리포트
                   </div>
                 </div>
               </div>
