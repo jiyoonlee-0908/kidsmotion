@@ -1,0 +1,193 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
+import { User, Calendar, UserCheck, Building, Maximize, Activity, Bike, Heart } from "lucide-react";
+import { useAudio } from "@/hooks/use-audio";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
+
+interface InfoInputScreenProps {
+  onNext: (userData: any) => void;
+}
+
+export function InfoInputScreen({ onNext }: InfoInputScreenProps) {
+  const { speak, playClickSound } = useAudio();
+  const [name, setName] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [gender, setGender] = useState("");
+  const [organization, setOrganization] = useState("");
+
+  const createUserMutation = useMutation({
+    mutationFn: async (userData: any) => {
+      console.log('Sending user data to Supabase:', userData);
+      const response = await apiRequest('POST', '/api/users/supabase', userData);
+      const result = await response.json();
+      return result;
+    },
+    onSuccess: (result) => {
+      console.log('Supabase user creation success:', result);
+      speak('정보가 저장되었습니다. 다음 단계로 이동합니다.');
+      setTimeout(() => {
+        console.log('Calling onNext with:', { ...result, name, birthDate, gender, organization });
+        onNext({
+          ...result,
+          name,
+          birthDate,
+          gender,
+          organization
+        });
+      }, 1000);
+    },
+    onError: (error) => {
+      console.error('Supabase user creation error:', error);
+      speak('저장 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
+  });
+
+  const handleNext = () => {
+    if (!name || !gender) {
+      speak('이름과 성별을 입력해주세요');
+      return;
+    }
+
+    playClickSound();
+    const testDate = new Date().toISOString().split('T')[0];
+    const finalBirthDate = birthDate || testDate; // 생년월일이 없으면 오늘 날짜 사용
+    const displayName = `${name}_${finalBirthDate}`;
+    createUserMutation.mutate({ name, birthDate: finalBirthDate, gender, organization, testDate, displayName });
+  };
+
+  const handleGenderSelect = (selectedGender: string) => {
+    playClickSound();
+    setGender(selectedGender);
+    speak(selectedGender === '남성' ? '남성을 선택했습니다' : '여성을 선택했습니다');
+  };
+
+  return (
+    <div className="kids-container">
+      {/* Left Sidebar */}
+      <div className="kids-sidebar">
+        <div>
+          <div className="text-center mb-8 px-6 py-8">
+            <div className="w-32 h-32 bg-gradient-to-br from-white/30 to-white/10 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+              <Bike className="w-16 h-16 text-white" />
+            </div>
+            <h1 className="text-4xl font-black text-white mb-4 leading-tight">안녕하세요!</h1>
+            <div className="p-6">
+              <p className="text-base text-white font-medium leading-relaxed">
+                운동 측정을 시작하기 전에<br />
+                <span className="text-yellow-200 font-bold">기본정보</span>를 입력해주세요
+              </p>
+            </div>
+          </div>
+        </div>
+        
+
+      </div>
+
+      {/* Main Content */}
+      <div className="kids-main flex items-center justify-center px-8">
+        <div className="w-full max-w-4xl">
+          <div className="kids-form-landscape">
+            {/* Left Column */}
+            <div className="space-y-6 pr-4">
+              {/* Name Input */}
+              <Card className="kids-card-compact">
+                <CardContent className="p-4 h-full flex flex-col justify-between">
+                  <Label className="block text-xl font-semibold text-gray-700 mb-2">
+                    <User className="inline mr-2" />
+                    이름
+                  </Label>
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="text-xl py-3 border-2 rounded-xl"
+                    placeholder="이름 입력"
+                  />
+                </CardContent>
+              </Card>
+
+              {/* Birth Date */}
+              <Card className="kids-card-compact">
+                <CardContent className="p-4 h-full flex flex-col justify-between">
+                  <Label className="block text-xl font-semibold text-gray-700 mb-2">
+                    <Calendar className="inline mr-2" />
+                    생년월일
+                  </Label>
+                  <Input
+                    type="date"
+                    value={birthDate}
+                    onChange={(e) => setBirthDate(e.target.value)}
+                    className="text-xl py-3 border-2 rounded-xl"
+                    max={new Date().toISOString().split('T')[0]}
+                    min="2010-01-01"
+                  />
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-6 pl-4">
+              {/* Gender Selection */}
+              <Card className="kids-card-compact">
+                <CardContent className="p-4 h-full flex flex-col justify-between">
+                  <Label className="block text-xl font-semibold text-gray-700 mb-2">
+                    <UserCheck className="inline mr-2" />
+                    성별 선택
+                  </Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button
+                      type="button"
+                      onClick={() => handleGenderSelect("남성")}
+                      variant={gender === "남성" ? "default" : "outline"}
+                      className="touch-feedback py-3 text-lg font-bold rounded-xl"
+                    >
+                      남성
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={() => handleGenderSelect("여성")}
+                      variant={gender === "여성" ? "default" : "outline"}
+                      className="touch-feedback py-3 text-lg font-bold rounded-xl"
+                    >
+                      여성
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Organization */}
+              <Card className="kids-card-compact">
+                <CardContent className="p-4 h-full flex flex-col justify-between">
+                  <Label className="block text-xl font-semibold text-gray-700 mb-2">
+                    <Building className="inline mr-2" />
+                    기관
+                  </Label>
+                  <Input
+                    type="text"
+                    value={organization}
+                    onChange={(e) => setOrganization(e.target.value)}
+                    className="text-xl py-3 border-2 rounded-xl"
+                    placeholder="학교명 또는 기관명"
+                  />
+                </CardContent>
+              </Card>
+
+              {/* Continue Button */}
+              <Button
+                onClick={handleNext}
+                disabled={createUserMutation.isPending}
+                className="w-full touch-feedback bg-[#4C2A85] hover:opacity-90 text-white px-6 py-4 rounded-2xl text-xl font-bold min-h-[70px] disabled:opacity-50 shadow-lg"
+              >
+                {createUserMutation.isPending ? '저장 중...' : '다음 단계로'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -965,6 +965,110 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // GET /api/prefill - 이름으로 자동 입력 데이터 조회
+  app.get("/api/prefill", async (req, res) => {
+    try {
+      const { displayName } = req.query;
+      
+      if (!displayName || typeof displayName !== 'string') {
+        return res.status(400).json({ error: "displayName parameter is required" });
+      }
+
+      console.log("=== Prefill 데이터 조회 ===", displayName);
+      
+      // 1. participants 테이블에서 display_name으로 참가자 찾기
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('name', displayName)
+        .limit(1);
+
+      if (participantError || !participants || participants.length === 0) {
+        console.log("참가자를 찾을 수 없음:", displayName);
+        return res.json(null);
+      }
+
+      const participant = participants[0];
+      console.log("참가자 발견:", participant.name);
+
+      // 2. test_sessions에서 가장 최근 완료된 세션 찾기
+      const { data: testSessions, error: sessionError } = await supabase
+        .from('test_sessions')
+        .select('*')
+        .eq('participant_id', participant.id)
+        .eq('status', 'completed')
+        .order('end_time', { ascending: false })
+        .limit(1);
+
+      let recentSession = null;
+      let avgBalance = { left: 50, right: 50 };
+
+      if (!sessionError && testSessions && testSessions.length > 0) {
+        const session = testSessions[0];
+        console.log("최근 세션 발견:", session.id);
+
+        // 3. garmin_data에서 해당 세션의 데이터 가져오기
+        const { data: garminData, error: garminError } = await supabase
+          .from('garmin_data')
+          .select('*')
+          .eq('session_id', session.id)
+          .order('timestamp', { ascending: true });
+
+        if (!garminError && garminData && garminData.length > 0) {
+          // stage별 maxPower, maxCadence 추출
+          const totalDataPoints = garminData.length;
+          const stageSize = Math.floor(totalDataPoints / 6);
+          
+          const stages = [];
+          for (let i = 0; i < 6; i++) {
+            const start = i * stageSize;
+            const end = i === 5 ? totalDataPoints : (i + 1) * stageSize;
+            const stageData = garminData.slice(start, end);
+            
+            const maxPower = stageData.length > 0 ? Math.max(...stageData.map(d => d.power || 0)) : 0;
+            const maxCadence = stageData.length > 0 ? Math.max(...stageData.map(d => d.cadence || 0)) : 0;
+            
+            stages.push({ maxPower, maxCadence });
+          }
+
+          recentSession = {
+            stage1: stages[0] || { maxPower: 0, maxCadence: 0 },
+            stage2: stages[1] || { maxPower: 0, maxCadence: 0 },
+            stage3: stages[2] || { maxPower: 0, maxCadence: 0 },
+            stage4: stages[3] || { maxPower: 0, maxCadence: 0 },
+            stage5: stages[4] || { maxPower: 0, maxCadence: 0 },
+            stage6: stages[5] || { maxPower: 0, maxCadence: 0 }
+          };
+
+          // 평균 좌우 밸런스 계산
+          const validBalanceData = garminData.filter(d => d.left_balance && d.right_balance);
+          if (validBalanceData.length > 0) {
+            const avgLeft = validBalanceData.reduce((sum, d) => sum + d.left_balance, 0) / validBalanceData.length;
+            const avgRight = validBalanceData.reduce((sum, d) => sum + d.right_balance, 0) / validBalanceData.length;
+            avgBalance = {
+              left: Math.round(avgLeft),
+              right: Math.round(avgRight)
+            };
+          }
+        }
+      }
+
+      // 4. 응답 데이터 구성
+      const result = {
+        participantId: participant.id,
+        recentSession,
+        avgBalance
+      };
+
+      console.log("Prefill 데이터 응답:", result);
+      res.json(result);
+      
+    } catch (error) {
+      console.error("Prefill 데이터 조회 오류:", error);
+      res.status(500).json({ error: "Prefill 데이터 조회 중 오류가 발생했습니다." });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

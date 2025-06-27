@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -16,6 +16,7 @@ import { apiRequest } from "@/lib/queryClient";
 import { insertMeasurementSchema } from "@shared/schema";
 import { z } from "zod";
 import { calculateAge } from "@/lib/fitness-calculations";
+import { usePrefill } from "@/hooks/usePrefill";
 
 const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
@@ -281,7 +282,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="affiliation"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>소속 (학교/기관)</FormLabel>
+                    <FormLabel>기관</FormLabel>
                     <FormControl>
                       <Input {...field} placeholder="예: 서울초등학교" />
                     </FormControl>
