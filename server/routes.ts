@@ -233,6 +233,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // 성별과 나이에 따른 데이터 키 생성
       const clampedAge = Math.max(4, Math.min(12, age)); // 4-12세 범위로 제한
+      
+      // 성별이 비어있거나 유효하지 않으면 에러 반환
+      if (!measurementData.gender || (measurementData.gender !== 'M' && measurementData.gender !== 'F')) {
+        return res.status(400).json({ 
+          error: "성별 정보가 필요합니다. 남성(M) 또는 여성(F)을 선택해주세요." 
+        });
+      }
+      
       const genderKey = `${clampedAge}_${measurementData.gender}`;
       const cutoffs = cutoffData[genderKey]; // data 중첩 제거
       
