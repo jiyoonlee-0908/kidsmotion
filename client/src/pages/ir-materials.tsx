@@ -549,7 +549,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 투자 제안 */}
         <div className="text-center bg-gradient-to-r from-indigo-100 to-purple-100 rounded-3xl p-12">
           <h2 className="text-4xl font-bold text-indigo-800 mb-6">함께 만들어가요</h2>
-          <p className="text-2xl text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-loose">
             이 팀에게 손을 내밀어주시면,<br/>
             <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
           </p>
@@ -558,8 +558,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <Heart className="w-8 h-8 text-white" />
             </div>
             <div className="text-left">
-              <div className="text-3xl font-bold text-purple-600">투자가 아닌 동반자로서,</div>
-              <p className="text-xl text-gray-600">함께 아이들의 성장을 지켜봐 주세요</p>
+              <div className="text-3xl font-bold text-purple-600 mb-3">투자가 아닌 동반자로서,</div>
+              <p className="text-xl text-gray-600 leading-relaxed">함께 아이들의 성장을 지켜봐 주세요</p>
             </div>
           </div>
           
