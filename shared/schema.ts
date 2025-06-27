@@ -71,6 +71,11 @@ export const inviteCodes = pgTable("invite_codes", {
 export const insertMeasurementSchema = createInsertSchema(measurements).omit({
   id: true,
   createdAt: true,
+}).extend({
+  gender: z.enum(["M", "F"], { 
+    required_error: "성별을 선택해주세요",
+    invalid_type_error: "성별은 남성(M) 또는 여성(F)을 선택해야 합니다"
+  })
 });
 
 export const insertAnalysisResultSchema = createInsertSchema(analysisResults).omit({
