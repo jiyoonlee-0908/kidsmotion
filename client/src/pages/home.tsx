@@ -111,9 +111,10 @@ export default function Home({ onNavigate }: HomeProps) {
                   </div>
                 </div>
                 
-                {/* 운동 처방 안내 */}
-                <div className="text-center mb-8">
+                {/* PC 최적화 및 운동 처방 안내 */}
+                <div className="text-center mb-8 space-y-2">
                   <p className="text-sm text-gray-500 font-medium">개인별 최적화된 운동 처방을 제공합니다</p>
+                  <p className="text-sm text-gray-500 font-medium">PC 환경에 최적화되어 있습니다</p>
                 </div>
               </div>
             </section>
