@@ -205,7 +205,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white font-bold text-xl">2</div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-2">DC 모터 정밀 측정</h3>
-                    <p className="text-gray-600">정밀한 분석, 기계의 정밀도 향상</p>
+                    <p className="text-gray-600">기계의 정밀도 향상,
+                    아동 체형에 맞춘 맞춤형 부하 조절 시스템</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -249,6 +250,138 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="text-5xl font-bold text-blue-600 mb-4">2만4천개+</div>
               <div className="text-xl font-medium text-gray-700">아동 스포츠 학원</div>
               <div className="text-gray-500">(축구·태권도·수영 등)</div>
+            </div>
+          </div>
+
+          {/* MotionBike 핵심 기술 */}
+          <div className="mb-20">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
+            
+            {/* 방사형 레이아웃 */}
+            <div className="relative w-full max-w-6xl mx-auto" style={{ height: '800px' }}>
+              {/* 중앙 스마트사이클 이미지 */}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="w-80 h-80 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-full flex items-center justify-center shadow-2xl">
+                  <img 
+                    src="/kidsmotion.png" 
+                    alt="MotionBike 스마트사이클" 
+                    className="w-64 h-64 object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* 연결선들 */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 1 }}>
+                <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
+                <line x1="50%" y1="50%" x2="85%" y2="25%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
+                <line x1="50%" y1="50%" x2="85%" y2="75%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
+                <line x1="50%" y1="50%" x2="15%" y2="75%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
+                <line x1="50%" y1="50%" x2="15%" y2="25%" stroke="#e5e7eb" strokeWidth="2" strokeDasharray="5,5" />
+              </svg>
+
+              {/* 기술 1: 유동성 프레임 설계 (12시 방향) */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-72 z-20">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-500">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-xl">🔧</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-purple-700">유동성 프레임 설계</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>• 키 100-150cm 대응</p>
+                    <p>• 성장하는 아동을 위한 조절 가능한 구조</p>
+                    <p>• 단일 장비로 4-12세 연령대 커버</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 기술 2: DC 모터 정밀 측정 (2시 방향) */}
+              <div className="absolute top-1/4 right-0 transform -translate-y-1/2 w-72 z-20">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-blue-500">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-xl">⚡</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-blue-700">DC 모터 정밀 측정</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>• 아동 체형에 맞춘 맞춤형 부하 조절</p>
+                    <p>• 정밀한 와트(W) 단위 파워 데이터 수집</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 기술 3: 파워 & 밸런스 센서 (4시 방향) */}
+              <div className="absolute bottom-1/4 right-0 transform translate-y-1/2 w-72 z-20">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-green-500">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-xl">📊</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-green-700">파워 & 밸런스 센서</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>• 실시간 파워 센서: 객관적 체력 데이터</p>
+                    <p>• 좌우 밸런스 센서: 불균형 정량 측정</p>
+                    <p>• 성장기 자세 교정 데이터 기반 피드백</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 기술 4: 6단계 정밀 체력 측정 (8시 방향) */}
+              <div className="absolute bottom-1/4 left-0 transform translate-y-1/2 w-72 z-20">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-orange-500">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-xl">📈</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-orange-700">6단계 정밀 체력 측정</h3>
+                  </div>
+                  <div className="space-y-1 text-xs text-gray-700">
+                    <p>• 5초 순발력: 순간 최대 파워</p>
+                    <p>• 15초 스프린트: 무산소 능력</p>
+                    <p>• 30초 지속력: 젖산 역치</p>
+                    <p>• 60초 근력: 근육 지구력</p>
+                    <p>• 180초 근지구력: 유산소-무산소 경계</p>
+                    <p>• 360초 심폐지구력: 유산소 능력</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 기술 5: AI 맞춤 리포트 (10시 방향) */}
+              <div className="absolute top-1/4 left-0 transform -translate-y-1/2 w-72 z-20">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-red-500">
+                  <div className="text-center mb-4">
+                    <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-white text-xl">🤖</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-red-700">AI 맞춤 리포트</h3>
+                  </div>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <p>• 복잡한 체력 데이터를 부모 이해 언어로 변환</p>
+                    <p>• GPT-4 기반 개인별 맞춤 해석</p>
+                    <p>• 맞춤 운동 가이드 제공</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 기술 발전 계획 */}
+            <div className="mt-16 max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-gray-100 to-blue-100 rounded-3xl p-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">기술 발전 계획</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white rounded-2xl p-6 shadow-lg">
+                    <h4 className="text-lg font-bold text-blue-600 mb-3">프레임 내장 센서 시스템</h4>
+                    <p className="text-gray-700">외장 센서에서 내장 센서로 전환하여 더욱 정밀하고 편리한 측정 환경 구축</p>
+                  </div>
+                  <div className="bg-white rounded-2xl p-6 shadow-lg">
+                    <h4 className="text-lg font-bold text-blue-600 mb-3">의료기기 인증 추진</h4>
+                    <p className="text-gray-700">의료기관에서 신뢰할 수 있는 공인된 측정 장비로 인증 획득 목표</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -313,60 +446,37 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* 팀 구성 */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">핵심 역량 기반 팀 구성</h2>
-          
-          <div className="grid md:grid-cols-2 gap-12 mb-8">
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
-                  CEO
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">신뢰할 수 있는 전문가 팀</h2>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="bg-purple-50 rounded-3xl p-10">
+              <h3 className="text-3xl font-bold text-purple-800 mb-8">창업팀</h3>
+              <div className="space-y-6">
+                <div className="bg-white p-6 rounded-2xl">
+                  <h4 className="text-xl font-bold text-purple-600 mb-3">MotionBike 대표</h4>
+                  <p className="text-gray-700">10년+ 사이클 아카데미 어시스트 경험</p>
+                  <p className="text-gray-700">수많은 아동 선수와 부모들의 고민을 현장에서 직접 경험</p>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">대표이사</h3>
-                  <p className="text-blue-600">사업 기획 및 기술 실현 전문성</p>
+                <div className="bg-white p-6 rounded-2xl">
+                  <h4 className="text-xl font-bold text-blue-600 mb-3">기술 공동창업자</h4>
+                  <p className="text-gray-700">국가대표 선수 출신 (24년 경력)</p>
+                  <p className="text-gray-700">사이클 전문 아카데미 운영</p>
                 </div>
-              </div>
-              <div className="space-y-3 text-gray-700">
-                <p>• <strong>10년+ 아카데미 운영</strong>으로 유소년 체력측정·훈련 현장 전문성 보유</p>
-                <p>• <strong>웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발</strong> 완료</p>
-                <p>• 현장 피드백 기반 <strong>B2B 제품 설계</strong> 및 <strong>병원·보건소·체육시설 네트워크</strong> 확보</p>
-                <p>• 기획부터 개발, 시장 검증까지 <strong>end-to-end 실현 역량</strong> 보유</p>
               </div>
             </div>
-
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
-                  CTO
+            
+            <div className="bg-green-50 rounded-3xl p-10">
+              <h3 className="text-3xl font-bold text-green-800 mb-8">개발팀</h3>
+              <div className="space-y-6">
+                <div className="bg-white p-6 rounded-2xl">
+                  <h4 className="text-xl font-bold text-green-600 mb-3">하드웨어 개발팀</h4>
+                  <p className="text-gray-700">DC 모터 기반 정밀 제어 시스템</p>
+                  <p className="text-gray-700">아동 맞춤 하드웨어 설계 전문</p>
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">기술공동창업자</h3>
-                  <p className="text-green-600">운동역학 및 데이터 분석 전문성</p>
+                <div className="bg-white p-6 rounded-2xl">
+                  <h4 className="text-xl font-bold text-blue-600 mb-3">소프트웨어 개발팀</h4>
+                  <p className="text-gray-700">AI 기반 분석 시스템</p>
+                  <p className="text-gray-700">실시간 데이터 수집 및 분석</p>
                 </div>
-              </div>
-              <div className="space-y-3 text-gray-700">
-                <p>• 운동역학 석사 + 전 국가대표 선수 (<strong>30년 엘리트 경력</strong> + <strong>13년 아카데미 운영</strong>)</p>
-                <p>• 아동 체형 맞춤 <strong>커스텀 피팅 설계</strong> 및 <strong>운동 데이터 해석 알고리즘</strong> 기획</p>
-                <p>• <strong>측정-분석-훈련 연결</strong> 데이터 기반 사이클링 교육 시스템 운영 경험</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-3xl shadow-xl p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-violet-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mr-4">
-                  HW
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">하드웨어 개발 파트너</h3>
-                  <p className="text-purple-600">하드웨어 개발 파트너십</p>
-                </div>
-              </div>
-              <div className="space-y-3 text-gray-700">
-                <p>• <strong>자전거 부품 설계 특허 보유</strong> 기업과 협력</p>
-                <p>• 현재 <strong>MVP 시제품 공동 개발 진행 중</strong></p>
-                <p>• 검증된 기술력으로 <strong>제품 실현 가능성 확보</strong></p>
               </div>
             </div>
           </div>
