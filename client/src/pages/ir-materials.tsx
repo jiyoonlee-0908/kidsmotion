@@ -115,7 +115,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <p className="text-2xl text-purple-600">"엄마로서의 걱정이, 창업으로 이어졌습니다."</p>
           </div>
           
-          <div className="max-w-4xl mx-auto text-lg leading-loose text-gray-700 space-y-8">
+          <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700 space-y-6">
             <p>아이를 자전거에 태웠을 때였습니다. 자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다. 제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다. 하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
             
             <p>병원에 갔습니다. <span className="font-bold text-red-600">"아이들은 원래 그래요. 괜찮아요." "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."</span> 그렇게 말하더군요.</p>
@@ -133,7 +133,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </ul>
             </div>
             
-            <p className="text-center text-2xl font-bold text-purple-800">이제는 '괜찮을 거예요'가 아니라<br/>"지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
+            <p className="text-center text-2xl font-bold text-purple-800 leading-loose">이제는 '괜찮을 거예요'가 아니라<br/>"지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
             
             <p className="text-right text-lg font-medium text-purple-600">– 모션바이크 대표</p>
           </div>
