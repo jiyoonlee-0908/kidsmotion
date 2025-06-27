@@ -122,12 +122,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             
             <p className="font-bold text-purple-700">그 순간 알았습니다. "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요. 정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
             
-            <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다. 남편은 국가대표 선수 출신이며 24년간 사이클 선수로 활동했고, 저는 그 곁에서 10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
+            <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다. 남편은 사이클 국가대표 선수 출신이며 24년간 선수로 활동했고, 저는 그 곁에서 10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
-              <p className="text-xl font-bold text-purple-800 mb-4">그래서 저는 만들었습니다.</p>
+              <p className="text-xl font-bold text-purple-800 mb-4">그래서 저희는 만들었습니다.</p>
               <ul className="space-y-2 text-purple-700">
-                <li>• 운동 자질을 데이터로 확인할 수 있는 장비</li>
                 <li>• 운동에 소질이 있는 아이를 조기에 발견할 수 있는 시스템</li>
                 <li>• 눈으로 확인할 수 있는 성장 데이터</li>
                 <li>• 부모가 납득할 수 있는 해석 리포트</li>
@@ -150,7 +149,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모들의 현실적 걱정</h3>
               <div className="space-y-4">
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"아이 좌우가 심하게 틀어진 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+                  <p className="text-lg font-bold text-red-800">"우리아이 몸이 비대칭인 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
                   <p className="text-lg font-bold text-red-800">"운동시키고 싶은데 이 정도면 괜찮을까? 상위 1%도 살아남지 못하는데..."</p>
@@ -264,7 +263,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">DC 모터 정밀 측정 시스템</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 아동 체형에 맞춘 맞춤형 부하 조절</p>
-                      <p>• 정밀한 와트(W) 단위 파워 데이터 수집</p>
+                      <p>• 기계의 정밀도 향상으로 신뢰할 수 있는 데이터 확보</p>
                     </div>
                   </div>
                 </div>
@@ -432,7 +431,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-lg text-blue-600 font-medium">"사업 기획 및 기술 실현 전문성"</p>
               </div>
               <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">10년+ 아카데미 운영으로 유소년 체력측정·훈련 현장 전문성 보유</p>
+                <p className="leading-relaxed">2018년부터 현재까지 사이클 아카데미 어시스트를 하며, 현장 전문성 보유</p>
                 <p className="leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발 완료</p>
               </div>
             </div>
@@ -447,7 +446,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-lg text-green-600 font-medium">"운동역학 및 데이터 분석 전문성"</p>
               </div>
               <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">운동역학 석사 + 전 국가대표 선수 (30년 엘리트 경력 + 13년 아카데미 운영)</p>
+                <p className="leading-relaxed">국가대표 사이클 선수 출신으로 운동역학 석사 (30년 엘리트 경력 + 13년간 아카데미 운영)</p>
                 <p className="leading-relaxed">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</p>
                 <p className="leading-relaxed">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</p>
               </div>
@@ -463,7 +462,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-lg text-purple-600 font-medium">"하드웨어 개발 파트너십"</p>
               </div>
               <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">자전거 부품 설계 특허 보유 기업과 협력</p>
+                <p className="leading-relaxed">자전거 부품 설계 특허 보유 기업</p>
                 <p className="leading-relaxed">키즈모션 사이클 부품 설계</p>
                 <p className="leading-relaxed">현재 MVP 시제품 공동 개발 진행 중</p>
               </div>
@@ -489,7 +488,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="bg-white/20 rounded-2xl p-8">
                 <h4 className="text-2xl font-bold text-green-300 mb-6">목표 성과</h4>
                 <div className="space-y-4 text-lg">
-                  <div>🎯 한국 유아 전용 체력 기준선 생성</div>
+                  <div>🎯 한국 유아 전용 체력 기준 정립</div>
                   <div>🤖 AI 피드백 알고리즘 개발</div>
                   <div>📈 데이터 기반 분석 시스템 완성</div>
                   <div>💡 시장 검증 및 개선점 도출</div>
