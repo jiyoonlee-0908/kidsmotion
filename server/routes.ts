@@ -1069,6 +1069,65 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 임시 테스트 엔드포인트
+  app.get("/api/test-supabase", async (req, res) => {
+    try {
+      console.log("=== Supabase 연결 테스트 ===");
+      
+      // participants 테이블 확인
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('name, id, birth_date, gender, organization')
+        .limit(5);
+
+      if (participantError) {
+        console.error("Participants 테이블 오류:", participantError);
+        return res.json({ error: "participants", details: participantError });
+      }
+
+      console.log("Participants 데이터:", participants);
+
+      // test_sessions 테이블 확인
+      const { data: sessions, error: sessionError } = await supabase
+        .from('test_sessions')
+        .select('id, user_id, participant_id, user_display_name, status, end_time')
+        .limit(5);
+
+      if (sessionError) {
+        console.error("Test sessions 테이블 오류:", sessionError);
+      }
+
+      console.log("Test sessions 데이터:", sessions);
+
+      // garmin_data 테이블 확인
+      const { data: garmin, error: garminError } = await supabase
+        .from('garmin_data')
+        .select('session_id, user_display_name, power, left_balance, right_balance, timestamp')
+        .limit(5);
+
+      if (garminError) {
+        console.error("Garmin data 테이블 오류:", garminError);
+      }
+
+      console.log("Garmin data 데이터:", garmin);
+
+      res.json({
+        participants: participants || [],
+        sessions: sessions || [],
+        garmin: garmin || [],
+        errors: {
+          participantError,
+          sessionError,
+          garminError
+        }
+      });
+
+    } catch (error) {
+      console.error("Supabase 테스트 오류:", error);
+      res.status(500).json({ error: "connection_test_failed", details: error });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
