@@ -252,41 +252,53 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </div>
 
-          {/* 3개 시장 전략 */}
+          {/* 통합 솔루션 가격 */}
+          <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl p-8 mb-12">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-indigo-800 mb-4">MotionBike 솔루션</h3>
+              <div className="flex items-center justify-center space-x-4">
+                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
+                  <div className="text-3xl font-bold text-indigo-600">550만원</div>
+                  <p className="text-gray-600">장비 도입</p>
+                </div>
+                <div className="text-3xl text-indigo-500">+</div>
+                <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
+                  <div className="text-3xl font-bold text-blue-600">월 5만원</div>
+                  <p className="text-gray-600">서비스 구독</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 3개 시장별 특화 서비스 */}
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
-              <h3 className="text-2xl font-bold text-red-700 mb-4 text-center">병원 시장</h3>
-              <div className="text-center mb-6">
-                <div className="text-3xl font-bold text-red-600">550만원</div>
-                <p className="text-gray-600">장비 판매 + 설치</p>
-              </div>
-              <div className="space-y-3 text-sm">
-                <p className="font-medium">영유아검진 프리미엄 서비스</p>
-                <p className="text-gray-600">차별화된 진단 서비스로 환자 만족도 향상</p>
+              <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원 시장</h3>
+              <div className="space-y-4">
+                <div className="bg-red-50 p-4 rounded-xl">
+                  <p className="font-bold text-red-800 mb-2">✓ 영유아검진 프리미엄 서비스</p>
+                  <p className="text-gray-600 text-sm">차별화된 진단 서비스로 환자 만족도 향상</p>
+                </div>
               </div>
             </div>
 
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-blue-500">
-              <h3 className="text-2xl font-bold text-blue-700 mb-4 text-center">스포츠 학원</h3>
-              <div className="text-center mb-6">
-                <div className="text-3xl font-bold text-blue-600">월 5만원</div>
-                <p className="text-gray-600">구독 서비스</p>
-              </div>
-              <div className="space-y-3 text-sm">
-                <p className="font-medium">실력 향상 데이터 제공</p>
-                <p className="text-gray-600">학부모 신뢰도 증가와 경쟁력 확보</p>
+              <h3 className="text-2xl font-bold text-blue-700 mb-6 text-center">스포츠 학원</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-xl">
+                  <p className="font-bold text-blue-800 mb-2">✓ 실력 향상 데이터 제공</p>
+                  <p className="text-gray-600 text-sm">학부모 신뢰도 증가와 경쟁력 확보</p>
+                </div>
               </div>
             </div>
 
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
-              <h3 className="text-2xl font-bold text-purple-700 mb-4 text-center">보건소/공공기관</h3>
-              <div className="text-center mb-6">
-                <div className="text-3xl font-bold text-purple-600">정부 지원</div>
-                <p className="text-gray-600">정책 연계 사업</p>
-              </div>
-              <div className="space-y-3 text-sm">
-                <p className="font-medium">지역 아동 건강 빅데이터</p>
-                <p className="text-gray-600">정책 수립을 위한 데이터 구축</p>
+              <h3 className="text-2xl font-bold text-purple-700 mb-6 text-center">보건소/공공기관</h3>
+              <div className="space-y-4">
+                <div className="bg-purple-50 p-4 rounded-xl">
+                  <p className="font-bold text-purple-800 mb-2">✓ 지역 아동 건강 빅데이터</p>
+                  <p className="text-gray-600 text-sm">정책 수립을 위한 데이터 구축</p>
+                </div>
               </div>
             </div>
           </div>
