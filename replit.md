@@ -108,6 +108,11 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- June 27, 2025: IR 자료 페이지 레이아웃 고정 완료
+  - 모든 화면 크기에서 동일한 정렬 유지 (2열/3열 그리드 고정)
+  - 반응형 텍스트 크기 조정으로 모바일 가독성 향상
+  - 줄간격 개선으로 읽기 편한 디자인 완성
+
 - June 27, 2025: 커스텀 도메인 연결 완료
   - kidsmotion.bike 도메인 구매 및 Cloudflare 설정
   - Replit Autoscale Deployment와 연결
