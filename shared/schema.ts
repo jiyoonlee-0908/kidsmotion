@@ -102,3 +102,38 @@ export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
 });
+
+// KidsMotion 앱 Supabase 테이블 (읽기 전용)
+export const participants = pgTable("participants", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  birth_date: text("birth_date").notNull(),
+  gender: text("gender").notNull(),
+  organization: text("organization"),
+  created_at: timestamp("created_at").defaultNow(),
+});
+
+export const testSessions = pgTable("test_sessions", {
+  id: serial("id").primaryKey(),
+  user_id: text("user_id"),
+  user_display_name: text("user_display_name"),
+  start_time: timestamp("start_time"),
+  end_time: timestamp("end_time"),
+  status: text("status"),
+  total_stages: integer("total_stages"),
+  completed_stages: integer("completed_stages"),
+  test_data: text("test_data"),
+});
+
+export const garminData = pgTable("garmin_data", {
+  id: serial("id").primaryKey(),
+  session_id: integer("session_id").notNull(),
+  user_display_name: text("user_display_name"),
+  timestamp: timestamp("timestamp").notNull(),
+  power: real("power").notNull(),
+  cadence: real("cadence"),
+  left_balance: real("left_balance"),
+  right_balance: real("right_balance"),
+  pedaling_smoothness: real("pedaling_smoothness"),
+  torque_effectiveness: real("torque_effectiveness"),
+});

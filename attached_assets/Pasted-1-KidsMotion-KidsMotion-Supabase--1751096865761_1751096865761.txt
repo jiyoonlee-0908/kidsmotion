@@ -1,0 +1,249 @@
+1. 프롬프트와 설명
+안녕하세요! KidsMotion 앱 데이터를 자동으로 가져오는 기능을 만들어주세요.
+KidsMotion 앱의 Supabase 데이터베이스에서 다음 정보를 가져와서 입력 폼에 자동으로 채워주는 API를 만들어야 합니다:
+1. 기본 정보: 이름, 기관, 생년월일, 성별, 키, 체중
+2. 파워 측정값: 5초, 15초, 30초, 60초 파워 (각 스테이지별 최대 파워값)
+3. 고급 측정: 180초, 360초 파워 (6스테이지 완료한 경우만)
+4. 좌우 밸런스: 모든 측정 중 가장 차이가 큰 좌/우 비율
+데이터베이스 구조:
+- participants 테이블: 기본 정보 저장
+- test_sessions 테이블: 테스트 세션 정보
+- garmin_data 테이블: 실시간 파워/밸런스 데이터
+이름을 입력하고 "자동입력" 버튼을 누르면 가장 최근 데이터를 가져와서 폼에 채워주는 기능을 만들어주세요.
+2. API 엔드포인트 코드
+// server/routes.ts에 추가할 API 엔드포인트
+// 이름으로 사용자 검색 및 최신 데이터 가져오기
+app.get("/api/supabase/search-user/:name", async (req, res) => {
+  try {
+    const { name } = req.params;
+    
+    // 1. 참가자 기본 정보 검색
+    const participants = await db
+      .select()
+      .from(participantsTable)
+      .where(eq(participantsTable.name, name))
+      .orderBy(desc(participantsTable.createdAt));
+    
+    if (participants.length === 0) {
+      return res.status(404).json({ error: "사용자를 찾을 수 없습니다." });
+    }
+    
+    // 여러 명인 경우
+    if (participants.length > 1) {
+      return res.json({
+        multiple: true,
+        participants: participants.map(p => ({
+          id: p.id,
+          studentName: p.name,
+          affiliation: p.organization,
+          birthDate: p.birthDate,
+          gender: p.gender,
+          height: p.height,
+          weight: p.weight,
+          createdAt: p.createdAt
+        }))
+      });
+    }
+    
+    // 단일 사용자인 경우 - 가장 최근 테스트 데이터까지 가져오기
+    const participant = participants[0];
+    
+    // 2. 최신 테스트 세션 가져오기
+    const testSessions = await db
+      .select()
+      .from(testSessionsTable)
+      .where(eq(testSessionsTable.userId, participant.id))
+      .orderBy(desc(testSessionsTable.startTime))
+      .limit(1);
+    
+    let powerData = {};
+    let balanceData = { left: 50, right: 50 };
+    
+    if (testSessions.length > 0) {
+      const session = testSessions[0];
+      
+      // 3. 가민 데이터에서 스테이지별 최대 파워 계산
+      const garminData = await db
+        .select()
+        .from(garminDataTable)
+        .where(eq(garminDataTable.sessionId, session.id))
+        .where(gt(garminDataTable.power, 0));
+      
+      if (garminData.length > 0) {
+        // 스테이지별 최대 파워 계산 (타임스탬프 기준)
+        const sessionStart = new Date(session.startTime);
+        
+        // 각 스테이지 시간 구간 (초)
+        const stageTimings = [
+          { stage: 1, start: 0, end: 5 },      // 5초
+          { stage: 2, start: 65, end: 80 },    // 15초 (1분 휴식 후)
+          { stage: 3, start: 140, end: 170 },  // 30초
+          { stage: 4, start: 230, end: 290 },  // 60초
+          { stage: 5, start: 350, end: 530 },  // 180초
+          { stage: 6, start: 590, end: 950 }   // 360초
+        ];
+        
+        stageTimings.forEach(({ stage, start, end }) => {
+          const stageData = garminData.filter(d => {
+            const dataTime = new Date(d.timestamp);
+            const elapsed = (dataTime.getTime() - sessionStart.getTime()) / 1000;
+            return elapsed >= start && elapsed <= end;
+          });
+          
+          if (stageData.length > 0) {
+            const maxPower = Math.max(...stageData.map(d => d.power));
+            
+            switch(stage) {
+              case 1: powerData.power5s = maxPower; break;
+              case 2: powerData.power15s = maxPower; break;
+              case 3: powerData.power30s = maxPower; break;
+              case 4: powerData.power60s = maxPower; break;
+              case 5: powerData.power180s = maxPower; break;
+              case 6: powerData.power360s = maxPower; break;
+            }
+          }
+        });
+        
+        // 좌우 밸런스 - 가장 차이가 큰 값 찾기
+        let maxDifference = 0;
+        let bestBalance = { left: 50, right: 50 };
+        
+        garminData.forEach(d => {
+          if (d.leftBalance && d.rightBalance) {
+            const difference = Math.abs(d.leftBalance - d.rightBalance);
+            if (difference > maxDifference) {
+              maxDifference = difference;
+              bestBalance = {
+                left: Math.round(d.leftBalance),
+                right: Math.round(d.rightBalance)
+              };
+            }
+          }
+        });
+        
+        balanceData = bestBalance;
+      }
+    }
+    
+    // 4. 통합 응답 데이터
+    res.json({
+      studentName: participant.name,
+      affiliation: participant.organization || "",
+      birthDate: participant.birthDate,
+      gender: participant.gender,
+      height: participant.height || 0,
+      weight: participant.weight || 0,
+      ...powerData,
+      leftBalance: balanceData.left,
+      rightBalance: balanceData.right
+    });
+    
+  } catch (error) {
+    console.error("사용자 검색 오류:", error);
+    res.status(500).json({ error: "서버 오류가 발생했습니다." });
+  }
+});
+// 특정 참가자 ID로 데이터 가져오기 (여러 명 중 선택할 때)
+app.get("/api/supabase/participant/:id", async (req, res) => {
+  try {
+    const participantId = parseInt(req.params.id);
+    
+    // 위와 동일한 로직으로 특정 ID의 데이터 가져오기
+    // ... (같은 코드)
+    
+  } catch (error) {
+    console.error("참가자 데이터 가져오기 오류:", error);
+    res.status(500).json({ error: "서버 오류가 발생했습니다." });
+  }
+});
+3. 필요한 import 추가
+// server/routes.ts 상단에 추가
+import { eq, desc, gt } from "drizzle-orm";
+import { participants as participantsTable, testSessions as testSessionsTable, garminData as garminDataTable } from "@shared/schema";
+4. 프론트엔드 코드 수정 사항
+웹 리포트 사이트의 기존 코드에서 handleAutoFill 함수를 다음과 같이 수정:
+
+// 자동 입력 함수 수정
+const handleAutoFill = async () => {
+  const name = form.getValues("studentName");
+  if (!name || name.length < 2) {
+    toast({
+      title: "이름을 먼저 입력하세요",
+      description: "최소 2글자 이상의 이름을 입력한 후 자동 입력을 시도해주세요.",
+      variant: "destructive"
+    });
+    return;
+  }
+  try {
+    // KidsMotion 앱의 API 엔드포인트 호출
+    const response = await fetch(`/api/supabase/search-user/${encodeURIComponent(name)}`);
+    
+    if (!response.ok) {
+      throw new Error('검색 실패');
+    }
+    
+    const userData = await response.json();
+    
+    // 여러 명이 있는 경우
+    if (userData && userData.multiple) {
+      setParticipantOptions(userData.participants);
+      setShowParticipantSelection(true);
+      toast({
+        title: "여러 명 발견",
+        description: `"${name}" 이름으로 ${userData.participants.length}명이 등록되어 있습니다. 선택해주세요.`,
+      });
+      return;
+    }
+    
+    // 단일 사용자인 경우 - 모든 데이터 자동 입력
+    if (userData && userData.studentName) {
+      // 기본 정보
+      form.setValue("affiliation", userData.affiliation || "");
+      form.setValue("birthDate", userData.birthDate || "");
+      form.setValue("gender", userData.gender === "남성" ? "M" : "F");
+      form.setValue("height", userData.height || 0);
+      form.setValue("weight", userData.weight || 0);
+      
+      // 파워 데이터
+      if (userData.power5s) form.setValue("power5s", userData.power5s);
+      if (userData.power15s) form.setValue("power15s", userData.power15s);
+      if (userData.power30s) form.setValue("power30s", userData.power30s);
+      if (userData.power60s) form.setValue("power60s", userData.power60s);
+      
+      // 고급 측정 데이터가 있으면 섹션 열기
+      if (userData.power180s || userData.power360s) {
+        setShowAdvanced(true);
+        if (userData.power180s) form.setValue("power180s", userData.power180s);
+        if (userData.power360s) form.setValue("power360s", userData.power360s);
+      }
+      
+      // 좌우 밸런스
+      form.setValue("leftBalance", userData.leftBalance || 50);
+      form.setValue("rightBalance", userData.rightBalance || 50);
+      
+      toast({
+        title: "자동 입력 완료",
+        description: `${userData.studentName}님의 모든 측정 데이터를 불러왔습니다.`,
+      });
+    } else {
+      toast({
+        title: "정보 없음",
+        description: "해당 이름으로 등록된 정보가 없습니다.",
+        variant: "destructive"
+      });
+    }
+  } catch (error) {
+    toast({
+      title: "자동 입력 실패",
+      description: "KidsMotion 데이터를 불러오는 중 오류가 발생했습니다.",
+      variant: "destructive"
+    });
+  }
+};
+다른 Replit에게 전달할 요약:
+
+API 엔드포인트 2개 추가: /api/supabase/search-user/:name, /api/supabase/participant/:id
+데이터 가져오기 로직: 참가자 정보 + 최신 테스트 세션 + 스테이지별 최대 파워 + 최대 좌우 밸런스 차이
+프론트엔드 수정: handleAutoFill 함수에서 모든 데이터 자동 입력
+고급 측정 자동 열기: 180초/360초 데이터가 있으면 섹션 자동 확장
+이 코드를 사용하면 이름만 입력하고 "자동입력" 버튼을 누르면 KidsMotion 앱에서 수집한 모든 데이터가 자동으로 채워집니다!

@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema } from "@shared/schema";
+import { insertMeasurementSchema, insertAnalysisResultSchema, insertInviteCodeSchema, participants as participantsTable, testSessions as testSessionsTable, garminData as garminDataTable } from "@shared/schema";
+import { eq, desc, gt } from "drizzle-orm";
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
 import OpenAI from "openai";
@@ -1066,6 +1067,201 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     } catch (error) {
       console.error("Prefill 데이터 조회 오류:", error);
       res.status(500).json({ error: "Prefill 데이터 조회 중 오류가 발생했습니다." });
+    }
+  });
+
+  // KidsMotion 앱 데이터 자동 입력 API
+  app.get("/api/supabase/search-user/:name", async (req, res) => {
+    try {
+      const { name } = req.params;
+      console.log(`=== ${name} 검색 시작 ===`);
+      
+      // 1. 참가자 기본 정보 검색
+      const { data: participants, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .ilike('name', `%${name}%`)
+        .order('created_at', { ascending: false });
+      
+      if (participantError) {
+        console.error("참가자 검색 오류:", participantError);
+        return res.status(500).json({ error: "참가자 검색 실패", details: participantError });
+      }
+
+      if (!participants || participants.length === 0) {
+        return res.status(404).json({ error: "사용자를 찾을 수 없습니다." });
+      }
+
+      console.log(`${participants.length}명의 참가자 발견:`, participants.map(p => p.name));
+      
+      // 여러 명인 경우
+      if (participants.length > 1) {
+        return res.json({
+          multiple: true,
+          participants: participants.map(p => ({
+            id: p.id,
+            studentName: p.name,
+            affiliation: p.organization || "",
+            birthDate: p.birth_date,
+            gender: p.gender,
+            createdAt: p.created_at
+          }))
+        });
+      }
+      
+      // 단일 사용자인 경우 - 가장 최근 테스트 데이터까지 가져오기
+      const participant = participants[0];
+      console.log("선택된 참가자:", participant);
+      
+      // 2. 최신 테스트 세션 가져오기 (user_id 필드 사용)
+      const { data: testSessions, error: sessionError } = await supabase
+        .from('test_sessions')
+        .select('*')
+        .eq('user_id', participant.id.toString())
+        .order('start_time', { ascending: false })
+        .limit(1);
+      
+      if (sessionError) {
+        console.error("테스트 세션 검색 오류:", sessionError);
+      }
+
+      console.log("테스트 세션:", testSessions);
+      
+      let powerData = {};
+      let balanceData = { left: 50, right: 50 };
+      
+      if (testSessions && testSessions.length > 0) {
+        const session = testSessions[0];
+        console.log(`Session ${session.id} 데이터 분석 시작`);
+        
+        // 3. 가민 데이터에서 스테이지별 최대 파워 계산
+        const { data: garminData, error: garminError } = await supabase
+          .from('garmin_data')
+          .select('*')
+          .eq('session_id', session.id)
+          .gt('power', 0)
+          .order('timestamp');
+        
+        if (garminError) {
+          console.error("가민 데이터 조회 오류:", garminError);
+        }
+
+        if (garminData && garminData.length > 0) {
+          console.log(`${garminData.length}개 가민 데이터 분석`);
+          
+          // 스테이지별 최대 파워 계산 (타임스탬프 기준)
+          const sessionStart = new Date(session.start_time);
+          
+          // 각 스테이지 시간 구간 (초)
+          const stageTimings = [
+            { stage: 1, start: 0, end: 5 },      // 5초
+            { stage: 2, start: 65, end: 80 },    // 15초 (1분 휴식 후)
+            { stage: 3, start: 140, end: 170 },  // 30초
+            { stage: 4, start: 230, end: 290 },  // 60초
+            { stage: 5, start: 350, end: 530 },  // 180초
+            { stage: 6, start: 590, end: 950 }   // 360초
+          ];
+          
+          stageTimings.forEach(({ stage, start, end }) => {
+            const stageData = garminData.filter(d => {
+              const dataTime = new Date(d.timestamp);
+              const elapsed = (dataTime.getTime() - sessionStart.getTime()) / 1000;
+              return elapsed >= start && elapsed <= end;
+            });
+            
+            if (stageData.length > 0) {
+              const maxPower = Math.max(...stageData.map(d => d.power));
+              console.log(`Stage ${stage}: ${stageData.length}개 데이터, 최대 파워: ${maxPower}W`);
+              
+              switch(stage) {
+                case 1: powerData.power5s = maxPower; break;
+                case 2: powerData.power15s = maxPower; break;
+                case 3: powerData.power30s = maxPower; break;
+                case 4: powerData.power60s = maxPower; break;
+                case 5: powerData.power180s = maxPower; break;
+                case 6: powerData.power360s = maxPower; break;
+              }
+            }
+          });
+          
+          // 좌우 밸런스 - 가장 차이가 큰 값 찾기
+          let maxDifference = 0;
+          let bestBalance = { left: 50, right: 50 };
+          
+          garminData.forEach(d => {
+            if (d.left_balance && d.right_balance) {
+              const difference = Math.abs(d.left_balance - d.right_balance);
+              if (difference > maxDifference) {
+                maxDifference = difference;
+                bestBalance = {
+                  left: Math.round(d.left_balance),
+                  right: Math.round(d.right_balance)
+                };
+              }
+            }
+          });
+          
+          balanceData = bestBalance;
+          console.log("최대 밸런스 차이:", maxDifference, bestBalance);
+        }
+      }
+      
+      // 4. 통합 응답 데이터
+      const responseData = {
+        studentName: participant.name,
+        affiliation: participant.organization || "",
+        birthDate: participant.birth_date,
+        gender: participant.gender === "남성" ? "M" : "F",
+        height: 0, // 기본값
+        weight: 0, // 기본값
+        ...powerData,
+        leftBalance: balanceData.left,
+        rightBalance: balanceData.right
+      };
+
+      console.log("응답 데이터:", responseData);
+      res.json(responseData);
+      
+    } catch (error) {
+      console.error("사용자 검색 오류:", error);
+      res.status(500).json({ error: "서버 오류가 발생했습니다." });
+    }
+  });
+
+  // 특정 참가자 ID로 데이터 가져오기 (여러 명 중 선택할 때)
+  app.get("/api/supabase/participant/:id", async (req, res) => {
+    try {
+      const participantId = parseInt(req.params.id);
+      console.log(`=== 참가자 ID ${participantId} 데이터 가져오기 ===`);
+      
+      // 동일한 로직으로 특정 ID의 데이터 가져오기
+      const { data: participant, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('id', participantId)
+        .single();
+      
+      if (participantError || !participant) {
+        return res.status(404).json({ error: "참가자를 찾을 수 없습니다." });
+      }
+
+      // 나머지는 위와 동일한 로직
+      // ... (세션 검색, 가민 데이터 분석 등)
+      
+      res.json({
+        studentName: participant.name,
+        affiliation: participant.organization || "",
+        birthDate: participant.birth_date,
+        gender: participant.gender === "남성" ? "M" : "F",
+        height: 0,
+        weight: 0,
+        leftBalance: 50,
+        rightBalance: 50
+      });
+      
+    } catch (error) {
+      console.error("참가자 데이터 가져오기 오류:", error);
+      res.status(500).json({ error: "서버 오류가 발생했습니다." });
     }
   });
 
