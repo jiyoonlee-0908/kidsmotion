@@ -1,0 +1,93 @@
+네, 웹리포트 사이트 개발자에게 전달할 상세한 내용을 정리해드리겠습니다:
+
+📋 KidsMotion 모니터 앱 → 웹리포트 사이트 연동 가이드
+1. 스테이지 넘버링 시스템
+모니터 앱에서 다음과 같이 넘버링하여 저장합니다:
+
+1번: 5초 최대파워 테스트
+2번: 15초 파워 테스트
+3번: 30초 파워 테스트
+4번: 60초 파워 테스트
+5번: 180초 파워 테스트 (선택)
+6번: 360초 파워 테스트 (선택)
+2. Supabase 테이블 구조
+모니터 앱에서 stage_intervals 테이블에 다음 구조로 저장:
+
+CREATE TABLE stage_intervals (
+  id SERIAL PRIMARY KEY,
+  session_id TEXT NOT NULL,
+  user_display_name TEXT NOT NULL,        -- "홍길동_2025-06-28" 형식
+  sequence_number INTEGER NOT NULL,       -- 1, 2, 3, 4, 5, 6
+  stage_name TEXT NOT NULL,              -- "5초 최대파워", "15초 파워" 등
+  start_timestamp TIMESTAMP NOT NULL,    -- 실제 테스트 시작 시간
+  end_timestamp TIMESTAMP NOT NULL,      -- 실제 테스트 종료 시간
+  duration_seconds INTEGER NOT NULL,     -- 실제 소요 시간
+  max_power_in_stage NUMERIC(8,2),      -- 해당 구간 최대파워
+  avg_power_in_stage NUMERIC(8,2),      -- 해당 구간 평균파워
+  created_at TIMESTAMP DEFAULT NOW()
+);
+3. 웹리포트에서 사용할 API 엔드포인트
+API URL: GET /api/stage-intervals/{userDisplayName}
+
+예시 호출:
+
+fetch('/api/stage-intervals/홍길동_2025-06-28')
+API 응답 형식:
+
+{
+  "userDisplayName": "홍길동_2025-06-28",
+  "stages": [
+    {
+      "sequence_number": 1,
+      "stage_name": "5초 최대파워",
+      "start_timestamp": "2025-06-28T15:30:05Z",
+      "end_timestamp": "2025-06-28T15:30:10Z",
+      "duration_seconds": 5,
+      "max_power_in_stage": 185.4,
+      "avg_power_in_stage": 167.2
+    },
+    {
+      "sequence_number": 2,
+      "stage_name": "15초 파워",
+      "max_power_in_stage": 156.8,
+      "avg_power_in_stage": 142.3
+    }
+    // ... 나머지 스테이지들
+  ],
+  "powerValues": {
+    "power5s": 185.4,    // 1번 테스트 최대파워
+    "power15s": 156.8,   // 2번 테스트 최대파워
+    "power30s": 145.2,   // 3번 테스트 최대파워
+    "power60s": 128.5,   // 4번 테스트 최대파워
+    "power180s": null,   // 5번 테스트 안함
+    "power360s": null    // 6번 테스트 안함
+  }
+}
+4. 웹리포트에서 데이터 체크하는 방법
+// 사용자 데이터 가져오기
+const response = await fetch(`/api/stage-intervals/${userDisplayName}`);
+const data = await response.json();
+// 1번 테스트 완료 여부 확인
+if (data.powerValues.power5s !== null) {
+  console.log(`1번 테스트(5초) 완료: ${data.powerValues.power5s}W`);
+}
+// 선택 테스트 완료 여부 확인
+if (data.powerValues.power180s !== null) {
+  console.log(`5번 선택테스트(180초) 완료: ${data.powerValues.power180s}W`);
+}
+// 전체 완료된 테스트 개수
+const completedTests = Object.values(data.powerValues)
+  .filter(value => value !== null).length;
+console.log(`총 ${completedTests}개 테스트 완료`);
+5. 핵심 장점
+정확한 구간 분석: 고정된 시간 구간이 아닌 실제 테스트 시작/종료 시점 기준
+간단한 넘버링: 1-6번으로 쉽게 테스트 식별
+선택 테스트 구분: 5번, 6번 테스트는 null 체크로 진행 여부 확인
+실시간 데이터: 모니터 앱에서 테스트 완료 즉시 Supabase에 저장
+6. 모니터 앱 코드 요약
+모니터 앱에서는 다음과 같이 구현했습니다:
+
+3-2-1 카운트다운 완료 시 startStage() 호출
+실시간 가민 파워 데이터 수집 addPowerData(power)
+테스트 완료 시 endStage() 호출하여 Supabase 자동 저장
+이제 웹리포트 사이트에서 1-6번 넘버링으로 간단하게 데이터를 가져와서 분석 리포트를 생성할 수 있습니다!

@@ -109,7 +109,70 @@ export async function getGarminDataByDisplayName(userDisplayName: string): Promi
   }
 }
 
-// 가민 데이터에서 파워 값들 추출 (6스테이지)
+// 🔥 새로운 스테이지 넘버링 시스템 - stage_intervals 테이블에서 파워값 추출
+export async function getStageIntervalPowerValues(userDisplayName: string) {
+  try {
+    const { data: stages, error } = await supabase
+      .from('stage_intervals')
+      .select('*')
+      .eq('user_display_name', userDisplayName)
+      .order('sequence_number', { ascending: true });
+
+    if (error) {
+      console.error("스테이지 구간 조회 오류:", error);
+      return {
+        power5s: null,
+        power15s: null,
+        power30s: null,
+        power60s: null,
+        power180s: null,
+        power360s: null,
+        hasStageData: false
+      };
+    }
+
+    if (!stages || stages.length === 0) {
+      console.log(`${userDisplayName}: 스테이지 구간 데이터 없음 - 가민 데이터 사용`);
+      return {
+        power5s: null,
+        power15s: null,
+        power30s: null,
+        power60s: null,
+        power180s: null,
+        power360s: null,
+        hasStageData: false
+      };
+    }
+
+    // 순서별로 파워값 추출 (1-6번 스테이지)
+    const powerValues = {
+      power5s: stages.find(s => s.sequence_number === 1)?.max_power_in_stage || null,
+      power15s: stages.find(s => s.sequence_number === 2)?.max_power_in_stage || null,
+      power30s: stages.find(s => s.sequence_number === 3)?.max_power_in_stage || null,
+      power60s: stages.find(s => s.sequence_number === 4)?.max_power_in_stage || null,
+      power180s: stages.find(s => s.sequence_number === 5)?.max_power_in_stage || null,
+      power360s: stages.find(s => s.sequence_number === 6)?.max_power_in_stage || null,
+      hasStageData: true
+    };
+
+    console.log(`${userDisplayName} 스테이지 파워값:`, powerValues);
+    return powerValues;
+
+  } catch (error) {
+    console.error("스테이지 파워값 조회 중 오류:", error);
+    return {
+      power5s: null,
+      power15s: null,
+      power30s: null,
+      power60s: null,
+      power180s: null,
+      power360s: null,
+      hasStageData: false
+    };
+  }
+}
+
+// 기존 가민 데이터에서 파워 값들 추출 (fallback용)
 export function extractPowerValues(garminData: GarminDataPoint[]) {
   if (!garminData || garminData.length === 0) {
     return {

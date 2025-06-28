@@ -11,6 +11,7 @@ import {
   getLatestCompletedTest, 
   getGarminDataByDisplayName, 
   extractPowerValues, 
+  getStageIntervalPowerValues,
   calculateBalance, 
   formatDate, 
   formatGender 
@@ -1239,13 +1240,33 @@ Style: Professional product photography, bright and clean, medical/fitness equip
           console.error("가민 데이터 조회 오류:", garminError);
         }
 
-        if (garminData && garminData.length > 0) {
+        // 🔥 우선순위 1: 새로운 스테이지 넘버링 시스템 사용
+        const userDisplayName = `${participant.name}_${session.start_time.split('T')[0]}`;
+        console.log(`스테이지 구간 데이터 조회: ${userDisplayName}`);
+        
+        const stageIntervalPowers = await getStageIntervalPowerValues(userDisplayName);
+        
+        if (stageIntervalPowers.hasStageData) {
+          console.log("✅ 스테이지 넘버링 시스템 데이터 사용");
+          powerData = {
+            power5s: stageIntervalPowers.power5s,
+            power15s: stageIntervalPowers.power15s,
+            power30s: stageIntervalPowers.power30s,
+            power60s: stageIntervalPowers.power60s,
+            power180s: stageIntervalPowers.power180s,
+            power360s: stageIntervalPowers.power360s
+          };
+          
+          // 스테이지 구간 데이터 있을 때는 가민 데이터에서 밸런스만 추출
+          if (garminData && garminData.length > 0) {
+            const balance = calculateBalance(garminData);
+            balanceData = balance;
+          }
+        } else if (garminData && garminData.length > 0) {
+          console.log("⚠️ 기존 가민 데이터 분석 사용 (fallback)");
           console.log(`${garminData.length}개 가민 데이터 분석`);
           
-          // 스테이지별 최대 파워 계산 (타임스탬프 기준)
-          const sessionStart = new Date(session.start_time);
-          
-          // 파워 패턴 분석으로 스테이지 자동 감지
+          // 기존 파워 패턴 분석으로 스테이지 자동 감지 (fallback)
           const detectStages = (data: any[]) => {
             // 파워가 0보다 큰 구간들을 찾아서 스테이지 구분
             const activePeriods = [];
