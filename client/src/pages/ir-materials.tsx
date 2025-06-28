@@ -404,8 +404,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* 통합 솔루션 가격 */}
         <div className="mb-20">
-          <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl p-8 mb-12">
-            <div className="text-center mb-8">
+          <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl py-8 px-8 mb-12">
+            <div className="text-center">
               <h3 className="text-3xl font-bold text-indigo-800 mb-4">MotionBike 솔루션</h3>
               <div className="flex items-center justify-center space-x-4">
                 <div className="bg-white rounded-2xl px-8 py-4 shadow-lg">
@@ -420,7 +420,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               
               {/* 서비스 구독 내용 */}
-              <div className="mt-6 text-blue-600">
+              <div className="mt-4 text-blue-600">
                 AI 분석 리포트 제공 + 누적 데이터 기반 백분위 업데이트 + 성장 추이 분석 및 체력 변화 자동 기록
               <div>(향후 의료기관 전용 모드 포함 예정)</div>
               </div>
@@ -444,7 +444,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
               <div className="space-y-4 text-gray-700">
                 <p className="leading-relaxed">2018년부터 현재까지 사이클 아카데미 어시스트를 하며, 현장 전문성 보유</p>
-                <p className="leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발 완료</p>
+                <p className="leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발</p>
               </div>
             </div>
 
@@ -474,9 +474,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <p className="text-lg text-purple-600 font-medium">"하드웨어 개발 파트너십"</p>
               </div>
               <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">자전거 부품 설계 특허 보유 기업</p>
-                <p className="leading-relaxed">키즈모션 사이클 부품 설계</p>
-                <p className="leading-relaxed">현재 MVP 시제품 공동 개발 진행 중</p>
+                <p className="leading-relaxed">자전거 부품 특허 다수 보유</p>
+                <p className="leading-relaxed">키즈모션 사이클 프레임 및 부품 공동 설계</p>
+                <p className="leading-relaxed">현재 MVP 시제품 공동 개발 중</p>
               </div>
             </div>
           </div>
