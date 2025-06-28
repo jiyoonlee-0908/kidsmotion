@@ -152,47 +152,47 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
         {/* 핵심 문제와 해결책 */}
         <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 데이터로 바꾸는 솔루션</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 정량 데이터로 해결합니다</h2>
           
           <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-16">
             {/* 왼쪽: 문제 */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-red-700 mb-8 text-center">부모들의 현실적 걱정</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-red-700 mb-8 text-center">부모의 걱정</h3>
               <div className="space-y-4">
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-sm sm:text-lg font-bold text-red-800">"우리아이 몸이 비대칭인 것 같은데... 혹시 성장에 문제가 생기는 건 아니겠지?"</p>
+                  <p className="text-sm sm:text-lg font-bold text-red-800">"아이 몸이 좌우로 틀어져 보이는데, 성장에 영향이 없을까?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"운동시키고 싶은데 이 정도면 괜찮을까? 상위 1%도 살아남지 못하는데..."</p>
+                  <p className="text-lg font-bold text-red-800">"우리아이 운동 능력정도면, 엘리트 선수로 성장할 가능성이 있는 걸까?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"다른 아이들보다 체력이 떨어지는 것 같은데... 정확히 얼마나 뒤처지는 거지?"</p>
+                  <p className="text-lg font-bold text-red-800">"다른 아이들보다 체력이 약한 것 같은데, 정확히 얼마나 부족한 걸까?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"병원에서 '괜찮다'고만 하고... 정말 괜찮은 건지 불안해!"</p>
+                  <p className="text-lg font-bold text-red-800">"병원에서는 괜찮다지만, 근거 있는 수치를 보고 싶어요."</p>
                 </div>
               </div>
             </div>
 
             {/* 오른쪽: 해결책 */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-8 text-center">우리의 데이터 기반 해결책</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-8 text-center">데이터 기반 해결책</h3>
               <div className="space-y-4">
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">좌우 밸런스 정확한 수치로 측정</p>
-                  <p className="text-blue-600">→ 개선방안 제시</p>
+                  <p className="text-lg font-bold text-blue-800 mb-1">페달링 중 좌우 밸런스를 실시간 수치화</p>
+                  <p className="text-blue-600">→ 비대칭 조기 발견 및 교정 가이드</p>
                 </div>
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">1등급 달성 시 상위 1% 재능 확인</p>
-                  <p className="text-blue-600">→ 운동 투자 가치 명확 판단</p>
+                  <p className="text-lg font-bold text-blue-800 mb-1">백분위에서 상위 1% 체력 소유</p>
+                  <p className="text-blue-600">→ 운동 잠재력 객관적 판단 가능</p>
                 </div>
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">1~5등급 체제와 백분위 제공</p>
-                  <p className="text-blue-600">→ 우리 아이의 정확한 위치 확인</p>
+                  <p className="text-lg font-bold text-blue-800 mb-1">5등급 체계 + 백분위 수치 제공</p>
+                  <p className="text-blue-600">→ 우리 아이의 정확한 위치 파악</p>
                 </div>
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">5등급, 하위 4% 바로 확인</p>
-                  <p className="text-blue-600">→ 조기 개입으로 즉시 대응</p>
+                  <p className="text-lg font-bold text-blue-800 mb-1">하위 4%(5등급) 확인 즉시 알림</p>
+                  <p className="text-blue-600">→ 운동 개입 필요 시점 자동 안내</p>
                 </div>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">유동성 프레임 설계</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 키 100-150cm 대응</p>
-                      <p>• 성장하는 아동을 위한 조절 가능한 구조</p>
+                      <p>• 성장하는 아동을 위한 조절 가능한 프레임과 파츠</p>
                       <p>• 단일 장비로 만4-12세 연령대 커버</p>
                     </div>
                   </div>
@@ -271,7 +271,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">2</div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">DC 모터 정밀 측정 시스템</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">DC모터 기반 정밀 저항 시스템</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 아동 체형에 맞춘 맞춤형 부하 조절</p>
                       <p>• 기계의 정밀도 향상으로 신뢰할 수 있는 데이터 확보</p>
@@ -285,11 +285,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">3</div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">파워 & 밸런스 센서 기술</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">파워 & 밸런스 센서</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
                       <p>• 실시간 파워 센서: 객관적 체력 데이터 측정</p>
                       <p>• 좌우 밸런스 센서: 페달링 중 불균형을 정량 측정</p>
-                      <p>• 성장기 자세 교정을 위한 데이터 기반 피드백</p>
+                      <p>• 과학적 체력 데이터 확보</p>
                     </div>
                   </div>
                 </div>
@@ -320,8 +320,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">AI 맞춤 리포트</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
-                      <p>• 복잡한 체력 데이터를 부모가 이해하는 언어로 자동 변환</p>
-                      <p>• GPT-4 기반 개인별 맞춤 해석 및 운동 가이드 제공</p>
+                      <p>• 복잡한 체력 데이터를 보호자 눈높이에 맞게 해석</p>
+                      <p>• GPT-4 기반 코멘트 + 개인 맞춤 피드백 제공</p>
                     </div>
                   </div>
                 </div>
@@ -332,9 +332,9 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0">6</div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">기술발전계획</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3">기술 고도화 로드맵</h3>
                     <div className="space-y-2 text-gray-700 text-lg">
-                      <p>• 외장→내장 센서 전환으로 정밀도 향상</p>
+                      <p>• 외장형 센서 → 내장형 센서 전환</p>
                       <p>• 의료기기 인증으로 신뢰성 확보</p>
                       <p>• 의료기관 진단용 장비로 확장</p>
                     </div>
@@ -371,10 +371,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           {/* 3개 시장별 특화 서비스 */}
           <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
-              <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원 시장</h3>
+              <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원</h3>
               <div className="space-y-4">
                 <div className="bg-red-50 p-4 rounded-xl">
-                  <p className="font-bold text-red-800 mb-2">✓ 영유아검진 프리미엄 서비스</p>
+                  <p className="font-bold text-red-800 mb-2">✓ 프리미엄 성장검진 + 운동 능력 정량 평가</p>
                   <p className="text-gray-600 text-sm">차별화된 진단 서비스로 환자 만족도 향상</p>
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="space-y-4">
                 <div className="bg-blue-50 p-4 rounded-xl">
                   <p className="font-bold text-blue-800 mb-2">✓ 실력 향상 데이터 제공</p>
-                  <p className="text-gray-600 text-sm">학부모 신뢰도 증가와 경쟁력 확보</p>
+                  <p className="text-gray-600 text-sm">학부모 신뢰도 증가와 경쟁력 확보로 등록 유도</p>
                 </div>
               </div>
             </div>
@@ -394,7 +394,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <h3 className="text-2xl font-bold text-purple-700 mb-6 text-center">보건소/공공기관</h3>
               <div className="space-y-4">
                 <div className="bg-purple-50 p-4 rounded-xl">
-                  <p className="font-bold text-purple-800 mb-2">✓ 지역 아동 건강 빅데이터</p>
+                  <p className="font-bold text-purple-800 mb-2">✓ 아동 체력 건강 빅데이터</p>
                   <p className="text-gray-600 text-sm">정책 수립을 위한 데이터 구축</p>
                 </div>
               </div>
@@ -421,7 +421,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               {/* 서비스 구독 내용 */}
               <div className="mt-6 text-blue-600">
-                AI 분석 + 누적 데이터 통계 + 백분위 업데이트 + 분석 리포트
+                AI 분석 리포트 제공 + 누적 데이터 기반 백분위 업데이트 + 성장 추이 분석 및 체력 변화 자동 기록
+              <div>(향후 의료기관 전용 모드 포함 예정)</div>
               </div>
             </div>
           </div>
