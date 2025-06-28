@@ -356,6 +356,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         overallAssessment: aiAnalysis.overallAssessment ? "생성됨" : "없음"
       });
       
+      // 등급 계산 함수
+      const getGrade = (percentile: number): string => {
+        if (percentile >= 90) return "매우우수";
+        if (percentile >= 70) return "우수";
+        if (percentile >= 40) return "평균";
+        if (percentile >= 20) return "주의";
+        return "경고";
+      };
+
       // Create analysis result
       // 강점과 보완점 계산
       const calculateStrengthsAndImprovements = () => {
@@ -433,7 +442,91 @@ export async function registerRoutes(app: Express): Promise<Server> {
         improvements: improvementsText
       };
       
-      console.log("=== 측정 결과 계산 완료 (저장하지 않음) ===");
+      // 🔥 Supabase에 웹리포트 결과 저장 (신체변화 추적용)
+      try {
+        const studentIdentifier = `${measurementData.studentName}(${measurementData.birthDate})`;
+        
+        const reportData = {
+          student_identifier: studentIdentifier,
+          student_name: measurementData.studentName,
+          birth_date: measurementData.birthDate,
+          measure_date: measurementData.measureDate,
+          
+          // 기본 정보
+          age,
+          gender: measurementData.gender,
+          height: measurementData.height,
+          weight: measurementData.weight,
+          bmi,
+          affiliation: measurementData.affiliation,
+          
+          // 환산점수 (상대파워)
+          relative_power_5s: relativePowers["5s"],
+          relative_power_15s: relativePowers["15s"], 
+          relative_power_30s: relativePowers["30s"],
+          relative_power_60s: relativePowers["60s"],
+          relative_power_180s: relativePowers["180s"] || null,
+          relative_power_360s: relativePowers["360s"] || null,
+          
+          // 백분위 점수
+          percentile_5s: percentiles["5s"],
+          percentile_15s: percentiles["15s"],
+          percentile_30s: percentiles["30s"],
+          percentile_60s: percentiles["60s"],
+          percentile_180s: percentiles["180s"] || null,
+          percentile_360s: percentiles["360s"] || null,
+          overall_percentile: overallPercentile,
+          
+          // 등급 (우수~경고)
+          grade_5s: getGrade(percentiles["5s"]),
+          grade_15s: getGrade(percentiles["15s"]),
+          grade_30s: getGrade(percentiles["30s"]),
+          grade_60s: getGrade(percentiles["60s"]),
+          grade_180s: percentiles["180s"] ? getGrade(percentiles["180s"]) : null,
+          grade_360s: percentiles["360s"] ? getGrade(percentiles["360s"]) : null,
+          overall_grade: getGrade(overallPercentile),
+          
+          // 심박수 데이터
+          max_heart_rate: heartRateData.maxBpm,
+          avg_heart_rate: heartRateData.avgBpm,
+          resting_heart_rate: heartRateData.restingBpm,
+          
+          // 좌우밸런스
+          left_balance: measurementData.leftBalance,
+          right_balance: measurementData.rightBalance,
+          balance_difference: Math.abs(measurementData.leftBalance - measurementData.rightBalance),
+          balance_status: balanceStatus,
+          
+          // AI 분석 결과
+          ai_core_insights: aiAnalysis.coreInsights,
+          ai_balance_comment: aiAnalysis.balanceComment,
+          ai_comprehensive_analysis: typeof aiAnalysis.comprehensiveAnalysis === 'string' 
+            ? aiAnalysis.comprehensiveAnalysis 
+            : Array.isArray(aiAnalysis.comprehensiveAnalysis) 
+              ? JSON.stringify(aiAnalysis.comprehensiveAnalysis)
+              : "체력 분석을 완료했습니다.",
+          ai_overall_assessment: aiAnalysis.overallAssessment,
+          strengths: strengthsText,
+          improvements: improvementsText
+        };
+
+        const { data: savedReport, error: reportError } = await supabase
+          .from('report_results')
+          .insert(reportData)
+          .select()
+          .single();
+
+        if (reportError) {
+          console.error("리포트 저장 오류:", reportError);
+        } else {
+          console.log(`✅ 웹리포트 저장 완료: ${studentIdentifier} (${measurementData.measureDate})`);
+          console.log("저장된 데이터 ID:", savedReport?.id);
+        }
+      } catch (reportSaveError) {
+        console.error("리포트 저장 중 예외 발생:", reportSaveError);
+      }
+
+      console.log("=== 측정 결과 계산 완료 ===");
       console.log("측정 ID:", measurement.id);
       console.log("학생 이름:", measurement.studentName);
       
@@ -1152,35 +1245,70 @@ Style: Professional product photography, bright and clean, medical/fitness equip
           // 스테이지별 최대 파워 계산 (타임스탬프 기준)
           const sessionStart = new Date(session.start_time);
           
-          // 각 스테이지 시간 구간 (초)
-          const stageTimings = [
-            { stage: 1, start: 0, end: 5 },      // 5초
-            { stage: 2, start: 65, end: 80 },    // 15초 (1분 휴식 후)
-            { stage: 3, start: 140, end: 170 },  // 30초
-            { stage: 4, start: 230, end: 290 },  // 60초
-            { stage: 5, start: 350, end: 530 },  // 180초
-            { stage: 6, start: 590, end: 950 }   // 360초
-          ];
-          
-          stageTimings.forEach(({ stage, start, end }) => {
-            const stageData = garminData.filter(d => {
-              const dataTime = new Date(d.timestamp);
-              const elapsed = (dataTime.getTime() - sessionStart.getTime()) / 1000;
-              return elapsed >= start && elapsed <= end;
-            });
+          // 파워 패턴 분석으로 스테이지 자동 감지
+          const detectStages = (data: any[]) => {
+            // 파워가 0보다 큰 구간들을 찾아서 스테이지 구분
+            const activePeriods = [];
+            let currentPeriod = null;
             
-            if (stageData.length > 0) {
-              const maxPower = Math.max(...stageData.map(d => d.power));
-              console.log(`Stage ${stage}: ${stageData.length}개 데이터, 최대 파워: ${maxPower}W`);
+            for (let i = 0; i < data.length; i++) {
+              const point = data[i];
+              const power = point.power;
               
-              switch(stage) {
-                case 1: powerData.power5s = maxPower; break;
-                case 2: powerData.power15s = maxPower; break;
-                case 3: powerData.power30s = maxPower; break;
-                case 4: powerData.power60s = maxPower; break;
-                case 5: powerData.power180s = maxPower; break;
-                case 6: powerData.power360s = maxPower; break;
+              if (power > 5) { // 활동 시작 (5W 이상)
+                if (!currentPeriod) {
+                  currentPeriod = {
+                    start: i,
+                    startTime: new Date(point.timestamp),
+                    maxPower: power,
+                    dataPoints: [point]
+                  };
+                } else {
+                  currentPeriod.maxPower = Math.max(currentPeriod.maxPower, power);
+                  currentPeriod.dataPoints.push(point);
+                }
+              } else { // 휴식 또는 종료
+                if (currentPeriod && currentPeriod.dataPoints.length > 3) {
+                  currentPeriod.end = i - 1;
+                  currentPeriod.endTime = new Date(data[i-1].timestamp);
+                  currentPeriod.duration = (currentPeriod.endTime.getTime() - currentPeriod.startTime.getTime()) / 1000;
+                  activePeriods.push(currentPeriod);
+                }
+                currentPeriod = null;
               }
+            }
+            
+            // 마지막 구간 처리
+            if (currentPeriod && currentPeriod.dataPoints.length > 3) {
+              currentPeriod.end = data.length - 1;
+              currentPeriod.endTime = new Date(data[data.length - 1].timestamp);
+              currentPeriod.duration = (currentPeriod.endTime.getTime() - currentPeriod.startTime.getTime()) / 1000;
+              activePeriods.push(currentPeriod);
+            }
+            
+            return activePeriods;
+          };
+          
+          const stages = detectStages(garminData);
+          console.log(`감지된 활동 구간: ${stages.length}개`);
+          
+          // 스테이지별 최대 파워 할당 (지속시간 기준)
+          stages.forEach((stage, index) => {
+            console.log(`구간 ${index + 1}: ${stage.duration.toFixed(1)}초, 최대파워: ${stage.maxPower}W`);
+            
+            // 지속시간으로 스테이지 판단
+            if (stage.duration >= 1 && stage.duration <= 8 && !powerData.power5s) {
+              powerData.power5s = stage.maxPower; // 5초 스테이지
+            } else if (stage.duration >= 10 && stage.duration <= 20 && !powerData.power15s) {
+              powerData.power15s = stage.maxPower; // 15초 스테이지
+            } else if (stage.duration >= 25 && stage.duration <= 40 && !powerData.power30s) {
+              powerData.power30s = stage.maxPower; // 30초 스테이지
+            } else if (stage.duration >= 50 && stage.duration <= 80 && !powerData.power60s) {
+              powerData.power60s = stage.maxPower; // 60초 스테이지
+            } else if (stage.duration >= 150 && stage.duration <= 220 && !powerData.power180s) {
+              powerData.power180s = stage.maxPower; // 180초 스테이지
+            } else if (stage.duration >= 300 && stage.duration <= 420 && !powerData.power360s) {
+              powerData.power360s = stage.maxPower; // 360초 스테이지
             }
           });
           
@@ -1225,6 +1353,65 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     } catch (error) {
       console.error("사용자 검색 오류:", error);
       res.status(500).json({ error: "서버 오류가 발생했습니다." });
+    }
+  });
+
+  // 신체변화 추적 API - 동일한 아이의 측정 기록 조회
+  app.get("/api/reports/history/:identifier", async (req, res) => {
+    try {
+      const { identifier } = req.params; // "홍길동(2018-05-05)" 형태
+      console.log(`=== ${identifier} 신체변화 추적 ===`);
+      
+      const { data: reports, error } = await supabase
+        .from('report_results')
+        .select('*')
+        .eq('student_identifier', identifier)
+        .order('measure_date', { ascending: false });
+      
+      if (error) {
+        console.error("기록 조회 오류:", error);
+        return res.status(500).json({ error: "기록 조회 실패" });
+      }
+
+      if (!reports || reports.length === 0) {
+        return res.json({ 
+          identifier,
+          totalRecords: 0,
+          records: [],
+          growth: null
+        });
+      }
+
+      // 성장 분석 (최신 vs 이전 기록)
+      let growth = null;
+      if (reports.length >= 2) {
+        const latest = reports[0];
+        const previous = reports[1];
+        
+        growth = {
+          heightChange: latest.height - previous.height,
+          weightChange: latest.weight - previous.weight,
+          overallPercentileChange: latest.overall_percentile - previous.overall_percentile,
+          period: `${previous.measure_date} → ${latest.measure_date}`,
+          improvements: {
+            power5s: latest.percentile_5s - previous.percentile_5s,
+            power15s: latest.percentile_15s - previous.percentile_15s,
+            power30s: latest.percentile_30s - previous.percentile_30s,
+            power60s: latest.percentile_60s - previous.percentile_60s
+          }
+        };
+      }
+
+      res.json({
+        identifier,
+        totalRecords: reports.length,
+        records: reports,
+        growth
+      });
+
+    } catch (error) {
+      console.error("신체변화 추적 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
     }
   });
 

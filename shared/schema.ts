@@ -137,3 +137,68 @@ export const garminData = pgTable("garmin_data", {
   pedaling_smoothness: real("pedaling_smoothness"),
   torque_effectiveness: real("torque_effectiveness"),
 });
+
+// 웹리포트 분석 결과 저장 테이블
+export const reportResults = pgTable("report_results", {
+  id: serial("id").primaryKey(),
+  // 고유 식별자: 이름(생년월일) 조합
+  student_identifier: text("student_identifier").notNull(), // "홍길동(2018-05-05)"
+  student_name: text("student_name").notNull(),
+  birth_date: text("birth_date").notNull(),
+  measure_date: text("measure_date").notNull(),
+  
+  // 기본 정보
+  age: integer("age").notNull(),
+  gender: text("gender").notNull(),
+  height: real("height").notNull(),
+  weight: real("weight").notNull(),
+  bmi: real("bmi").notNull(),
+  affiliation: text("affiliation"),
+  
+  // 환산점수 (상대파워)
+  relative_power_5s: real("relative_power_5s"),
+  relative_power_15s: real("relative_power_15s"),
+  relative_power_30s: real("relative_power_30s"),
+  relative_power_60s: real("relative_power_60s"),
+  relative_power_180s: real("relative_power_180s"),
+  relative_power_360s: real("relative_power_360s"),
+  
+  // 백분위 점수
+  percentile_5s: real("percentile_5s"),
+  percentile_15s: real("percentile_15s"),
+  percentile_30s: real("percentile_30s"),
+  percentile_60s: real("percentile_60s"),
+  percentile_180s: real("percentile_180s"),
+  percentile_360s: real("percentile_360s"),
+  overall_percentile: real("overall_percentile").notNull(),
+  
+  // 등급 (우수~경고)
+  grade_5s: text("grade_5s"),
+  grade_15s: text("grade_15s"),
+  grade_30s: text("grade_30s"),
+  grade_60s: text("grade_60s"),
+  grade_180s: text("grade_180s"),
+  grade_360s: text("grade_360s"),
+  overall_grade: text("overall_grade").notNull(),
+  
+  // 심박수 데이터
+  max_heart_rate: real("max_heart_rate"),
+  avg_heart_rate: real("avg_heart_rate"),
+  resting_heart_rate: real("resting_heart_rate"),
+  
+  // 좌우밸런스
+  left_balance: real("left_balance").notNull(),
+  right_balance: real("right_balance").notNull(),
+  balance_difference: real("balance_difference").notNull(),
+  balance_status: text("balance_status").notNull(),
+  
+  // AI 분석 결과
+  ai_core_insights: text("ai_core_insights"),
+  ai_balance_comment: text("ai_balance_comment"),
+  ai_comprehensive_analysis: text("ai_comprehensive_analysis"),
+  ai_overall_assessment: text("ai_overall_assessment"),
+  strengths: text("strengths"), // JSON 배열
+  improvements: text("improvements"), // JSON 배열
+  
+  created_at: timestamp("created_at").defaultNow(),
+});
