@@ -112,28 +112,39 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-12">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-purple-800 mb-4">💝 창업자 편지</h1>
-            <p className="text-2xl text-purple-600">"엄마로서의 걱정이, 창업으로 이어졌습니다."</p>
+            <p className="text-2xl text-purple-600">"현장에서 매일 부딪혔습니다. 그래서 직접 만들었습니다."</p>
           </div>
           
           <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700 space-y-6">
-            <p>아이를 자전거에 태웠을 때였습니다. 자꾸 허리가 한쪽으로 기울고, 자세가 불안정해 보였습니다. 제가 척추측만증이 있다 보니 더 민감하게 느꼈는지도 모르겠습니다. 하지만 분명 어딘가 불편해 보였고, 걱정이 되었습니다.</p>
+            <p>저는 사이클 아카데미에서 어시스트 업무를 하며, 아이들을 지켜보고 부모님들과 상담해왔습니다.</p>
             
-            <p>병원에 갔습니다. <span className="font-bold text-red-600">"아이들은 원래 그래요. 괜찮아요." "MRI까지 찍을 필요는 없고, 엑스레이로도 잘 안 나와요."</span> 그렇게 말하더군요.</p>
+            <p>현장에서 가장 어려웠던 순간은,<br/>
+            <span className="font-bold text-red-600">"아이의 체력이 평균보다 부족한가요?"<br/>
+            "운동을 더 시켜야 하나요?"<br/>
+            "저희 아이가 엘리트 선수가 될 수 있을까요?"</span></p>
             
-            <p className="font-bold text-purple-700">그 순간 알았습니다. "괜찮다"는 말은 근거가 없으면 안심이 되지 않는다는 걸요. 정확히 어디가, 얼마나, 어떤 이유로 괜찮은지 설명해주는 수치는 없었습니다.</p>
+            <p className="font-bold text-purple-700">이 질문에 명확히 답할 수 없을 때였습니다.</p>
             
-            <p>저는 남편의 사이클 아카데미에서 어시스트 업무를 맡고 있습니다. 남편은 사이클 국가대표 선수 출신이며 24년간 선수로 활동했고, 저는 그 곁에서 10년 넘게 수많은 사이클 선수를 희망하는 아이들과 부모들을 가까이에서 지켜봤습니다.</p>
+            <p><span className="font-bold">수치가 없으면 말도 설명도 설득도 어려웠습니다.</span></p>
+            
+            <p>어떤 아이는 늘 숨이 차서 수업을 따라가기 힘들어하고,<br/>
+            어떤 부모는 아이가 비대칭인거같다고 걱정하지만,<br/>
+            병원에서는 <span className="font-bold text-red-600">"크면 괜찮아질 수 있어요"</span>라는 말만 돌아옵니다.</p>
+            
+            <p className="font-bold text-blue-700">운동도, 체력도, 성장도<br/>
+            설문지와 줄자로만 설명되는 시대는 끝나야 한다고 생각했습니다.</p>
+            
+            <p>그래서 만들었습니다.<br/>
+            아이의 체력을 디지털 수치로 정확히 보여주고,<br/>
+            부모가 납득할 수 있게 해석해주는 <span className="font-bold text-blue-600">'키즈모션'</span>이라는 도구.</p>
+            
+            <p>현장에서의 한계와 부모로서의 고민,<br/>
+            그리고 데이터를 통해 아이의 가능성을 볼 수 있다는 믿음.<br/>
+            이 모든 것이 저희 제품의 출발점입니다.</p>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
-              <p className="text-xl font-bold text-purple-800 mb-4">그래서 저희는 만들었습니다.</p>
-              <ul className="space-y-2 text-purple-700">
-                <li>• 운동에 소질이 있는 아이를 조기에 발견할 수 있는 시스템</li>
-                <li>• 눈으로 확인할 수 있는 성장 데이터</li>
-                <li>• 부모가 납득할 수 있는 해석 리포트</li>
-              </ul>
+              <p className="text-xl font-bold text-purple-800 mb-4">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
             </div>
-            
-            <p className="text-center text-2xl font-bold text-purple-800 leading-loose">이제는 '괜찮을 거예요'가 아니라<br/>"지금 어떤 상태고, 앞으로 무엇을 해야 할지"를 말할 수 있어야 할 때입니다.</p>
             
             <p className="text-right text-lg font-medium text-purple-600">– 모션바이크 대표</p>
           </div>
