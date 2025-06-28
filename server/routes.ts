@@ -1356,6 +1356,62 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 스테이지 구간 데이터 조회 API (모니터 앱 연동용)
+  app.get("/api/supabase/stages/:userDisplayName", async (req, res) => {
+    try {
+      const { userDisplayName } = req.params;
+      console.log(`=== ${userDisplayName} 스테이지 구간 조회 ===`);
+      
+      const { data: stages, error } = await supabase
+        .from('stage_intervals')
+        .select('*')
+        .eq('user_display_name', userDisplayName)
+        .order('sequence_number', { ascending: true });
+      
+      if (error) {
+        console.error("스테이지 구간 조회 오류:", error);
+        return res.status(500).json({ error: "스테이지 구간 조회 실패" });
+      }
+
+      if (!stages || stages.length === 0) {
+        return res.json({ 
+          userDisplayName,
+          stages: [],
+          powerValues: {
+            power5s: null,
+            power15s: null,
+            power30s: null,
+            power60s: null,
+            power180s: null,
+            power360s: null
+          }
+        });
+      }
+
+      // 순서별로 파워값 추출
+      const powerValues = {
+        power5s: stages.find(s => s.sequence_number === 1)?.max_power_in_stage || null,
+        power15s: stages.find(s => s.sequence_number === 2)?.max_power_in_stage || null,
+        power30s: stages.find(s => s.sequence_number === 3)?.max_power_in_stage || null,
+        power60s: stages.find(s => s.sequence_number === 4)?.max_power_in_stage || null,
+        power180s: stages.find(s => s.sequence_number === 5)?.max_power_in_stage || null,
+        power360s: stages.find(s => s.sequence_number === 6)?.max_power_in_stage || null
+      };
+
+      console.log("추출된 파워값:", powerValues);
+
+      res.json({
+        userDisplayName,
+        stages,
+        powerValues
+      });
+
+    } catch (error) {
+      console.error("스테이지 구간 조회 중 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
+    }
+  });
+
   // 신체변화 추적 API - 동일한 아이의 측정 기록 조회
   app.get("/api/reports/history/:identifier", async (req, res) => {
     try {
