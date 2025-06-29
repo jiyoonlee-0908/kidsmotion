@@ -230,19 +230,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Growth Phases */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 관리 단계</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="hover:shadow-lg transition-all border-blue-200">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                    <BarChart3 className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="font-bold text-lg mb-2 text-blue-800">직전 데이터 vs 현재 데이터</h3>
-                  <p className="text-gray-600 text-sm">
-                    가장 최근 측정값과 현재 측정값을 직접 비교하여 즉각적인 변화 추이를 파악합니다.
-                  </p>
-                </CardContent>
-              </Card>
-              
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
               <Card className="hover:shadow-lg transition-all border-green-200">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
