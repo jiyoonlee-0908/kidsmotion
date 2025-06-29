@@ -235,7 +235,11 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <BarChart3 className="w-8 h-8 text-blue-600" />
-                
+                  </div>
+                  <h3 className="font-bold text-lg mb-2 text-blue-800">직전 데이터 vs 현재 데이터</h3>
+                  <p className="text-gray-600 text-sm">
+                    가장 최근 측정값과 현재 측정값을 직접 비교하여 즉각적인 변화 추이를 파악합니다.
+                  </p>
                 </CardContent>
               </Card>
               
