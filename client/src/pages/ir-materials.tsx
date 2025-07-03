@@ -575,7 +575,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
           </div>
           
-          <div className="mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto">
+          <div className="mt-12 grid grid-cols-3 gap-6 max-w-4xl mx-auto">
             <div className="bg-white p-6 rounded-xl shadow-md">
               <div className="text-lg font-bold text-gray-800 mb-2">📱 전화</div>
               <div className="text-blue-600">010-8445-0908</div>
