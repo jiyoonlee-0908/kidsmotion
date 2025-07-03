@@ -148,9 +148,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <p className="text-xl font-bold text-purple-800">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
             </div>
             
-            <div className="max-w-4xl mx-auto">
-              <p className="text-right text-lg font-medium text-purple-600">– 모션바이크 대표</p>
-            </div>
+            <p className="text-right text-lg font-medium text-purple-600 mt-4">– 모션바이크 대표</p>
           </div>
         </div>
 
