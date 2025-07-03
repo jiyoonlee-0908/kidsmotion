@@ -131,7 +131,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="flex items-center justify-center space-x-3 mb-6">
@@ -167,7 +167,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
           {/* AI Features */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">AI 운동 처방 핵심 기능</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {aiFeatures.map((feature, index) => {
                 const IconComponent = feature.icon;
                 const colorClasses = {
@@ -195,7 +195,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
           {/* Process Steps */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">AI 운동 처방 과정</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {processSteps.map((step, index) => {
                 const IconComponent = step.icon;
                 return (
@@ -224,7 +224,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
           {/* Exercise Categories */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">운동 카테고리</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-8">
               {exerciseCategories.map((category, index) => {
                 const IconComponent = category.icon;
                 return (
@@ -285,7 +285,7 @@ export default function AIExercisePrescription({ onNavigate }: AIExercisePrescri
           <section className="mb-20">
             <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-center mb-8">AI 운동 처방의 장점</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />

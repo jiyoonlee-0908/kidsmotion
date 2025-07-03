@@ -166,7 +166,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="flex items-center justify-center space-x-3 mb-6">
@@ -202,7 +202,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Tracking Features */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">핵심 추적 기능</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {trackingFeatures.map((feature, index) => {
                 const IconComponent = feature.icon;
                 const colorClasses = {
@@ -230,7 +230,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           {/* Growth Phases */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">성장 관리 단계</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="grid grid-cols-2 gap-6 mb-8">
               <Card className="hover:shadow-lg transition-all border-green-200">
                 <CardContent className="p-6 text-center">
                   <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -273,7 +273,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
                 </p>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                   {/* 파워 */}
                   <div className="text-center p-4 bg-blue-50 rounded-lg">
                     <h3 className="font-semibold text-gray-800 mb-3">파워</h3>
@@ -395,7 +395,7 @@ export default function GrowthManagement({ onNavigate }: GrowthManagementProps) 
           <section className="mb-20">
             <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-center mb-8">지속적 성장 관리의 장점</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />

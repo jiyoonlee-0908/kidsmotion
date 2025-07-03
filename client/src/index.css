@@ -149,6 +149,21 @@
     font-weight: 400;
     line-height: 1.7;
     letter-spacing: -0.02em;
+    min-width: 1200px;
+    overflow-x: auto;
+  }
+
+  /* 고정 레이아웃 설정 */
+  .container,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl,
+  .max-w-4xl {
+    width: 1200px !important;
+    max-width: none !important;
+    margin: 0 auto !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
   }
 }
 

@@ -99,7 +99,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
+      <div className="max-w-7xl mx-auto px-6 py-12 pt-24">
         
         {/* 영상 */}
         <div className="mb-16">
@@ -154,13 +154,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 정량 데이터로 해결합니다</h2>
           
-          <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-16">
+          <div className="grid grid-cols-2 gap-8 mb-16">
             {/* 왼쪽: 문제 */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-red-700 mb-8 text-center">부모의 걱정</h3>
+              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모의 걱정</h3>
               <div className="space-y-4">
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-sm sm:text-lg font-bold text-red-800">"아이 몸이 좌우로 틀어져 보이는데, 성장에 영향이 없을까?"</p>
+                  <p className="text-lg font-bold text-red-800">"아이 몸이 좌우로 틀어져 보이는데, 성장에 영향이 없을까?"</p>
                 </div>
                 <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
                   <p className="text-lg font-bold text-red-800">"우리아이 운동 능력정도면, 엘리트 선수로 성장할 가능성이 있는 걸까?"</p>
@@ -176,7 +176,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
 
             {/* 오른쪽: 해결책 */}
             <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-blue-700 mb-8 text-center">데이터 기반 해결책</h3>
+              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">데이터 기반 해결책</h3>
               <div className="space-y-4">
                 <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
                   <p className="text-lg font-bold text-blue-800 mb-1">페달링 중 좌우 밸런스를 실시간 수치화</p>
@@ -206,7 +206,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
           {/* 깔끔한 좌우 분할 레이아웃 */}
-          <div className="grid grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
             {/* 왼쪽: 3개 이미지 - 세로로 3줄 */}
             <div className="space-y-6">
               {/* 키즈모션 사이클 */}
@@ -350,7 +350,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 시장 규모 */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-12">
+          <div className="grid grid-cols-3 gap-8 mb-12">
             <div className="text-center bg-emerald-50 p-8 rounded-3xl shadow-lg">
               <div className="text-5xl font-bold text-emerald-600 mb-4">249만명</div>
               <div className="text-xl font-medium text-gray-700">전국 초등학생 수</div>
@@ -369,7 +369,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
 
           {/* 3개 시장별 특화 서비스 */}
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
               <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원</h3>
               <div className="space-y-4">
@@ -432,7 +432,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
           
-          <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* 대표자 */}
             <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
               <div className="text-center mb-8">

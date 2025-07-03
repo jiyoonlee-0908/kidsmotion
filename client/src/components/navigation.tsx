@@ -30,7 +30,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
 
   return (
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center py-6">
           {/* ▶ 로고 & 브랜드 */}
           <div className="flex items-center space-x-5">

@@ -24,7 +24,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="text-5xl font-black text-gray-900 mb-6">
@@ -93,7 +93,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-3">필수 정보</h4>
                     <ul className="space-y-2 text-gray-600">
@@ -152,7 +152,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                     <Clock className="w-5 h-5" />
                     <span>측정 시간: 총 5분 (기본 4항목 + 선택 2항목)</span>
                   </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 gap-3">
                     <div className="flex items-center justify-between p-3 bg-white rounded border">
                       <span className="text-gray-700">✓ 순발력 (5초)</span>
                       <Badge className="bg-blue-100 text-blue-700">필수</Badge>
@@ -180,7 +180,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-3">측정 항목</h4>
                     <ul className="space-y-2">
@@ -246,7 +246,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-2 gap-6">
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-3">등급 체계</h4>
                     <div className="space-y-2">
@@ -349,7 +349,7 @@ export default function UserGuide({ onNavigate }: UserGuideProps) {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <h4 className="font-semibold text-purple-800">측정 전</h4>
                   <ul className="space-y-2 text-gray-700">

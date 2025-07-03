@@ -68,13 +68,13 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
+      <main className="max-w-7xl mx-auto px-6 py-8 pt-24">
         {!showResults ? (
           <>
             {/* Hero Section */}
             <section id="home" className="text-center mb-20 pt-4">
               <div className="max-w-7xl mx-auto">
-                <h1 className="text-4xl lg:text-5xl font-black mb-6 tracking-tight leading-tight">
+                <h1 className="text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 차세대 아동 체력 분석</span>
                 </h1>
                 <p className="text-xl text-black mb-16 leading-relaxed max-w-6xl mx-auto font-medium">
@@ -82,34 +82,34 @@ export default function Home({ onNavigate }: HomeProps) {
                   개인별 최적화된 운동 처방을 제공합니다<br/>
                   <span className="text-sm text-gray-500">[PC 환경에 최적화되어 있습니다]</span>
                 </p>
-                <div className="grid grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-16">
+                <div className="grid grid-cols-4 gap-8 mb-16">
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Scale className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">좌우 밸런스</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">좌우 균형 상태를 정밀하게<br />측정하고 분석하여 제공</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">좌우 밸런스</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">좌우 균형 상태를 정밀하게<br />측정하고 분석하여 제공</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <BarChart className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">종합적인 체력 측정으로<br />정확한 백분위 평가 제공</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">종합 체력 분석</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">종합적인 체력 측정으로<br />정확한 백분위 평가 제공</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Shield className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">개인별 피드백</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">AI 기반 개인 맞춤형<br />운동 처방과 개선 방안 제시</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">개인별 피드백</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">AI 기반 개인 맞춤형<br />운동 처방과 개선 방안 제시</p>
                   </div>
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Users className="w-8 h-8 text-white" />
                     </div>
-                    <h3 className="text-sm sm:text-lg lg:text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
+                    <h3 className="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors">전문 리포트</h3>
+                    <p className="text-sm text-gray-600 leading-relaxed">보호자와 지도자를 위한<br />상세한 분석 리포트 제공</p>
                   </div>
                 </div>
               </div>
@@ -138,9 +138,9 @@ export default function Home({ onNavigate }: HomeProps) {
       {/* Footer */}
       {!showResults && (
         <footer className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-6">
             {/* Services Grid */}
-            <div className="grid grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
+            <div className="grid grid-cols-3 gap-12">
               <div className="flex flex-col h-full">
                 <h4 className="text-xl font-bold mb-4">서비스</h4>
                 <ul className="space-y-2 text-gray-300 flex-grow">
@@ -265,7 +265,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </DialogDescription>
           </DialogHeader>
           
-          <div className="grid grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-3 gap-6">
             <Card>
               <CardContent className="p-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">

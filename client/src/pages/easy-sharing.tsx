@@ -164,7 +164,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="flex items-center justify-center space-x-3 mb-6">
@@ -200,7 +200,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
           {/* Sharing Methods */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">공유 방식</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {sharingMethods.map((method, index) => {
                 const IconComponent = method.icon;
                 const colorClasses = {
@@ -237,7 +237,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
           {/* Sharing Process */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">공유 과정</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               {sharingProcess.map((step, index) => {
                 const IconComponent = step.icon;
                 return (
@@ -266,7 +266,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
           {/* Sharing Features */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">핵심 기능</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-8">
               {sharingFeatures.map((feature, index) => {
                 const IconComponent = feature.icon;
                 return (
@@ -399,7 +399,7 @@ export default function EasySharing({ onNavigate }: EasySharingProps) {
           <section className="mb-20">
             <div className="bg-gradient-to-r from-green-50 to-purple-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-center mb-8">간편한 결과 공유의 장점</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0" />

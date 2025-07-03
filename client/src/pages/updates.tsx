@@ -150,7 +150,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="text-5xl font-black text-gray-900 mb-6">
@@ -232,7 +232,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     {update.features.map((feature, featureIndex) => {
                       const IconComponent = feature.icon;
                       return (
@@ -263,7 +263,7 @@ export default function Updates({ onNavigate }: UpdatesProps) {
               </p>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-6">
                 {upcomingFeatures.map((feature, index) => (
                   <div key={index} className="bg-white p-4 rounded-lg border border-purple-100">
                     <div className="flex items-center justify-between mb-3">

@@ -10,7 +10,7 @@ export default function About({ onNavigate }: AboutProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="mb-8">
@@ -187,7 +187,7 @@ export default function About({ onNavigate }: AboutProps) {
             <Card className="bg-white/80 backdrop-blur-sm border-none shadow-xl">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-gray-800 mb-6">AI 분석의 장점</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-8">
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-3">개인맞춤 분석</h4>
                     <p className="text-gray-600 mb-4">
@@ -225,7 +225,7 @@ export default function About({ onNavigate }: AboutProps) {
                       MotionBike는 아동 체력 측정 및 분석 서비스를 개발하는 스타트업으로, 
                       전문 체력측정 장비와 AI 기반 리포트 시스템을 제공합니다.
                     </p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="font-semibold text-gray-700">설립 예정:</span>
                         <span className="ml-2 text-gray-600">2026년</span>

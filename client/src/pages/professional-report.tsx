@@ -147,7 +147,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="flex items-center justify-center space-x-3 mb-6">
@@ -183,7 +183,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
           {/* Report Features */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">리포트 핵심 기능</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {reportFeatures.map((feature, index) => {
                 const IconComponent = feature.icon;
                 const colorClasses = {
@@ -211,7 +211,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
           {/* Report Sections */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">리포트 구성 항목</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-3 gap-6">
               {reportSections.map((section, index) => {
                 const IconComponent = section.icon;
                 return (
@@ -305,7 +305,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
           {/* Output Formats */}
           <section className="mb-20">
             <h2 className="text-3xl font-bold text-center mb-12">리포트 제공 형태</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {outputFormats.map((format, index) => {
                 const IconComponent = format.icon;
                 const colorClasses = {
@@ -343,7 +343,7 @@ export default function ProfessionalReport({ onNavigate }: ProfessionalReportPro
           <section className="mb-20">
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
               <h2 className="text-3xl font-bold text-center mb-8">전문 리포트의 장점</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-blue-600 flex-shrink-0" />

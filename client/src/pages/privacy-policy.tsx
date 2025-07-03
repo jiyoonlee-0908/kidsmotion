@@ -218,7 +218,7 @@ export default function PrivacyPolicy({ onNavigate }: PrivacyPolicyProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-16">
             <div className="flex items-center justify-center space-x-3 mb-6">

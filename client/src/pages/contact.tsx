@@ -11,7 +11,7 @@ export default function Contact({ onNavigate }: ContactProps) {
   return (
     <div className="min-h-screen bg-white">
       <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-6">
           {/* Hero Section */}
           <div className="text-center mb-20">
             <div className="mb-8">
@@ -115,7 +115,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                 <Clock className="w-8 h-8 text-purple-600 mr-4" />
                 <h3 className="text-2xl font-bold text-gray-800">운영 시간</h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-8">
                 <div>
                   <h4 className="font-semibold text-gray-800 mb-4">상담 시간</h4>
                   <div className="space-y-2 text-gray-600">
@@ -155,7 +155,7 @@ export default function Contact({ onNavigate }: ContactProps) {
           </Card>
 
           {/* Contact Categories */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-2 gap-8 mb-12">
             <Card className="bg-gradient-to-br from-purple-50 to-blue-50 border-none shadow-xl">
               <CardContent className="p-8">
                 <div className="flex items-center mb-6">
@@ -197,7 +197,7 @@ export default function Contact({ onNavigate }: ContactProps) {
                 <h3 className="text-2xl font-bold text-gray-800">자주 묻는 질문</h3>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-6">
                   <div className="border-l-4 border-purple-500 pl-4">
                     <h4 className="font-semibold text-gray-800 mb-2">Q. 측정 시간은 얼마나 걸리나요?</h4>
