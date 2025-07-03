@@ -1,0 +1,128 @@
+# ───────────────────────────────────────────────
+# 프로젝트명: TriJourney – 철인3종 여정 매니저 (PWA)
+# 목적: 한국에서 스트라바 설치가 막힌 유저들이
+#       웹/모바일 브라우저에서 ‘기록·분석·앨범·AI코칭’을
+#       한 번에 이용할 수 있도록 한다.
+# 수익모델: (1) 광고 삽입형 무료, (2) 광고 제거 + AI 코칭
+#           + 무제한 기능 제공 유료 구독(₩4,900/월)
+# ───────────────────────────────────────────────
+
+## 1. 핵심 기능
+1. **Race Countdown Board**  
+   - 국내·국제 철인대회 일정 DB 제공, 선택 시 D-day 타이머 표시  
+   - 대회별 목표시간, 목표 HR 등록 가능  
+
+2. **Auto-Sync Training Log**  
+   - Terra API로 Garmin·Samsung Health 기록 수집 → PostgreSQL 저장  
+   - FIT 파싱하여 SWIM / BIKE / RUN / TRANSITION 분할, HR·파워 추출  
+   - 주·월·분기별 거리·TSS·CTL/ATL/TSB 차트 시각화  
+
+3. **Interactive Photo Album**  
+   - 훈련/대회가 끝난 뒤 사진 업로드 → 지도(Leaflet) 위에 구간별 배치  
+   - Supabase Storage에 JPEG/PNG 원본 저장, 썸네일 자동 생성  
+
+4. **Shareable Race Report**  
+   - 완주 후 “기록 + 그래프 + 사진”을 PDF로 묶어 public URL 제공  
+   - OG 메타태그 포함해 SNS 카드 자동 생성  
+
+5. **GPT-기반 AI 코칭**  
+   - 역할: “20년차 운동생리학 교수 겸 철인3종 코치”  
+   - 입력: 최근 4주 훈련 요약(CTL·HRV·SWOLF·FTP·rTSS) + 목표 대회  
+   - 출력:  
+     • Training Plan (7 일)  
+     • Risk Alert (과훈련·부상 위험)  
+     • Nutrition Guidance  
+     • Motivation Quote  
+   - 캐싱: 동일 요청 대비 6h 캐시, Prisma @cache 테이블 사용  
+
+---
+
+## 2. 기술 스택 & 주요 패키지
+| 계층 | 스택 | 주 패키지 |
+|------|------|-----------|
+| Front-end | **Next.js 14** (app Router) + Tailwind CSS + shadcn/ui | @tanstack/react-query, swr, recharts |
+| PWA | next-pwa, workbox | – |
+| Back-end | **Express 4** (server 디렉터리) | dotenv, helmet, express-async-errors |
+| DB / ORM | Supabase (PostgreSQL) + Prisma 5 | prisma-studio |
+| Auth & Sync | Terra OAuth2 + Webhook (garmin, samsung) | hmac-sha256, jwks-rsa |
+| AI | OpenAI gpt-4o | openai, zod |
+| Storage | Supabase Storage | sharp (썸네일) |
+| PDF | pdfkit | – |
+| 지도 | leaflet, react-leaflet | – |
+| 결제 | Stripe (KR 원화) | stripe |
+
+---
+
+## 3. 환경 변수 (Replit Secrets)
+- `NEXT_PUBLIC_APP_URL` = https://<repl-url>.replit.app  
+- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_KEY`  
+- `TERRA_API_KEY`, `TERRA_WEBHOOK_SECRET`  
+- `OPENAI_API_KEY`  
+- `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`
+
+---
+
+## 4. 데이터 모델 (Prisma schema.prisma 요약)
+
+```prisma
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  role         String   @default("athlete") // athlete | coach | admin
+  provider     String   // garmin | samsung
+  providerUid  String
+  plan         String   @default("free")    // free | premium
+  activities   Activity[]
+  raceRegs     RaceRegistration[]
+}
+
+model Activity {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String   // SWIM | BIKE | RUN | TRANSITION
+  start     DateTime
+  duration  Int      // sec
+  distance  Float?   // m
+  powerAvg  Int?
+  hrAvg     Int?
+  fitRef    String?
+  photos    Photo[]
+  raceReg   RaceRegistration? @relation(fields:[raceRegId], references:[id])
+  raceRegId String?
+}
+
+model Photo {
+  id         String   @id @default(uuid())
+  activityId String
+  url        String
+  lat        Float?
+  lon        Float?
+}
+
+model Race {
+  id        String   @id @default(uuid())
+  name      String
+  eventDate DateTime
+  location  String
+  distance  String   // Full | 70.3 | Olympic …
+}
+
+model RaceRegistration {
+  id          String   @id @default(uuid())
+  userId      String
+  raceId      String
+  targetTime  Int?     // sec
+  dday        Int      @default(0)
+  progressPct Float    @default(0)
+  activities  Activity[]
+  reportUrl   String?
+}
+
+model CacheGPT {
+  id        String   @id @default(uuid())
+  raceRegId String
+  promptHash String  @unique
+  answer    Json
+  expiresAt DateTime
+}

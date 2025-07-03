@@ -115,40 +115,42 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <p className="text-2xl text-purple-600">"현장에서 매일 부딪혔습니다. 그래서 직접 만들었습니다."</p>
           </div>
           
-          <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700 space-y-6 mb-8">
-            <p>저는 사이클 아카데미에서 어시스트 업무를 하며, 아이들을 지켜보고 부모님들과 상담해왔습니다.</p>
-            
-            <p>현장에서 가장 어려웠던 순간은,<br/>
-            <span className="font-bold text-red-600">"아이의 체력이 평균보다 부족한가요?"<br/>
-            "운동을 더 시켜야 하나요?"<br/>
-            "저희 아이가 엘리트 선수가 될 수 있을까요?"</span></p>
-            
-            <p className="font-bold text-purple-700">이 질문에 명확히 답할 수 없을 때였습니다.</p>
-            
-            <p><span className="font-bold">수치가 없으면 말도 설명도 설득도 어려웠습니다.</span></p>
-            
-            <p>어떤 아이는 늘 숨이 차서 수업을 따라가기 힘들어하고,<br/>
-            어떤 부모는 아이가 비대칭인거같다고 걱정하지만,<br/>
-            병원에서는 <span className="font-bold text-red-600">"크면 괜찮아질 수 있어요"</span>라는 말만 돌아옵니다.</p>
-            
-            <p className="font-bold text-blue-700">운동도, 체력도, 성장도<br/>
-            설문지와 줄자로만 설명되는 시대는 끝나야 한다고 생각했습니다.</p>
-            
-            <p>그래서 만들었습니다.<br/>
-            아이의 체력을 디지털 수치로 정확히 보여주고,<br/>
-            부모가 납득할 수 있게 해석해주는 <span className="font-bold text-blue-600">'키즈모션'</span>이라는 도구.</p>
-            
-            <p>현장에서의 한계와 부모로서의 고민,<br/>
-            그리고 데이터를 통해 아이의 가능성을 볼 수 있다는 믿음.<br/>
-            이 모든 것이 저희 제품의 출발점입니다.</p>
+          <div className="text-lg leading-relaxed text-gray-700 space-y-6 mb-8">
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p>저는 사이클 아카데미에서 어시스트 업무를 하며, 아이들을 지켜보고 부모님들과 상담해왔습니다.</p>
+              
+              <p>현장에서 가장 어려웠던 순간은,<br/>
+              <span className="font-bold text-red-600">"아이의 체력이 평균보다 부족한가요?"<br/>
+              "운동을 더 시켜야 하나요?"<br/>
+              "저희 아이가 엘리트 선수가 될 수 있을까요?"</span></p>
+              
+              <p className="font-bold text-purple-700">이 질문에 명확히 답할 수 없을 때였습니다.</p>
+              
+              <p><span className="font-bold">수치가 없으면 말도 설명도 설득도 어려웠습니다.</span></p>
+              
+              <p>어떤 아이는 늘 숨이 차서 수업을 따라가기 힘들어하고,<br/>
+              어떤 부모는 아이가 비대칭인거같다고 걱정하지만,<br/>
+              병원에서는 <span className="font-bold text-red-600">"크면 괜찮아질 수 있어요"</span>라는 말만 돌아옵니다.</p>
+              
+              <p className="font-bold text-blue-700">운동도, 체력도, 성장도<br/>
+              설문지와 줄자로만 설명되는 시대는 끝나야 한다고 생각했습니다.</p>
+              
+              <p>그래서 만들었습니다.<br/>
+              아이의 체력을 디지털 수치로 정확히 보여주고,<br/>
+              부모가 납득할 수 있게 해석해주는 <span className="font-bold text-blue-600">'키즈모션'</span>이라는 도구.</p>
+              
+              <p>현장에서의 한계와 부모로서의 고민,<br/>
+              그리고 데이터를 통해 아이의 가능성을 볼 수 있다는 믿음.<br/>
+              이 모든 것이 저희 제품의 출발점입니다.</p>
+            </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
               <p className="text-xl font-bold text-purple-800">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
             </div>
-          </div>
-          
-          <div className="text-center">
-            <p className="text-lg font-medium text-purple-600">– 모션바이크 대표</p>
+            
+            <div className="max-w-4xl mx-auto">
+              <p className="text-right text-lg font-medium text-purple-600">– 모션바이크 대표</p>
+            </div>
           </div>
         </div>
 
