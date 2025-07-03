@@ -115,7 +115,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <p className="text-2xl text-purple-600">"현장에서 매일 부딪혔습니다. 그래서 직접 만들었습니다."</p>
           </div>
           
-          <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700 space-y-6">
+          <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700 space-y-6 mb-8">
             <p>저는 사이클 아카데미에서 어시스트 업무를 하며, 아이들을 지켜보고 부모님들과 상담해왔습니다.</p>
             
             <p>현장에서 가장 어려웠던 순간은,<br/>
@@ -143,11 +143,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             이 모든 것이 저희 제품의 출발점입니다.</p>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
-              <p className="text-xl font-bold text-purple-800 mb-4">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
+              <p className="text-xl font-bold text-purple-800">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
             </div>
           </div>
           
-          <div className="w-full flex justify-center mt-8">
+          <div className="text-center">
             <p className="text-lg font-medium text-purple-600">– 모션바이크 대표</p>
           </div>
         </div>
@@ -564,15 +564,15 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-3xl p-12">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-indigo-800 mb-6">함께 만들어가요</h2>
-            <p className="text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-loose">
+            <p className="text-2xl text-gray-700 leading-loose">
               이 팀에게 손을 내밀어주시면,<br/>
               <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
             </p>
           </div>
           
-          <div className="bg-white rounded-3xl p-12 shadow-lg max-w-6xl mx-auto">
-            <div className="flex items-center justify-center mb-12">
-              <div className="flex items-center space-x-6">
+          <div className="bg-white rounded-3xl p-12 shadow-lg">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center space-x-6">
                 <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
                   <Heart className="w-8 h-8 text-white" />
                 </div>
