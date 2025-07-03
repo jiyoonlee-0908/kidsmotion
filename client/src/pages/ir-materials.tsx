@@ -144,9 +144,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
               <p className="text-xl font-bold text-purple-800 mb-4">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
+              <p className="text-right text-lg font-medium text-purple-600 mt-4">– 모션바이크 대표</p>
             </div>
-            
-            <p className="text-right text-lg font-medium text-purple-600">– 모션바이크 대표</p>
           </div>
         </div>
 
@@ -559,36 +558,41 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 투자 제안 */}
-        <div className="text-center bg-gradient-to-r from-indigo-100 to-purple-100 rounded-3xl p-12">
-          <h2 className="text-4xl font-bold text-indigo-800 mb-6">함께 만들어가요</h2>
-          <p className="text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-loose">
-            이 팀에게 손을 내밀어주시면,<br/>
-            <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
-          </p>
-          <div className="flex items-center justify-center mb-12">
-            <div className="flex items-center space-x-6 bg-white rounded-2xl p-8 shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-                <Heart className="w-8 h-8 text-white" />
-              </div>
-              <div className="text-left">
-                <div className="text-3xl font-bold text-purple-600 mb-3">투자가 아닌 동반자로서,</div>
-                <p className="text-xl text-gray-600 leading-relaxed">함께 아이들의 성장을 지켜봐 주세요</p>
-              </div>
-            </div>
+        <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-3xl p-12">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-indigo-800 mb-6">함께 만들어가요</h2>
+            <p className="text-2xl text-gray-700 mb-10 max-w-4xl mx-auto leading-loose">
+              이 팀에게 손을 내밀어주시면,<br/>
+              <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
+            </p>
           </div>
           
-          <div className="grid grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="text-2xl font-bold text-gray-800 mb-4">📱 전화</div>
-              <div className="text-lg text-blue-600">010-8445-0908</div>
+          <div className="bg-white rounded-3xl p-12 shadow-lg max-w-6xl mx-auto">
+            <div className="flex items-center justify-center mb-12">
+              <div className="flex items-center space-x-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                  <Heart className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-3xl font-bold text-purple-600 mb-3">투자가 아닌 동반자로서,</div>
+                  <p className="text-xl text-gray-600 leading-relaxed">함께 아이들의 성장을 지켜봐 주세요</p>
+                </div>
+              </div>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="text-2xl font-bold text-gray-800 mb-4">📧 이메일</div>
-              <div className="text-lg text-blue-600">dayinj@naver.com</div>
-            </div>
-            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
-              <div className="text-2xl font-bold text-gray-800 mb-4">🏢 주소</div>
-              <div className="text-lg text-blue-600">서울시 강서구 금낭화로 234, GX2</div>
+            
+            <div className="grid grid-cols-3 gap-8">
+              <div className="bg-gray-50 p-8 rounded-xl text-center">
+                <div className="text-2xl font-bold text-gray-800 mb-4">📱 전화</div>
+                <div className="text-lg text-blue-600">010-8445-0908</div>
+              </div>
+              <div className="bg-gray-50 p-8 rounded-xl text-center">
+                <div className="text-2xl font-bold text-gray-800 mb-4">📧 이메일</div>
+                <div className="text-lg text-blue-600">dayinj@naver.com</div>
+              </div>
+              <div className="bg-gray-50 p-8 rounded-xl text-center">
+                <div className="text-2xl font-bold text-gray-800 mb-4">🏢 주소</div>
+                <div className="text-lg text-blue-600">서울시 강서구 금낭화로 234, GX2</div>
+              </div>
             </div>
           </div>
         </div>
