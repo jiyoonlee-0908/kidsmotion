@@ -77,11 +77,11 @@ export default function Home({ onNavigate }: HomeProps) {
                 <h1 className="text-5xl font-black mb-6 tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">AI 차세대 아동 체력 분석</span>
                 </h1>
-                <p className="text-xl text-black leading-relaxed max-w-6xl mx-auto font-medium" style={{marginBottom: '120px', paddingBottom: '60px'}}>
+                <p className="text-xl text-black leading-relaxed max-w-6xl mx-auto font-medium" style={{marginBottom: '40px'}}>
                   과학적 정밀 측정과 AI 전문 분석으로 우리 아이의 숨겨진 체력 잠재력을 발견하고<br/>
                   개인별 최적화된 운동 처방을 제공합니다
                 </p>
-                <div className="grid grid-cols-4 gap-8 mb-16" style={{marginTop: '120px', paddingTop: '60px'}}>
+                <div className="grid grid-cols-4 gap-8 mb-16">
                   <div className="fitness-card text-center group">
                     <div className="fitness-icon mx-auto mb-6">
                       <Scale className="w-8 h-8 text-white" />
