@@ -565,28 +565,30 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             이 팀에게 손을 내밀어주시면,<br/>
             <span className="font-bold text-purple-700">아이들의 미래가 달라집니다</span>
           </p>
-          <div className="inline-flex items-center space-x-6 bg-white rounded-2xl p-8 shadow-lg">
-            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
-              <Heart className="w-8 h-8 text-white" />
+          <div className="bg-white rounded-2xl p-8 shadow-lg">
+            <div className="flex items-center space-x-6 mb-8">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Heart className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-left">
+                <div className="text-3xl font-bold text-purple-600 mb-3">투자가 아닌 동반자로서,</div>
+                <p className="text-xl text-gray-600 leading-relaxed">함께 아이들의 성장을 지켜봐 주세요</p>
+              </div>
             </div>
-            <div className="text-left">
-              <div className="text-3xl font-bold text-purple-600 mb-3">투자가 아닌 동반자로서,</div>
-              <p className="text-xl text-gray-600 leading-relaxed">함께 아이들의 성장을 지켜봐 주세요</p>
-            </div>
-          </div>
-          
-          <div className="mt-12 grid grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <div className="bg-white p-6 rounded-xl shadow-md">
-              <div className="text-lg font-bold text-gray-800 mb-2">📱 전화</div>
-              <div className="text-blue-600">010-8445-0908</div>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-md">
-              <div className="text-lg font-bold text-gray-800 mb-2">📧 이메일</div>
-              <div className="text-blue-600">dayinj@naver.com</div>
-            </div>
-            <div className="bg-white p-6 rounded-xl shadow-md">
-              <div className="text-lg font-bold text-gray-800 mb-2">🏢 주소</div>
-              <div className="text-blue-600">서울시 강서구 금낭화로 234, GX2</div>
+            
+            <div className="grid grid-cols-3 gap-6">
+              <div className="bg-gray-50 p-6 rounded-xl text-center">
+                <div className="text-lg font-bold text-gray-800 mb-2">📱 전화</div>
+                <div className="text-blue-600">010-8445-0908</div>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-xl text-center">
+                <div className="text-lg font-bold text-gray-800 mb-2">📧 이메일</div>
+                <div className="text-blue-600">dayinj@naver.com</div>
+              </div>
+              <div className="bg-gray-50 p-6 rounded-xl text-center">
+                <div className="text-lg font-bold text-gray-800 mb-2">🏢 주소</div>
+                <div className="text-blue-600">서울시 강서구 금낭화로 234, GX2</div>
+              </div>
             </div>
           </div>
         </div>
