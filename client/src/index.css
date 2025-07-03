@@ -150,7 +150,8 @@
     line-height: 1.7;
     letter-spacing: -0.02em;
     min-width: 1200px;
-    overflow-x: auto;
+    overflow-x: visible;
+    overflow-y: auto;
   }
 
   /* 고정 레이아웃 설정 */
