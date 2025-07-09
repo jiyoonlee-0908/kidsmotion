@@ -2094,14 +2094,17 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
-  // DELETE API - 측정 기록 삭제 (관리자 인증 필요)
+  // DELETE API - Supabase 측정 기록 삭제 (관리자 인증 필요)
   app.delete("/api/measurements/:id", async (req, res) => {
     try {
       const { id } = req.params;
       const { adminPassword } = req.body;
 
+      console.log(`=== 삭제 요청 받음: ID ${id}, 비밀번호: ${adminPassword ? '입력됨' : '없음'} ===`);
+
       // 관리자 비밀번호 확인
       if (adminPassword !== '263910') {
+        console.log("비밀번호 불일치");
         return res.status(401).json({ 
           error: "인증 실패", 
           message: "관리자 비밀번호가 올바르지 않습니다." 
@@ -2113,20 +2116,45 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         return res.status(400).json({ error: "잘못된 측정 ID입니다." });
       }
 
-      // 측정 기록 존재 확인
-      const measurement = await storage.getMeasurement(measurementId);
-      if (!measurement) {
-        return res.status(404).json({ error: "측정 기록을 찾을 수 없습니다." });
+      console.log(`측정 ID ${measurementId} Supabase에서 삭제 시작`);
+
+      // 1. fitness_evaluations 테이블에서 해당 측정 기록 조회
+      const { data: evaluation, error: fetchError } = await supabase
+        .from('fitness_evaluations')
+        .select('*')
+        .eq('id', measurementId)
+        .single();
+
+      if (fetchError) {
+        console.error("측정 기록 조회 실패:", fetchError);
+        return res.status(404).json({ 
+          error: "측정 기록을 찾을 수 없습니다.",
+          details: fetchError
+        });
       }
 
-      // 실제 삭제 수행
-      await storage.deleteMeasurement(measurementId);
+      console.log(`삭제 대상: ${evaluation.student_name} (${evaluation.measure_date})`);
 
-      console.log(`측정 기록 삭제 완료: ${measurementId} (${measurement.studentName})`);
+      // 2. fitness_evaluations에서 삭제
+      const { error: deleteError } = await supabase
+        .from('fitness_evaluations')
+        .delete()
+        .eq('id', measurementId);
+
+      if (deleteError) {
+        console.error("Supabase 삭제 실패:", deleteError);
+        return res.status(500).json({ 
+          error: "삭제 실패", 
+          message: "데이터베이스에서 삭제하는 중 오류가 발생했습니다.",
+          details: deleteError
+        });
+      }
+
+      console.log(`Supabase 삭제 완료: ${measurementId} (${evaluation.student_name})`);
       
       res.json({ 
         success: true,
-        message: `${measurement.studentName}의 측정 기록이 삭제되었습니다.`,
+        message: `${evaluation.student_name}의 측정 기록이 삭제되었습니다.`,
         deletedId: measurementId
       });
 
