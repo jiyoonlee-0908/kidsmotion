@@ -63,6 +63,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [showReports, setShowReports] = useState(false);
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [showReportViewer, setShowReportViewer] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { toast } = useToast();
 
 
@@ -243,6 +244,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
   const handleDeleteClick = (id: number) => {
     setDeleteTargetId(id);
+    setShowDeleteConfirm(true);
+  };
+
+  const handleDeleteConfirmClick = () => {
+    setShowDeleteConfirm(false);
     setDeleteConfirmOpen(true);
     setAdminPassword('');
   };
@@ -967,7 +973,35 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         </DialogContent>
       </Dialog>
 
-      {/* 삭제 확인 모달 */}
+      {/* 삭제 확인 다이얼로그 (1단계) */}
+      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-orange-600" />
+              삭제 확인
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              정말로 이 측정 기록을 삭제하시겠습니까?
+              <br />
+              삭제된 데이터는 복구할 수 없습니다.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setShowDeleteConfirm(false)}>
+              취소
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteConfirmClick}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              삭제
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* 관리자 비밀번호 입력 모달 (2단계) */}
       <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
         <AlertDialogContent className="sm:max-w-md">
           <AlertDialogHeader>
