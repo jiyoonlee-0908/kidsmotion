@@ -71,7 +71,14 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
         htmlContent,
         age: measurement.age,
         gender: measurement.gender,
-        overallPercentile: analysis.overallPercentile
+        height: measurement.height,
+        weight: measurement.weight,
+        organization: measurement.affiliation,
+        overallPercentile: analysis.overallPercentile,
+        powerGrade: analysis.grades.power,
+        strengthGrade: analysis.grades.strength,
+        muscleEnduranceGrade: analysis.grades.muscleEndurance,
+        cardioEnduranceGrade: analysis.grades.cardioEndurance
       };
 
       const response = await fetch('/api/save-report-snapshot', {

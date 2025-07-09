@@ -51,13 +51,32 @@ function getBalanceStatus(leftBalance: number, rightBalance: number): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
-  // 📸 HTML 스냅샷 저장
+  // 📸 새로운 HTML 리포트 스냅샷 저장 (기존 테이블 안 건드림)
   app.post("/api/save-report-snapshot", async (req, res) => {
     try {
-      const { measurementId, userDisplayName, studentName, measureDate, htmlContent, age, gender, overallPercentile } = req.body;
+      const { 
+        measurementId, 
+        userDisplayName, 
+        studentName, 
+        measureDate, 
+        htmlContent, 
+        age, 
+        gender, 
+        height,
+        weight,
+        organization,
+        overallPercentile,
+        powerGrade,
+        strengthGrade,
+        muscleEnduranceGrade,
+        cardioEnduranceGrade
+      } = req.body;
+      
+      console.log("=== 새로운 리포트 스냅샷 저장 시작 ===");
+      console.log("학생:", studentName, "측정일:", measureDate);
       
       const { data, error } = await supabase
-        .from('report_snapshots')
+        .from('fitness_report_snapshots')
         .insert([{
           measurement_id: measurementId,
           user_display_name: userDisplayName,
@@ -66,30 +85,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
           html_content: htmlContent,
           age,
           gender,
-          overall_percentile: overallPercentile
+          height,
+          weight,
+          organization,
+          overall_percentile: overallPercentile,
+          power_grade: powerGrade,
+          strength_grade: strengthGrade,
+          muscle_endurance_grade: muscleEnduranceGrade,
+          cardio_endurance_grade: cardioEnduranceGrade
         }])
         .select()
         .single();
 
       if (error) {
-        console.error("리포트 스냅샷 저장 오류:", error);
-        return res.status(500).json({ error: "리포트 스냅샷 저장 실패" });
+        console.error("새로운 리포트 스냅샷 저장 오류:", error);
+        return res.status(500).json({ error: "리포트 스냅샷 저장 실패", details: error });
       }
 
-      res.json({ success: true, snapshotId: data.id });
+      console.log("새로운 리포트 스냅샷 저장 완료:", data.id);
+      res.json({ success: true, snapshotId: data.id, reportUrl: `/fitness-report/${data.id}` });
+      
     } catch (error) {
-      console.error("리포트 스냅샷 저장 중 오류:", error);
-      res.status(500).json({ error: "서버 오류" });
+      console.error("새로운 리포트 스냅샷 저장 중 오류:", error);
+      res.status(500).json({ error: "리포트 스냅샷 저장 실패" });
     }
   });
 
-  // 📖 HTML 스냅샷 조회 (QR 코드용)
+  // 📖 새로운 HTML 스냅샷 조회 (QR 코드용)
   app.get("/api/report-snapshot/:measurementId", async (req, res) => {
     try {
       const { measurementId } = req.params;
       
       const { data, error } = await supabase
-        .from('report_snapshots')
+        .from('fitness_report_snapshots')
         .select('*')
         .eq('measurement_id', measurementId)
         .single();
@@ -100,30 +128,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json(data);
     } catch (error) {
-      console.error("리포트 스냅샷 조회 중 오류:", error);
+      console.error("새로운 리포트 스냅샷 조회 중 오류:", error);
       res.status(500).json({ error: "서버 오류" });
     }
   });
 
-  // 📋 학생별 리포트 목록 조회 (측정기록 페이지용)
+  // 📄 ID로 새로운 리포트 조회 (직접 링크용)
+  app.get("/api/fitness-report-snapshot/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const { data, error } = await supabase
+        .from('fitness_report_snapshots')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error || !data) {
+        return res.status(404).json({ error: "리포트를 찾을 수 없습니다" });
+      }
+
+      res.json(data);
+    } catch (error) {
+      console.error("새로운 리포트 ID 조회 중 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
+    }
+  });
+
+  // 📋 새로운 학생별 리포트 목록 조회 (측정기록 페이지용)
   app.get("/api/student-reports/:studentName", async (req, res) => {
     try {
       const { studentName } = req.params;
       
       const { data, error } = await supabase
-        .from('report_snapshots')
+        .from('fitness_report_snapshots')
         .select('id, measurement_id, measure_date, overall_percentile, age, created_at')
         .eq('student_name', studentName)
         .order('measure_date', { ascending: false });
 
       if (error) {
-        console.error("학생 리포트 조회 오류:", error);
+        console.error("새로운 학생 리포트 조회 오류:", error);
         return res.status(500).json({ error: "리포트 조회 실패" });
       }
 
       res.json(data || []);
     } catch (error) {
-      console.error("학생 리포트 조회 중 오류:", error);
+      console.error("새로운 학생 리포트 조회 중 오류:", error);
       res.status(500).json({ error: "서버 오류" });
     }
   });

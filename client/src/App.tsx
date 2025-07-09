@@ -21,6 +21,7 @@ import EasySharing from "@/pages/easy-sharing";
 import IRMaterials from "@/pages/ir-materials";
 import Admin from "@/pages/admin";
 import SnapshotViewer from "@/pages/snapshot-viewer";
+import FitnessReportViewer from "@/pages/fitness-report-viewer";
 import InviteCodeForm from "@/components/invite-code-form";
 
 
@@ -64,6 +65,7 @@ function App() {
     else if (path === '/ir-materials') setCurrentPage('ir-materials');
     else if (path === '/admin') setCurrentPage('admin');
     else if (path.startsWith('/report/')) setCurrentPage('snapshot-viewer');
+    else if (path.startsWith('/fitness-report/')) setCurrentPage('fitness-report-viewer');
     else setCurrentPage('home');
   }, []);
 
@@ -97,6 +99,17 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <SnapshotViewer />
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
+  }
+
+  if (currentPage === 'fitness-report-viewer') {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <FitnessReportViewer />
         </TooltipProvider>
       </QueryClientProvider>
     );
