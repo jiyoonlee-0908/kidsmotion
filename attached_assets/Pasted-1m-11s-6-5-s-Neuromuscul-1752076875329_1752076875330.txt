@@ -1,0 +1,84 @@
+1m 11s 동안 생각함
+어떤 ‘파워 값’을 쓸 것인가? — 6 개 테스트별 기준 정리
+테스트 (목적)	분석용 파워	사용 이유	대표 근거
+5 s
+순간 폭발력 (Neuromuscular)	Peak 1-s 파워
+(5 s 구간 안에서 가장 높은 1-s 롤링 평균)	- “스프린트 능력”은 최고 순간 출력으로 정의됨
+- 세계적인 파워-프로파일(예: Coggan)도 5 s최대값 사용 
+highnorth.co.uk
+Coggan Table (5 s)
+15 s
+무산소 파워	Mean 15-s 파워	- 15 s 전체를 유지한 평균이 ATP-PC ↔ 글리콜리틱 전환 구간을 가장 잘 대표
+- Peak 1-s 값은 이미 5 s 테스트로 확보	Wingate 파생 15 s 프로토콜(평균값) 
+educationalathletics.weebly.com
+30 s
+Wingate(무산소 용량)	Mean 30-s 파워
+(동시에 Peak 5-s 보조 저장 가능)	- 고전적 Wingate는 Avg 30-s ≒ Anaerobic Capacity로 보고 
+educationalathletics.weebly.com
+Wingate original
+60 s
+근력‧지구력 혼합	Mean 60-s 파워	- 60 s Max test는 ‘High-Intensity Capacity’ 평가에 평균값 사용 
+pmc.ncbi.nlm.nih.gov
+Tsiokanos 2002
+180 s
+근지구력	Mean 180-s 파워	- 3-min는 CP 모델 상 severe 도메인 파라미터로, 평균 파워가 지표 
+help.stryd.com
+CP theory
+360 s
+심폐지구력	Mean 360-s 파워	- 6-min Max mean ≈ VO₂peak surrogate, CP 곡선 보강용 
+help.stryd.com
+CP theory
+
+정리
+• 5 s만 “Peak”, 15 s 이상은 **“해당 구간 전체 평균”**으로 백분위 계산.
+• Peak(1 s 또는 5 s)도 DB에 저장해두면 피로지수·스프린트 분석에 활용 가능하지만, 등급·백분위는 Mean 값으로 통일하면 보호자·투자자 설명이 쉽습니다.
+
+구현 예시 (Replit 복-붙 코드 스니펫)
+ts
+복사
+편집
+/* ---------------- powerMetrics.ts ---------------- */
+
+// 1. rollingMean: n-sec 창 최대 평균 파워 구하기
+export const rollingMean = (arr: number[], windowSec: number, hz: number): number => {
+  const win = windowSec * hz;
+  let best = 0, sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    if (i >= win) sum -= arr[i - win];
+    if (i >= win - 1) best = Math.max(best, sum / win);
+  }
+  return best;
+};
+
+// 2. testPower 함수
+export const testPower = (
+  data: number[],        // 1-Hz 파워 시계열
+  test: '5s'|'15s'|'30s'|'60s'|'180s'|'360s'
+): number => {
+  const len = parseInt(test);        // 구간 길이(sec)
+  return test === '5s'
+    ? rollingMean(data, 1, 1)        // Peak 1-s
+    : data.slice(0, len).reduce((a,b)=>a+b,0) / len; // Mean 전체
+};
+가정: 파워 데이터는 1 Hz로 저장. 센서 해상도가 4 Hz 이상이면 hz만 조정하면 됩니다.
+
+설명할 때 이렇게 말해보세요 (투자자·학부모용)
+“5초 테스트는 아이가 낼 수 있는 최고 순간 파워를 그대로 봅니다.
+반면 15초 이상은 얼마나 오래 힘을 유지했느냐가 더 중요하기 때문에, 구간 전체 평균을 써요.
+이 방식은 국제 Wingate·Critical Power 연구에서 그대로 쓰는 표준이라, 추후 논문·기기 인증에도 문제없습니다.”
+
+주요 인용
+Coggan A. et al. “Power Profiling” Training & Racing with a Power Meter (5 s Max) 
+highnorth.co.uk
+
+Foster C. et al. “Measurement of Anaerobic Power (Wingate)” – 평균 30 s 파워 정의 
+educationalathletics.weebly.com
+
+Tsiokanos A. et al. “60-s Maximal Test for Anaerobic & Aerobic Power” J Sports Med Phys Fitness 2002 
+pmc.ncbi.nlm.nih.gov
+
+Jones A.M. et al. “Critical Power: a Fatigue Threshold” Med Sci Sports Exerc 2016 – Mean power 기반 CP 모델 
+help.stryd.com
+
+이 기준으로 파워-백분위 알고리즘을 돌리면 과학적 정밀도와 현장 설명력을 동시에 확보할 수 있습니다. 추가 튜닝이 필요하면 언제든 말씀 주세요!
