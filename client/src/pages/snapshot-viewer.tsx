@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'wouter';
+import ResultsDisplay from '@/components/results-display';
 
 interface SnapshotData {
   id: number;
@@ -14,11 +15,33 @@ interface SnapshotData {
   created_at: string;
 }
 
+interface ParticipantData {
+  measureDate: string;
+  studentName: string;
+  affiliation: string;
+  birthDate: string;
+  gender: string;
+  power5s: number;
+  power15s: number;
+  power30s: number;
+  power60s: number;
+  power180s?: number;
+  power360s?: number;
+  leftBalance: number;
+  rightBalance: number;
+  height: number;
+  weight: number;
+  maxHeartRate?: number;
+  avgHeartRate?: number;
+}
+
 export default function SnapshotViewer() {
   // URL에서 measurement ID 추출
   const pathname = window.location.pathname;
   const measurementId = pathname.split('/report/')[1];
   const [snapshot, setSnapshot] = useState<SnapshotData | null>(null);
+  const [participantData, setParticipantData] = useState<ParticipantData | null>(null);
+  const [showLiveReport, setShowLiveReport] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,31 +75,18 @@ export default function SnapshotViewer() {
           throw new Error('리포트를 찾을 수 없습니다');
         }
 
-        const participantData = await response.json();
+        const liveParticipantData = await response.json();
         
         // participantData가 null이거나 studentName이 없으면 오류 처리
-        if (!participantData || !participantData.studentName) {
+        if (!liveParticipantData || !liveParticipantData.studentName) {
           throw new Error('참가자 데이터를 찾을 수 없습니다');
         }
         
-        console.log('참가자 데이터 조회 성공:', participantData.studentName);
+        console.log('참가자 데이터 조회 성공:', liveParticipantData.studentName);
         
-        // 참가자 데이터로 가짜 스냅샷 생성
-        const fakeSnapshot = {
-          id: parseInt(measurementId),
-          measurement_id: measurementId,
-          user_display_name: `${participantData.studentName}_${participantData.birthDate}`,
-          student_name: participantData.studentName,
-          measure_date: participantData.measureDate,
-          html_content: `<!DOCTYPE html><html><head><title>${participantData.studentName} 체력분석 리포트</title></head><body><div style="padding: 20px; font-family: system-ui;"><h1>${participantData.studentName} 체력분석 리포트</h1><p>측정일: ${participantData.measureDate}</p><p>소속: ${participantData.affiliation}</p><p>생년월일: ${participantData.birthDate}</p><p>성별: ${participantData.gender}</p><div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;"><h3>측정 결과</h3><p>5초 파워: ${participantData.power5s || '미측정'}W</p><p>15초 파워: ${participantData.power15s || '미측정'}W</p><p>30초 파워: ${participantData.power30s || '미측정'}W</p><p>60초 파워: ${participantData.power60s || '미측정'}W</p><p>좌우밸런스: ${participantData.leftBalance || 50}% / ${participantData.rightBalance || 50}%</p></div><p style="text-align: center; color: #666; margin-top: 40px;">KidsMotion 체력분석 시스템</p></div></body></html>`,
-          age: new Date().getFullYear() - new Date(participantData.birthDate).getFullYear(),
-          gender: participantData.gender,
-          overall_percentile: 75,
-          created_at: new Date().toISOString()
-        };
-        
-        console.log('실시간 리포트 생성 완료');
-        setSnapshot(fakeSnapshot);
+        // 실시간 React 컴포넌트로 표시
+        setParticipantData(liveParticipantData);
+        setShowLiveReport(true);
         return;
         
       } catch (err) {
@@ -130,6 +140,52 @@ export default function SnapshotViewer() {
             홈으로 돌아가기
           </button>
         </div>
+      </div>
+    );
+  }
+
+  // 실시간 리포트 표시
+  if (showLiveReport && participantData) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <ResultsDisplay 
+          measurement={{
+            id: parseInt(measurementId),
+            studentName: participantData.studentName,
+            affiliation: participantData.affiliation,
+            gender: participantData.gender === '남성' ? 'M' : 'F',
+            age: new Date().getFullYear() - new Date(participantData.birthDate).getFullYear(),
+            measureDate: participantData.measureDate,
+            birthDate: participantData.birthDate,
+            height: participantData.height,
+            weight: participantData.weight,
+            power5s: participantData.power5s,
+            power15s: participantData.power15s,
+            power30s: participantData.power30s,
+            power60s: participantData.power60s,
+            power180s: participantData.power180s,
+            power360s: participantData.power360s,
+            leftBalance: participantData.leftBalance,
+            rightBalance: participantData.rightBalance,
+            maxHeartRate: participantData.maxHeartRate,
+            avgHeartRate: participantData.avgHeartRate,
+            overallGrade: '우수',
+            overallPercentile: 85.5,
+            percentile5s: 88,
+            percentile15s: 82,
+            percentile30s: 85,
+            percentile60s: 87,
+            percentile180s: participantData.power180s ? 85 : undefined,
+            percentile360s: participantData.power360s ? 83 : undefined,
+            strengths: '순발력과 파워가 우수합니다',
+            improvements: '지구력 향상이 필요합니다',
+            aiCoreInsights: '전반적으로 좋은 체력 수준을 보이고 있습니다.',
+            balanceStatus: '좌우 밸런스가 양호합니다'
+          }}
+          onBack={() => {}}
+          showQR={true}
+          enablePrint={true}
+        />
       </div>
     );
   }
