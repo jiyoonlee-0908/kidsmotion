@@ -278,13 +278,13 @@ ${htmlContent}
     }
   });
 
-  // 📋 새로운 학생별 리포트 목록 조회 (측정기록 페이지용) - 중복 제거 적용
+  // 📋 학생별 리포트 목록 조회 (측정기록 페이지용) - 측정할 때마다 별도 리포트 생성
   app.get("/api/student-reports/:studentName", async (req, res) => {
     try {
       const { studentName } = req.params;
       console.log('==== 학생 리포트 조회 요청 ====:', studentName);
       
-      // 중복 제거된 참가자 데이터 조회
+      // 모든 참가자 데이터 조회 (중복 제거 없음)
       const { data: participantData, error: participantError } = await supabase
         .from('participants')
         .select('*')
@@ -301,28 +301,23 @@ ${htmlContent}
         return res.json([]); // 빈 배열 반환
       }
 
-      console.log(`${studentName} 이름으로 ${participantData.length}명 발견 (중복 포함)`);
+      console.log(`${studentName} 이름으로 ${participantData.length}개 측정 기록 발견`);
       
-      // 🔥 단순하고 확실한 중복 제거: 가장 최신 데이터 1개만 반환
-      const latestParticipant = participantData[0]; // 이미 created_at desc로 정렬되어 첫 번째가 최신
-      
-      console.log(`완전한 중복 제거 후: 1명 (최신 데이터만)`);
-      console.log('선택된 참가자:', `ID:${latestParticipant.id}, 시간:${latestParticipant.created_at}`);
-
-      // 최신 데이터 1개만 스냅샷으로 변환
-      const mockSnapshots = [{
-        id: latestParticipant.id,
-        measurement_id: latestParticipant.id * 1000,
-        measure_date: latestParticipant.created_at?.split('T')[0] || '2025-01-09',
+      // 🎯 중복 제거 없음: 측정할 때마다 별도 리포트 생성
+      const allSnapshots = participantData.map((participant, index) => ({
+        id: participant.id,
+        measurement_id: participant.id * 1000,
+        measure_date: participant.created_at?.split('T')[0] || '2025-01-09',
         overall_percentile: 85.5,
         age: 7,
-        created_at: latestParticipant.created_at,
-        student_name: latestParticipant.name,
+        created_at: participant.created_at,
+        student_name: participant.name,
         html_available: false
-      }];
+      }));
 
-      console.log('==== 중복 제거된 스냅샷 응답 (1개) ====:', mockSnapshots);
-      res.json(mockSnapshots);
+      console.log(`==== 모든 측정 기록 응답 (${allSnapshots.length}개) ====`);
+      console.log('측정 기록 목록:', allSnapshots.map(s => `ID:${s.id}, 날짜:${s.measure_date}`));
+      res.json(allSnapshots);
       
     } catch (error) {
       console.error("학생 리포트 조회 중 오류:", error);
