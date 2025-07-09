@@ -149,6 +149,14 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
         form.setValue('birthDate', userData.birthDate || '');
         form.setValue('gender', userData.gender || '');
         
+        // ✅ 키/몸무게 자동 입력 추가
+        if (userData.height) {
+          form.setValue('height', userData.height);
+        }
+        if (userData.weight) {
+          form.setValue('weight', userData.weight);
+        }
+        
         console.log('Form values after auto-fill:', form.getValues());
         
         // Power values
