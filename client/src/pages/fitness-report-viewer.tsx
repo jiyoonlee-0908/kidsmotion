@@ -51,7 +51,7 @@ export default function FitnessReportViewer() {
     <div className="w-full">
       {/* HTML 스냅샷을 그대로 렌더링 */}
       <div 
-        dangerouslySetInnerHTML={{ __html: report.html_content }}
+        dangerouslySetInnerHTML={{ __html: report.html_snapshot || report.html_content }}
         className="w-full"
       />
     </div>
