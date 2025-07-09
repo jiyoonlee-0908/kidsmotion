@@ -68,7 +68,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           birth_date: formData.birthDate,
           gender: formData.gender,
           organization: formData.affiliation || '',
-          display_name: userDisplayName
+          display_name: userDisplayName,
+          height: formData.height || null,
+          weight: formData.weight || null
         }])
         .select()
         .single();
@@ -1029,6 +1031,8 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       const participant = participants[0];
       console.log("참가자 발견:", participant.name);
       console.log("참가자 생년월일 원본:", participant.birth_date);
+      console.log("참가자 키:", participant.height);
+      console.log("참가자 몸무게:", participant.weight);
       console.log("참가자 전체 데이터:", JSON.stringify(participant, null, 2));
 
       // 2단계: userDisplayName으로 파워 데이터 직접 조회
@@ -1074,16 +1078,19 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         power360s: powerValues?.power360s || null,
         
         // 밸런스 (가민 데이터가 있을 때만)
-        leftBalance: balance?.leftBalance || null,
-        rightBalance: balance?.rightBalance || null,
+        leftBalance: balance?.leftBalance || 50,
+        rightBalance: balance?.rightBalance || 50,
         
-        // 키, 체중, 심박수는 빈 상태로 유지 (수동 입력 필요)
-        height: null,
-        weight: null,
+        // 키, 체중 - 참가자 데이터에서 가져오기
+        height: participant.height || null,
+        weight: participant.weight || null,
+        
+        // 심박수는 빈 상태로 유지 (수동 입력 필요)
         maxHeartRate: null,
         avgHeartRate: null
       };
       
+      console.log("키/몸무게 매핑:", { height: participant.height, weight: participant.weight, resultHeight: result.height, resultWeight: result.weight });
       console.log("자동 입력 데이터 준비 완료:", result);
       res.json(result);
       
