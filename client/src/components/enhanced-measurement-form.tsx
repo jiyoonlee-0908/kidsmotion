@@ -18,6 +18,8 @@ import { insertMeasurementSchema } from "@shared/schema";
 import { z } from "zod";
 
 const enhancedFormSchema = insertMeasurementSchema.extend({
+  height: z.number().min(50, "키는 최소 50cm 이상이어야 합니다.").max(200, "키는 최대 200cm까지 입력 가능합니다."),
+  weight: z.number().min(10, "체중은 최소 10kg 이상이어야 합니다.").max(150, "체중은 최대 150kg까지 입력 가능합니다."),
   leftBalance: z.number().min(0).max(100),
   rightBalance: z.number().min(0).max(100),
   // 확장 측정 항목 (선택적)
@@ -55,8 +57,8 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
       affiliation: "",
       birthDate: "",
       gender: "",
-      height: 0,
-      weight: 0,
+      height: 100,
+      weight: 20,
       power5s: 0,
       power15s: 0,
       power30s: 0,
@@ -150,12 +152,24 @@ export default function EnhancedMeasurementForm({ onComplete }: EnhancedMeasurem
         form.setValue('gender', userData.gender || '');
         
         // ✅ 키/몸무게 자동 입력 추가
+        console.log('키/몸무게 데이터 확인:', { height: userData.height, weight: userData.weight });
         if (userData.height) {
+          console.log('키 설정:', userData.height);
           form.setValue('height', userData.height);
         }
         if (userData.weight) {
+          console.log('몸무게 설정:', userData.weight);
           form.setValue('weight', userData.weight);
         }
+        
+        // 설정 후 폼 값 확인 및 강제 업데이트
+        setTimeout(() => {
+          const currentValues = form.getValues();
+          console.log('폼 설정 후 키/몸무게:', { height: currentValues.height, weight: currentValues.weight });
+          
+          // 폼 강제 리렌더링
+          form.trigger(['height', 'weight']);
+        }, 100);
         
         console.log('Form values after auto-fill:', form.getValues());
         
