@@ -573,8 +573,9 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               {/* 신체변화비교카드 */}
               <div className="bg-white rounded-lg p-6 border">
                 <h3 className="text-xl font-bold mb-4">신체변화비교카드</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  {/* 왼쪽 상단: BMI */}
+                
+                {/* BMI 별도 */}
+                <div className="mb-6">
                   <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
                     <div className="flex items-center gap-2 mb-2">
                       <Scale className="w-5 h-5 text-green-600" />
@@ -585,9 +586,12 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     </div>
                     <div className="text-sm text-gray-600">kg/m² (정상범위)</div>
                   </div>
-                  
-                  {/* 오른쪽: 체력변화 (원래 크기의 50%) */}
-                  <div className="row-span-2 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
+                </div>
+
+                {/* 체력변화와 좌우밸런스 동일선상 배치 */}
+                <div className="grid grid-cols-2 gap-6">
+                  {/* 체력변화 */}
+                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
                     <div className="flex items-center gap-2 mb-2">
                       <BarChart3 className="w-5 h-5 text-purple-600" />
                       <h4 className="font-semibold text-purple-900">체력변화</h4>
@@ -616,19 +620,26 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     </div>
                   </div>
                   
-                  {/* 왼쪽 하단: 좌우밸런스 */}
+                  {/* 좌우밸런스 */}
                   <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-200">
                     <div className="flex items-center gap-2 mb-2">
                       <Scale className="w-5 h-5 text-indigo-600" />
                       <h4 className="font-semibold text-indigo-900">좌우밸런스</h4>
                     </div>
-                    <div className="text-sm text-gray-600 mb-2">
-                      좌: {selectedMeasurement.leftBalance}% / 우: {selectedMeasurement.rightBalance}%
+                    <div className="text-center mb-4">
+                      <div className="text-2xl font-bold text-indigo-600 mb-1">
+                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
+                      </div>
+                      <div className="text-sm text-gray-600">차이</div>
                     </div>
-                    <div className="text-xs text-gray-500">
-                      차이: {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
-                      {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? " (정상)" : 
-                       Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (주의)" : " (교정필요)"}
+                    <div className="space-y-2">
+                      <div className="text-sm text-gray-600">
+                        좌: {selectedMeasurement.leftBalance}% / 우: {selectedMeasurement.rightBalance}%
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? "정상 범위" : 
+                         Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? "주의 필요" : "교정 필요"}
+                      </div>
                     </div>
                   </div>
                 </div>
