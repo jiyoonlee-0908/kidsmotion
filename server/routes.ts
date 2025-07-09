@@ -50,6 +50,208 @@ function getBalanceStatus(leftBalance: number, rightBalance: number): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // 🚀 Supabase에 완전한 측정 데이터 저장
+  app.post("/api/supabase/save-measurement", async (req, res) => {
+    try {
+      console.log("=== Supabase 측정 데이터 저장 시작 ===");
+      const formData = req.body;
+      console.log("폼 데이터:", formData);
+
+      // 1. 참가자 정보 저장
+      const userDisplayName = `${formData.studentName}_${formData.birthDate}`;
+      console.log("생성된 userDisplayName:", userDisplayName);
+
+      const { data: participant, error: participantError } = await supabase
+        .from('participants')
+        .insert([{
+          name: formData.studentName,
+          birth_date: formData.birthDate,
+          gender: formData.gender,
+          organization: formData.affiliation || '',
+          display_name: userDisplayName
+        }])
+        .select()
+        .single();
+
+      if (participantError) {
+        console.error("참가자 저장 오류:", participantError);
+        return res.status(500).json({ error: "참가자 정보 저장 실패" });
+      }
+
+      console.log("참가자 저장 완료:", participant);
+
+      // 2. 테스트 세션 생성
+      const completedStages = [
+        formData.power5s,
+        formData.power15s,
+        formData.power30s,
+        formData.power60s,
+        formData.power180s,
+        formData.power360s
+      ].filter(power => power && power > 0).length;
+
+      const { data: session, error: sessionError } = await supabase
+        .from('test_sessions')
+        .insert([{
+          user_id: participant.id,
+          user_display_name: userDisplayName,
+          start_time: new Date(formData.measureDate).toISOString(),
+          end_time: new Date().toISOString(),
+          status: 'completed',
+          total_stages: 6,
+          completed_stages: completedStages
+        }])
+        .select()
+        .single();
+
+      if (sessionError) {
+        console.error("세션 저장 오류:", sessionError);
+        return res.status(500).json({ error: "테스트 세션 저장 실패" });
+      }
+
+      console.log("테스트 세션 저장 완료:", session);
+
+      // 3. 단계별 파워 데이터 저장
+      const stageData = [];
+      
+      if (formData.power5s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 1,
+          stage_name: '5초 최대파워',
+          max_power_in_stage: formData.power5s,
+          avg_power_in_stage: formData.power5s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 5000).toISOString(),
+          duration_seconds: 5
+        });
+      }
+
+      if (formData.power15s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 2,
+          stage_name: '15초 최대파워',
+          max_power_in_stage: formData.power15s,
+          avg_power_in_stage: formData.power15s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 15000).toISOString(),
+          duration_seconds: 15
+        });
+      }
+
+      if (formData.power30s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 3,
+          stage_name: '30초 최대파워',
+          max_power_in_stage: formData.power30s,
+          avg_power_in_stage: formData.power30s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 30000).toISOString(),
+          duration_seconds: 30
+        });
+      }
+
+      if (formData.power60s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 4,
+          stage_name: '60초 최대파워',
+          max_power_in_stage: formData.power60s,
+          avg_power_in_stage: formData.power60s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 60000).toISOString(),
+          duration_seconds: 60
+        });
+      }
+
+      if (formData.power180s && formData.power180s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 5,
+          stage_name: '180초 지구력',
+          max_power_in_stage: formData.power180s,
+          avg_power_in_stage: formData.power180s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 180000).toISOString(),
+          duration_seconds: 180
+        });
+      }
+
+      if (formData.power360s && formData.power360s > 0) {
+        stageData.push({
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          sequence_number: 6,
+          stage_name: '360초 지구력',
+          max_power_in_stage: formData.power360s,
+          avg_power_in_stage: formData.power360s,
+          start_timestamp: new Date().toISOString(),
+          end_timestamp: new Date(Date.now() + 360000).toISOString(),
+          duration_seconds: 360
+        });
+      }
+
+      if (stageData.length > 0) {
+        const { error: stageError } = await supabase
+          .from('stage_intervals')
+          .insert(stageData);
+
+        if (stageError) {
+          console.error("파워 데이터 저장 오류:", stageError);
+          return res.status(500).json({ error: "파워 데이터 저장 실패" });
+        }
+
+        console.log("파워 데이터 저장 완료:", stageData.length, "개 단계");
+      }
+
+      // 4. 분석 결과 저장 (키, 체중, 밸런스, 심박수)
+      const analysisData = {
+        height: formData.height || null,
+        weight: formData.weight || null,
+        left_balance: formData.leftBalance || 50,
+        right_balance: formData.rightBalance || 50,
+        max_heart_rate: formData.maxHeartRate || null,
+        avg_heart_rate: formData.avgHeartRate || null,
+        measurement_date: formData.measureDate
+      };
+
+      const { error: analysisError } = await supabase
+        .from('report_results')
+        .insert([{
+          session_id: session.id,
+          user_display_name: userDisplayName,
+          analysis_data: analysisData
+        }]);
+
+      if (analysisError) {
+        console.error("분석 결과 저장 오류:", analysisError);
+        return res.status(500).json({ error: "분석 결과 저장 실패" });
+      }
+
+      console.log("분석 결과 저장 완료");
+      console.log("=== Supabase 저장 완료 ===");
+
+      res.json({ 
+        success: true, 
+        message: "모든 데이터가 Supabase에 성공적으로 저장되었습니다.",
+        participant_id: participant.id,
+        session_id: session.id,
+        user_display_name: userDisplayName
+      });
+
+    } catch (error) {
+      console.error("Supabase 저장 중 오류:", error);
+      res.status(500).json({ error: "데이터 저장 중 오류가 발생했습니다." });
+    }
+  });
+
   app.post("/api/measurements", async (req, res) => {
     try {
       const measurementData = insertMeasurementSchema.parse(req.body);

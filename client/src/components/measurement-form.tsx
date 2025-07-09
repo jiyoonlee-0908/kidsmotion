@@ -132,13 +132,38 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     },
   });
 
+  const saveToSupabase = useMutation({
+    mutationFn: async (data: FormData) => {
+      const response = await apiRequest("POST", "/api/supabase/save-measurement", data);
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Supabase 저장 완료",
+        description: "데이터가 KidsMotion 데이터베이스에 성공적으로 저장되었습니다.",
+      });
+      console.log("Supabase 저장 결과:", data);
+    },
+    onError: (error) => {
+      toast({
+        title: "Supabase 저장 실패",
+        description: "데이터베이스 저장 중 오류가 발생했습니다.",
+        variant: "destructive",
+      });
+      console.error("Supabase 저장 오류:", error);
+    },
+  });
+
   const onSubmit = (data: FormData) => {
     // restingHeartRate를 기본값으로 설정 (임시 해결책)
     const measurementData = {
       ...data,
       restingHeartRate: 70 // 기본값 설정
     };
+    
+    // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
     createMeasurement.mutate(measurementData);
+    saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
   };
 
   // 폼 데이터 채우기 공통 함수
@@ -802,23 +827,46 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
               </Collapsible>
             </div>
 
-            <Button 
-              type="submit" 
-              className="w-full bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
-              disabled={createMeasurement.isPending}
-            >
-              {createMeasurement.isPending ? (
-                <>
-                  <Loader2 className="animate-spin" />
-                  <span>분석 중...</span>
-                </>
-              ) : (
-                <>
-                  <ChartLine />
-                  <span>체력 분석 시작</span>
-                </>
+            <div className="space-y-3">
+              <Button 
+                type="submit" 
+                className="w-full bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
+                disabled={createMeasurement.isPending || saveToSupabase.isPending}
+              >
+                {createMeasurement.isPending ? (
+                  <>
+                    <Loader2 className="animate-spin" />
+                    <span>분석 중...</span>
+                  </>
+                ) : (
+                  <>
+                    <ChartLine />
+                    <span>체력 분석 시작</span>
+                  </>
+                )}
+              </Button>
+              
+              {/* Supabase 저장 상태 표시 */}
+              {saveToSupabase.isPending && (
+                <div className="flex items-center justify-center space-x-2 text-blue-600 bg-blue-50 p-2 rounded-lg">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-sm">KidsMotion 데이터베이스에 저장 중...</span>
+                </div>
               )}
-            </Button>
+              
+              {saveToSupabase.isSuccess && !saveToSupabase.isPending && (
+                <div className="flex items-center justify-center space-x-2 text-green-600 bg-green-50 p-2 rounded-lg">
+                  <ChartLine className="w-4 h-4" />
+                  <span className="text-sm">✓ 데이터베이스 저장 완료</span>
+                </div>
+              )}
+              
+              {saveToSupabase.isError && (
+                <div className="flex items-center justify-center space-x-2 text-red-600 bg-red-50 p-2 rounded-lg">
+                  <span className="text-sm">⚠ 데이터베이스 저장 실패</span>
+                </div>
+              )}
+            </div>
           </form>
         </Form>
       </CardContent>
