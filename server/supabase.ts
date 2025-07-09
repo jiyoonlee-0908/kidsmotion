@@ -88,7 +88,7 @@ export async function getLatestCompletedTest(name: string): Promise<TestSessionD
       };
     }
 
-    // 로컬 Supabase fallback (테이블이 없어서 실패할 예정)
+    // 로컬 Supabase에서 participants 테이블 조회 (실제 존재함!)
     const { data: participants, error: participantError } = await supabase
       .from('participants')
       .select('*')
@@ -164,7 +164,7 @@ export async function getStageIntervalPowerValues(userDisplayName: string) {
       }
     }
 
-    // 로컬 Supabase fallback
+    // 로컬 Supabase에서 stage_intervals 테이블 조회 (실제 존재함!)
     const { data: stages, error } = await supabase
       .from('stage_intervals')
       .select('*')
