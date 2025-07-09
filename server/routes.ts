@@ -2190,36 +2190,55 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       }
 
       // 1. 관련 테이블들을 순서대로 삭제 (외래키 제약 조건 때문)
-      
-      // 1-1. stage_intervals 삭제 (session_id 참조)
       const userDisplayName = `${participant.name}_${participant.birth_date}`;
-      const { error: stageError } = await supabase
-        .from('stage_intervals')
-        .delete()
-        .eq('userDisplayName', userDisplayName);
       
-      if (stageError) {
-        console.warn("stage_intervals 삭제 경고:", stageError);
-      }
-
-      // 1-2. garmin_data 삭제 (session_id 참조)  
-      const { error: garminError } = await supabase
-        .from('garmin_data')
-        .delete()
-        .eq('user_display_name', userDisplayName);
-      
-      if (garminError) {
-        console.warn("garmin_data 삭제 경고:", garminError);
-      }
-
-      // 1-3. test_sessions 삭제 (user_id 참조)
-      const { error: sessionError } = await supabase
+      // 1-1. 먼저 이 참가자의 모든 세션 ID를 찾기
+      const { data: sessions, error: sessionQueryError } = await supabase
         .from('test_sessions')
-        .delete()
+        .select('id')
         .eq('user_id', participantId);
       
-      if (sessionError) {
-        console.warn("test_sessions 삭제 경고:", sessionError);
+      if (!sessionQueryError && sessions) {
+        const sessionIds = sessions.map(s => s.id);
+        console.log(`삭제할 세션 IDs: ${sessionIds}`);
+        
+        // 1-2. stage_intervals 삭제 (session_id 참조)
+        if (sessionIds.length > 0) {
+          const { error: stageError } = await supabase
+            .from('stage_intervals')
+            .delete()
+            .in('session_id', sessionIds);
+          
+          if (stageError) {
+            console.warn("stage_intervals 삭제 경고:", stageError);
+          } else {
+            console.log("stage_intervals 삭제 완료");
+          }
+        }
+
+        // 1-3. garmin_data 삭제 (user_display_name 기준)  
+        const { error: garminError } = await supabase
+          .from('garmin_data')
+          .delete()
+          .eq('user_display_name', userDisplayName);
+        
+        if (garminError) {
+          console.warn("garmin_data 삭제 경고:", garminError);
+        } else {
+          console.log("garmin_data 삭제 완료");
+        }
+
+        // 1-4. test_sessions 삭제 (user_id 참조)
+        const { error: sessionError } = await supabase
+          .from('test_sessions')
+          .delete()
+          .eq('user_id', participantId);
+        
+        if (sessionError) {
+          console.warn("test_sessions 삭제 경고:", sessionError);
+        } else {
+          console.log("test_sessions 삭제 완료");
+        }
       }
 
       // 1-4. 마지막으로 participants 삭제
