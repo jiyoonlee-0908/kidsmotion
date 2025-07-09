@@ -1020,24 +1020,27 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       const participant = participants[0];
       console.log("참가자 발견:", participant.name);
 
-      // 테스트 세션 찾기
-      const testSession = await getLatestCompletedTest(participant.name);
+      // userDisplayName 생성하고 직접 파워 데이터 조회
+      const userDisplayName = `${participant.name}_${participant.birth_date}`;
+      console.log("userDisplayName 생성:", userDisplayName);
       
       let powerValues = null;
       let balance = null;
 
-      if (testSession) {
-        console.log("테스트 세션 발견:", testSession.id);
-        const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
-        
-        if (garminData && garminData.length > 0) {
-          powerValues = extractPowerValues(garminData);
-          balance = calculateBalance(garminData);
-        }
+      // stage_intervals에서 직접 파워 데이터 가져오기
+      powerValues = await getStageIntervalPowerValues(userDisplayName);
+      
+      // 가민 데이터에서 밸런스 정보 가져오기 (있으면)
+      const garminData = await getGarminDataByDisplayName(userDisplayName);
+      if (garminData && garminData.length > 0) {
+        balance = calculateBalance(garminData);
       }
 
+      console.log("파워값 조회 결과:", powerValues);
+      console.log("밸런스 조회 결과:", balance);
+
       const result = {
-        measureDate: testSession ? formatDate(testSession.endTime) : new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
+        measureDate: new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
         studentName: participant.name,
         affiliation: participant.organization || '',
         birthDate: formatDate(participant.birth_date),
