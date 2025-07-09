@@ -499,6 +499,16 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <Eye className="w-4 h-4 mr-1" />
                           리포트 보기
                         </Button>
+                        
+                        {/* 삭제 버튼 */}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDeleteClick(report.id)}
+                          className="text-red-600 hover:text-red-700 h-8 w-8 p-0"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                        </Button>
                       </div>
                     </div>
                   </div>
