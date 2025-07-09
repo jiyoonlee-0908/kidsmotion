@@ -60,6 +60,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
   const [adminPassword, setAdminPassword] = useState('');
   const [showReports, setShowReports] = useState(false);
+  const [selectedReport, setSelectedReport] = useState<any>(null);
+  const [showReportViewer, setShowReportViewer] = useState(false);
   const { toast } = useToast();
 
 
@@ -108,6 +110,28 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // HTML 스냅샷 조회
+  const fetchReportSnapshot = async (reportId: number) => {
+    try {
+      const response = await fetch(`/api/fitness-report-snapshot/${reportId}`);
+      
+      if (!response.ok) {
+        throw new Error('HTML 스냅샷을 가져오는데 실패했습니다.');
+      }
+      
+      const snapshot = await response.json();
+      return snapshot;
+    } catch (error) {
+      console.error('HTML 스냅샷 조회 오류:', error);
+      toast({
+        title: "오류",
+        description: "HTML 스냅샷을 불러올 수 없습니다.",
+        variant: "destructive",
+      });
+      return null;
     }
   };
 
@@ -428,6 +452,20 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                             이전 기록 비교
                           </Button>
                         )}
+                        <Button 
+                          size="sm"
+                          onClick={async () => {
+                            const snapshot = await fetchReportSnapshot(report.id);
+                            if (snapshot) {
+                              setSelectedReport(snapshot);
+                              setShowReportViewer(true);
+                            }
+                          }}
+                          className="bg-blue-600 hover:bg-blue-700"
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          HTML 리포트
+                        </Button>
                         <Button 
                           size="sm"
                           onClick={() => window.open(`/report/${report.measurement_id}`, '_blank')}
@@ -942,6 +980,46 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 삭제
               </Button>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* HTML 스냅샷 뷰어 다이얼로그 */}
+      <Dialog open={showReportViewer} onOpenChange={setShowReportViewer}>
+        <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden">
+          <DialogHeader>
+            <div className="flex justify-between items-center">
+              <DialogTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                HTML 스냅샷 리포트
+              </DialogTitle>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowReportViewer(false)}
+                className="h-8 w-8 p-0"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </DialogHeader>
+          
+          <div className="flex-1 overflow-hidden">
+            {selectedReport && selectedReport.html_content ? (
+              <div className="w-full h-[80vh] border rounded-lg overflow-hidden">
+                <iframe
+                  srcDoc={selectedReport.html_content}
+                  className="w-full h-full border-0"
+                  title="HTML 리포트 스냅샷"
+                  sandbox="allow-same-origin"
+                />
+              </div>
+            ) : (
+              <div className="text-center py-20 text-gray-500">
+                <FileText className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                <p>HTML 스냅샷을 불러올 수 없습니다.</p>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
