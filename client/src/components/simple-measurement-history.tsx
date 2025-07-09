@@ -419,9 +419,27 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="flex gap-2">
                         <Button 
                           size="sm"
-                          onClick={() => {
-                            // 리포트 페이지로 이동하여 결과를 다시 표시
-                            window.open(`/report/${report.measurement_id}`, '_blank');
+                          onClick={async () => {
+                            // 서버에서 측정 데이터 가져와서 모달로 표시
+                            try {
+                              const response = await fetch(`/api/measurements/${report.measurement_id}`);
+                              if (response.ok) {
+                                const data = await response.json();
+                                setSelectedMeasurement(data.measurement);
+                              } else {
+                                toast({
+                                  title: "오류",
+                                  description: "측정 데이터를 불러올 수 없습니다.",
+                                  variant: "destructive",
+                                });
+                              }
+                            } catch (error) {
+                              toast({
+                                title: "오류",
+                                description: "데이터를 불러오는 중 오류가 발생했습니다.",
+                                variant: "destructive",
+                              });
+                            }
                           }}
                           className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
                         >
