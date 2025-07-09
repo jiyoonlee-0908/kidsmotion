@@ -1260,14 +1260,16 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       console.log(`${name} 이름으로 ${participants.length}명 발견 (중복 포함)`);
       console.log("참가자 원본 데이터:", participants.map(p => `${p.name}(${p.birth_date}) ID:${p.id} 생성일:${p.created_at}`));
       
-      // 🔥 중복 제거: 이름+생년월일 조합으로 최신 데이터만 남기기
-      console.log("🔥 중복 제거 로직 시작");
+      // 🔥 중복 제거: 이름+생년월일+기관+측정일 4개 조합으로 고유 식별
+      console.log("🔥 중복 제거 로직 시작 (4개 필드 기준)");
       const deduplicatedMap = new Map();
       
       participants.forEach(participant => {
-        const key = `${participant.name}_${participant.birth_date}`;
+        // 측정일을 날짜만 추출 (시간 제거)
+        const measureDate = new Date(participant.created_at).toISOString().split('T')[0];
+        const key = `${participant.name}_${participant.birth_date}_${participant.organization || ''}_${measureDate}`;
         
-        // 이미 같은 이름+생년월일이 있다면, 더 최신 데이터만 유지
+        // 이미 같은 조합이 있다면, 더 최신 데이터만 유지 (같은 날 여러 번 측정 시)
         if (!deduplicatedMap.has(key) || 
             new Date(participant.created_at) > new Date(deduplicatedMap.get(key).created_at)) {
           deduplicatedMap.set(key, participant);
@@ -1278,18 +1280,27 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
       
       console.log(`중복 제거 후: ${deduplicatedParticipants.length}명`);
-      console.log("중복 제거된 참가자 목록:", deduplicatedParticipants.map(p => `${p.name}(${p.birth_date}) ID:${p.id}`));
+      console.log("중복 제거된 참가자 목록:", deduplicatedParticipants.map(p => {
+        const measureDate = new Date(p.created_at).toISOString().split('T')[0];
+        return `${p.name}(${p.birth_date}/${p.organization || '기관없음'}/${measureDate}) ID:${p.id}`;
+      }));
 
       // 여러 명이 있을 때는 선택 목록 반환 (중복 제거 후)
       if (deduplicatedParticipants.length > 1) {
-        const participantList = deduplicatedParticipants.map(p => ({
-          id: p.id,
-          name: p.name,
-          birthDate: p.birth_date,
-          gender: p.gender,
-          organization: p.organization || "",
-          createdAt: p.created_at
-        }));
+        const participantList = deduplicatedParticipants.map(p => {
+          const measureDate = new Date(p.created_at).toISOString().split('T')[0];
+          return {
+            id: p.id,
+            name: p.name,
+            birthDate: p.birth_date,
+            gender: p.gender,
+            organization: p.organization || "기관없음",
+            measureDate: measureDate,
+            createdAt: p.created_at,
+            displayName: `${p.name} (${p.birth_date} / ${p.organization || '기관없음'} / ${measureDate})`
+          };
+        });
+        console.log(`동명이인 또는 다른 측정일: ${participantList.length}명 목록 반환`);
         return res.json({ 
           multiple: true, 
           participants: participantList 
