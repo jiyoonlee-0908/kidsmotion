@@ -646,17 +646,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     </div>
                     <div className="text-center mb-4">
                       <div className="text-2xl font-bold text-indigo-600 mb-1">
-                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
+                        {selectedMeasurement.leftBalance && selectedMeasurement.rightBalance 
+                          ? Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) 
+                          : 0}%
                       </div>
                       <div className="text-sm text-gray-600">차이</div>
                     </div>
                     <div className="space-y-2">
                       <div className="text-sm text-gray-600">
-                        좌: {selectedMeasurement.leftBalance}% / 우: {selectedMeasurement.rightBalance}%
+                        좌: {selectedMeasurement.leftBalance || 0}% / 우: {selectedMeasurement.rightBalance || 0}%
                       </div>
                       <div className="text-xs text-gray-500">
-                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? "정상 범위" : 
-                         Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? "주의 필요" : "교정 필요"}
+                        {selectedMeasurement.leftBalance && selectedMeasurement.rightBalance 
+                          ? (Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? "정상 범위" : 
+                             Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? "주의 필요" : "교정 필요")
+                          : "측정 필요"}
                       </div>
                     </div>
                   </div>
