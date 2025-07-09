@@ -25,6 +25,7 @@ export default function SnapshotViewer() {
 
     const fetchSnapshot = async () => {
       try {
+        console.log('QR 코드 스냅샷 조회 요청:', measurementId);
         const response = await fetch(`/api/report-snapshot/${measurementId}`);
         
         if (!response.ok) {
@@ -32,8 +33,10 @@ export default function SnapshotViewer() {
         }
 
         const data = await response.json();
+        console.log('스냅샷 조회 결과:', data ? '성공' : '없음');
         setSnapshot(data);
       } catch (err) {
+        console.error('스냅샷 조회 오류:', err);
         setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다');
       } finally {
         setLoading(false);

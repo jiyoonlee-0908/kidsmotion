@@ -788,18 +788,21 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
           improvements: improvementsText
         };
 
-        const { data: savedReport, error: reportError } = await supabase
-          .from('report_results')
-          .insert(reportData)
-          .select()
-          .single();
+        // report_results 테이블 저장 임시 비활성화 (affiliation 컬럼 오류 해결 후 재활성화 예정)
+        console.log("🔄 웹리포트 저장 건너뜀 (HTML 스냅샷 시스템 사용)");
+        
+        // const { data: savedReport, error: reportError } = await supabase
+        //   .from('report_results')
+        //   .insert(reportData)
+        //   .select()
+        //   .single();
 
-        if (reportError) {
-          console.error("리포트 저장 오류:", reportError);
-        } else {
-          console.log(`✅ 웹리포트 저장 완료: ${studentIdentifier} (${measurementData.measureDate})`);
-          console.log("저장된 데이터 ID:", savedReport?.id);
-        }
+        // if (reportError) {
+        //   console.error("리포트 저장 오류:", reportError);
+        // } else {
+        //   console.log(`✅ 웹리포트 저장 완료: ${studentIdentifier} (${measurementData.measureDate})`);
+        //   console.log("저장된 데이터 ID:", savedReport?.id);
+        // }
       } catch (reportSaveError) {
         console.error("리포트 저장 중 예외 발생:", reportSaveError);
       }
