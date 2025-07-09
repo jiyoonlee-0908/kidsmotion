@@ -917,20 +917,10 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       <Dialog open={showReportViewer} onOpenChange={setShowReportViewer}>
         <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden">
           <DialogHeader>
-            <div className="flex justify-between items-center">
-              <DialogTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5" />
-                HTML 스냅샷 리포트
-              </DialogTitle>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowReportViewer(false)}
-                className="h-8 w-8 p-0"
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
+            <DialogTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              HTML 스냅샷 리포트
+            </DialogTitle>
           </DialogHeader>
           
           <div className="flex-1 overflow-hidden">
