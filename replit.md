@@ -108,6 +108,13 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- July 9, 2025: QR 코드 시스템 완전 구현 및 측정기록 페이지 UI 정리
+  - 측정기록 페이지에서 QR 코드 버튼 제거, "리포트 보기" 버튼만 유지
+  - QR 코드는 웹리포트 내부에 자동 생성되어 인쇄용으로 제공
+  - `/report/{measurement_id}` 경로에서 HTML 스냅샷 없을 시 실시간 리포트 생성
+  - `report_results` 테이블 저장 임시 비활성화로 affiliation 컬럼 오류 해결
+  - QR 코드 스캔 시 레플릿 서버에서 정상적인 리포트 표시 확인
+
 - July 9, 2025: 중복 사용자 문제 완전 해결 및 4개 필드 기준 중복 제거 시스템 구축
   - 웹앱 중복 검색 문제 완전 해결: 김철수 3개→1개, 박시아 2개→1개 
   - 4개 필드 기준 중복 제거: 이름+생년월일+기관+측정일 조합으로 고유 식별

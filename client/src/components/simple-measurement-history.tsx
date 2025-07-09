@@ -460,36 +460,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <Eye className="w-4 h-4 mr-1" />
                           리포트 보기
                         </Button>
-                        <Button 
-                          size="sm"
-                          onClick={() => {
-                            // QR 코드 생성 및 표시
-                            const qrUrl = `${window.location.origin}/report/${report.measurement_id}`;
-                            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrUrl)}`;
-                            const newWindow = window.open('', '_blank');
-                            if (newWindow) {
-                              newWindow.document.write(`
-                                <html>
-                                  <head><title>QR 코드 - ${report.student_name}</title></head>
-                                  <body style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
-                                    <h2>${report.student_name} 체력분석 리포트</h2>
-                                    <p>측정일: ${report.measure_date}</p>
-                                    <div style="margin: 20px 0;">
-                                      <img src="${qrCodeUrl}" alt="QR Code" style="border: 1px solid #ddd; padding: 10px;" />
-                                    </div>
-                                    <p style="font-size: 14px; color: #666;">
-                                      QR 코드를 스캔하면 리포트를 볼 수 있습니다
-                                    </p>
-                                    <p style="font-size: 12px; color: #999;">${qrUrl}</p>
-                                  </body>
-                                </html>
-                              `);
-                            }
-                          }}
-                          className="bg-green-600 hover:bg-green-700"
-                        >
-                          📱 QR 코드
-                        </Button>
                       </div>
                     </div>
                   </div>
