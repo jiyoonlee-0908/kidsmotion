@@ -435,7 +435,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               <p>• 조건을 비워두고 검색하면 전체 기록이 표시됩니다</p>
               <p>• 여러 조건을 입력하면 모든 조건에 맞는 기록만 표시됩니다</p>
               <p>• 이름만 입력하면 동명이인도 함께 표시됩니다</p>
-              <p>• "저장된 리포트" 버튼으로 완전한 분석 리포트를 볼 수 있습니다</p>
             </div>
           </div>
         </CardContent>

@@ -2189,14 +2189,47 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         console.warn("HTML 스냅샷 파일 삭제 실패:", fileError);
       }
 
-      // Supabase에서 참가자 삭제
+      // 1. 관련 테이블들을 순서대로 삭제 (외래키 제약 조건 때문)
+      
+      // 1-1. stage_intervals 삭제 (session_id 참조)
+      const userDisplayName = `${participant.name}_${participant.birth_date}`;
+      const { error: stageError } = await supabase
+        .from('stage_intervals')
+        .delete()
+        .eq('userDisplayName', userDisplayName);
+      
+      if (stageError) {
+        console.warn("stage_intervals 삭제 경고:", stageError);
+      }
+
+      // 1-2. garmin_data 삭제 (session_id 참조)  
+      const { error: garminError } = await supabase
+        .from('garmin_data')
+        .delete()
+        .eq('user_display_name', userDisplayName);
+      
+      if (garminError) {
+        console.warn("garmin_data 삭제 경고:", garminError);
+      }
+
+      // 1-3. test_sessions 삭제 (user_id 참조)
+      const { error: sessionError } = await supabase
+        .from('test_sessions')
+        .delete()
+        .eq('user_id', participantId);
+      
+      if (sessionError) {
+        console.warn("test_sessions 삭제 경고:", sessionError);
+      }
+
+      // 1-4. 마지막으로 participants 삭제
       const { error: deleteError } = await supabase
         .from('participants')
         .delete()
         .eq('id', participantId);
 
       if (deleteError) {
-        console.error("Supabase 삭제 오류:", deleteError);
+        console.error("Supabase 참가자 삭제 오류:", deleteError);
         return res.status(500).json({ error: "데이터베이스에서 삭제 실패" });
       }
 
