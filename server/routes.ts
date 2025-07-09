@@ -1243,7 +1243,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         return res.json(null);
       }
 
-      console.log("=== Supabase 사용자 검색 ===", name);
+      console.log("=== Supabase 사용자 검색 (중복 제거) ===", name);
       
       // 1단계: 정확한 이름으로 모든 참가자 찾기
       const { data: participants, error: participantError } = await supabase
@@ -1257,10 +1257,32 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         return res.json(null);
       }
 
-      // 여러 명이 있을 때는 선택 목록 반환
-      if (participants.length > 1) {
-        console.log(`${name} 이름으로 ${participants.length}명 발견`);
-        const participantList = participants.map(p => ({
+      console.log(`${name} 이름으로 ${participants.length}명 발견 (중복 포함)`);
+      console.log("참가자 원본 데이터:", participants.map(p => `${p.name}(${p.birth_date}) ID:${p.id} 생성일:${p.created_at}`));
+      
+      // 🔥 중복 제거: 이름+생년월일 조합으로 최신 데이터만 남기기
+      console.log("🔥 중복 제거 로직 시작");
+      const deduplicatedMap = new Map();
+      
+      participants.forEach(participant => {
+        const key = `${participant.name}_${participant.birth_date}`;
+        
+        // 이미 같은 이름+생년월일이 있다면, 더 최신 데이터만 유지
+        if (!deduplicatedMap.has(key) || 
+            new Date(participant.created_at) > new Date(deduplicatedMap.get(key).created_at)) {
+          deduplicatedMap.set(key, participant);
+        }
+      });
+      
+      const deduplicatedParticipants = Array.from(deduplicatedMap.values())
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      
+      console.log(`중복 제거 후: ${deduplicatedParticipants.length}명`);
+      console.log("중복 제거된 참가자 목록:", deduplicatedParticipants.map(p => `${p.name}(${p.birth_date}) ID:${p.id}`));
+
+      // 여러 명이 있을 때는 선택 목록 반환 (중복 제거 후)
+      if (deduplicatedParticipants.length > 1) {
+        const participantList = deduplicatedParticipants.map(p => ({
           id: p.id,
           name: p.name,
           birthDate: p.birth_date,
@@ -1274,7 +1296,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         });
       }
 
-      const participant = participants[0];
+      const participant = deduplicatedParticipants[0];
       console.log("참가자 발견:", participant.name);
       console.log("참가자 생년월일 원본:", participant.birth_date);
       console.log("참가자 키:", participant.height);
@@ -1537,7 +1559,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
   app.get("/api/supabase/search-user/:name", async (req, res) => {
     try {
       const { name } = req.params;
-      console.log(`=== ${name} 검색 시작 ===`);
+      console.log(`=== ${name} 검색 시작 (중복 제거) ===`);
       
       // 1. 참가자 기본 정보 검색
       const { data: participants, error: participantError } = await supabase
@@ -1555,13 +1577,33 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         return res.status(404).json({ error: "사용자를 찾을 수 없습니다." });
       }
 
-      console.log(`${participants.length}명의 참가자 발견:`, participants.map(p => p.name));
+      console.log(`검색된 참가자 수 (중복 포함): ${participants.length}개`);
       
-      // 여러 명인 경우
-      if (participants.length > 1) {
+      // 🔥 중복 제거: 이름+생년월일 조합으로 최신 데이터만 남기기
+      const deduplicatedMap = new Map();
+      
+      participants.forEach(participant => {
+        const key = `${participant.name}_${participant.birth_date}`;
+        
+        // 이미 같은 이름+생년월일이 있다면, 더 최신 데이터만 유지
+        if (!deduplicatedMap.has(key) || 
+            new Date(participant.created_at) > new Date(deduplicatedMap.get(key).created_at)) {
+          deduplicatedMap.set(key, participant);
+        }
+      });
+      
+      const deduplicatedParticipants = Array.from(deduplicatedMap.values())
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      
+      console.log(`중복 제거 후 참가자 수: ${deduplicatedParticipants.length}개`);
+
+      console.log(`중복 제거된 참가자:`, deduplicatedParticipants.map(p => `${p.name}(${p.birth_date})`));
+      
+      // 여러 명인 경우 (실제로 다른 사람들)
+      if (deduplicatedParticipants.length > 1) {
         return res.json({
           multiple: true,
-          participants: participants.map(p => ({
+          participants: deduplicatedParticipants.map(p => ({
             id: p.id,
             studentName: p.name,
             affiliation: p.organization || "",
@@ -1573,7 +1615,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       }
       
       // 단일 사용자인 경우 - 가장 최근 테스트 데이터까지 가져오기
-      const participant = participants[0];
+      const participant = deduplicatedParticipants[0];
       console.log("선택된 참가자:", participant);
       
       // 2. 최신 테스트 세션 가져오기 (user_id 필드 사용)
