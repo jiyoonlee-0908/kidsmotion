@@ -829,33 +829,35 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       console.log("참가자 생년월일 원본:", participant.birth_date);
       console.log("참가자 전체 데이터:", JSON.stringify(participant, null, 2));
 
-      // 2단계: 완료된 테스트 세션 찾기 (선택사항)
-      const testSession = await getLatestCompletedTest(name);
+      // 2단계: userDisplayName으로 파워 데이터 직접 조회
+      const userDisplayName = `${participant.name}_${participant.birth_date}`;
+      console.log("userDisplayName 생성:", userDisplayName);
       
       let powerValues = null;
       let balance = null;
 
-      if (testSession) {
-        console.log("테스트 세션 발견:", testSession.id, testSession.userDisplayName);
+      // stage_intervals에서 직접 파워 데이터 가져오기
+      const stageData = await getStageIntervalPowerValues(userDisplayName);
+      
+      if (stageData && stageData.hasStageData) {
+        console.log("스테이지 파워 데이터 발견:", stageData);
+        powerValues = stageData;
         
-        // 가민 데이터 가져오기 (있으면)
-        const garminData = await getGarminDataByDisplayName(testSession.userDisplayName);
-        
+        // 가민 데이터에서 밸런스 정보 가져오기 (있으면)
+        const garminData = await getGarminDataByDisplayName(userDisplayName);
         if (garminData && garminData.length > 0) {
-          console.log("가민 데이터 포인트 수:", garminData.length);
-          powerValues = extractPowerValues(garminData);
           balance = calculateBalance(garminData);
         } else {
-          console.log("가민 데이터 없음 - 수기 입력 필요");
+          balance = { leftBalance: 50, rightBalance: 50 }; // 기본값
         }
       } else {
-        console.log("완료된 테스트 없음 - 기본 정보만 제공");
+        console.log("스테이지 파워 데이터 없음 - 수기 입력 필요");
       }
 
       // 응답 데이터 구성
       const result = {
         // 기본 정보 (항상 제공) - 한국 시간대 적용
-        measureDate: testSession ? formatDate(testSession.endTime) : new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
+        measureDate: new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
         studentName: participant.name,
         affiliation: participant.organization || '',
         birthDate: formatDate(participant.birth_date),

@@ -66,29 +66,10 @@ export async function searchUserFromMonitorApp(name: string): Promise<Participan
   }
 }
 
-// 이름으로 최신 완료된 테스트 세션 찾기 (모니터앱 API 우선, 로컬 fallback)
+// 이름으로 최신 완료된 테스트 세션 찾기 (로컬 Supabase에서)
 export async function getLatestCompletedTest(name: string): Promise<TestSessionData | null> {
   try {
-    // 먼저 모니터앱 API 시도
-    const participant = await searchUserFromMonitorApp(name);
-    
-    if (participant) {
-      console.log('Found participant from monitor app:', participant);
-      return {
-        id: '1',
-        userId: participant.id,
-        userDisplayName: `${participant.name}_${participant.birth_date}`,
-        startTime: new Date().toISOString(),
-        endTime: new Date().toISOString(),
-        status: 'completed',
-        totalStages: 6,
-        completedStages: 6,
-        testData: null,
-        participants: participant
-      };
-    }
-
-    // 로컬 Supabase에서 participants 테이블 조회 (실제 존재함!)
+    // 로컬 Supabase에서 participants 테이블 조회
     const { data: participants, error: participantError } = await supabase
       .from('participants')
       .select('*')
@@ -146,30 +127,19 @@ export async function getGarminDataByDisplayName(userDisplayName: string): Promi
   }
 }
 
-// 🔥 모니터앱 API에서 스테이지 구간 파워값 추출
+// 🔥 Supabase에서 스테이지 구간 파워값 추출
 export async function getStageIntervalPowerValues(userDisplayName: string) {
   try {
-    // 먼저 모니터앱 API 시도
-    const response = await fetch(`https://kidsmotion.app/api/stage-intervals/${encodeURIComponent(userDisplayName)}`);
+    console.log('Querying stage_intervals for:', userDisplayName);
     
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Stage intervals from monitor app:', data);
-      
-      if (data && data.powerValues) {
-        return {
-          ...data.powerValues,
-          hasStageData: true
-        };
-      }
-    }
-
-    // 로컬 Supabase에서 stage_intervals 테이블 조회 (실제 존재함!)
+    // 로컬 Supabase에서 stage_intervals 테이블 조회
     const { data: stages, error } = await supabase
       .from('stage_intervals')
       .select('*')
       .eq('user_display_name', userDisplayName)
       .order('sequence_number', { ascending: true });
+
+    console.log('Stage intervals query result:', { stages, error, userDisplayName });
 
     if (error) {
       console.error("스테이지 구간 조회 오류:", error);
