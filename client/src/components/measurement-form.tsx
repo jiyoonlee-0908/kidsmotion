@@ -353,7 +353,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input 
                           {...field} 
-                          placeholder="예: 박시아"
+                          placeholder="예: 김철수"
                           onBlur={(e) => {
                             field.onBlur(e);
                             setStudentNameInput(e.target.value);

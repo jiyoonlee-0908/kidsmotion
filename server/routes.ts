@@ -1032,12 +1032,17 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       
       // 가민 데이터에서 밸런스 정보 가져오기 (있으면)
       const garminData = await getGarminDataByDisplayName(userDisplayName);
+      console.log("가민 데이터 조회 결과:", garminData?.length || 0, "개");
       if (garminData && garminData.length > 0) {
         balance = calculateBalance(garminData);
+        console.log("밸런스 계산 결과:", balance);
+      } else {
+        console.log("가민 데이터가 없어서 기본 밸런스 50:50 사용");
+        balance = { leftBalance: 50, rightBalance: 50 };
       }
 
       console.log("파워값 조회 결과:", powerValues);
-      console.log("밸런스 조회 결과:", balance);
+      console.log("최종 밸런스 결과:", balance);
 
       const result = {
         measureDate: new Date().toLocaleDateString("sv-SE", {timeZone: "Asia/Seoul"}),
@@ -1051,8 +1056,8 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         power60s: powerValues?.power60s || null,
         power180s: powerValues?.power180s || null,
         power360s: powerValues?.power360s || null,
-        leftBalance: balance?.leftBalance || null,
-        rightBalance: balance?.rightBalance || null,
+        leftBalance: balance?.leftBalance || 50,
+        rightBalance: balance?.rightBalance || 50,
         height: participant.height || null,
         weight: participant.weight || null,
         maxHeartRate: null,
