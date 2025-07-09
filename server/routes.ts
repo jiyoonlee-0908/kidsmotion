@@ -538,8 +538,11 @@ ${htmlContent}
     try {
       const measurementData = insertMeasurementSchema.parse(req.body);
       
-      // 측정 결과만 계산하고 저장하지 않음 (데모용)
+      // 측정 결과 계산 및 MemStorage에 저장
       const measurement = { id: Date.now(), ...measurementData };
+      
+      // MemStorage에 측정 데이터 저장
+      const storedMeasurement = await storage.createMeasurement(measurement);
       
       // Calculate analysis
       const age = calculateAge(measurementData.birthDate);
@@ -843,12 +846,16 @@ ${htmlContent}
         console.error("리포트 저장 중 예외 발생:", reportSaveError);
       }
 
+      // MemStorage에 분석 결과 저장
+      await storage.saveAnalysisResult(measurement.id, analysisResult);
+      
       console.log("=== 측정 결과 계산 완료 ===");
       console.log("측정 ID:", measurement.id);
       console.log("학생 이름:", measurement.studentName);
+      console.log("MemStorage 저장 완료");
       
       res.json({
-        measurement,
+        measurement: storedMeasurement,
         analysis: analysisResult,
         strengths,
         improvements
