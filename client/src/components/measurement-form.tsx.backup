@@ -57,7 +57,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     const now = new Date();
     const koreanTime = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // UTC+9
     return koreanTime.toISOString().split('T')[0];
-  }
+  };
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -159,12 +159,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     const measurementData = {
       ...data,
       restingHeartRate: 70 // 기본값 설정
-    }
+    };
     
     // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
     createMeasurement.mutate(measurementData);
     saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
-  }
+  };
 
   // 폼 데이터 채우기 공통 함수
   const fillFormData = (userData: any) => {
@@ -216,7 +216,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       const currentValues = form.getValues();
       console.log('폼 설정 후 키/몸무게:', { height: currentValues.height, weight: currentValues.weight });
     }, 100);
-  }
+  };
 
   // 특정 참가자 선택 함수
   const handleParticipantSelect = async (participantId: number) => {
@@ -246,7 +246,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         variant: "destructive"
       });
     }
-  }
+  };
 
   // 자동 입력 함수
   const handleAutoFill = async () => {
@@ -302,7 +302,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         variant: "destructive"
       });
     }
-  }
+  };
 
   // Auto-adjust right balance when left balance changes
   const handleLeftBalanceChange = (value: string) => {
@@ -310,7 +310,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     const rightValue = 100 - leftValue;
     form.setValue("leftBalance", leftValue);
     form.setValue("rightBalance", rightValue);
-  }
+  };
 
   return (
     <Card className="fitness-card">
@@ -587,7 +587,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               // 소수점 둘째 자리까지 반올림
                               const rounded = Math.round(numValue * 100) / 100;
                               field.onChange(rounded || 0);
-                            }
+                            };
                           }}
                         />
                       </FormControl>
@@ -618,7 +618,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               // 소수점 둘째 자리까지 반올림
                               const rounded = Math.round(numValue * 100) / 100;
                               field.onChange(rounded || 0);
-                            }
+                            };
                           }}
                         />
                       </FormControl>
@@ -649,7 +649,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               // 소수점 둘째 자리까지 반올림
                               const rounded = Math.round(numValue * 100) / 100;
                               field.onChange(rounded || 0);
-                            }
+                            };
                           }}
                         />
                       </FormControl>
@@ -680,7 +680,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               // 소수점 둘째 자리까지 반올림
                               const rounded = Math.round(numValue * 100) / 100;
                               field.onChange(rounded || 0);
-                            }
+                            };
                           }}
                         />
                       </FormControl>
