@@ -2140,6 +2140,83 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 📋 Supabase 참가자 삭제 API (저장된 리포트용)
+  app.delete("/api/participants/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { adminPassword } = req.body;
+
+      console.log(`=== Supabase 참가자 삭제 요청: ID ${id} ===`);
+
+      // 관리자 비밀번호 확인
+      if (adminPassword !== '263910') {
+        console.log("비밀번호 불일치");
+        return res.status(401).json({ 
+          error: "인증 실패", 
+          message: "관리자 비밀번호가 올바르지 않습니다." 
+        });
+      }
+
+      const participantId = parseInt(id);
+      if (isNaN(participantId)) {
+        return res.status(400).json({ error: "잘못된 참가자 ID입니다." });
+      }
+
+      // 참가자 정보 조회
+      const { data: participant, error: getError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('id', participantId)
+        .single();
+
+      if (getError || !participant) {
+        return res.status(404).json({ error: "참가자를 찾을 수 없습니다." });
+      }
+
+      console.log(`삭제 대상: ${participant.name} (ID: ${participantId})`);
+
+      // 📄 HTML 스냅샷 파일 삭제 (Replit 로컬)
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const snapshotPath = path.join(process.cwd(), 'snapshots', `${participantId * 1000}.html`);
+      try {
+        if (fs.existsSync(snapshotPath)) {
+          fs.unlinkSync(snapshotPath);
+          console.log(`HTML 스냅샷 파일 삭제: ${snapshotPath}`);
+        }
+      } catch (fileError) {
+        console.warn("HTML 스냅샷 파일 삭제 실패:", fileError);
+      }
+
+      // Supabase에서 참가자 삭제
+      const { error: deleteError } = await supabase
+        .from('participants')
+        .delete()
+        .eq('id', participantId);
+
+      if (deleteError) {
+        console.error("Supabase 삭제 오류:", deleteError);
+        return res.status(500).json({ error: "데이터베이스에서 삭제 실패" });
+      }
+
+      console.log(`Supabase 참가자 삭제 완료: ${participantId} (${participant.name})`);
+      
+      res.json({ 
+        success: true,
+        message: `${participant.name}의 측정 기록이 완전히 삭제되었습니다.`,
+        deletedId: participantId
+      });
+
+    } catch (error) {
+      console.error("참가자 삭제 오류:", error);
+      res.status(500).json({ 
+        error: "삭제 실패", 
+        message: "삭제하는 중 오류가 발생했습니다." 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

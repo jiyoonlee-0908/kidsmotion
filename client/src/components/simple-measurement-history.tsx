@@ -264,8 +264,20 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     }
 
     try {
-      // 서버 API 호출로 실제 삭제
-      const response = await fetch(`/api/measurements/${deleteTargetId}`, {
+      let deleteEndpoint = '';
+      
+      // 현재 보고 있는 데이터가 저장된 리포트인지 확인
+      if (showReports && savedReports.length > 0) {
+        // 저장된 리포트는 Supabase 참가자 삭제
+        deleteEndpoint = `/api/participants/${deleteTargetId}`;
+      } else {
+        // 일반 측정 기록은 로컬 측정 삭제
+        deleteEndpoint = `/api/measurements/${deleteTargetId}`;
+      }
+
+      console.log(`삭제 요청: ${deleteEndpoint}`);
+
+      const response = await fetch(deleteEndpoint, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -277,8 +289,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         throw new Error('서버에서 삭제에 실패했습니다.');
       }
 
-      // 로컬 상태에서도 제거
-      setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
+      // 상태에서 제거 (저장된 리포트 또는 측정 기록)
+      if (showReports) {
+        setSavedReports(savedReports.filter(r => r.id !== deleteTargetId));
+      } else {
+        setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
+      }
+
       setDeleteConfirmOpen(false);
       setDeleteTargetId(null);
       setAdminPassword('');
@@ -558,6 +575,16 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     >
                       <Eye className="w-4 h-4 mr-1" />
                       리포트 간단보기
+                    </Button>
+                    
+                    {/* 삭제 버튼 */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDeleteClick(measurement.id)}
+                      className="text-red-600 hover:text-red-700 ml-2 h-8 w-8 p-0"
+                    >
+                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
                 </div>
