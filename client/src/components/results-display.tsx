@@ -30,13 +30,24 @@ interface ResultsDisplayProps {
 export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
 
-  // 컴포넌트 마운트 시 HTML 스냅샷 자동 저장
+  // QR 코드 완성 후 HTML 스냅샷 자동 저장
   useEffect(() => {
-    const timer = setTimeout(() => {
-      saveReportSnapshot();
-    }, 2000); // 2초 후 저장 (렌더링 완료 대기)
+    const waitForQRCodeAndSave = async () => {
+      // QR 코드 렌더링 대기
+      await new Promise(resolve => setTimeout(resolve, 3000)); // 3초 대기
+      
+      // QR 코드 DOM 확인
+      const qrElement = document.querySelector('[data-testid="qr-code"]');
+      if (qrElement) {
+        console.log('✅ QR 코드 렌더링 완료, 스냅샷 저장 시작');
+        await saveReportSnapshot();
+      } else {
+        console.log('⚠️ QR 코드 없음, 5초 후 재시도');
+        setTimeout(waitForQRCodeAndSave, 5000);
+      }
+    };
 
-    return () => clearTimeout(timer);
+    waitForQRCodeAndSave();
   }, []);
 
   const getGradeColor = (percentile: number) => {
@@ -809,7 +820,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center mb-2">
-                  <QRCodeSVG value={reportUrl} size={96} />
+                  <QRCodeSVG value={reportUrl} size={96} data-testid="qr-code" />
                 </div>
               </div>
             </div>
