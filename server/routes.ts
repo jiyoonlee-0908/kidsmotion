@@ -1281,6 +1281,89 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 특정 참가자 ID로 데이터 조회 (참가자 선택 후 사용)
+  app.get("/api/supabase/participant/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log(`=== 특정 참가자 데이터 검색 === ${id}`);
+      
+      // 1. participants 테이블에서 해당 참가자 찾기
+      const { data: participant, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('id', id)
+        .single();
+      
+      if (participantError || !participant) {
+        console.error("참가자 조회 오류:", participantError);
+        return res.status(404).json({ error: "참가자를 찾을 수 없습니다." });
+      }
+      
+      console.log("참가자 발견:", participant.name);
+      
+      // 2. 최신 테스트 세션 찾기
+      const { data: testSessions, error: sessionError } = await supabase
+        .from('test_sessions')
+        .select('*')
+        .eq('participant_id', participant.id)
+        .eq('status', 'completed')
+        .order('end_time', { ascending: false })
+        .limit(1);
+      
+      let powerData = {};
+      let balanceData = { left: 50, right: 50 };
+      
+      if (!sessionError && testSessions && testSessions.length > 0) {
+        const session = testSessions[0];
+        console.log("테스트 세션 발견:", session.id);
+        
+        // 3. userDisplayName 생성하여 스테이지 데이터 조회
+        const userDisplayName = `${participant.name}_${participant.birth_date}`;
+        const stageData = await getStageIntervalPowerValues(userDisplayName);
+        
+        if (stageData && stageData.hasStageData) {
+          powerData = {
+            power5s: stageData.power5s,
+            power15s: stageData.power15s,
+            power30s: stageData.power30s,
+            power60s: stageData.power60s,
+            power180s: stageData.power180s,
+            power360s: stageData.power360s
+          };
+          
+          // 가민 데이터에서 밸런스 정보 가져오기
+          const garminData = await getGarminDataByDisplayName(userDisplayName);
+          if (garminData && garminData.length > 0) {
+            balanceData = calculateBalance(garminData);
+          }
+        }
+      }
+      
+      // 4. 응답 데이터 구성
+      const result = {
+        measureDate: "",
+        studentName: participant.name,
+        affiliation: participant.organization || "",
+        birthDate: participant.birth_date,
+        gender: participant.gender === "남성" ? "M" : participant.gender === "여성" ? "F" : participant.gender,
+        ...powerData,
+        leftBalance: balanceData.left,
+        rightBalance: balanceData.right,
+        height: participant.height || null,
+        weight: participant.weight || null,
+        maxHeartRate: null,
+        avgHeartRate: null
+      };
+      
+      console.log("특정 참가자 데이터 준비 완료:", result);
+      res.json(result);
+      
+    } catch (error) {
+      console.error("특정 참가자 검색 중 오류:", error);
+      res.status(500).json({ error: "참가자 검색 실패" });
+    }
+  });
+
   // KidsMotion 앱 데이터 자동 입력 API
   app.get("/api/supabase/search-user/:name", async (req, res) => {
     try {
