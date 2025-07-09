@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import BalanceChart from "@/components/charts/balance-chart";
@@ -967,18 +968,18 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       </Dialog>
 
       {/* 삭제 확인 모달 */}
-      <Dialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+      <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <AlertDialogContent className="sm:max-w-md">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-red-600" />
               관리자 인증
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-gray-600">
+            </AlertDialogTitle>
+            <AlertDialogDescription>
               측정 기록을 삭제하려면 관리자 비밀번호를 입력하세요.
-            </p>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-4">
             <div className="space-y-2">
               <label className="text-sm font-medium">비밀번호</label>
               <Input
@@ -989,26 +990,25 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 onKeyPress={(e) => e.key === 'Enter' && handleDeleteConfirm()}
               />
             </div>
-            <div className="flex gap-2 justify-end">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setDeleteConfirmOpen(false);
-                  setAdminPassword('');
-                }}
-              >
-                취소
-              </Button>
-              <Button
-                variant="destructive"
-                onClick={handleDeleteConfirm}
-              >
-                삭제
-              </Button>
-            </div>
           </div>
-        </DialogContent>
-      </Dialog>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => {
+                setDeleteConfirmOpen(false);
+                setAdminPassword('');
+              }}
+            >
+              취소
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteConfirm}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              삭제
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* HTML 스냅샷 뷰어 다이얼로그 */}
       <Dialog open={showReportViewer} onOpenChange={setShowReportViewer}>
