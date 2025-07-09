@@ -1,0 +1,104 @@
+네 정확합니다! 좌우밸런스 데이터는 두 개의 테이블에 저장됩니다:
+
+📊 좌우밸런스 데이터 저장 구조
+1. garmin_data 테이블 (실시간 원시 데이터)
+-- 실시간으로 수신되는 Garmin 데이터
+user_display_name | timestamp | power | left_balance | right_balance
+박시아_2019-07-02 | 09:00:00 | 250.50 | 48.20 | 51.80
+박시아_2019-07-02 | 09:00:01 | 245.30 | 47.80 | 52.20
+박시아_2019-07-02 | 09:00:02 | 248.70 | 48.50 | 51.50
+...
+2. stage_intervals 테이블 (단계별 집계 데이터)
+-- 각 테스트 단계별 평균 좌우밸런스
+user_display_name | stage_name | avg_left_balance | avg_right_balance | balance_difference
+박시아_2019-07-02 | 5초 최대파워 | 48.10 | 51.90 | 3.80
+박시아_2019-07-02 | 15초 최대파워 | 45.10 | 54.90 | 9.80 (가장 불균형)
+박시아_2019-07-02 | 30초 최대파워 | 46.90 | 53.10 | 6.20
+박시아_2019-07-02 | 60초 최대파워 | 49.10 | 50.90 | 1.80
+
+Opened server/supabase-garmin.ts
+🔄 실제 테스트 시 데이터 저장 과정
+네, 맞습니다! 실제 4단계나 6단계 테스트 진행시:
+
+1단계: 실시간 데이터 수집 (garmin_data 테이블)
+가민 Rally RS200에서 매초마다 데이터 수신
+power, left_balance, right_balance 실시간 저장
+예: 5초 테스트 = 5개 레코드, 15초 테스트 = 15개 레코드
+2단계: 단계별 집계 (stage_intervals 테이블)
+각 테스트 단계 완료시 평균값 계산
+avg_left_balance, avg_right_balance, balance_difference 자동 계산
+웹앱에서 "가장 불균형한 단계" 찾기용
+
+Searched for "Find code that saves garmin data to stage_intervals table during test completion"
+네! 정확합니다! 실제 테스트 진행시 데이터가 완벽하게 저장됩니다.
+
+📊 실제 테스트 시 데이터 저장 플로우
+1. 실시간 데이터 수집 (garmin_data 테이블)
+// TestScreen.tsx에서 매초마다 실행
+const saveGarminDataToServer = async (garminData: any) => {
+  await fetch('/api/garmin-data', {
+    method: 'POST',
+    body: JSON.stringify({
+      sessionId: parseInt(sessionId),
+      stageNum: stage + 1,  // 현재 단계 (1-6)
+      power: garminData.power,
+      cadence: garminData.cadence,
+      leftBalance: garminData.leftBalance,    // 좌우밸런스 저장!
+      rightBalance: garminData.rightBalance,   // 좌우밸런스 저장!
+      pedalingSmoothness: garminData.pedalingSmoothness,
+      torqueEffectiveness: garminData.torqueEffectiveness
+    })
+  });
+};
+2. 단계별 집계 계산 (stage_intervals 테이블)
+테스트 단계 완료시 garmin_data에서 평균값을 계산하여 stage_intervals에 저장:
+
+
+Opened server/routes.ts
+🔄 실제 테스트 진행시 좌우밸런스 데이터 저장 플로우:
+
+1. 실시간 데이터 수집 (garmin_data 테이블)
+// 매초마다 실행되는 코드 (TestScreen.tsx)
+const saveGarminDataToServer = async (garminData: any) => {
+  await fetch('/api/garmin-data', {
+    method: 'POST',
+    body: JSON.stringify({
+      sessionId: parseInt(sessionId),
+      stageNum: stage + 1,                    // 현재 단계 (1-6)
+      power: garminData.power,                // 250.53W
+      leftBalance: garminData.leftBalance,    // 51.25% ← 좌우밸런스 저장!
+      rightBalance: garminData.rightBalance,  // 48.75% ← 좌우밸런스 저장!
+      // ... 기타 데이터
+    })
+  });
+};
+2. 단계별 집계 계산 (stage_intervals 테이블)
+각 테스트 단계 완료시 자동으로 평균값을 계산하여 저장:
+
+
+Opened server/routes.ts
+실제 테스트 진행시 좌우밸런스 데이터는 완벽하게 저장됩니다!
+
+📊 좌우밸런스 저장 구조 요약:
+1. garmin_data 테이블 (실시간 원시 데이터)
+매초마다 저장되는 실시간 데이터
+left_balance, right_balance 컬럼에 저장 (NUMERIC 5,2 정밀도)
+예: 5초 테스트 = 5개 레코드, 15초 테스트 = 15개 레코드
+2. stage_intervals 테이블 (단계별 집계 데이터)
+각 테스트 단계 완료시 평균값 계산
+avg_left_balance, avg_right_balance, balance_difference 컬럼
+웹앱에서 "가장 불균형한 단계" 찾기용
+🔄 실제 테스트 시나리오:
+4단계 테스트 (5초/15초/30초/60초)
+5초 테스트: 5개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+15초 테스트: 15개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+30초 테스트: 30개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+60초 테스트: 60개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+6단계 테스트 (추가로 180초/360초)
+180초 테스트: 180개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+360초 테스트: 360개 실시간 레코드 → 평균 계산 → stage_intervals에 저장
+🎯 웹앱에서 확인할 수 있는 데이터:
+키/체중 데이터: participants 테이블에서 자동 불러오기
+파워 데이터: stage_intervals 테이블에서 6단계 파워 값 불러오기
+좌우밸런스: stage_intervals 테이블에서 가장 불균형한 단계 자동 찾기
+모든 데이터가 실제 Supabase에 저장되므로 웹앱에서 완벽하게 연동됩니다!

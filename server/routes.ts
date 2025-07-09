@@ -16,6 +16,7 @@ import {
   formatDate, 
   formatGender 
 } from "./supabase";
+import { findMostImbalancedStage } from "./balance-analysis";
 import { 
   AGE_EXPONENT, 
   relPower, 
@@ -1030,14 +1031,16 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       // stage_intervals에서 직접 파워 데이터 가져오기
       powerValues = await getStageIntervalPowerValues(userDisplayName);
       
-      // 가민 데이터에서 밸런스 정보 가져오기 (있으면)
-      const garminData = await getGarminDataByDisplayName(userDisplayName);
-      console.log("가민 데이터 조회 결과:", garminData?.length || 0, "개");
-      if (garminData && garminData.length > 0) {
-        balance = calculateBalance(garminData);
-        console.log("밸런스 계산 결과:", balance);
+      // 가장 불균형한 단계의 밸런스 정보 가져오기 (새로운 방식)
+      const balanceAnalysis = await findMostImbalancedStage(userDisplayName);
+      if (balanceAnalysis) {
+        balance = {
+          leftBalance: Math.round(balanceAnalysis.leftBalance),
+          rightBalance: Math.round(balanceAnalysis.rightBalance)
+        };
+        console.log("밸런스 분석 결과:", balanceAnalysis);
       } else {
-        console.log("가민 데이터가 없어서 기본 밸런스 50:50 사용");
+        console.log("밸런스 데이터가 없어서 기본 밸런스 50:50 사용");
         balance = { leftBalance: 50, rightBalance: 50 };
       }
 
@@ -1804,6 +1807,31 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     } catch (error) {
       console.error("Supabase 테스트 오류:", error);
       res.status(500).json({ error: "connection_test_failed", details: error });
+    }
+  });
+
+  // 🎯 새로운 밸런스 분석 API (첨부파일 요구사항)
+  app.get("/api/balance-analysis/:displayName", async (req, res) => {
+    try {
+      const { displayName } = req.params;
+      
+      console.log("=== 밸런스 분석 API 호출 ===", displayName);
+      
+      const balanceResult = await findMostImbalancedStage(displayName);
+      
+      if (!balanceResult) {
+        return res.status(404).json({ 
+          error: "좌우밸런스 데이터를 찾을 수 없습니다.",
+          message: "수동 입력이 필요합니다." 
+        });
+      }
+      
+      console.log("밸런스 분석 완료:", balanceResult);
+      res.json(balanceResult);
+      
+    } catch (error) {
+      console.error("밸런스 분석 API 오류:", error);
+      res.status(500).json({ error: "밸런스 분석 중 오류가 발생했습니다." });
     }
   });
 
