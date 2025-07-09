@@ -15,8 +15,8 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { insertMeasurementSchema } from "@shared/schema";
 import { z } from "zod";
-import { calculateAge } from "@/lib/fitness-calculations";
-import { usePrefill } from "@/hooks/usePrefill";
+
+
 
 const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
@@ -45,12 +45,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   const { toast } = useToast();
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [showHeartRate, setShowHeartRate] = useState(false);
-  const [showParticipantSelection, setShowParticipantSelection] = useState(false);
-  const [participantOptions, setParticipantOptions] = useState<any[]>([]);
-  const [studentNameInput, setStudentNameInput] = useState("");
-  
-  // usePrefill 훅 사용
-  const { data: prefillData, loading: prefillLoading } = usePrefill(studentNameInput);
+  // 수동 입력 전용 폼
   
   // 한국 시간 기준 오늘 날짜 가져오기
   const getKoreanDate = () => {
@@ -80,34 +75,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     },
   });
 
-  // prefillData가 변경될 때 폼 자동 채우기
-  useEffect(() => {
-    if (prefillData?.recentSession) {
-      console.log('Prefill 데이터로 폼 자동 채움:', prefillData);
-      
-      // stage별 maxPower 데이터 채우기
-      form.setValue('power5s', prefillData.recentSession.stage1?.maxPower || 0);
-      form.setValue('power15s', prefillData.recentSession.stage2?.maxPower || 0);
-      form.setValue('power30s', prefillData.recentSession.stage3?.maxPower || 0);
-      form.setValue('power60s', prefillData.recentSession.stage4?.maxPower || 0);
-      
-      // 고급 데이터가 있는 경우
-      if (prefillData.recentSession.stage5?.maxPower || prefillData.recentSession.stage6?.maxPower) {
-        form.setValue('power180s', prefillData.recentSession.stage5?.maxPower || undefined);
-        form.setValue('power360s', prefillData.recentSession.stage6?.maxPower || undefined);
-        setShowAdvanced(true);
-      }
-      
-      // 좌우 밸런스 데이터 채우기
-      form.setValue('leftBalance', prefillData.avgBalance.left);
-      form.setValue('rightBalance', prefillData.avgBalance.right);
-      
-      toast({
-        title: "자동 입력 완료",
-        description: "이전 측정 데이터를 불러왔습니다.",
-      });
-    }
-  }, [prefillData, form]);
+
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
@@ -132,28 +100,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     },
   });
 
-  const saveToSupabase = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/supabase/save-measurement", data);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Supabase 저장 완료",
-        description: "데이터가 KidsMotion 데이터베이스에 성공적으로 저장되었습니다.",
-      });
-      console.log("Supabase 저장 결과:", data);
-    },
-    onError: (error) => {
-      toast({
-        title: "Supabase 저장 실패",
-        description: "데이터베이스 저장 중 오류가 발생했습니다.",
-        variant: "destructive",
-      });
-      console.error("Supabase 저장 오류:", error);
-    },
-  });
-
   const onSubmit = (data: FormData) => {
     // restingHeartRate를 기본값으로 설정 (임시 해결책)
     const measurementData = {
@@ -161,148 +107,13 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       restingHeartRate: 70 // 기본값 설정
     }
     
-    // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
+    // 서버 MemStorage에만 저장 (Supabase 저장 완전 제거)
     createMeasurement.mutate(measurementData);
-    saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
   }
 
-  // 폼 데이터 채우기 공통 함수
-  const fillFormData = (userData: any) => {
-    form.setValue("affiliation", userData.affiliation || "");
-    form.setValue("birthDate", userData.birthDate || "");
-    // 성별 변환: "남성" -> "M", "여성" -> "F"
-    const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
-    form.setValue("gender", genderCode);
-    
-    // ✅ 키/몸무게 자동 입력 추가
-    console.log('키/몸무게 데이터 확인:', { height: userData.height, weight: userData.weight });
-    if (userData.height) {
-      console.log('키 설정:', userData.height);
-      form.setValue("height", userData.height);
-    }
-    if (userData.weight) {
-      console.log('몸무게 설정:', userData.weight);
-      form.setValue("weight", userData.weight);
-    }
-    
-    // 소수점 둘째 자리까지 표시하고 셋째 자리부터 반올림하는 헬퍼 함수
-    const roundToTwoDecimal = (value: number) => Math.round(value * 100) / 100;
-    
-    // 가민 데이터가 있으면 파워 값들도 입력 (소수점 둘째 자리로 제한)
-    if (userData.power5s) {
-      form.setValue("power5s", roundToTwoDecimal(userData.power5s));
-      form.setValue("power15s", roundToTwoDecimal(userData.power15s));
-      form.setValue("power30s", roundToTwoDecimal(userData.power30s));
-      form.setValue("power60s", roundToTwoDecimal(userData.power60s));
-      form.setValue("leftBalance", userData.leftBalance);
-      form.setValue("rightBalance", userData.rightBalance);
-      
-      // ✅ 고급측정 데이터가 있으면 자동으로 펼치기
-      if (userData.power180s || userData.power360s) {
-        console.log('고급측정 데이터 발견 - 자동 펼치기');
-        setShowAdvanced(true);
-        
-        if (userData.power180s) {
-          form.setValue("power180s", roundToTwoDecimal(userData.power180s));
-        }
-        if (userData.power360s) {
-          form.setValue("power360s", roundToTwoDecimal(userData.power360s));
-        }
-      }
-    }
-    
-    // 설정 후 폼 값 확인
-    setTimeout(() => {
-      const currentValues = form.getValues();
-      console.log('폼 설정 후 키/몸무게:', { height: currentValues.height, weight: currentValues.weight });
-    }, 100);
-  }
 
-  // 특정 참가자 선택 함수
-  const handleParticipantSelect = async (participantId: number) => {
-    try {
-      const response = await fetch(`/api/supabase/participant/${participantId}`);
-      
-      if (!response.ok) {
-        throw new Error('참가자 데이터 불러오기 실패');
-      }
-      
-      const userData = await response.json();
-      
-      if (userData && userData.studentName) {
-        fillFormData(userData);
-        setShowParticipantSelection(false);
-        setParticipantOptions([]);
-        
-        toast({
-          title: "자동 입력 완료",
-          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "자동 입력 실패",
-        description: "선택한 참가자의 데이터를 불러오는 중 오류가 발생했습니다.",
-        variant: "destructive"
-      });
-    }
-  }
 
-  // 자동 입력 함수
-  const handleAutoFill = async () => {
-    const name = form.getValues("studentName");
-    if (!name || name.length < 2) {
-      toast({
-        title: "이름을 먼저 입력하세요",
-        description: "최소 2글자 이상의 이름을 입력한 후 자동 입력을 시도해주세요.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/supabase/search-user/${encodeURIComponent(name)}`);
-      
-      if (!response.ok) {
-        throw new Error('검색 실패');
-      }
-      
-      const userData = await response.json();
-      console.log('받은 사용자 데이터:', userData);
-      
-      // 여러 명이 있는 경우
-      if (userData && userData.multiple) {
-        setParticipantOptions(userData.participants);
-        setShowParticipantSelection(true);
-        toast({
-          title: "여러 명 발견",
-          description: `"${name}" 이름으로 ${userData.participants.length}명이 등록되어 있습니다. 선택해주세요.`,
-        });
-        return;
-      }
-      
-      // 단일 사용자인 경우
-      if (userData && userData.studentName) {
-        fillFormData(userData);
-        toast({
-          title: "자동 입력 완료",
-          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
-        });
-      } else {
-        toast({
-          title: "정보 없음",
-          description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
-          variant: "destructive"
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "자동 입력 실패",
-        description: "데이터를 불러오는 중 오류가 발생했습니다.",
-        variant: "destructive"
-      });
-    }
-  }
+  // 수동 입력 전용 - Supabase 자동 입력 기능 완전 제거
 
   // Auto-adjust right balance when left balance changes
   const handleLeftBalanceChange = (value: string) => {
@@ -348,34 +159,13 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 name="studentName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>이름 {prefillLoading && <Loader2 className="inline h-4 w-4 animate-spin ml-2" />}</FormLabel>
-                    <div className="flex gap-2">
-                      <FormControl>
-                        <Input 
-                          {...field} 
-                          placeholder="예: 김철수"
-                          onBlur={(e) => {
-                            field.onBlur(e);
-                            setStudentNameInput(e.target.value);
-                          }}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleAutoFill();
-                            }
-                          }}
-                        />
-                      </FormControl>
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        size="sm"
-                        onClick={handleAutoFill}
-                        className="whitespace-nowrap"
-                      >
-                        자동입력
-                      </Button>
-                    </div>
+                    <FormLabel>이름</FormLabel>
+                    <FormControl>
+                      <Input 
+                        {...field} 
+                        placeholder="예: 김철수"
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -457,48 +247,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
               />
             </div>
 
-            {/* 참가자 선택 UI */}
-            {showParticipantSelection && (
-              <Card className="bg-blue-50 border-blue-200">
-                <CardHeader>
-                  <CardTitle className="text-blue-700">참가자 선택</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-blue-600 mb-4">
-                    동일한 이름의 참가자가 여러 명 있습니다. 올바른 참가자를 선택해주세요:
-                  </p>
-                  <div className="space-y-2">
-                    {participantOptions.map((participant) => (
-                      <div 
-                        key={participant.id}
-                        className="flex items-center justify-between p-3 bg-white rounded-lg border hover:bg-blue-50 cursor-pointer"
-                        onClick={() => handleParticipantSelect(participant.id)}
-                      >
-                        <div>
-                          <div className="font-semibold">{participant.name}</div>
-                          <div className="text-sm text-gray-600">
-                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
-                          </div>
-                        </div>
-                        <Button variant="outline" size="sm">
-                          선택
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                  <Button 
-                    variant="outline" 
-                    className="mt-4 w-full"
-                    onClick={() => {
-                      setShowParticipantSelection(false);
-                      setParticipantOptions([]);
-                    }}
-                  >
-                    취소
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+
 
             {/* Physical Info Section */}
             <div className="grid grid-cols-2 gap-6 mb-8">
@@ -904,7 +653,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
               <Button 
                 type="submit" 
                 className="w-full bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
-                disabled={createMeasurement.isPending || saveToSupabase.isPending}
+                disabled={createMeasurement.isPending}
               >
                 {createMeasurement.isPending ? (
                   <>
@@ -918,27 +667,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                   </>
                 )}
               </Button>
-              
-              {/* Supabase 저장 상태 표시 */}
-              {saveToSupabase.isPending && (
-                <div className="flex items-center justify-center space-x-2 text-blue-600 bg-blue-50 p-2 rounded-lg">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="text-sm">KidsMotion 데이터베이스에 저장 중...</span>
-                </div>
-              )}
-              
-              {saveToSupabase.isSuccess && !saveToSupabase.isPending && (
-                <div className="flex items-center justify-center space-x-2 text-green-600 bg-green-50 p-2 rounded-lg">
-                  <ChartLine className="w-4 h-4" />
-                  <span className="text-sm">✓ 데이터베이스 저장 완료</span>
-                </div>
-              )}
-              
-              {saveToSupabase.isError && (
-                <div className="flex items-center justify-center space-x-2 text-red-600 bg-red-50 p-2 rounded-lg">
-                  <span className="text-sm">⚠ 데이터베이스 저장 실패</span>
-                </div>
-              )}
             </div>
           </form>
         </Form>
