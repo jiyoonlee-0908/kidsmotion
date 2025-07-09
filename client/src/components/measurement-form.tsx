@@ -573,6 +573,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
+                          step="0.1"
                           value={field.value === 0 ? "" : field.value}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -596,6 +597,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
+                          step="0.1"
                           value={field.value === 0 ? "" : field.value}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -619,6 +621,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
+                          step="0.1"
                           value={field.value === 0 ? "" : field.value}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -642,6 +645,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           type="number" 
                           min="0" 
                           max="1000"
+                          step="0.1"
                           value={field.value === 0 ? "" : field.value}
                           onChange={(e) => {
                             const value = e.target.value;
@@ -823,9 +827,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           <FormControl>
                             <Input
                               type="number"
+                              step="0.1"
                               className="bg-white"
                               value={field.value || ""}
-                              onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                              onChange={e => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                             />
                           </FormControl>
                           <p className="text-xs text-gray-500">3분간 일정 강도 유지</p>
@@ -846,9 +851,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           <FormControl>
                             <Input
                               type="number"
+                              step="0.1"
                               className="bg-white"
                               value={field.value || ""}
-                              onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
+                              onChange={e => field.onChange(e.target.value ? parseFloat(e.target.value) : undefined)}
                             />
                           </FormControl>
                           <p className="text-xs text-gray-500">6분간 유산소 영역</p>
