@@ -185,12 +185,15 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       form.setValue("weight", userData.weight);
     }
     
-    // 가민 데이터가 있으면 파워 값들도 입력
+    // 소수점 1자리로 반올림하는 헬퍼 함수
+    const roundToOneDecimal = (value: number) => Math.round(value * 10) / 10;
+    
+    // 가민 데이터가 있으면 파워 값들도 입력 (소수점 1자리로 제한)
     if (userData.power5s) {
-      form.setValue("power5s", userData.power5s);
-      form.setValue("power15s", userData.power15s);
-      form.setValue("power30s", userData.power30s);
-      form.setValue("power60s", userData.power60s);
+      form.setValue("power5s", roundToOneDecimal(userData.power5s));
+      form.setValue("power15s", roundToOneDecimal(userData.power15s));
+      form.setValue("power30s", roundToOneDecimal(userData.power30s));
+      form.setValue("power60s", roundToOneDecimal(userData.power60s));
       form.setValue("leftBalance", userData.leftBalance);
       form.setValue("rightBalance", userData.rightBalance);
       
@@ -200,10 +203,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         setShowAdvanced(true);
         
         if (userData.power180s) {
-          form.setValue("power180s", userData.power180s);
+          form.setValue("power180s", roundToOneDecimal(userData.power180s));
         }
         if (userData.power360s) {
-          form.setValue("power360s", userData.power360s);
+          form.setValue("power360s", roundToOneDecimal(userData.power360s));
         }
       }
     }
