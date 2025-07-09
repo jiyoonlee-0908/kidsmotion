@@ -293,15 +293,12 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
       {/* Card 1: Basic Info */}
       <Card className="fitness-card">
         <CardContent>
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center mb-8">
             <div className="flex items-center space-x-4">
               <div className="fitness-icon">
                 <User className="text-white w-6 h-6" />
               </div>
               <h3 className="text-2xl font-bold gradient-text">{measurement.studentName}</h3>
-            </div>
-            <div className="w-20 h-20 bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl flex items-center justify-center shadow-lg border border-white">
-              <QRCodeSVG value={reportUrl} size={72} />
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
