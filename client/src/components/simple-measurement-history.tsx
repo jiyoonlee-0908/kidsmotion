@@ -3,12 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Search, Eye, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
+import { Search, Eye, FileText } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import BalanceChart from "@/components/charts/balance-chart";
-import RadarChart from "@/components/charts/radar-chart";
 
 interface MeasurementData {
   id: number;
@@ -16,7 +12,7 @@ interface MeasurementData {
   affiliation: string;
   gender: string;
   age: number;
-  birthDate: string; // 생년월일 추가
+  birthDate: string;
   measureDate: string;
   height: number;
   weight: number;
@@ -56,18 +52,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [searchBirthDate, setSearchBirthDate] = useState('');
   const [searchGender, setSearchGender] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedMeasurement, setSelectedMeasurement] = useState<MeasurementData | null>(null);
-
   const [showReports, setShowReports] = useState(false);
-  const [selectedReport, setSelectedReport] = useState<any>(null);
-  const [showReportViewer, setShowReportViewer] = useState(false);
 
   const { toast } = useToast();
 
-
-
   useEffect(() => {
-    // 페이지 로딩 시 실제 서버에서 모든 데이터 가져오기
     handleSearch();
   }, []);
 
@@ -113,259 +102,117 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     }
   };
 
-  // HTML 스냅샷 조회
-  const fetchReportSnapshot = async (reportId: number) => {
-    try {
-      const response = await fetch(`/api/fitness-report-snapshot/${reportId}`);
-      
-      if (!response.ok) {
-        throw new Error('HTML 스냅샷을 가져오는데 실패했습니다.');
-      }
-      
-      const snapshot = await response.json();
-      return snapshot;
-    } catch (error) {
-      console.error('HTML 스냅샷 조회 오류:', error);
-      toast({
-        title: "오류",
-        description: "HTML 스냅샷을 불러올 수 없습니다.",
-        variant: "destructive",
-      });
-      return null;
-    }
-  };
-
   const handleSearch = async () => {
     setIsLoading(true);
-    
     try {
-      // 실제 서버 API 호출
-      const queryParams = new URLSearchParams();
-      if (searchName.trim()) queryParams.append('studentName', searchName.trim());
-      if (searchAffiliation.trim()) queryParams.append('affiliation', searchAffiliation.trim());
-      if (searchBirthDate.trim()) queryParams.append('birthDate', searchBirthDate.trim());
-      if (searchGender.trim()) queryParams.append('gender', searchGender.trim());
-      
-      // 모든 조건이 비어있으면 빈 이름으로 검색 (모든 데이터)
-      if (!searchName.trim() && !searchAffiliation.trim() && !searchBirthDate.trim() && !searchGender.trim()) {
-        queryParams.append('studentName', '');
-      }
-      
-      const response = await fetch(`/api/measurements/search?${queryParams}`);
+      const searchParams = new URLSearchParams();
+      if (searchName.trim()) searchParams.append('studentName', searchName.trim());
+      if (searchAffiliation.trim()) searchParams.append('affiliation', searchAffiliation.trim());
+      if (searchBirthDate.trim()) searchParams.append('birthDate', searchBirthDate.trim());
+      if (searchGender.trim()) searchParams.append('gender', searchGender.trim());
+
+      const response = await fetch(`/api/measurements/search?${searchParams.toString()}`);
       
       if (!response.ok) {
-        throw new Error('데이터를 가져오는데 실패했습니다.');
+        throw new Error('검색에 실패했습니다.');
       }
       
       const data = await response.json();
-      console.log("받은 데이터:", data);
-      if (data.length > 0) {
-        console.log("첫 번째 항목:", data[0]);
-        console.log("strengths:", data[0].strengths);
-        console.log("improvements:", data[0].improvements);
-      }
-      
-      // 서버에서 받은 원본 데이터를 그대로 사용 (새로 계산하지 않음)
-      const formattedData: MeasurementData[] = data.map((item: any) => {
-        // 서버 응답이 {measurement: {...}, analysis: {...}} 구조인 경우 처리
-        const measurement = item.measurement || item;
-        const analysis = item.analysis || {};
-        
-        return {
-          id: measurement.id,
-          studentName: measurement.studentName,
-          affiliation: measurement.affiliation,
-          gender: measurement.gender,
-          age: analysis.age || 0,
-          measureDate: measurement.measureDate,
-          birthDate: measurement.birthDate,
-          height: measurement.height,
-          weight: measurement.weight,
-          power5s: measurement.power5s,
-          power15s: measurement.power15s,
-          power30s: measurement.power30s,
-          power60s: measurement.power60s,
-          power180s: measurement.power180s,
-          power360s: measurement.power360s,
-          leftBalance: measurement.leftBalance,
-          rightBalance: measurement.rightBalance,
-          maxHeartRate: measurement.maxHeartRate,
-          avgHeartRate: measurement.avgHeartRate,
-          overallGrade: analysis.overallPercentile >= 97 ? '매우우수' : 
-                       analysis.overallPercentile >= 85 ? '우수' :
-                       analysis.overallPercentile >= 15 ? '보통' :
-                       analysis.overallPercentile >= 3 ? '부족' : '매우부족',
-          overallPercentile: analysis.overallPercentile || 0,
-          percentile5s: analysis.percentile5s || 0,
-          percentile15s: analysis.percentile15s || 0,
-          percentile30s: analysis.percentile30s || 0,
-          percentile60s: analysis.percentile60s || 0,
-          percentile180s: analysis.percentile180s || null,
-          percentile360s: analysis.percentile360s || null,
-          strengths: analysis.strengths,
-          improvements: analysis.improvements,
-          aiCoreInsights: analysis.aiCoreInsights,
-          balanceStatus: analysis.balanceStatus
-        };
-      });
-      
-      setMeasurements(formattedData);
-      
+      setMeasurements(data);
+      console.log('받은 데이터:', data);
+      setShowReports(false);
     } catch (error) {
       console.error('검색 오류:', error);
       toast({
         title: "오류",
-        description: "데이터를 불러오는데 실패했습니다.",
-        variant: "destructive"
+        description: "검색 중 오류가 발생했습니다.",
+        variant: "destructive",
       });
-      setMeasurements([]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // 나이 계산 함수
-  const calculateAge = (birthDate: string): number => {
-    const birth = new Date(birthDate);
-    const today = new Date();
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-      age--;
-    }
-    
-    return age;
-  };
-
-
-
-
-
   const getGradeColor = (grade: string) => {
     switch (grade) {
-      case '매우우수': return 'bg-purple-100 text-purple-800';
-      case '우수': return 'bg-blue-100 text-blue-800';
-      case '보통': return 'bg-green-100 text-green-800';
-      case '부족': return 'bg-yellow-100 text-yellow-800';
-      case '매우부족': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case '1등급': return 'bg-purple-100 text-purple-800 border-purple-200';
+      case '2등급': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case '3등급': return 'bg-green-100 text-green-800 border-green-200';
+      case '4등급': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case '5등급': return 'bg-red-100 text-red-800 border-red-200';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
 
   return (
-    <div className="w-full max-w-[1200px] mx-auto p-6 space-y-6">
+    <div className="space-y-6">
+      {/* 검색 폼 */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Search className="w-5 h-5" />
-            측정 기록 조회
+            측정기록 검색
           </CardTitle>
-          <p className="text-sm text-gray-600">
-            학생의 과거 측정 기록을 조회할 수 있습니다
-          </p>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {/* 첫 번째 줄: 이름, 기관 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">이름</label>
-                <Input
-                  placeholder="학생 이름 입력"
-                  value={searchName}
-                  onChange={(e) => setSearchName(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      searchSavedReports();
-                    }
-                  }}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">소속 기관</label>
-                <Input
-                  placeholder="병원, 센터, 학교, 유치원명 입력"
-                  value={searchAffiliation}
-                  onChange={(e) => setSearchAffiliation(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      e.preventDefault();
-                      searchSavedReports();
-                    }
-                  }}
-                />
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">학생 이름</label>
+              <Input
+                type="text"
+                placeholder="이름 검색"
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+              />
             </div>
-
-            {/* 두 번째 줄: 생년월일, 성별 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">생년월일</label>
-                <Input
-                  type="date"
-                  placeholder="YYYY-MM-DD"
-                  value={searchBirthDate}
-                  onChange={(e) => setSearchBirthDate(e.target.value)}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">성별</label>
-                <select
-                  value={searchGender}
-                  onChange={(e) => setSearchGender(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                >
-                  <option value="">전체</option>
-                  <option value="M">남자</option>
-                  <option value="F">여자</option>
-                </select>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">소속</label>
+              <Input
+                type="text"
+                placeholder="학교명 등"
+                value={searchAffiliation}
+                onChange={(e) => setSearchAffiliation(e.target.value)}
+              />
             </div>
-
-            {/* 검색 버튼 */}
-            <div className="flex gap-2 justify-end">
-              <Button 
-                variant="outline"
-                onClick={() => {
-                  setSearchName('');
-                  setSearchAffiliation('');
-                  setSearchBirthDate('');
-                  setSearchGender('');
-                  handleSearch();
-                }}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">생년월일</label>
+              <Input
+                type="date"
+                value={searchBirthDate}
+                onChange={(e) => setSearchBirthDate(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">성별</label>
+              <select
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={searchGender}
+                onChange={(e) => setSearchGender(e.target.value)}
               >
-                초기화
-              </Button>
-
-              <Button 
-                onClick={searchSavedReports} 
-                disabled={isLoading || !searchName.trim()}
-                className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    검색중...
-                  </div>
-                ) : (
-                  <>
-                    <FileText className="w-4 h-4 mr-2" />
-                    리포트 검색
-                  </>
-                )}
-              </Button>
+                <option value="">전체</option>
+                <option value="M">남자</option>
+                <option value="F">여자</option>
+              </select>
             </div>
-
-            {/* 검색 안내 */}
-            <div className="text-sm text-gray-500 bg-gray-50 p-3 rounded-md">
-              <p>💡 <strong>검색 팁:</strong></p>
-              <p>• 조건을 비워두고 검색하면 전체 기록이 표시됩니다</p>
-              <p>• 여러 조건을 입력하면 모든 조건에 맞는 기록만 표시됩니다</p>
-              <p>• 이름만 입력하면 동명이인도 함께 표시됩니다</p>
-              <p>• "저장된 리포트" 버튼으로 완전한 분석 리포트를 볼 수 있습니다</p>
-            </div>
+          </div>
+          <div className="flex gap-2">
+            <Button 
+              onClick={handleSearch}
+              disabled={isLoading}
+              className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
+            >
+              <Search className="w-4 h-4 mr-2" />
+              {isLoading ? '검색 중...' : '측정기록 검색'}
+            </Button>
+            <Button 
+              onClick={searchSavedReports}
+              disabled={isLoading}
+              variant="outline"
+              className="border-[#7B5CFF] text-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white"
+            >
+              <FileText className="w-4 h-4 mr-2" />
+              {isLoading ? '검색 중...' : '저장된 리포트 검색'}
+            </Button>
           </div>
         </CardContent>
       </Card>
@@ -386,7 +233,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               </div>
             ) : (
               <div className="space-y-4">
-                {savedReports.map((report, index) => (
+                {savedReports.map((report) => (
                   <div key={report.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex justify-between items-center">
                       <div className="flex-1">
@@ -419,27 +266,9 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       <div className="flex gap-2">
                         <Button 
                           size="sm"
-                          onClick={async () => {
-                            // 서버에서 측정 데이터 가져와서 모달로 표시
-                            try {
-                              const response = await fetch(`/api/measurements/${report.measurement_id}`);
-                              if (response.ok) {
-                                const data = await response.json();
-                                setSelectedMeasurement(data.measurement);
-                              } else {
-                                toast({
-                                  title: "오류",
-                                  description: "측정 데이터를 불러올 수 없습니다.",
-                                  variant: "destructive",
-                                });
-                              }
-                            } catch (error) {
-                              toast({
-                                title: "오류",
-                                description: "데이터를 불러오는 중 오류가 발생했습니다.",
-                                variant: "destructive",
-                              });
-                            }
+                          onClick={() => {
+                            // QR 리포트 URL로 직접 이동
+                            window.open(`/report/${report.measurement_id}`, '_blank');
                           }}
                           className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
                         >
@@ -456,6 +285,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         </Card>
       )}
 
+      {/* 검색 결과 */}
       {!showReports && (
         <Card>
           <CardHeader>
@@ -471,11 +301,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 flex-1">
-                      {/* 이름 (클릭 가능, 고정 너비) */}
-                      <h3 
-                        className="text-lg font-semibold text-[#7B5CFF] cursor-pointer hover:underline min-w-[80px]"
-                        onClick={() => setSelectedMeasurement(measurement)}
-                      >
+                      {/* 이름 */}
+                      <h3 className="text-lg font-semibold text-[#7B5CFF] min-w-[80px]">
                         {measurement.studentName}
                       </h3>
                       
@@ -541,429 +368,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         </CardContent>
         </Card>
       )}
-
-      {/* 상세 리포트 모달 */}
-      <Dialog open={!!selectedMeasurement} onOpenChange={() => setSelectedMeasurement(null)}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <User className="w-5 h-5" />
-              {selectedMeasurement?.studentName} 체력 분석 리포트
-            </DialogTitle>
-          </DialogHeader>
-          
-          {selectedMeasurement && (
-            <div className="space-y-8">
-              {/* 헤더 */}
-              <div className="text-center">
-                <h2 className="text-3xl font-bold gradient-text mb-4">체력 분석 결과</h2>
-              </div>
-
-              {/* 기본 정보 섹션 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <div className="text-center mb-4">
-                  <h3 className="text-2xl font-bold text-gray-900">{selectedMeasurement.studentName}</h3>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
-                  <div>
-                    <p className="text-sm text-gray-600">측정일</p>
-                    <p className="font-semibold">{selectedMeasurement.measureDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">소속</p>
-                    <p className="font-semibold">{selectedMeasurement.affiliation}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">생년월일</p>
-                    <p className="font-semibold">{selectedMeasurement.birthDate}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">키/체중</p>
-                    <p className="font-semibold">{selectedMeasurement.height}cm / {selectedMeasurement.weight}kg</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">BMI</p>
-                    <p className="font-semibold">{(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* 신체변화비교카드 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">신체변화비교카드</h3>
-                
-                {/* BMI 별도 */}
-                <div className="mb-6">
-                  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Scale className="w-5 h-5 text-green-600" />
-                      <h4 className="font-semibold text-green-900">BMI</h4>
-                    </div>
-                    <div className="text-2xl font-bold text-green-600 mb-1">
-                      {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}
-                    </div>
-                    <div className="text-sm text-gray-600">kg/m² (정상범위)</div>
-                  </div>
-                </div>
-
-                {/* 체력변화와 좌우밸런스 동일선상 배치 */}
-                <div className="grid grid-cols-2 gap-6">
-                  {/* 체력변화 */}
-                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <BarChart3 className="w-5 h-5 text-purple-600" />
-                      <h4 className="font-semibold text-purple-900">체력변화</h4>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-purple-600 mb-2">{Math.round(selectedMeasurement.overallPercentile)}</div>
-                      <div className="text-sm text-gray-600 mb-3">종합 백분위</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div>
-                        <span className="text-xs text-gray-500">강점</span>
-                        <p className="text-sm font-semibold text-green-600">
-                          {selectedMeasurement.strengths && selectedMeasurement.strengths.trim() !== "" 
-                            ? selectedMeasurement.strengths 
-                            : "집중 훈련이 필요합니다"}
-                        </p>
-                      </div>
-                      <div>
-                        <span className="text-xs text-gray-500">보완점</span>
-                        <p className="text-sm font-semibold text-orange-600">
-                          {selectedMeasurement.improvements && selectedMeasurement.improvements.trim() !== "" 
-                            ? selectedMeasurement.improvements 
-                            : "측정 필요"}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* 좌우밸런스 */}
-                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-200">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Scale className="w-5 h-5 text-indigo-600" />
-                      <h4 className="font-semibold text-indigo-900">좌우밸런스</h4>
-                    </div>
-                    <div className="text-center mb-4">
-                      <div className="text-2xl font-bold text-indigo-600 mb-1">
-                        {selectedMeasurement.leftBalance && selectedMeasurement.rightBalance 
-                          ? Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) 
-                          : 0}%
-                      </div>
-                      <div className="text-sm text-gray-600">차이</div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="text-sm text-gray-600">
-                        좌: {selectedMeasurement.leftBalance || 0}% / 우: {selectedMeasurement.rightBalance || 0}%
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {selectedMeasurement.leftBalance && selectedMeasurement.rightBalance 
-                          ? (Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? "정상 범위" : 
-                             Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? "주의 필요" : "교정 필요")
-                          : "측정 필요"}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* BMI 체격 평가 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">체격 평가</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="text-4xl font-bold text-green-600 mb-2">
-                      {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}
-                    </div>
-                    <div className="text-sm text-gray-600">BMI (kg/m²)</div>
-                    <div className="mt-2">
-                      <Badge className="bg-green-100 text-green-700 px-3 py-1">
-                        정상 범위
-                      </Badge>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Scale className="w-5 h-5 text-green-600" />
-                        <h4 className="font-semibold text-green-900">성장 평가</h4>
-                      </div>
-                      <div className="text-sm text-gray-700 leading-relaxed">
-                        <p>현재 BMI {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}은 {selectedMeasurement.age}세 {selectedMeasurement.gender === 'M' ? '남아' : '여아'}의 건강한 성장 범위에 포함됩니다.</p>
-                        <p className="mt-2">균형잡힌 식단과 꾸준한 운동으로 건강한 성장을 유지하세요.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 좌우 밸런스 분석 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">좌우 밸런스 분석</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="flex justify-center">
-                    <BalanceChart 
-                      leftBalance={selectedMeasurement.leftBalance} 
-                      rightBalance={selectedMeasurement.rightBalance} 
-                      status={selectedMeasurement.balanceStatus}
-                    />
-                  </div>
-                  <div>
-                    <div className="mb-4">
-                      <div className="flex justify-between mb-2">
-                        <span>왼쪽</span>
-                        <span>{selectedMeasurement.leftBalance}%</span>
-                      </div>
-                      <div className="flex justify-between mb-2">
-                        <span>오른쪽</span>
-                        <span>{selectedMeasurement.rightBalance}%</span>
-                      </div>
-                    </div>
-                    <div className="bg-gray-50 rounded p-4">
-                      <h4 className="font-semibold mb-2">밸런스 상태</h4>
-                      <p className="text-sm text-gray-700">
-                        좌우 밸런스 차이: {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
-                        {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? " (정상 범위)" : 
-                         Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (주의 필요)" : " (교정 필요)"}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 항목별 체력 세부평가 */}
-              <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">항목별 체력 세부평가</h3>
-                <div className="space-y-6">
-                  <div className="fitness-item">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h4 className="font-semibold">순발력 (5초)</h4>
-                        <p className="text-sm text-gray-600">{selectedMeasurement.power5s}W | 환산점수: {Math.round(selectedMeasurement.percentile5s)}</p>
-                      </div>
-                      <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile5s >= 97 ? '매우우수' : selectedMeasurement.percentile5s >= 85 ? '우수' : selectedMeasurement.percentile5s >= 15 ? '보통' : selectedMeasurement.percentile5s >= 3 ? '부족' : '매우부족'}
-                        </Badge>
-                        <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile5s}%</p>
-                      </div>
-                    </div>
-                    <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                           style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
-                    </div>
-                    <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile5s >= 97 ? "매우 우수한 순발력을 보여줍니다." :
-                       selectedMeasurement.percentile5s >= 85 ? "우수한 순발력을 보여줍니다." :
-                       selectedMeasurement.percentile5s >= 15 ? "보통 수준의 순발력입니다." :
-                       selectedMeasurement.percentile5s >= 3 ? "순발력 향상이 필요합니다." :
-                       "순발력 집중 훈련이 권장됩니다."}
-                    </p>
-                  </div>
-
-                  <div className="fitness-item">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h4 className="font-semibold">스프린트 파워 (15초)</h4>
-                        <p className="text-sm text-gray-600">{selectedMeasurement.power15s}W | 환산점수: {Math.round(selectedMeasurement.percentile15s)}</p>
-                      </div>
-                      <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile15s >= 97 ? '매우우수' : selectedMeasurement.percentile15s >= 85 ? '우수' : selectedMeasurement.percentile15s >= 15 ? '보통' : selectedMeasurement.percentile15s >= 3 ? '부족' : '매우부족'}
-                        </Badge>
-                        <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile15s}%</p>
-                      </div>
-                    </div>
-                    <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                           style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
-                    </div>
-                    <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile15s >= 97 ? "매우 우수한 스프린트 파워를 보여줍니다." :
-                       selectedMeasurement.percentile15s >= 85 ? "우수한 스프린트 파워를 보여줍니다." :
-                       selectedMeasurement.percentile15s >= 15 ? "보통 수준의 스프린트 파워입니다." :
-                       selectedMeasurement.percentile15s >= 3 ? "스프린트 파워 향상이 필요합니다." :
-                       "스프린트 파워 집중 훈련이 권장됩니다."}
-                    </p>
-                  </div>
-
-                  <div className="fitness-item">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h4 className="font-semibold">파워 지속력 (30초)</h4>
-                        <p className="text-sm text-gray-600">{selectedMeasurement.power30s}W | 환산점수: {Math.round(selectedMeasurement.percentile30s)}</p>
-                      </div>
-                      <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile30s >= 97 ? '매우우수' : selectedMeasurement.percentile30s >= 85 ? '우수' : selectedMeasurement.percentile30s >= 15 ? '보통' : selectedMeasurement.percentile30s >= 3 ? '부족' : '매우부족'}
-                        </Badge>
-                        <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile30s}%</p>
-                      </div>
-                    </div>
-                    <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                           style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
-                    </div>
-                    <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile30s >= 97 ? "매우 우수한 근력을 보여줍니다." :
-                       selectedMeasurement.percentile30s >= 85 ? "우수한 근력을 보여줍니다." :
-                       selectedMeasurement.percentile30s >= 15 ? "보통 수준의 근력입니다." :
-                       selectedMeasurement.percentile30s >= 3 ? "근력 향상이 필요합니다." :
-                       "근력 집중 훈련이 권장됩니다."}
-                    </p>
-                  </div>
-
-                  <div className="fitness-item">
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <h4 className="font-semibold">근력 (60초)</h4>
-                        <p className="text-sm text-gray-600">{selectedMeasurement.power60s}W | 환산점수: {Math.round(selectedMeasurement.percentile60s)}</p>
-                      </div>
-                      <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile60s >= 97 ? '매우우수' : selectedMeasurement.percentile60s >= 85 ? '우수' : selectedMeasurement.percentile60s >= 15 ? '보통' : selectedMeasurement.percentile60s >= 3 ? '부족' : '매우부족'}
-                        </Badge>
-                        <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile60s}%</p>
-                      </div>
-                    </div>
-                    <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                           style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
-                    </div>
-                    <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile60s >= 97 ? "매우 우수한 근지구력을 보여줍니다." :
-                       selectedMeasurement.percentile60s >= 85 ? "우수한 근지구력을 보여줍니다." :
-                       selectedMeasurement.percentile60s >= 15 ? "보통 수준의 근지구력입니다." :
-                       selectedMeasurement.percentile60s >= 3 ? "근지구력 향상이 필요합니다." :
-                       "근지구력 집중 훈련이 권장됩니다."}
-                    </p>
-                  </div>
-
-                  {/* 180초 항목 */}
-                  {selectedMeasurement.percentile180s !== null && selectedMeasurement.percentile180s !== undefined && (
-                    <div className="fitness-item">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h4 className="font-semibold">심폐지구력 (180초)</h4>
-                          <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s)}</p>
-                        </div>
-                        <div className="text-right">
-                          <Badge className={`${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                            {selectedMeasurement.percentile180s >= 97 ? '매우우수' : selectedMeasurement.percentile180s >= 85 ? '우수' : selectedMeasurement.percentile180s >= 15 ? '보통' : selectedMeasurement.percentile180s >= 3 ? '부족' : '매우부족'}
-                          </Badge>
-                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
-                        </div>
-                      </div>
-                      <div className="progress-bar mb-3">
-                        <div className={`progress-fill ${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                             style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
-                      </div>
-                      <p className="text-sm text-gray-700">
-                        {selectedMeasurement.percentile180s >= 97 ? "매우 우수한 심폐지구력을 보여줍니다." :
-                         selectedMeasurement.percentile180s >= 85 ? "우수한 심폐지구력을 보여줍니다." :
-                         selectedMeasurement.percentile180s >= 15 ? "보통 수준의 심폐지구력입니다." :
-                         selectedMeasurement.percentile180s >= 3 ? "심폐지구력 향상이 필요합니다." :
-                         "심폐지구력 집중 훈련이 권장됩니다."}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* 360초 항목 */}
-                  {selectedMeasurement.percentile360s !== null && selectedMeasurement.percentile360s !== undefined && (
-                    <div className="fitness-item">
-                      <div className="flex justify-between items-start mb-3">
-                        <div>
-                          <h4 className="font-semibold">장시간지구력 (360초)</h4>
-                          <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s)}</p>
-                        </div>
-                        <div className="text-right">
-                          <Badge className={`${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                            {selectedMeasurement.percentile360s >= 97 ? '매우우수' : selectedMeasurement.percentile360s >= 85 ? '우수' : selectedMeasurement.percentile360s >= 15 ? '보통' : selectedMeasurement.percentile360s >= 3 ? '부족' : '매우부족'}
-                          </Badge>
-                          <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
-                        </div>
-                      </div>
-                      <div className="progress-bar mb-3">
-                        <div className={`progress-fill ${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
-                             style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
-                      </div>
-                      <p className="text-sm text-gray-700">
-                        {selectedMeasurement.percentile360s >= 97 ? "매우 우수한 장시간지구력을 보여줍니다." :
-                         selectedMeasurement.percentile360s >= 85 ? "우수한 장시간지구력을 보여줍니다." :
-                         selectedMeasurement.percentile360s >= 15 ? "보통 수준의 장시간지구력입니다." :
-                         selectedMeasurement.percentile360s >= 3 ? "장시간지구력 향상이 필요합니다." :
-                         "장시간지구력 집중 훈련이 권장됩니다."}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* 심박수 확인 */}
-              {(selectedMeasurement.maxHeartRate || selectedMeasurement.avgHeartRate) && (
-                <div className="bg-white rounded-lg p-6 border">
-                  <h3 className="text-xl font-bold mb-4">심박수 확인</h3>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-red-500">{selectedMeasurement.maxHeartRate || '-'}</div>
-                      <div className="text-sm text-gray-600">최대 심박수</div>
-                      <div className="text-xs text-gray-500">해당 나이 평균 최대심박수: {220 - selectedMeasurement.age}</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-3xl font-bold text-blue-500">{selectedMeasurement.avgHeartRate || '-'}</div>
-                      <div className="text-sm text-gray-600">운동시 평균 심박수</div>
-                      <div className="text-xs text-gray-500">최대 심박수 대비 {selectedMeasurement.avgHeartRate && selectedMeasurement.maxHeartRate ? Math.round((selectedMeasurement.avgHeartRate / selectedMeasurement.maxHeartRate) * 100) : '-'}%로 운동</div>
-                    </div>
-                  </div>
-                  <div className="mt-4 bg-pink-50 rounded p-4">
-                    <h4 className="font-semibold text-pink-800 mb-2">💓 심박수 건강 포인트</h4>
-                    <p className="text-sm text-pink-700">🏃‍♀️ 규칙적인 운동으로 심박을 더 건강하게 만들어봐요!</p>
-                    <p className="text-sm text-pink-700">📈 시간이 지나면서 운동시 평균 심박수가 낮아지는 것을 목표로 해봐요!</p>
-                  </div>
-                </div>
-              )}
-
-
-
-
-
-
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
-
-
-
-      {/* HTML 스냅샷 뷰어 다이얼로그 */}
-      <Dialog open={showReportViewer} onOpenChange={setShowReportViewer}>
-        <DialogContent className="max-w-7xl max-h-[95vh] overflow-hidden">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              HTML 스냅샷 리포트
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="flex-1 overflow-hidden">
-            {selectedReport && selectedReport.html_content ? (
-              <div className="w-full h-[80vh] border rounded-lg overflow-hidden">
-                <iframe
-                  srcDoc={selectedReport.html_content}
-                  className="w-full h-full border-0"
-                  title="HTML 리포트 스냅샷"
-                  sandbox="allow-same-origin"
-                />
-              </div>
-            ) : (
-              <div className="text-center py-20 text-gray-500">
-                <FileText className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-                <p>HTML 스냅샷을 불러올 수 없습니다.</p>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
