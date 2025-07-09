@@ -60,15 +60,8 @@ export class MemStorage implements IStorage {
     return user;
   }
 
-  async createMeasurement(insertMeasurement: InsertMeasurement & { id?: number }): Promise<Measurement> {
-    // 클라이언트에서 ID를 제공하면 사용, 아니면 auto-increment
-    const id = insertMeasurement.id || this.currentMeasurementId++;
-    
-    // 제공된 ID가 기존 최대 ID보다 크면 currentMeasurementId 업데이트
-    if (insertMeasurement.id && insertMeasurement.id >= this.currentMeasurementId) {
-      this.currentMeasurementId = insertMeasurement.id + 1;
-    }
-    
+  async createMeasurement(insertMeasurement: InsertMeasurement): Promise<Measurement> {
+    const id = this.currentMeasurementId++;
     const measurement: Measurement = { 
       ...insertMeasurement, 
       id,
