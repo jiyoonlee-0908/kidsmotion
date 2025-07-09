@@ -14,8 +14,13 @@ export function calculateBMI(height: number, weight: number): number {
   return weight / (heightInMeters * heightInMeters);
 }
 
-export function calculateRelativePower(power: number, weight: number, exponent: number = 0.67): number {
-  return power / Math.pow(weight, exponent);
+// 연령별 allometric 지수
+export const AGE_EXPONENT = (age: number): number =>
+  age <= 9 ? 0.75 : age <= 13 ? 0.72 : 0.67;
+
+// 새로운 상대 파워 계산 (연령별 지수 적용)
+export function calculateRelativePower(power: number, weight: number, age: number): number {
+  return power / Math.pow(weight, AGE_EXPONENT(age));
 }
 
 export function getBalanceStatus(leftBalance: number, rightBalance: number): string {
@@ -25,16 +30,27 @@ export function getBalanceStatus(leftBalance: number, rightBalance: number): str
   return "경고";
 }
 
+// 새로운 5등급 시스템
 export function getGrade(percentile: number): string {
-  if (percentile >= 80) return "A급";
-  if (percentile >= 60) return "B급";
-  if (percentile >= 40) return "C급";
-  return "D급";
+  if (percentile >= 97) return "매우우수";
+  if (percentile >= 85) return "우수";
+  if (percentile >= 15) return "보통";
+  if (percentile >= 3) return "부족";
+  return "매우부족";
 }
 
 export function getGradeColor(percentile: number): string {
-  if (percentile >= 80) return "green";
-  if (percentile >= 60) return "blue";
-  if (percentile >= 40) return "yellow";
-  return "orange";
+  if (percentile >= 97) return "purple";
+  if (percentile >= 85) return "blue";
+  if (percentile >= 15) return "green";
+  if (percentile >= 3) return "yellow";
+  return "red";
+}
+
+export function getGradeNumber(percentile: number): 1|2|3|4|5 {
+  if (percentile >= 97) return 1;
+  if (percentile >= 85) return 2;
+  if (percentile >= 15) return 3;
+  if (percentile >= 3) return 4;
+  return 5;
 }

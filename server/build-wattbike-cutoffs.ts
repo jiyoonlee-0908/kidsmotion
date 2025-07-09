@@ -78,10 +78,16 @@ const standardWeight = {
 };
 
 /**
- * 절대파워(W)를 상대파워(W/kg^0.67)로 변환
+ * 연령별 allometric 지수
  */
-function calculateRelativePower(power: number, weight: number): number {
-  return power / Math.pow(weight, 0.67);
+const AGE_EXPONENT = (age: number): number =>
+  age <= 9 ? 0.75 : age <= 13 ? 0.72 : 0.67;
+
+/**
+ * 절대파워(W)를 상대파워(연령별 지수 적용)로 변환
+ */
+function calculateRelativePower(power: number, weight: number, age: number): number {
+  return power / Math.pow(weight, AGE_EXPONENT(age));
 }
 
 /**
@@ -161,7 +167,7 @@ export function calculatePercentileFromAbsolutePower(
   const weight = standardWeight[sexKey]?.[age];
   if (!weight) return 50; // 기본값
   
-  const relativePower = calculateRelativePower(power, weight);
+  const relativePower = calculateRelativePower(power, weight, age);
   const wattbikeStandard = wattbikeData[powerTypeKey]?.[sexKey]?.[age];
   
   if (!wattbikeStandard) return 50; // 기본값

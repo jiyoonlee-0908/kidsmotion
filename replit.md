@@ -108,6 +108,13 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- January 9, 2025: 백분위 계산 알고리즘 완전 개편
+  - 연령별 allometric scaling 적용: ≤9세(0.75), 10-13세(0.72), ≥14세(0.67)
+  - 5등급 시스템 도입: P3, P15, P50, P85, P97 기준점 사용
+  - 새로운 선형보간 공식으로 정밀도 향상
+  - 등급 체계: 1등급(≥97% 매우우수), 2등급(85-96% 우수), 3등급(15-84% 보통), 4등급(3-14% 부족), 5등급(<3% 매우부족)
+  - 전체 시스템 적용: server/percentile.ts, routes.ts, client fitness-calculations.ts, build-wattbike-cutoffs.ts
+
 - December 30, 2025: 전체 사이트를 고정 PC 레이아웃으로 변경 완료
   - 투자자 피드백 반영: 모바일 반응형 디자인으로 인한 가독성 문제 해결
   - viewport를 1200px 고정으로 설정, 사용자가 직접 확대/축소하여 보기
