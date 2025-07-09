@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
+import { Search, Eye, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
@@ -374,19 +374,10 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       {showReports && (
         <Card>
           <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5" />
-                저장된 리포트 ({savedReports.length}개)
-              </CardTitle>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowReports(false)}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              저장된 리포트 ({savedReports.length}개)
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {savedReports.length === 0 ? (
