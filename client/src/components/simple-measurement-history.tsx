@@ -46,13 +46,11 @@ interface SimpleMeasurementHistoryProps {
 
 export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasurementHistoryProps) {
   const [measurements, setMeasurements] = useState<MeasurementData[]>([]);
-  const [savedReports, setSavedReports] = useState<any[]>([]);
   const [searchName, setSearchName] = useState('');
   const [searchAffiliation, setSearchAffiliation] = useState('');
   const [searchBirthDate, setSearchBirthDate] = useState('');
   const [searchGender, setSearchGender] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showReports, setShowReports] = useState(false);
 
   const { toast } = useToast();
 
@@ -60,47 +58,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     handleSearch();
   }, []);
 
-  // 저장된 리포트 조회
-  const searchSavedReports = async () => {
-    if (!searchName.trim()) {
-      toast({
-        title: "알림",
-        description: "학생 이름을 입력해주세요.",
-        variant: "default",
-      });
-      return;
-    }
 
-    setIsLoading(true);
-    try {
-      const response = await fetch(`/api/student-reports/${encodeURIComponent(searchName.trim())}`);
-      
-      if (!response.ok) {
-        throw new Error('리포트를 가져오는데 실패했습니다.');
-      }
-      
-      const reports = await response.json();
-      setSavedReports(reports);
-      setShowReports(true);
-      
-      if (reports.length === 0) {
-        toast({
-          title: "알림",
-          description: "저장된 리포트가 없습니다.",
-          variant: "default",
-        });
-      }
-    } catch (error) {
-      console.error('리포트 검색 오류:', error);
-      toast({
-        title: "오류",
-        description: "리포트를 불러오는데 실패했습니다.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -120,7 +78,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       const data = await response.json();
       setMeasurements(data);
       console.log('받은 데이터:', data);
-      setShowReports(false);
     } catch (error) {
       console.error('검색 오류:', error);
       toast({
@@ -204,89 +161,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               <Search className="w-4 h-4 mr-2" />
               {isLoading ? '검색 중...' : '측정기록 검색'}
             </Button>
-            <Button 
-              onClick={searchSavedReports}
-              disabled={isLoading}
-              variant="outline"
-              className="border-[#7B5CFF] text-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white"
-            >
-              <FileText className="w-4 h-4 mr-2" />
-              {isLoading ? '검색 중...' : '저장된 리포트 검색'}
-            </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* 저장된 리포트 목록 */}
-      {showReports && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />
-              저장된 리포트 ({savedReports.length}개)
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {savedReports.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                저장된 리포트가 없습니다.
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {savedReports.map((report) => (
-                  <div key={report.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                    <div className="flex justify-between items-center">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-4">
-                          <div>
-                            <p className="font-semibold text-gray-900">측정일: {report.measure_date}</p>
-                            <p className="text-sm text-gray-600">나이: {report.age}세</p>
-                          </div>
-                          <div>
-                            <Badge className={`${
-                              report.overall_percentile >= 97 ? 'bg-purple-100 text-purple-800' :
-                              report.overall_percentile >= 85 ? 'bg-blue-100 text-blue-800' :
-                              report.overall_percentile >= 15 ? 'bg-green-100 text-green-800' :
-                              report.overall_percentile >= 3 ? 'bg-yellow-100 text-yellow-800' :
-                              'bg-red-100 text-red-800'
-                            }`}>
-                              {Math.round(report.overall_percentile)}% ({
-                                report.overall_percentile >= 97 ? '매우우수' :
-                                report.overall_percentile >= 85 ? '우수' :
-                                report.overall_percentile >= 15 ? '보통' :
-                                report.overall_percentile >= 3 ? '부족' : '매우부족'
-                              })
-                            </Badge>
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {new Date(report.created_at).toLocaleDateString('ko-KR')} 저장
-                          </div>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button 
-                          size="sm"
-                          onClick={() => {
-                            // QR 리포트 URL로 직접 이동
-                            window.open(`/report/${report.measurement_id}`, '_blank');
-                          }}
-                          className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
-                        >
-                          <Eye className="w-4 h-4 mr-1" />
-                          리포트 보기
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
       {/* 검색 결과 */}
-      {!showReports && (
         <Card>
           <CardHeader>
             <CardTitle>검색 결과</CardTitle>
@@ -367,7 +246,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           )}
         </CardContent>
         </Card>
-      )}
     </div>
   );
 }
