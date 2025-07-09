@@ -63,24 +63,31 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
       // 완전한 HTML 페이지 캡처
       const htmlContent = await captureCompleteHTML();
       
+      // 나이 계산
+      const birthYear = new Date(measurement.birthDate).getFullYear();
+      const currentYear = new Date().getFullYear();
+      const calculatedAge = currentYear - birthYear;
+
       const snapshotData = {
         measurementId: measurement.id,
         userDisplayName: `${measurement.studentName}_${measurement.birthDate}`,
         studentName: measurement.studentName,
         measureDate: measurement.measureDate,
         htmlContent,
-        age: measurement.age,
-        gender: measurement.gender,
+        age: calculatedAge,
+        gender: measurement.gender === 'M' ? '남성' : '여성',
         height: measurement.height,
         weight: measurement.weight,
         organization: measurement.affiliation,
         overallPercentile: analysis.overallPercentile,
-        powerGrade: analysis.grades.power,
-        strengthGrade: analysis.grades.strength,
-        muscleEnduranceGrade: analysis.grades.muscleEndurance,
-        cardioEnduranceGrade: analysis.grades.cardioEndurance
+        powerGrade: getGradeText(analysis.percentile5s),
+        strengthGrade: getGradeText(analysis.percentile15s),
+        muscleEnduranceGrade: getGradeText(analysis.percentile30s),
+        cardioEnduranceGrade: getGradeText(analysis.percentile60s)
       };
 
+      console.log('스냅샷 저장 요청:', snapshotData.measurementId);
+      
       const response = await fetch('/api/save-report-snapshot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -88,9 +95,11 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
       });
 
       if (response.ok) {
-        console.log('리포트 스냅샷 저장 완료');
+        const result = await response.json();
+        console.log('✅ 리포트 스냅샷 저장 완료:', result);
       } else {
-        console.error('스냅샷 저장 실패');
+        const errorData = await response.json();
+        console.error('❌ 스냅샷 저장 실패:', errorData);
       }
     } catch (error) {
       console.error('스냅샷 저장 중 오류:', error);

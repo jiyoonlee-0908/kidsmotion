@@ -53,6 +53,12 @@ export default function SnapshotViewer() {
         }
 
         const participantData = await response.json();
+        
+        // participantData가 null이거나 studentName이 없으면 오류 처리
+        if (!participantData || !participantData.studentName) {
+          throw new Error('참가자 데이터를 찾을 수 없습니다');
+        }
+        
         console.log('참가자 데이터 조회 성공:', participantData.studentName);
         
         // 참가자 데이터로 가짜 스냅샷 생성

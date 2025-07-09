@@ -6,6 +6,8 @@ import { eq, desc, gt } from "drizzle-orm";
 import crypto from "crypto";
 import { generateFitnessAnalysis } from "./openai";
 import OpenAI from "openai";
+import fs from "fs";
+import path from "path";
 import { 
   supabase,
   getLatestCompletedTest, 
@@ -130,7 +132,7 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
     }
   });
   
-  // 📸 새로운 HTML 리포트 스냅샷 저장 (기존 테이블 안 건드림)
+  // 📸 HTML 리포트 스냅샷 저장 (Replit 서버에 파일로 저장)
   app.post("/api/save-report-snapshot", async (req, res) => {
     try {
       const { 
@@ -151,71 +153,105 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
         cardioEnduranceGrade
       } = req.body;
       
-      console.log("=== 새로운 리포트 스냅샷 저장 시작 ===");
+      console.log("=== HTML 스냅샷 Replit 서버 저장 시작 ===");
       console.log("학생:", studentName, "측정일:", measureDate);
-      
       console.log("HTML 스냅샷 길이:", htmlContent.length, "characters");
       
-      // Supabase fitness_report_snapshots 테이블에 직접 저장
-      const { data, error } = await supabase
-        .from('fitness_report_snapshots')
-        .insert([{
-          measurement_id: measurementId,
-          user_display_name: userDisplayName,
-          student_name: studentName,
-          measure_date: measureDate,
-          html_content: htmlContent,
-          age,
-          gender,
-          height,
-          weight,
-          organization,
-          overall_percentile: overallPercentile,
-          power_grade: powerGrade,
-          strength_grade: strengthGrade,
-          muscle_endurance_grade: muscleEnduranceGrade,
-          cardio_endurance_grade: cardioEnduranceGrade
-        }])
-        .select()
-        .single();
-        
-      if (error) {
-        console.error("Supabase 리포트 스냅샷 저장 오류:", error);
-        return res.status(500).json({ error: "리포트 스냅샷 저장 실패", details: error });
+      // snapshots 디렉토리 생성 (없으면)
+      const snapshotsDir = path.join(process.cwd(), 'snapshots');
+      
+      if (!fs.existsSync(snapshotsDir)) {
+        fs.mkdirSync(snapshotsDir, { recursive: true });
       }
-
-      console.log("새로운 리포트 스냅샷 저장 완료 (로컬):", data.id);
+      
+      // 파일명: {measurementId}.html
+      const fileName = `${measurementId}.html`;
+      const filePath = path.join(snapshotsDir, fileName);
+      
+      // 메타데이터와 함께 완전한 HTML 파일 생성
+      const completeHtml = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>${studentName} 체력분석 리포트</title>
+  <meta name="student-name" content="${studentName}">
+  <meta name="measure-date" content="${measureDate}">
+  <meta name="age" content="${age}">
+  <meta name="gender" content="${gender}">
+  <meta name="organization" content="${organization}">
+  <meta name="overall-percentile" content="${overallPercentile}">
+  <style>
+    body { margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    .print-hide { display: none !important; }
+  </style>
+</head>
+<body>
+${htmlContent}
+</body>
+</html>`;
+      
+      // 파일로 저장
+      fs.writeFileSync(filePath, completeHtml, 'utf8');
+      
+      console.log("✅ HTML 스냅샷 파일 저장 완료:", fileName);
+      
       res.json({ 
         success: true, 
-        snapshotId: data.id, 
-        reportUrl: `/fitness-report/${data.id}`,
-        message: "HTML 스냅샷이 성공적으로 저장되었습니다"
+        measurementId: measurementId,
+        fileName: fileName,
+        reportUrl: `/report/${measurementId}`,
+        message: "HTML 스냅샷이 Replit 서버에 성공적으로 저장되었습니다"
       });
       
     } catch (error) {
-      console.error("새로운 리포트 스냅샷 저장 중 오류:", error);
-      res.status(500).json({ error: "리포트 스냅샷 저장 실패", details: error });
+      console.error("HTML 스냅샷 저장 중 오류:", error);
+      res.status(500).json({ error: "HTML 스냅샷 저장 실패", details: error.message });
     }
   });
 
-  // 📖 새로운 HTML 스냅샷 조회 (QR 코드용)
+  // 📖 HTML 스냅샷 조회 (QR 코드용)
   app.get("/api/report-snapshot/:measurementId", async (req, res) => {
     try {
       const { measurementId } = req.params;
+      console.log('HTML 스냅샷 파일 조회:', measurementId);
       
-      const { data, error } = await supabase
-        .from('fitness_report_snapshots')
-        .select('*')
-        .eq('measurement_id', measurementId)
-        .single();
-
-      if (error || !data) {
+      // 파일 시스템 모듈 사용
+      const filePath = path.join(process.cwd(), 'snapshots', `${measurementId}.html`);
+      
+      if (!fs.existsSync(filePath)) {
+        console.log('HTML 스냅샷 파일 없음:', filePath);
         return res.status(404).json({ error: "리포트를 찾을 수 없습니다" });
       }
-
-      res.json(data);
+      
+      const htmlContent = fs.readFileSync(filePath, 'utf8');
+      console.log('✅ HTML 스냅샷 파일 로드 성공');
+      
+      // HTML에서 메타데이터 추출
+      const studentNameMatch = htmlContent.match(/<meta name="student-name" content="([^"]+)"/);
+      const measureDateMatch = htmlContent.match(/<meta name="measure-date" content="([^"]+)"/);
+      const ageMatch = htmlContent.match(/<meta name="age" content="([^"]+)"/);
+      const genderMatch = htmlContent.match(/<meta name="gender" content="([^"]+)"/);
+      const organizationMatch = htmlContent.match(/<meta name="organization" content="([^"]+)"/);
+      const percentileMatch = htmlContent.match(/<meta name="overall-percentile" content="([^"]+)"/);
+      
+      const snapshot = {
+        id: parseInt(measurementId),
+        measurement_id: measurementId,
+        user_display_name: `${studentNameMatch?.[1] || 'Unknown'}_${measureDateMatch?.[1] || '2025-01-01'}`,
+        student_name: studentNameMatch?.[1] || 'Unknown',
+        measure_date: measureDateMatch?.[1] || '2025-01-01',
+        html_content: htmlContent,
+        age: parseInt(ageMatch?.[1] || '7'),
+        gender: genderMatch?.[1] || '남성',
+        overall_percentile: parseFloat(percentileMatch?.[1] || '50'),
+        created_at: new Date().toISOString()
+      };
+      
+      res.json(snapshot);
+      
     } catch (error) {
-      console.error("새로운 리포트 스냅샷 조회 중 오류:", error);
+      console.error("HTML 스냅샷 조회 중 오류:", error);
       res.status(500).json({ error: "서버 오류" });
     }
   });
