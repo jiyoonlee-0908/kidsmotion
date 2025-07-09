@@ -811,7 +811,6 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                 <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center mb-2">
                   <QRCodeSVG value={reportUrl} size={96} />
                 </div>
-                <p className="text-sm text-gray-600">이력 확인 QR</p>
               </div>
             </div>
           </div>
