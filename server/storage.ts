@@ -67,6 +67,8 @@ export class MemStorage implements IStorage {
       id,
       power180s: insertMeasurement.power180s || null,
       power360s: insertMeasurement.power360s || null,
+      maxHeartRate: insertMeasurement.maxHeartRate || null,
+      avgHeartRate: insertMeasurement.avgHeartRate || null,
       createdAt: new Date()
     };
     this.measurements.set(id, measurement);
@@ -109,7 +111,7 @@ export class MemStorage implements IStorage {
       maxBpm: insertResult.maxBpm || null,
       avgBpm: insertResult.avgBpm || null,
       restingBpm: insertResult.restingBpm || null,
-      aiSummary: insertResult.aiSummary || null,
+      aiCoreInsights: insertResult.aiCoreInsights || null,
       balanceComment: insertResult.balanceComment || null,
       explanation5s: insertResult.explanation5s || null,
       explanation15s: insertResult.explanation15s || null,

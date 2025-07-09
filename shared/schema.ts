@@ -87,6 +87,10 @@ export type Measurement = typeof measurements.$inferSelect;
 export type InsertAnalysisResult = z.infer<typeof insertAnalysisResultSchema>;
 export type AnalysisResult = typeof analysisResults.$inferSelect;
 
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+});
+
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
 
@@ -97,11 +101,6 @@ export const insertInviteCodeSchema = createInsertSchema(inviteCodes).pick({
 
 export type InsertInviteCode = z.infer<typeof insertInviteCodeSchema>;
 export type InviteCode = typeof inviteCodes.$inferSelect;
-
-export const insertUserSchema = createInsertSchema(users).pick({
-  username: true,
-  password: true,
-});
 
 // KidsMotion 앱 Supabase 테이블 (읽기 전용)
 export const participants = pgTable("participants", {
