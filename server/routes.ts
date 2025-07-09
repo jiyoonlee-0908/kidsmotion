@@ -1050,8 +1050,8 @@ Style: Professional product photography, bright and clean, medical/fitness equip
         power360s: powerValues?.power360s || null,
         leftBalance: balance?.leftBalance || null,
         rightBalance: balance?.rightBalance || null,
-        height: null,
-        weight: null,
+        height: participant.height || null,
+        weight: participant.weight || null,
         maxHeartRate: null,
         avgHeartRate: null
       };
