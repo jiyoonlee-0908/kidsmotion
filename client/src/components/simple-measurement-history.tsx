@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
+import { Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
@@ -57,13 +57,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [searchGender, setSearchGender] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMeasurement, setSelectedMeasurement] = useState<MeasurementData | null>(null);
-  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
-  const [adminPassword, setAdminPassword] = useState('');
+
   const [showReports, setShowReports] = useState(false);
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const [showReportViewer, setShowReportViewer] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+
   const { toast } = useToast();
 
 
@@ -242,59 +240,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
 
 
-  const handleDeleteClick = (id: number) => {
-    setDeleteTargetId(id);
-    setShowDeleteConfirm(true);
-  };
 
-  const handleDeleteConfirmClick = () => {
-    setShowDeleteConfirm(false);
-    setDeleteConfirmOpen(true);
-    setAdminPassword('');
-  };
-
-  const handleDeleteConfirm = async () => {
-    if (adminPassword !== '263910') {
-      toast({
-        title: "삭제 실패",
-        description: "비밀번호가 올바르지 않습니다.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      // 서버 API 호출로 실제 삭제
-      const response = await fetch(`/api/measurements/${deleteTargetId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ adminPassword }),
-      });
-
-      if (!response.ok) {
-        throw new Error('서버에서 삭제에 실패했습니다.');
-      }
-
-      // 로컬 상태에서도 제거
-      setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
-      setDeleteConfirmOpen(false);
-      setDeleteTargetId(null);
-      setAdminPassword('');
-      toast({
-        title: "삭제 완료",
-        description: "측정 기록이 서버에서 삭제되었습니다.",
-      });
-    } catch (error) {
-      console.error('삭제 오류:', error);
-      toast({
-        title: "삭제 실패",
-        description: "서버에서 삭제하는데 실패했습니다.",
-        variant: "destructive",
-      });
-    }
-  };
 
   const getGradeColor = (grade: string) => {
     switch (grade) {
@@ -567,16 +513,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                     >
                       <Eye className="w-4 h-4 mr-1" />
                       리포트 보기
-                    </Button>
-                    
-                    {/* 삭제 버튼 */}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDeleteClick(measurement.id)}
-                      className="text-red-600 hover:text-red-700 ml-2 h-8 w-8 p-0"
-                    >
-                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
                 </div>
@@ -973,76 +909,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         </DialogContent>
       </Dialog>
 
-      {/* 삭제 확인 다이얼로그 (1단계) */}
-      <AlertDialog open={showDeleteConfirm} onOpenChange={setShowDeleteConfirm}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-orange-600" />
-              삭제 확인
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              정말로 이 측정 기록을 삭제하시겠습니까?
-              <br />
-              삭제된 데이터는 복구할 수 없습니다.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setShowDeleteConfirm(false)}>
-              취소
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteConfirmClick}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              삭제
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
-      {/* 관리자 비밀번호 입력 모달 (2단계) */}
-      <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
-        <AlertDialogContent className="sm:max-w-md">
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-red-600" />
-              관리자 인증
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              측정 기록을 삭제하려면 관리자 비밀번호를 입력하세요.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">비밀번호</label>
-              <Input
-                type="password"
-                value={adminPassword}
-                onChange={(e) => setAdminPassword(e.target.value)}
-                placeholder="관리자 비밀번호 입력"
-                onKeyPress={(e) => e.key === 'Enter' && handleDeleteConfirm()}
-              />
-            </div>
-          </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel
-              onClick={() => {
-                setDeleteConfirmOpen(false);
-                setAdminPassword('');
-              }}
-            >
-              취소
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteConfirm}
-              className="bg-red-600 hover:bg-red-700"
-            >
-              삭제
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
 
       {/* HTML 스냅샷 뷰어 다이얼로그 */}
       <Dialog open={showReportViewer} onOpenChange={setShowReportViewer}>
