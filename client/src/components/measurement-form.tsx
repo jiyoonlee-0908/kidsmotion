@@ -193,6 +193,19 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       form.setValue("power60s", userData.power60s);
       form.setValue("leftBalance", userData.leftBalance);
       form.setValue("rightBalance", userData.rightBalance);
+      
+      // ✅ 고급측정 데이터가 있으면 자동으로 펼치기
+      if (userData.power180s || userData.power360s) {
+        console.log('고급측정 데이터 발견 - 자동 펼치기');
+        setShowAdvanced(true);
+        
+        if (userData.power180s) {
+          form.setValue("power180s", userData.power180s);
+        }
+        if (userData.power360s) {
+          form.setValue("power360s", userData.power360s);
+        }
+      }
     }
     
     // 설정 후 폼 값 확인
@@ -341,6 +354,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           onBlur={(e) => {
                             field.onBlur(e);
                             setStudentNameInput(e.target.value);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleAutoFill();
+                            }
                           }}
                         />
                       </FormControl>
