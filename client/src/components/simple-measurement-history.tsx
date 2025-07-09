@@ -374,8 +374,30 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   </div>
                 ) : (
                   <>
+                    <FileText className="w-4 h-4 mr-2" />
+                    리포트 검색
+                  </>
+                )}
+              </Button>
+              
+              <Button 
+                onClick={() => {
+                  setShowReports(false);
+                  handleSearch();
+                }} 
+                disabled={isLoading}
+                variant="outline"
+                className="border-[#7B5CFF] text-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white"
+              >
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-[#7B5CFF] border-t-transparent rounded-full animate-spin"></div>
+                    검색중...
+                  </div>
+                ) : (
+                  <>
                     <Search className="w-4 h-4 mr-2" />
-                    검색
+                    기록 검색
                   </>
                 )}
               </Button>
@@ -524,14 +546,28 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       </Badge>
                     </div>
                     
+                    {/* 리포트 보기 버튼 */}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        // QR 코드와 동일한 페이지로 이동
+                        window.open(`/report/${measurement.id}`, '_blank');
+                      }}
+                      className="text-[#7B5CFF] hover:text-[#6A4CE6] border-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white ml-4"
+                    >
+                      <Eye className="w-4 h-4 mr-1" />
+                      리포트 보기
+                    </Button>
+                    
                     {/* 삭제 버튼 */}
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => handleDeleteClick(measurement.id)}
-                      className="text-red-600 hover:text-red-700 ml-4"
+                      className="text-red-600 hover:text-red-700 ml-2 h-8 w-8 p-0"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
                 </div>

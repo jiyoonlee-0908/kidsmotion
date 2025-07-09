@@ -892,12 +892,12 @@ ${htmlContent}
     }
   });
 
-  // Search measurements endpoint (먼저 정의)
+  // Search measurements endpoint - 웹앱에서 입력한 측정 데이터 검색
   app.get("/api/measurements/search", async (req, res) => {
     try {
       const { studentName, affiliation, birthDate, gender } = req.query;
       
-      console.log("=== 검색 요청 ===", { studentName, affiliation, birthDate, gender });
+      console.log("=== 웹앱 측정 데이터 검색 요청 ===", { studentName, affiliation, birthDate, gender });
       
       // 검색 조건이 없으면 모든 데이터 반환
       if (!studentName || studentName === '' || studentName === 'ALL_DATA') {
@@ -936,10 +936,10 @@ ${htmlContent}
               rightBalance: measurement.rightBalance,
               maxHeartRate: measurement.maxHeartRate,
               avgHeartRate: measurement.avgHeartRate,
-              overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
-                           analysis.overallPercentile >= 60 ? '우수' :
-                           analysis.overallPercentile >= 40 ? '보통' :
-                           analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+              overallGrade: analysis.overallPercentile >= 97 ? '매우우수' : 
+                           analysis.overallPercentile >= 85 ? '우수' :
+                           analysis.overallPercentile >= 15 ? '보통' :
+                           analysis.overallPercentile >= 3 ? '부족' : '매우부족',
               overallPercentile: analysis.overallPercentile,
               percentile5s: analysis.percentile5s,
               percentile15s: analysis.percentile15s,
@@ -959,7 +959,7 @@ ${htmlContent}
         return res.json(filteredResults);
       }
       
-      // 실제 검색 수행
+      // 실제 검색 수행 - MemStorage에서 검색
       const measurements = await storage.searchMeasurements({
         studentName: studentName as string,
         affiliation: affiliation as string,
@@ -967,7 +967,7 @@ ${htmlContent}
         gender: gender as string
       });
       
-      console.log("검색 결과:", measurements.length + "개");
+      console.log("MemStorage 검색 결과:", measurements.length + "개");
       
       if (measurements.length === 0) {
         return res.json([]); // 404 대신 빈 배열 반환
@@ -1000,10 +1000,10 @@ ${htmlContent}
             rightBalance: measurement.rightBalance,
             maxHeartRate: measurement.maxHeartRate,
             avgHeartRate: measurement.avgHeartRate,
-            overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
-                         analysis.overallPercentile >= 60 ? '우수' :
-                         analysis.overallPercentile >= 40 ? '보통' :
-                         analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+            overallGrade: analysis.overallPercentile >= 97 ? '매우우수' : 
+                         analysis.overallPercentile >= 85 ? '우수' :
+                         analysis.overallPercentile >= 15 ? '보통' :
+                         analysis.overallPercentile >= 3 ? '부족' : '매우부족',
             overallPercentile: analysis.overallPercentile,
             percentile5s: analysis.percentile5s,
             percentile15s: analysis.percentile15s,
@@ -1020,11 +1020,12 @@ ${htmlContent}
       );
       
       const filteredResults = results.filter(result => result !== null);
+      console.log("최종 변환된 검색 결과:", filteredResults.length + "개");
       res.json(filteredResults);
       
     } catch (error) {
       console.error("검색 오류:", error);
-      res.status(500).json({ error: "Failed to search measurements" });
+      res.status(500).json({ error: "검색 중 오류가 발생했습니다." });
     }
   });
 
