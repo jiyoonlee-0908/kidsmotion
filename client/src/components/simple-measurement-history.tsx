@@ -428,19 +428,10 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       {showReports && (
         <Card>
           <CardHeader>
-            <div className="flex justify-between items-center">
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5" />
-                저장된 리포트 ({savedReports.length}개)
-              </CardTitle>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowReports(false)}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="w-5 h-5" />
+              저장된 리포트 ({savedReports.length}개)
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {savedReports.length === 0 ? (
@@ -555,7 +546,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       </Badge>
                     </div>
                     
-                    {/* 리포트 보기 버튼 */}
+                    {/* 리포트 간단보기 버튼 */}
                     <Button
                       variant="outline"
                       size="sm"
@@ -566,17 +557,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                       className="text-[#7B5CFF] hover:text-[#6A4CE6] border-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white ml-4"
                     >
                       <Eye className="w-4 h-4 mr-1" />
-                      리포트 보기
-                    </Button>
-                    
-                    {/* 삭제 버튼 */}
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDeleteClick(measurement.id)}
-                      className="text-red-600 hover:text-red-700 ml-2 h-8 w-8 p-0"
-                    >
-                      <Trash2 className="w-3 h-3" />
+                      리포트 간단보기
                     </Button>
                   </div>
                 </div>
