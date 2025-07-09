@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'wouter';
 import ResultsDisplay from '@/components/results-display';
+import StaticWebReport from '@/components/static-web-report';
+import { StaticRadarChart, StaticProgressBar, StaticBalanceChart, StaticComparisonChart } from '@/components/static-charts';
 
 interface SnapshotData {
   id: number;
@@ -182,48 +184,45 @@ export default function SnapshotViewer() {
     );
   }
 
-  // 실시간 리포트 표시
+  // 실시간 리포트 표시 (정적 차트 사용)
   if (showLiveReport && participantData) {
+    const reportData = {
+      id: parseInt(measurementId),
+      studentName: participantData.studentName,
+      affiliation: participantData.affiliation,
+      gender: participantData.gender === '남성' ? 'M' : 'F',
+      age: new Date().getFullYear() - new Date(participantData.birthDate).getFullYear(),
+      measureDate: participantData.measureDate,
+      birthDate: participantData.birthDate,
+      height: participantData.height,
+      weight: participantData.weight,
+      power5s: participantData.power5s,
+      power15s: participantData.power15s,
+      power30s: participantData.power30s,
+      power60s: participantData.power60s,
+      power180s: participantData.power180s,
+      power360s: participantData.power360s,
+      leftBalance: participantData.leftBalance,
+      rightBalance: participantData.rightBalance,
+      maxHeartRate: participantData.maxHeartRate,
+      avgHeartRate: participantData.avgHeartRate,
+      overallGrade: participantData.analysis?.overallGrade || '보통',
+      overallPercentile: participantData.analysis?.overallPercentile || 50,
+      percentile5s: participantData.analysis?.percentile5s || 50,
+      percentile15s: participantData.analysis?.percentile15s || 50,
+      percentile30s: participantData.analysis?.percentile30s || 50,
+      percentile60s: participantData.analysis?.percentile60s || 50,
+      percentile180s: participantData.analysis?.percentile180s,
+      percentile360s: participantData.analysis?.percentile360s,
+      strengths: participantData.analysis?.strengths || '분석 중...',
+      improvements: participantData.analysis?.improvements || '분석 중...',
+      aiCoreInsights: participantData.analysis?.aiCoreInsights || '분석 중...',
+      balanceStatus: participantData.analysis?.balanceStatus || '분석 중...'
+    };
+
     return (
       <div className="min-h-screen bg-gray-50">
-        <ResultsDisplay 
-          measurement={{
-            id: parseInt(measurementId),
-            studentName: participantData.studentName,
-            affiliation: participantData.affiliation,
-            gender: participantData.gender === '남성' ? 'M' : 'F',
-            age: new Date().getFullYear() - new Date(participantData.birthDate).getFullYear(),
-            measureDate: participantData.measureDate,
-            birthDate: participantData.birthDate,
-            height: participantData.height,
-            weight: participantData.weight,
-            power5s: participantData.power5s,
-            power15s: participantData.power15s,
-            power30s: participantData.power30s,
-            power60s: participantData.power60s,
-            power180s: participantData.power180s,
-            power360s: participantData.power360s,
-            leftBalance: participantData.leftBalance,
-            rightBalance: participantData.rightBalance,
-            maxHeartRate: participantData.maxHeartRate,
-            avgHeartRate: participantData.avgHeartRate,
-            overallGrade: participantData.analysis?.overallGrade || '보통',
-            overallPercentile: participantData.analysis?.overallPercentile || 50,
-            percentile5s: participantData.analysis?.percentile5s || 50,
-            percentile15s: participantData.analysis?.percentile15s || 50,
-            percentile30s: participantData.analysis?.percentile30s || 50,
-            percentile60s: participantData.analysis?.percentile60s || 50,
-            percentile180s: participantData.analysis?.percentile180s,
-            percentile360s: participantData.analysis?.percentile360s,
-            strengths: participantData.analysis?.strengths || '분석 중...',
-            improvements: participantData.analysis?.improvements || '분석 중...',
-            aiCoreInsights: participantData.analysis?.aiCoreInsights || '분석 중...',
-            balanceStatus: participantData.analysis?.balanceStatus || '분석 중...'
-          }}
-          onBack={() => {}}
-          showQR={true}
-          enablePrint={true}
-        />
+        <StaticWebReport data={reportData} />
       </div>
     );
   }
