@@ -33,6 +33,20 @@ interface ParticipantData {
   weight: number;
   maxHeartRate?: number;
   avgHeartRate?: number;
+  analysis?: {
+    overallGrade: string;
+    overallPercentile: number;
+    percentile5s: number;
+    percentile15s: number;
+    percentile30s: number;
+    percentile60s: number;
+    percentile180s?: number;
+    percentile360s?: number;
+    strengths: string;
+    improvements: string;
+    aiCoreInsights: string;
+    balanceStatus: string;
+  };
 }
 
 export default function SnapshotViewer() {
@@ -84,8 +98,32 @@ export default function SnapshotViewer() {
         
         console.log('참가자 데이터 조회 성공:', liveParticipantData.studentName);
         
-        // 실시간 React 컴포넌트로 표시
-        setParticipantData(liveParticipantData);
+        // 백분위 계산 API 호출
+        const analysisResponse = await fetch('/api/analyze-measurement', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...liveParticipantData,
+            id: participantId
+          })
+        });
+        
+        if (analysisResponse.ok) {
+          const analysisData = await analysisResponse.json();
+          console.log('백분위 계산 완료:', analysisData);
+          
+          // 분석 결과와 함께 참가자 데이터 저장
+          setParticipantData({
+            ...liveParticipantData,
+            analysis: analysisData
+          });
+        } else {
+          console.warn('백분위 계산 실패, 기본값 사용');
+          setParticipantData(liveParticipantData);
+        }
+        
         setShowLiveReport(true);
         return;
         
@@ -169,18 +207,18 @@ export default function SnapshotViewer() {
             rightBalance: participantData.rightBalance,
             maxHeartRate: participantData.maxHeartRate,
             avgHeartRate: participantData.avgHeartRate,
-            overallGrade: '우수',
-            overallPercentile: 85.5,
-            percentile5s: 88,
-            percentile15s: 82,
-            percentile30s: 85,
-            percentile60s: 87,
-            percentile180s: participantData.power180s ? 85 : undefined,
-            percentile360s: participantData.power360s ? 83 : undefined,
-            strengths: '순발력과 파워가 우수합니다',
-            improvements: '지구력 향상이 필요합니다',
-            aiCoreInsights: '전반적으로 좋은 체력 수준을 보이고 있습니다.',
-            balanceStatus: '좌우 밸런스가 양호합니다'
+            overallGrade: participantData.analysis?.overallGrade || '보통',
+            overallPercentile: participantData.analysis?.overallPercentile || 50,
+            percentile5s: participantData.analysis?.percentile5s || 50,
+            percentile15s: participantData.analysis?.percentile15s || 50,
+            percentile30s: participantData.analysis?.percentile30s || 50,
+            percentile60s: participantData.analysis?.percentile60s || 50,
+            percentile180s: participantData.analysis?.percentile180s,
+            percentile360s: participantData.analysis?.percentile360s,
+            strengths: participantData.analysis?.strengths || '분석 중...',
+            improvements: participantData.analysis?.improvements || '분석 중...',
+            aiCoreInsights: participantData.analysis?.aiCoreInsights || '분석 중...',
+            balanceStatus: participantData.analysis?.balanceStatus || '분석 중...'
           }}
           onBack={() => {}}
           showQR={true}
