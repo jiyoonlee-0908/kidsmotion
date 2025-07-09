@@ -20,6 +20,7 @@ import ProfessionalReport from "@/pages/professional-report";
 import EasySharing from "@/pages/easy-sharing";
 import IRMaterials from "@/pages/ir-materials";
 import Admin from "@/pages/admin";
+import SnapshotViewer from "@/pages/snapshot-viewer";
 import InviteCodeForm from "@/components/invite-code-form";
 
 
@@ -62,6 +63,7 @@ function App() {
     else if (path === '/easy-sharing') setCurrentPage('easy-sharing');
     else if (path === '/ir-materials') setCurrentPage('ir-materials');
     else if (path === '/admin') setCurrentPage('admin');
+    else if (path.startsWith('/report/')) setCurrentPage('snapshot-viewer');
     else setCurrentPage('home');
   }, []);
 
@@ -77,13 +79,24 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Admin page can be accessed without authentication
+  // Admin page and snapshot viewer can be accessed without authentication
   if (currentPage === 'admin') {
     return (
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Admin />
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
+  }
+
+  if (currentPage === 'snapshot-viewer') {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <SnapshotViewer />
         </TooltipProvider>
       </QueryClientProvider>
     );

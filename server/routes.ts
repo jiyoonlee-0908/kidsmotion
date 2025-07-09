@@ -50,6 +50,83 @@ function getBalanceStatus(leftBalance: number, rightBalance: number): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // 📸 HTML 스냅샷 저장
+  app.post("/api/save-report-snapshot", async (req, res) => {
+    try {
+      const { measurementId, userDisplayName, studentName, measureDate, htmlContent, age, gender, overallPercentile } = req.body;
+      
+      const { data, error } = await supabase
+        .from('report_snapshots')
+        .insert([{
+          measurement_id: measurementId,
+          user_display_name: userDisplayName,
+          student_name: studentName,
+          measure_date: measureDate,
+          html_content: htmlContent,
+          age,
+          gender,
+          overall_percentile: overallPercentile
+        }])
+        .select()
+        .single();
+
+      if (error) {
+        console.error("리포트 스냅샷 저장 오류:", error);
+        return res.status(500).json({ error: "리포트 스냅샷 저장 실패" });
+      }
+
+      res.json({ success: true, snapshotId: data.id });
+    } catch (error) {
+      console.error("리포트 스냅샷 저장 중 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
+    }
+  });
+
+  // 📖 HTML 스냅샷 조회 (QR 코드용)
+  app.get("/api/report-snapshot/:measurementId", async (req, res) => {
+    try {
+      const { measurementId } = req.params;
+      
+      const { data, error } = await supabase
+        .from('report_snapshots')
+        .select('*')
+        .eq('measurement_id', measurementId)
+        .single();
+
+      if (error || !data) {
+        return res.status(404).json({ error: "리포트를 찾을 수 없습니다" });
+      }
+
+      res.json(data);
+    } catch (error) {
+      console.error("리포트 스냅샷 조회 중 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
+    }
+  });
+
+  // 📋 학생별 리포트 목록 조회 (측정기록 페이지용)
+  app.get("/api/student-reports/:studentName", async (req, res) => {
+    try {
+      const { studentName } = req.params;
+      
+      const { data, error } = await supabase
+        .from('report_snapshots')
+        .select('id, measurement_id, measure_date, overall_percentile, age, created_at')
+        .eq('student_name', studentName)
+        .order('measure_date', { ascending: false });
+
+      if (error) {
+        console.error("학생 리포트 조회 오류:", error);
+        return res.status(500).json({ error: "리포트 조회 실패" });
+      }
+
+      res.json(data || []);
+    } catch (error) {
+      console.error("학생 리포트 조회 중 오류:", error);
+      res.status(500).json({ error: "서버 오류" });
+    }
+  });
+
   // 🚀 Supabase에 완전한 측정 데이터 저장
   app.post("/api/supabase/save-measurement", async (req, res) => {
     try {

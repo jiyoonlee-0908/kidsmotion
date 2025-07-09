@@ -13,6 +13,7 @@ import ProgressChart from "@/components/charts/progress-chart";
 import { QRCodeSVG } from "qrcode.react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useEffect } from "react";
 import type { Measurement, AnalysisResult } from "@shared/schema";
 
 interface ResultsDisplayProps {
@@ -28,6 +29,15 @@ interface ResultsDisplayProps {
 
 export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
+
+  // 컴포넌트 마운트 시 HTML 스냅샷 자동 저장
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveReportSnapshot();
+    }, 2000); // 2초 후 저장 (렌더링 완료 대기)
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const getGradeColor = (percentile: number) => {
     if (percentile >= 97) return "bg-purple-500";
@@ -46,6 +56,75 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
   };
 
   const reportUrl = `${window.location.origin}/report/${measurement.id}`;
+
+  // HTML 스냅샷 저장 기능
+  const saveReportSnapshot = async () => {
+    try {
+      // 완전한 HTML 페이지 캡처
+      const htmlContent = await captureCompleteHTML();
+      
+      const snapshotData = {
+        measurementId: measurement.id,
+        userDisplayName: `${measurement.studentName}_${measurement.birthDate}`,
+        studentName: measurement.studentName,
+        measureDate: measurement.measureDate,
+        htmlContent,
+        age: measurement.age,
+        gender: measurement.gender,
+        overallPercentile: analysis.overallPercentile
+      };
+
+      const response = await fetch('/api/save-report-snapshot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(snapshotData)
+      });
+
+      if (response.ok) {
+        console.log('리포트 스냅샷 저장 완료');
+      } else {
+        console.error('스냅샷 저장 실패');
+      }
+    } catch (error) {
+      console.error('스냅샷 저장 중 오류:', error);
+    }
+  };
+
+  // 자체완결형 HTML 생성
+  const captureCompleteHTML = async (): Promise<string> => {
+    const element = document.getElementById('results-container');
+    if (!element) return '';
+
+    // 모든 CSS 스타일을 인라인으로 변환
+    const clonedElement = element.cloneNode(true) as HTMLElement;
+    
+    // 외부 CSS를 인라인 스타일로 변환
+    const allElements = clonedElement.querySelectorAll('*');
+    allElements.forEach((el) => {
+      const computedStyle = window.getComputedStyle(el as Element);
+      const inlineStyle = Array.from(computedStyle).reduce((str, property) => {
+        return `${str}${property}:${computedStyle.getPropertyValue(property)};`;
+      }, '');
+      (el as HTMLElement).style.cssText = inlineStyle;
+    });
+
+    // 완전한 HTML 페이지 생성
+    return `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200">
+  <title>${measurement.studentName} 체력 분석 리포트</title>
+  <style>
+    body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; }
+    .print-hide { display: none !important; }
+  </style>
+</head>
+<body>
+  ${clonedElement.outerHTML}
+</body>
+</html>`;
+  };
 
   // PDF 저장 기능
   const handleSavePDF = async () => {

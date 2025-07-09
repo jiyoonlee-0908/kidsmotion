@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle } from "lucide-react";
+import { Trash2, Search, Eye, X, Trophy, Scale, BarChart3, User, Calendar, AlertTriangle, FileText, ExternalLink } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import BalanceChart from "@/components/charts/balance-chart";
 import RadarChart from "@/components/charts/radar-chart";
@@ -49,6 +49,7 @@ interface SimpleMeasurementHistoryProps {
 
 export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasurementHistoryProps) {
   const [measurements, setMeasurements] = useState<MeasurementData[]>([]);
+  const [savedReports, setSavedReports] = useState<any[]>([]);
   const [searchName, setSearchName] = useState('');
   const [searchAffiliation, setSearchAffiliation] = useState('');
   const [searchBirthDate, setSearchBirthDate] = useState('');
@@ -58,6 +59,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
   const [adminPassword, setAdminPassword] = useState('');
+  const [showReports, setShowReports] = useState(false);
   const { toast } = useToast();
 
 
@@ -66,6 +68,48 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     // 페이지 로딩 시 실제 서버에서 모든 데이터 가져오기
     handleSearch();
   }, []);
+
+  // 저장된 리포트 조회
+  const searchSavedReports = async () => {
+    if (!searchName.trim()) {
+      toast({
+        title: "알림",
+        description: "학생 이름을 입력해주세요.",
+        variant: "default",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/student-reports/${encodeURIComponent(searchName.trim())}`);
+      
+      if (!response.ok) {
+        throw new Error('리포트를 가져오는데 실패했습니다.');
+      }
+      
+      const reports = await response.json();
+      setSavedReports(reports);
+      setShowReports(true);
+      
+      if (reports.length === 0) {
+        toast({
+          title: "알림",
+          description: "저장된 리포트가 없습니다.",
+          variant: "default",
+        });
+      }
+    } catch (error) {
+      console.error('리포트 검색 오류:', error);
+      toast({
+        title: "오류",
+        description: "리포트를 불러오는데 실패했습니다.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -284,12 +328,20 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 초기화
               </Button>
               <Button 
+                onClick={searchSavedReports}
+                className="bg-green-600 hover:bg-green-700"
+                disabled={isLoading}
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                {isLoading ? '검색중...' : '저장된 리포트'}
+              </Button>
+              <Button 
                 onClick={handleSearch}
                 className="bg-[#7B5CFF] hover:bg-[#6B4CE8]"
                 disabled={isLoading}
               >
                 <Search className="w-4 h-4 mr-2" />
-                {isLoading ? '검색중...' : '검색'}
+                {isLoading ? '검색중...' : '측정 데이터'}
               </Button>
             </div>
 
@@ -299,10 +351,100 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               <p>• 조건을 비워두고 검색하면 전체 기록이 표시됩니다</p>
               <p>• 여러 조건을 입력하면 모든 조건에 맞는 기록만 표시됩니다</p>
               <p>• 이름만 입력하면 동명이인도 함께 표시됩니다</p>
+              <p>• "저장된 리포트" 버튼으로 완전한 분석 리포트를 볼 수 있습니다</p>
             </div>
           </div>
         </CardContent>
       </Card>
+
+      {/* 저장된 리포트 목록 */}
+      {showReports && (
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="w-5 h-5" />
+                저장된 리포트 ({savedReports.length}개)
+              </CardTitle>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => setShowReports(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {savedReports.length === 0 ? (
+              <div className="text-center py-8 text-gray-500">
+                저장된 리포트가 없습니다.
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {savedReports.map((report, index) => (
+                  <div key={report.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-4">
+                          <div>
+                            <p className="font-semibold text-gray-900">측정일: {report.measure_date}</p>
+                            <p className="text-sm text-gray-600">나이: {report.age}세</p>
+                          </div>
+                          <div>
+                            <Badge className={`${
+                              report.overall_percentile >= 97 ? 'bg-purple-100 text-purple-800' :
+                              report.overall_percentile >= 85 ? 'bg-blue-100 text-blue-800' :
+                              report.overall_percentile >= 15 ? 'bg-green-100 text-green-800' :
+                              report.overall_percentile >= 3 ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
+                              {Math.round(report.overall_percentile)}% ({
+                                report.overall_percentile >= 97 ? '매우우수' :
+                                report.overall_percentile >= 85 ? '우수' :
+                                report.overall_percentile >= 15 ? '보통' :
+                                report.overall_percentile >= 3 ? '부족' : '매우부족'
+                              })
+                            </Badge>
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {new Date(report.created_at).toLocaleDateString('ko-KR')} 저장
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        {index > 0 && (
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => {
+                              // 이전 기록과 비교 - 새 창으로 양쪽 리포트 열기
+                              const currentUrl = `/report/${report.measurement_id}`;
+                              const previousUrl = `/report/${savedReports[index - 1].measurement_id}`;
+                              window.open(currentUrl, '_blank');
+                              window.open(previousUrl, '_blank');
+                            }}
+                          >
+                            이전 기록 비교
+                          </Button>
+                        )}
+                        <Button 
+                          size="sm"
+                          onClick={() => window.open(`/report/${report.measurement_id}`, '_blank')}
+                          className="bg-purple-600 hover:bg-purple-700"
+                        >
+                          <ExternalLink className="w-4 h-4 mr-1" />
+                          리포트 보기
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardHeader>
