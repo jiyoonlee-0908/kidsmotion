@@ -470,12 +470,13 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
         </Card>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>검색 결과</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {measurements.length > 0 ? (
+      {!showReports && (
+        <Card>
+          <CardHeader>
+            <CardTitle>검색 결과</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {measurements.length > 0 ? (
             <div className="space-y-4">
               {measurements.map((measurement) => (
                 <div
@@ -548,7 +549,8 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
             </div>
           )}
         </CardContent>
-      </Card>
+        </Card>
+      )}
 
       {/* 상세 리포트 모달 */}
       <Dialog open={!!selectedMeasurement} onOpenChange={() => setSelectedMeasurement(null)}>
