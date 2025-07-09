@@ -167,7 +167,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
   const comprehensiveAnalysisPoints = analysis.comprehensiveAnalysis?.split(" | ") || [];
 
   return (
-    <div className="space-y-6">
+    <div className="w-full max-w-[1200px] mx-auto space-y-6">
       {/* Header with Action Buttons */}
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold gradient-text">체력 분석 결과</h2>
@@ -234,7 +234,45 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
         </CardContent>
       </Card>
 
-
+      {/* Card 2: BMI Analysis */}
+      <Card className="fitness-card">
+        <CardContent>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+              <Scale className="text-green-600" />
+            </div>
+            <h3 className="text-xl font-bold text-gray-900">체격 평가</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-gray-900">{analysis.bmi.toFixed(1)}</div>
+                <div className="text-sm text-gray-600">BMI (kg/m²)</div>
+              </div>
+              <div className="flex justify-center">
+                <Badge className="bg-green-100 text-green-700 px-4 py-2">
+                  정상 범위
+                </Badge>
+              </div>
+              <div className="text-center text-sm text-gray-600">
+                또래 아이들과 비교해 적절한 체격입니다
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <TrendingUp className="w-5 h-5 text-green-600" />
+                  <h4 className="font-semibold text-green-900">성장 평가</h4>
+                </div>
+                <div className="text-sm text-gray-700 leading-relaxed">
+                  <p>현재 BMI {analysis.bmi.toFixed(1)}은 {analysis.age}세 {measurement.gender === 'M' ? '남아' : '여아'}의 건강한 성장 범위에 포함됩니다.</p>
+                  <p className="mt-2">균형잡힌 식단과 꾸준한 운동으로 건강한 성장을 유지하세요.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Card 3: Balance Analysis */}
       <Card className="fitness-card">

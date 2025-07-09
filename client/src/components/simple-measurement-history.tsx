@@ -209,7 +209,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="w-full max-w-[1200px] mx-auto p-6 space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -430,38 +430,95 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                 </div>
               </div>
 
-              {/* 체력 요약 */}
+              {/* 신체변화비교카드 */}
               <div className="bg-white rounded-lg p-6 border">
-                <h3 className="text-xl font-bold mb-4">체력 요약</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <h3 className="text-xl font-bold mb-4">신체변화비교카드</h3>
+                <div className="grid grid-cols-2 gap-6">
+                  {/* 왼쪽 상단: BMI */}
+                  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Scale className="w-5 h-5 text-green-600" />
+                      <h4 className="font-semibold text-green-900">BMI</h4>
+                    </div>
+                    <div className="text-2xl font-bold text-green-600 mb-1">
+                      {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}
+                    </div>
+                    <div className="text-sm text-gray-600">kg/m² (정상범위)</div>
+                  </div>
+                  
+                  {/* 오른쪽: 체력변화 (원래 크기의 50%) */}
+                  <div className="row-span-2 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-4 border border-purple-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <BarChart3 className="w-5 h-5 text-purple-600" />
+                      <h4 className="font-semibold text-purple-900">체력변화</h4>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-purple-600 mb-2">{Math.round(selectedMeasurement.overallPercentile)}</div>
+                      <div className="text-sm text-gray-600 mb-3">종합 백분위</div>
+                    </div>
+                    <div className="space-y-2">
+                      <div>
+                        <span className="text-xs text-gray-500">강점</span>
+                        <p className="text-sm font-semibold text-green-600">
+                          {selectedMeasurement.strengths && selectedMeasurement.strengths.trim() !== "" 
+                            ? selectedMeasurement.strengths 
+                            : "집중 훈련이 필요합니다"}
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-xs text-gray-500">보완점</span>
+                        <p className="text-sm font-semibold text-orange-600">
+                          {selectedMeasurement.improvements && selectedMeasurement.improvements.trim() !== "" 
+                            ? selectedMeasurement.improvements 
+                            : "측정 필요"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* 왼쪽 하단: 좌우밸런스 */}
+                  <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-200">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Scale className="w-5 h-5 text-indigo-600" />
+                      <h4 className="font-semibold text-indigo-900">좌우밸런스</h4>
+                    </div>
+                    <div className="text-sm text-gray-600 mb-2">
+                      좌: {selectedMeasurement.leftBalance}% / 우: {selectedMeasurement.rightBalance}%
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      차이: {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance)}%
+                      {Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 5 ? " (정상)" : 
+                       Math.abs(selectedMeasurement.leftBalance - selectedMeasurement.rightBalance) <= 10 ? " (주의)" : " (교정필요)"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* BMI 체격 평가 */}
+              <div className="bg-white rounded-lg p-6 border">
+                <h3 className="text-xl font-bold mb-4">체격 평가</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-purple-600 mb-2">{Math.round(selectedMeasurement.overallPercentile)}</div>
-                    <div className="text-sm text-gray-600">종합 백분위</div>
-                  </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">강점</span>
-                      <p className="font-semibold text-green-600">
-                        {selectedMeasurement.strengths && selectedMeasurement.strengths.trim() !== "" 
-                          ? selectedMeasurement.strengths 
-                          : "집중 훈련이 필요합니다"}
-                      </p>
+                    <div className="text-4xl font-bold text-green-600 mb-2">
+                      {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}
+                    </div>
+                    <div className="text-sm text-gray-600">BMI (kg/m²)</div>
+                    <div className="mt-2">
+                      <Badge className="bg-green-100 text-green-700 px-3 py-1">
+                        정상 범위
+                      </Badge>
                     </div>
                   </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">보완점</span>
-                      <p className="font-semibold text-orange-600">
-                        {selectedMeasurement.improvements && selectedMeasurement.improvements.trim() !== "" 
-                          ? selectedMeasurement.improvements 
-                          : "측정 필요"}
-                      </p>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="mb-2">
-                      <span className="text-sm text-gray-600">한줄 요약</span>
-                      <p className="text-sm">{selectedMeasurement.aiCoreInsights || "AI 분석 결과가 없습니다."}</p>
+                  <div className="space-y-4">
+                    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg p-4 border border-green-200">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Scale className="w-5 h-5 text-green-600" />
+                        <h4 className="font-semibold text-green-900">성장 평가</h4>
+                      </div>
+                      <div className="text-sm text-gray-700 leading-relaxed">
+                        <p>현재 BMI {(selectedMeasurement.weight / ((selectedMeasurement.height / 100) ** 2)).toFixed(1)}은 {selectedMeasurement.age}세 {selectedMeasurement.gender === 'M' ? '남아' : '여아'}의 건강한 성장 범위에 포함됩니다.</p>
+                        <p className="mt-2">균형잡힌 식단과 꾸준한 운동으로 건강한 성장을 유지하세요.</p>
+                      </div>
                     </div>
                   </div>
                 </div>

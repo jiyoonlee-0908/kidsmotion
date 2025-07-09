@@ -61,7 +61,7 @@ export default function EnhancedResultsDisplay({ data, onNewMeasurement }: Enhan
   };
 
   return (
-    <div className="space-y-6">
+    <div className="w-full max-w-[1200px] mx-auto space-y-6">
       {/* Header Section */}
       <Card className="bg-gradient-to-br from-purple-600 to-blue-600 text-white">
         <CardContent className="p-6">
@@ -73,8 +73,8 @@ export default function EnhancedResultsDisplay({ data, onNewMeasurement }: Enhan
               <div>
                 <h1 className="text-2xl font-bold">{data.measurement.studentName}</h1>
                 <p className="text-purple-100">
-                  {data.measurement.age}세 • {data.measurement.sex === 'M' ? '남자' : '여자'} • 
-                  {new Date(data.measurement.createdAt || '').toLocaleDateString('ko-KR')}
+                  {data.measurement.measureDate} • {data.measurement.affiliation} • {data.measurement.birthDate} • 
+                  {data.measurement.height}cm/{data.measurement.weight}kg • BMI {data.analysis.bmi.toFixed(1)}
                 </p>
               </div>
             </div>
