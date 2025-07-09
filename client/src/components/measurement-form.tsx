@@ -174,6 +174,17 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
     form.setValue("gender", genderCode);
     
+    // ✅ 키/몸무게 자동 입력 추가
+    console.log('키/몸무게 데이터 확인:', { height: userData.height, weight: userData.weight });
+    if (userData.height) {
+      console.log('키 설정:', userData.height);
+      form.setValue("height", userData.height);
+    }
+    if (userData.weight) {
+      console.log('몸무게 설정:', userData.weight);
+      form.setValue("weight", userData.weight);
+    }
+    
     // 가민 데이터가 있으면 파워 값들도 입력
     if (userData.power5s) {
       form.setValue("power5s", userData.power5s);
@@ -183,6 +194,12 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       form.setValue("leftBalance", userData.leftBalance);
       form.setValue("rightBalance", userData.rightBalance);
     }
+    
+    // 설정 후 폼 값 확인
+    setTimeout(() => {
+      const currentValues = form.getValues();
+      console.log('폼 설정 후 키/몸무게:', { height: currentValues.height, weight: currentValues.weight });
+    }, 100);
   };
 
   // 특정 참가자 선택 함수
@@ -320,7 +337,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <FormControl>
                         <Input 
                           {...field} 
-                          placeholder="예: 홍길동"
+                          placeholder="예: 박시아"
                           onBlur={(e) => {
                             field.onBlur(e);
                             setStudentNameInput(e.target.value);

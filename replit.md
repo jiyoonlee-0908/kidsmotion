@@ -117,6 +117,7 @@ Preferred communication style: Simple, everyday language.
   - 과학적 기준 적용: 5초=최대파워, 15초+=평균파워 매핑
   - 실시간 저장 상태 UI 표시 추가 (저장 중, 완료, 실패)
   - 데이터 중복 검사 완료: 매핑 가이드 준수하며 안전한 이중 저장 구조 유지
+  - 키/몸무게 자동 입력 버그 수정: measurement-form.tsx의 fillFormData 함수에 height, weight 설정 로직 추가
 
 - January 9, 2025: 백분위 계산 알고리즘 완전 개편
   - 연령별 allometric scaling 적용: ≤9세(0.75), 10-13세(0.72), ≥14세(0.67)
