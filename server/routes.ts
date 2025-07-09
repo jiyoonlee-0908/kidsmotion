@@ -246,21 +246,42 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
   app.get("/api/student-reports/:studentName", async (req, res) => {
     try {
       const { studentName } = req.params;
+      console.log('학생 리포트 조회 요청:', studentName);
       
-      const { data, error } = await supabase
-        .from('fitness_report_snapshots')
-        .select('id, measurement_id, measure_date, overall_percentile, age, created_at')
-        .eq('student_name', studentName)
-        .order('measure_date', { ascending: false });
+      // 임시: 기존 테이블에서 조회하여 호환성 확인
+      const { data: participantData, error: participantError } = await supabase
+        .from('participants')
+        .select('*')
+        .eq('name', studentName)
+        .order('created_at', { ascending: false });
 
-      if (error) {
-        console.error("새로운 학생 리포트 조회 오류:", error);
-        return res.status(500).json({ error: "리포트 조회 실패" });
+      if (participantError) {
+        console.error("참가자 조회 오류:", participantError);
+        return res.status(500).json({ error: "참가자 조회 실패" });
       }
 
-      res.json(data || []);
+      if (!participantData || participantData.length === 0) {
+        console.log('참가자를 찾을 수 없음:', studentName);
+        return res.json([]); // 빈 배열 반환
+      }
+
+      // 임시 응답: 기존 데이터를 HTML 스냅샷 형식으로 변환
+      const mockSnapshots = participantData.map((participant, index) => ({
+        id: participant.id,
+        measurement_id: participant.id * 1000,
+        measure_date: participant.created_at?.split('T')[0] || '2025-01-09',
+        overall_percentile: 85.5, // 임시값
+        age: 7, // 임시값
+        created_at: participant.created_at,
+        student_name: participant.name,
+        html_available: false // Supabase 테이블 생성 전까지는 false
+      }));
+
+      console.log('임시 스냅샷 응답:', mockSnapshots);
+      res.json(mockSnapshots);
+      
     } catch (error) {
-      console.error("새로운 학생 리포트 조회 중 오류:", error);
+      console.error("학생 리포트 조회 중 오류:", error);
       res.status(500).json({ error: "서버 오류" });
     }
   });
