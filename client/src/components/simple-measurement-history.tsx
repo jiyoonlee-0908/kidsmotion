@@ -298,7 +298,12 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   placeholder="학생 이름 입력"
                   value={searchName}
                   onChange={(e) => setSearchName(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      searchSavedReports();
+                    }
+                  }}
                 />
               </div>
               <div>
@@ -307,7 +312,12 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   placeholder="병원, 센터, 학교, 유치원명 입력"
                   value={searchAffiliation}
                   onChange={(e) => setSearchAffiliation(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      searchSavedReports();
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -351,21 +361,23 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
               >
                 초기화
               </Button>
+
               <Button 
-                onClick={searchSavedReports}
-                className="bg-green-600 hover:bg-green-700"
-                disabled={isLoading}
+                onClick={searchSavedReports} 
+                disabled={isLoading || !searchName.trim()}
+                className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
               >
-                <FileText className="w-4 h-4 mr-2" />
-                {isLoading ? '검색중...' : '저장된 리포트'}
-              </Button>
-              <Button 
-                onClick={handleSearch}
-                className="bg-[#7B5CFF] hover:bg-[#6B4CE8]"
-                disabled={isLoading}
-              >
-                <Search className="w-4 h-4 mr-2" />
-                {isLoading ? '검색중...' : '측정 데이터'}
+                {isLoading ? (
+                  <div className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    검색중...
+                  </div>
+                ) : (
+                  <>
+                    <Search className="w-4 h-4 mr-2" />
+                    검색
+                  </>
+                )}
               </Button>
             </div>
 
@@ -437,42 +449,46 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         </div>
                       </div>
                       <div className="flex gap-2">
-                        {index > 0 && (
-                          <Button 
-                            variant="outline" 
-                            size="sm"
-                            onClick={() => {
-                              // 이전 기록과 비교 - 새 창으로 양쪽 리포트 열기
-                              const currentUrl = `/report/${report.measurement_id}`;
-                              const previousUrl = `/report/${savedReports[index - 1].measurement_id}`;
-                              window.open(currentUrl, '_blank');
-                              window.open(previousUrl, '_blank');
-                            }}
-                          >
-                            이전 기록 비교
-                          </Button>
-                        )}
                         <Button 
                           size="sm"
-                          onClick={async () => {
-                            const snapshot = await fetchReportSnapshot(report.id);
-                            if (snapshot) {
-                              setSelectedReport(snapshot);
-                              setShowReportViewer(true);
-                            }
+                          onClick={() => {
+                            // 리포트 페이지로 이동하여 결과를 다시 표시
+                            window.open(`/report/${report.measurement_id}`, '_blank');
                           }}
-                          className="bg-blue-600 hover:bg-blue-700"
+                          className="bg-[#7B5CFF] hover:bg-[#6A4CE6]"
                         >
                           <Eye className="w-4 h-4 mr-1" />
-                          HTML 리포트
+                          리포트 보기
                         </Button>
                         <Button 
                           size="sm"
-                          onClick={() => window.open(`/report/${report.measurement_id}`, '_blank')}
-                          className="bg-purple-600 hover:bg-purple-700"
+                          onClick={() => {
+                            // QR 코드 생성 및 표시
+                            const qrUrl = `${window.location.origin}/report/${report.measurement_id}`;
+                            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrUrl)}`;
+                            const newWindow = window.open('', '_blank');
+                            if (newWindow) {
+                              newWindow.document.write(`
+                                <html>
+                                  <head><title>QR 코드 - ${report.student_name}</title></head>
+                                  <body style="text-align: center; padding: 20px; font-family: Arial, sans-serif;">
+                                    <h2>${report.student_name} 체력분석 리포트</h2>
+                                    <p>측정일: ${report.measure_date}</p>
+                                    <div style="margin: 20px 0;">
+                                      <img src="${qrCodeUrl}" alt="QR Code" style="border: 1px solid #ddd; padding: 10px;" />
+                                    </div>
+                                    <p style="font-size: 14px; color: #666;">
+                                      QR 코드를 스캔하면 리포트를 볼 수 있습니다
+                                    </p>
+                                    <p style="font-size: 12px; color: #999;">${qrUrl}</p>
+                                  </body>
+                                </html>
+                              `);
+                            }
+                          }}
+                          className="bg-green-600 hover:bg-green-700"
                         >
-                          <ExternalLink className="w-4 h-4 mr-1" />
-                          리포트 보기
+                          📱 QR 코드
                         </Button>
                       </div>
                     </div>

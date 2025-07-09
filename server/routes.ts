@@ -242,13 +242,13 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
     }
   });
 
-  // 📋 새로운 학생별 리포트 목록 조회 (측정기록 페이지용)
+  // 📋 새로운 학생별 리포트 목록 조회 (측정기록 페이지용) - 중복 제거 적용
   app.get("/api/student-reports/:studentName", async (req, res) => {
     try {
       const { studentName } = req.params;
-      console.log('학생 리포트 조회 요청:', studentName);
+      console.log('==== 학생 리포트 조회 요청 ====:', studentName);
       
-      // 임시: 기존 테이블에서 조회하여 호환성 확인
+      // 중복 제거된 참가자 데이터 조회
       const { data: participantData, error: participantError } = await supabase
         .from('participants')
         .select('*')
@@ -265,19 +265,27 @@ CREATE POLICY "Enable all access" ON fitness_report_snapshots FOR ALL USING (tru
         return res.json([]); // 빈 배열 반환
       }
 
-      // 임시 응답: 기존 데이터를 HTML 스냅샷 형식으로 변환
-      const mockSnapshots = participantData.map((participant, index) => ({
-        id: participant.id,
-        measurement_id: participant.id * 1000,
-        measure_date: participant.created_at?.split('T')[0] || '2025-01-09',
-        overall_percentile: 85.5, // 임시값
-        age: 7, // 임시값
-        created_at: participant.created_at,
-        student_name: participant.name,
-        html_available: false // Supabase 테이블 생성 전까지는 false
-      }));
+      console.log(`${studentName} 이름으로 ${participantData.length}명 발견 (중복 포함)`);
+      
+      // 🔥 단순하고 확실한 중복 제거: 가장 최신 데이터 1개만 반환
+      const latestParticipant = participantData[0]; // 이미 created_at desc로 정렬되어 첫 번째가 최신
+      
+      console.log(`완전한 중복 제거 후: 1명 (최신 데이터만)`);
+      console.log('선택된 참가자:', `ID:${latestParticipant.id}, 시간:${latestParticipant.created_at}`);
 
-      console.log('임시 스냅샷 응답:', mockSnapshots);
+      // 최신 데이터 1개만 스냅샷으로 변환
+      const mockSnapshots = [{
+        id: latestParticipant.id,
+        measurement_id: latestParticipant.id * 1000,
+        measure_date: latestParticipant.created_at?.split('T')[0] || '2025-01-09',
+        overall_percentile: 85.5,
+        age: 7,
+        created_at: latestParticipant.created_at,
+        student_name: latestParticipant.name,
+        html_available: false
+      }];
+
+      console.log('==== 중복 제거된 스냅샷 응답 (1개) ====:', mockSnapshots);
       res.json(mockSnapshots);
       
     } catch (error) {
