@@ -211,18 +211,18 @@ export default function MeasurementHistory({ studentName, currentMeasurement }: 
   };
 
   const getGradeFromPercentile = (percentile: number): string => {
-    if (percentile >= 80) return "매우우수";
-    if (percentile >= 60) return "우수";
-    if (percentile >= 40) return "보통";
-    if (percentile >= 20) return "낮음";
-    return "매우낮음";
+    if (percentile >= 97) return "매우우수";
+    if (percentile >= 85) return "우수";
+    if (percentile >= 15) return "보통";
+    if (percentile >= 3) return "부족";
+    return "매우부족";
   };
 
   const getGradeColor = (percentile: number): string => {
-    if (percentile >= 80) return "bg-purple-100 text-purple-800";
-    if (percentile >= 60) return "bg-blue-100 text-blue-800";
-    if (percentile >= 40) return "bg-green-100 text-green-800";
-    if (percentile >= 20) return "bg-yellow-100 text-yellow-800";
+    if (percentile >= 97) return "bg-purple-100 text-purple-800";
+    if (percentile >= 85) return "bg-blue-100 text-blue-800";
+    if (percentile >= 15) return "bg-green-100 text-green-800";
+    if (percentile >= 3) return "bg-yellow-100 text-yellow-800";
     return "bg-red-100 text-red-800";
   };
 

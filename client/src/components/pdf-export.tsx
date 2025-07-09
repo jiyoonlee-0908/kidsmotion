@@ -183,11 +183,11 @@ export default function PDFExport({ data }: PDFExportProps) {
 
 // Helper functions
 function getGradeFromPercentile(percentile: number): string {
-  if (percentile >= 96) return "매우우수";
-  if (percentile >= 80) return "우수";
-  if (percentile >= 20) return "보통";
-  if (percentile >= 4) return "낮음";
-  return "매우낮음";
+  if (percentile >= 97) return "매우우수";
+  if (percentile >= 85) return "우수";
+  if (percentile >= 15) return "보통";
+  if (percentile >= 3) return "부족";
+  return "매우부족";
 }
 
 function getBalanceStatus(left: number, right: number): string {

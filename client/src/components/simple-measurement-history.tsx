@@ -123,10 +123,10 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
           rightBalance: measurement.rightBalance,
           maxHeartRate: measurement.maxHeartRate,
           avgHeartRate: measurement.avgHeartRate,
-          overallGrade: analysis.overallPercentile >= 80 ? '매우우수' : 
-                       analysis.overallPercentile >= 60 ? '우수' :
-                       analysis.overallPercentile >= 40 ? '보통' :
-                       analysis.overallPercentile >= 20 ? '낮음' : '매우낮음',
+          overallGrade: analysis.overallPercentile >= 97 ? '매우우수' : 
+                       analysis.overallPercentile >= 85 ? '우수' :
+                       analysis.overallPercentile >= 15 ? '보통' :
+                       analysis.overallPercentile >= 3 ? '부족' : '매우부족',
           overallPercentile: analysis.overallPercentile || 0,
           percentile5s: analysis.percentile5s || 0,
           percentile15s: analysis.percentile15s || 0,
@@ -199,11 +199,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
   const getGradeColor = (grade: string) => {
     switch (grade) {
-      case '매우우수': return 'bg-green-100 text-green-800';
+      case '매우우수': return 'bg-purple-100 text-purple-800';
       case '우수': return 'bg-blue-100 text-blue-800';
-      case '보통': return 'bg-yellow-100 text-yellow-800';
-      case '낮음': return 'bg-orange-100 text-orange-800';
-      case '매우낮음': return 'bg-red-100 text-red-800';
+      case '보통': return 'bg-green-100 text-green-800';
+      case '부족': return 'bg-yellow-100 text-yellow-800';
+      case '매우부족': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -512,21 +512,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power5s}W | 환산점수: {Math.round(selectedMeasurement.percentile5s)}</p>
                       </div>
                       <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile5s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile5s >= 80 ? '우수' : selectedMeasurement.percentile5s >= 20 ? '보통' : '경고'}
+                        <Badge className={`${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                          {selectedMeasurement.percentile5s >= 97 ? '매우우수' : selectedMeasurement.percentile5s >= 85 ? '우수' : selectedMeasurement.percentile5s >= 15 ? '보통' : selectedMeasurement.percentile5s >= 3 ? '부족' : '매우부족'}
                         </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile5s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile5s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                      <div className={`progress-fill ${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile5s >= 80 ? "우수한 순발력을 보여줍니다." :
-                       selectedMeasurement.percentile5s >= 60 ? "양호한 순발력입니다." :
-                       selectedMeasurement.percentile5s >= 40 ? "평균적인 순발력입니다." :
-                       selectedMeasurement.percentile5s >= 20 ? "순발력 향상이 필요합니다." :
+                      {selectedMeasurement.percentile5s >= 97 ? "매우 우수한 순발력을 보여줍니다." :
+                       selectedMeasurement.percentile5s >= 85 ? "우수한 순발력을 보여줍니다." :
+                       selectedMeasurement.percentile5s >= 15 ? "보통 수준의 순발력입니다." :
+                       selectedMeasurement.percentile5s >= 3 ? "순발력 향상이 필요합니다." :
                        "순발력 집중 훈련이 권장됩니다."}
                     </p>
                   </div>
@@ -538,21 +538,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power15s}W | 환산점수: {Math.round(selectedMeasurement.percentile15s)}</p>
                       </div>
                       <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile15s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile15s >= 80 ? '우수' : selectedMeasurement.percentile15s >= 20 ? '보통' : '경고'}
+                        <Badge className={`${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                          {selectedMeasurement.percentile15s >= 97 ? '매우우수' : selectedMeasurement.percentile15s >= 85 ? '우수' : selectedMeasurement.percentile15s >= 15 ? '보통' : selectedMeasurement.percentile15s >= 3 ? '부족' : '매우부족'}
                         </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile15s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile15s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                      <div className={`progress-fill ${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile15s >= 80 ? "우수한 스프린트 파워를 보여줍니다." :
-                       selectedMeasurement.percentile15s >= 60 ? "양호한 스프린트 파워입니다." :
-                       selectedMeasurement.percentile15s >= 40 ? "평균적인 스프린트 파워입니다." :
-                       selectedMeasurement.percentile15s >= 20 ? "스프린트 파워 향상이 필요합니다." :
+                      {selectedMeasurement.percentile15s >= 97 ? "매우 우수한 스프린트 파워를 보여줍니다." :
+                       selectedMeasurement.percentile15s >= 85 ? "우수한 스프린트 파워를 보여줍니다." :
+                       selectedMeasurement.percentile15s >= 15 ? "보통 수준의 스프린트 파워입니다." :
+                       selectedMeasurement.percentile15s >= 3 ? "스프린트 파워 향상이 필요합니다." :
                        "스프린트 파워 집중 훈련이 권장됩니다."}
                     </p>
                   </div>
@@ -564,21 +564,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power30s}W | 환산점수: {Math.round(selectedMeasurement.percentile30s)}</p>
                       </div>
                       <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile30s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile30s >= 80 ? '우수' : selectedMeasurement.percentile30s >= 20 ? '보통' : '경고'}
+                        <Badge className={`${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                          {selectedMeasurement.percentile30s >= 97 ? '매우우수' : selectedMeasurement.percentile30s >= 85 ? '우수' : selectedMeasurement.percentile30s >= 15 ? '보통' : selectedMeasurement.percentile30s >= 3 ? '부족' : '매우부족'}
                         </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile30s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile30s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                      <div className={`progress-fill ${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile30s >= 80 ? "우수한 근력을 보여줍니다." :
-                       selectedMeasurement.percentile30s >= 60 ? "양호한 근력입니다." :
-                       selectedMeasurement.percentile30s >= 40 ? "평균적인 근력입니다." :
-                       selectedMeasurement.percentile30s >= 20 ? "근력 향상이 필요합니다." :
+                      {selectedMeasurement.percentile30s >= 97 ? "매우 우수한 근력을 보여줍니다." :
+                       selectedMeasurement.percentile30s >= 85 ? "우수한 근력을 보여줍니다." :
+                       selectedMeasurement.percentile30s >= 15 ? "보통 수준의 근력입니다." :
+                       selectedMeasurement.percentile30s >= 3 ? "근력 향상이 필요합니다." :
                        "근력 집중 훈련이 권장됩니다."}
                     </p>
                   </div>
@@ -590,21 +590,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power60s}W | 환산점수: {Math.round(selectedMeasurement.percentile60s)}</p>
                       </div>
                       <div className="text-right">
-                        <Badge className={`${selectedMeasurement.percentile60s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                          {selectedMeasurement.percentile60s >= 80 ? '우수' : selectedMeasurement.percentile60s >= 20 ? '보통' : '경고'}
+                        <Badge className={`${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                          {selectedMeasurement.percentile60s >= 97 ? '매우우수' : selectedMeasurement.percentile60s >= 85 ? '우수' : selectedMeasurement.percentile60s >= 15 ? '보통' : selectedMeasurement.percentile60s >= 3 ? '부족' : '매우부족'}
                         </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile60s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className={`progress-fill ${selectedMeasurement.percentile60s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                      <div className={`progress-fill ${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
-                      {selectedMeasurement.percentile60s >= 80 ? "우수한 근지구력을 보여줍니다." :
-                       selectedMeasurement.percentile60s >= 60 ? "양호한 근지구력입니다." :
-                       selectedMeasurement.percentile60s >= 40 ? "평균적인 근지구력입니다." :
-                       selectedMeasurement.percentile60s >= 20 ? "근지구력 향상이 필요합니다." :
+                      {selectedMeasurement.percentile60s >= 97 ? "매우 우수한 근지구력을 보여줍니다." :
+                       selectedMeasurement.percentile60s >= 85 ? "우수한 근지구력을 보여줍니다." :
+                       selectedMeasurement.percentile60s >= 15 ? "보통 수준의 근지구력입니다." :
+                       selectedMeasurement.percentile60s >= 3 ? "근지구력 향상이 필요합니다." :
                        "근지구력 집중 훈련이 권장됩니다."}
                     </p>
                   </div>
@@ -618,21 +618,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s)}</p>
                         </div>
                         <div className="text-right">
-                          <Badge className={`${selectedMeasurement.percentile180s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                            {selectedMeasurement.percentile180s >= 80 ? '우수' : selectedMeasurement.percentile180s >= 20 ? '보통' : '경고'}
+                          <Badge className={`${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                            {selectedMeasurement.percentile180s >= 97 ? '매우우수' : selectedMeasurement.percentile180s >= 85 ? '우수' : selectedMeasurement.percentile180s >= 15 ? '보통' : selectedMeasurement.percentile180s >= 3 ? '부족' : '매우부족'}
                           </Badge>
                           <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
                         </div>
                       </div>
                       <div className="progress-bar mb-3">
-                        <div className={`progress-fill ${selectedMeasurement.percentile180s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                        <div className={`progress-fill ${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                              style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
                       </div>
                       <p className="text-sm text-gray-700">
-                        {selectedMeasurement.percentile180s >= 80 ? "우수한 심폐지구력을 보여줍니다." :
-                         selectedMeasurement.percentile180s >= 60 ? "양호한 심폐지구력입니다." :
-                         selectedMeasurement.percentile180s >= 40 ? "평균적인 심폐지구력입니다." :
-                         selectedMeasurement.percentile180s >= 20 ? "심폐지구력 향상이 필요합니다." :
+                        {selectedMeasurement.percentile180s >= 97 ? "매우 우수한 심폐지구력을 보여줍니다." :
+                         selectedMeasurement.percentile180s >= 85 ? "우수한 심폐지구력을 보여줍니다." :
+                         selectedMeasurement.percentile180s >= 15 ? "보통 수준의 심폐지구력입니다." :
+                         selectedMeasurement.percentile180s >= 3 ? "심폐지구력 향상이 필요합니다." :
                          "심폐지구력 집중 훈련이 권장됩니다."}
                       </p>
                     </div>
@@ -647,21 +647,21 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s)}</p>
                         </div>
                         <div className="text-right">
-                          <Badge className={`${selectedMeasurement.percentile360s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 20 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
-                            {selectedMeasurement.percentile360s >= 80 ? '우수' : selectedMeasurement.percentile360s >= 20 ? '보통' : '경고'}
+                          <Badge className={`${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
+                            {selectedMeasurement.percentile360s >= 97 ? '매우우수' : selectedMeasurement.percentile360s >= 85 ? '우수' : selectedMeasurement.percentile360s >= 15 ? '보통' : selectedMeasurement.percentile360s >= 3 ? '부족' : '매우부족'}
                           </Badge>
                           <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
                         </div>
                       </div>
                       <div className="progress-bar mb-3">
-                        <div className={`progress-fill ${selectedMeasurement.percentile360s >= 80 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 20 ? 'bg-yellow-500' : 'bg-red-500'}`} 
+                        <div className={`progress-fill ${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                              style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
                       </div>
                       <p className="text-sm text-gray-700">
-                        {selectedMeasurement.percentile360s >= 80 ? "우수한 장시간지구력을 보여줍니다." :
-                         selectedMeasurement.percentile360s >= 60 ? "양호한 장시간지구력입니다." :
-                         selectedMeasurement.percentile360s >= 40 ? "평균적인 장시간지구력입니다." :
-                         selectedMeasurement.percentile360s >= 20 ? "장시간지구력 향상이 필요합니다." :
+                        {selectedMeasurement.percentile360s >= 97 ? "매우 우수한 장시간지구력을 보여줍니다." :
+                         selectedMeasurement.percentile360s >= 85 ? "우수한 장시간지구력을 보여줍니다." :
+                         selectedMeasurement.percentile360s >= 15 ? "보통 수준의 장시간지구력입니다." :
+                         selectedMeasurement.percentile360s >= 3 ? "장시간지구력 향상이 필요합니다." :
                          "장시간지구력 집중 훈련이 권장됩니다."}
                       </p>
                     </div>

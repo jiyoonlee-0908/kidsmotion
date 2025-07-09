@@ -38,18 +38,18 @@ export default function EnhancedResultsDisplay({ data, onNewMeasurement }: Enhan
   const [activeTab, setActiveTab] = useState("overview");
   
   const getGrade = (percentile: number) => {
-    if (percentile >= 96) return "매우우수";
-    if (percentile >= 80) return "우수";
-    if (percentile >= 20) return "보통";
-    if (percentile >= 4) return "낮음";
-    return "매우낮음";
+    if (percentile >= 97) return "매우우수";
+    if (percentile >= 85) return "우수";
+    if (percentile >= 15) return "보통";
+    if (percentile >= 3) return "부족";
+    return "매우부족";
   };
 
   const getGradeColor = (percentile: number) => {
-    if (percentile >= 96) return "text-green-600 bg-green-50";
-    if (percentile >= 80) return "text-blue-600 bg-blue-50";
-    if (percentile >= 20) return "text-yellow-600 bg-yellow-50";
-    if (percentile >= 4) return "text-orange-600 bg-orange-50";
+    if (percentile >= 97) return "text-purple-600 bg-purple-50";
+    if (percentile >= 85) return "text-blue-600 bg-blue-50";
+    if (percentile >= 15) return "text-green-600 bg-green-50";
+    if (percentile >= 3) return "text-yellow-600 bg-yellow-50";
     return "text-red-600 bg-red-50";
   };
 

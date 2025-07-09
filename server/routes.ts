@@ -185,13 +185,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         overallAssessment: aiAnalysis.overallAssessment ? "생성됨" : "없음"
       });
       
-      // 등급 계산 함수
+      // 새로운 5등급 시스템 등급 계산 함수
       const getGrade = (percentile: number): string => {
-        if (percentile >= 90) return "매우우수";
-        if (percentile >= 70) return "우수";
-        if (percentile >= 40) return "평균";
-        if (percentile >= 20) return "주의";
-        return "경고";
+        const grade = gradeFromPct(percentile);
+        const gradeInfo = getGradeInfo(grade);
+        return gradeInfo.name;
       };
 
       // Create analysis result
@@ -212,22 +210,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
           percentileData.push({ name: "장시간지구력 (360초)", value: percentiles["360s"] });
         }
         
-        // 강점: 20% 이상인 항목들
+        // 강점: 85% 이상인 항목들 (2등급 이상)
         const strengths = percentileData
-          .filter(item => item.value >= 20)
+          .filter(item => item.value >= 85)
           .map(item => item.name);
         
-        // 보완점: 20% 미만인 항목들 찾기
-        const weakAreas = percentileData.filter(item => item.value < 20);
+        // 보완점: 15% 미만인 항목들 찾기 (4-5등급)
+        const weakAreas = percentileData.filter(item => item.value < 15);
         
         let improvements;
         if (weakAreas.length >= 3) {
           // 대부분 영역이 약하면 모든 약한 영역 표시
           improvements = weakAreas.map(item => item.name);
+        } else if (weakAreas.length > 0) {
+          // 일부만 약하면 약한 영역 표시
+          improvements = weakAreas.map(item => item.name);
         } else {
-          // 일부만 약하면 가장 낮은 1-2개만 표시
+          // 약한 영역이 없으면 가장 낮은 1개만 표시
           const sorted = [...percentileData].sort((a, b) => a.value - b.value);
-          improvements = sorted.slice(0, 2).map(item => item.name);
+          improvements = sorted.slice(0, 1).map(item => item.name);
         }
         
         return {
