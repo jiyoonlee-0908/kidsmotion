@@ -246,20 +246,44 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     setAdminPassword('');
   };
 
-  const handleDeleteConfirm = () => {
-    if (adminPassword === '263910') {
+  const handleDeleteConfirm = async () => {
+    if (adminPassword !== '263910') {
+      toast({
+        title: "삭제 실패",
+        description: "비밀번호가 올바르지 않습니다.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // 서버 API 호출로 실제 삭제
+      const response = await fetch(`/api/measurements/${deleteTargetId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ adminPassword }),
+      });
+
+      if (!response.ok) {
+        throw new Error('서버에서 삭제에 실패했습니다.');
+      }
+
+      // 로컬 상태에서도 제거
       setMeasurements(measurements.filter(m => m.id !== deleteTargetId));
       setDeleteConfirmOpen(false);
       setDeleteTargetId(null);
       setAdminPassword('');
       toast({
         title: "삭제 완료",
-        description: "측정 기록이 삭제되었습니다.",
+        description: "측정 기록이 서버에서 삭제되었습니다.",
       });
-    } else {
+    } catch (error) {
+      console.error('삭제 오류:', error);
       toast({
         title: "삭제 실패",
-        description: "비밀번호가 올바르지 않습니다.",
+        description: "서버에서 삭제하는데 실패했습니다.",
         variant: "destructive",
       });
     }
@@ -376,28 +400,6 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                   <>
                     <FileText className="w-4 h-4 mr-2" />
                     리포트 검색
-                  </>
-                )}
-              </Button>
-              
-              <Button 
-                onClick={() => {
-                  setShowReports(false);
-                  handleSearch();
-                }} 
-                disabled={isLoading}
-                variant="outline"
-                className="border-[#7B5CFF] text-[#7B5CFF] hover:bg-[#7B5CFF] hover:text-white"
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-[#7B5CFF] border-t-transparent rounded-full animate-spin"></div>
-                    검색중...
-                  </div>
-                ) : (
-                  <>
-                    <Search className="w-4 h-4 mr-2" />
-                    기록 검색
                   </>
                 )}
               </Button>

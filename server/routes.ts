@@ -2094,6 +2094,51 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // DELETE API - 측정 기록 삭제 (관리자 인증 필요)
+  app.delete("/api/measurements/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { adminPassword } = req.body;
+
+      // 관리자 비밀번호 확인
+      if (adminPassword !== '263910') {
+        return res.status(401).json({ 
+          error: "인증 실패", 
+          message: "관리자 비밀번호가 올바르지 않습니다." 
+        });
+      }
+
+      const measurementId = parseInt(id);
+      if (isNaN(measurementId)) {
+        return res.status(400).json({ error: "잘못된 측정 ID입니다." });
+      }
+
+      // 측정 기록 존재 확인
+      const measurement = await storage.getMeasurement(measurementId);
+      if (!measurement) {
+        return res.status(404).json({ error: "측정 기록을 찾을 수 없습니다." });
+      }
+
+      // 실제 삭제 수행
+      await storage.deleteMeasurement(measurementId);
+
+      console.log(`측정 기록 삭제 완료: ${measurementId} (${measurement.studentName})`);
+      
+      res.json({ 
+        success: true,
+        message: `${measurement.studentName}의 측정 기록이 삭제되었습니다.`,
+        deletedId: measurementId
+      });
+
+    } catch (error) {
+      console.error("측정 기록 삭제 오류:", error);
+      res.status(500).json({ 
+        error: "삭제 실패", 
+        message: "서버에서 삭제하는 중 오류가 발생했습니다." 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
