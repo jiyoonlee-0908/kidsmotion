@@ -1,0 +1,73 @@
+KidsMotion 모니터앱 개발자님께
+
+KidsMotion 웹앱에서 자동입력 기능을 구현하려고 합니다. 다음 5개 Supabase 테이블을 생성하고 API 엔드포인트를 만들어주세요:
+
+필요한 테이블 구조:
+1. participants
+CREATE TABLE participants (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  birth_date DATE NOT NULL,
+  gender TEXT NOT NULL,
+  organization TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+2. test_sessions
+CREATE TABLE test_sessions (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES participants(id),
+  user_display_name TEXT NOT NULL,
+  start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  end_time TIMESTAMP,
+  status TEXT DEFAULT 'completed',
+  total_stages INTEGER DEFAULT 6,
+  completed_stages INTEGER DEFAULT 6
+);
+3. stage_intervals (가장 중요!)
+CREATE TABLE stage_intervals (
+  id SERIAL PRIMARY KEY,
+  session_id INTEGER REFERENCES test_sessions(id),
+  user_display_name TEXT NOT NULL,
+  sequence_number INTEGER NOT NULL,
+  stage_name TEXT NOT NULL,
+  max_power_in_stage REAL,
+  avg_power_in_stage REAL,
+  start_timestamp TIMESTAMP,
+  end_timestamp TIMESTAMP,
+  duration_seconds INTEGER
+);
+4. garmin_data
+CREATE TABLE garmin_data (
+  id SERIAL PRIMARY KEY,
+  session_id INTEGER,
+  user_display_name TEXT NOT NULL,
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  power REAL DEFAULT 0,
+  cadence REAL DEFAULT 0,
+  left_balance REAL DEFAULT 50,
+  right_balance REAL DEFAULT 50,
+  pedaling_smoothness REAL DEFAULT 0,
+  torque_effectiveness REAL DEFAULT 0
+);
+5. report_results
+CREATE TABLE report_results (
+  id SERIAL PRIMARY KEY,
+  session_id INTEGER,
+  user_display_name TEXT NOT NULL,
+  analysis_data JSONB,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+필요한 API 엔드포인트:
+GET /api/users/search/{이름} - 이름으로 참가자 검색
+GET /api/stage-intervals/{userDisplayName} - 스테이지별 파워 데이터 조회
+GET /api/sessions/{이름} - 테스트 세션 조회
+GET /api/garmin-data-user/{userDisplayName} - 가민 실시간 데이터 조회
+테스트 데이터 (5명):
+박시아 (2019-07-02, 여성, 희망찬유치원)
+김철수 (2018-03-15, 남성, 꿈나무초등학교)
+이영희 (2020-01-22, 여성, 햇살유치원)
+최민준 (2017-09-08, 남성, 미래초등학교)
+한소희 (2019-11-14, 여성, 별빛유치원)
+각각 6단계 파워 데이터 (sequence_number 1-6)
+
+이렇게 구축하시면 KidsMotion 웹앱에서 이름 입력 시 자동으로 모든 측정 데이터가 채워집니다!
