@@ -539,7 +539,10 @@ ${htmlContent}
       const measurementData = insertMeasurementSchema.parse(req.body);
       
       // 측정 결과 계산 및 MemStorage에 저장
-      const measurement = { id: Date.now(), ...measurementData };
+      const measurement = { 
+        id: req.body.id || Date.now(), // 클라이언트에서 ID를 제공하면 사용, 아니면 타임스탬프 사용
+        ...measurementData 
+      };
       
       // MemStorage에 측정 데이터 저장
       const storedMeasurement = await storage.createMeasurement(measurement);
@@ -847,7 +850,7 @@ ${htmlContent}
       }
 
       // MemStorage에 분석 결과 저장
-      await storage.saveAnalysisResult(measurement.id, analysisResult);
+      await storage.createAnalysisResult(analysisResult);
       
       console.log("=== 측정 결과 계산 완료 ===");
       console.log("측정 ID:", measurement.id);
