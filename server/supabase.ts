@@ -46,50 +46,40 @@ export interface GarminDataPoint {
   torque_effectiveness: number;
 }
 
-// 모니터앱 API를 통해 사용자 검색
-export async function searchUserFromMonitorApp(name: string): Promise<ParticipantData | null> {
-  try {
-    const response = await fetch(`https://kidsmotion.app/api/users/search/${encodeURIComponent(name)}`);
-    
-    if (!response.ok) {
-      console.log('No user found in monitor app for name:', name);
-      return null;
-    }
-    
-    const userData = await response.json();
-    console.log('Monitor app user data:', userData);
-    
-    return userData;
-  } catch (error) {
-    console.error('Error searching user from monitor app:', error);
-    return null;
-  }
-}
-
-// 이름으로 최신 완료된 테스트 세션 찾기 (모니터앱 API 사용)
+// 이름으로 최신 완료된 테스트 세션 찾기
 export async function getLatestCompletedTest(name: string): Promise<TestSessionData | null> {
   try {
-    // 모니터앱에서 사용자 검색
-    const participant = await searchUserFromMonitorApp(name);
-    
-    if (!participant) {
+    // 먼저 정확한 이름으로 참가자 찾기
+    const { data: participants, error: participantError } = await supabase
+      .from('participants')
+      .select('*')
+      .eq('name', name)
+      .order('created_at', { ascending: false });
+
+    if (participantError || !participants || participants.length === 0) {
       console.log('No participant found for name:', name);
       return null;
     }
+
+    const participant = participants[0];
     
-    // 모니터앱에서 테스트 세션 조회
-    const sessionResponse = await fetch(`https://kidsmotion.app/api/sessions/${encodeURIComponent(participant.name)}`);
-    
-    if (!sessionResponse.ok) {
-      console.log('No test session found for participant:', participant.name);
+    // 해당 참가자의 테스트 세션 찾기
+    const { data: testSession, error: sessionError } = await supabase
+      .from('test_sessions')
+      .select('*')
+      .eq('user_id', participant.id)
+      .eq('status', 'completed')
+      .order('end_time', { ascending: false })
+      .limit(1);
+
+    if (sessionError || !testSession || testSession.length === 0) {
+      console.log('No completed test session found for participant:', participant.name);
       return null;
     }
-    
-    const testSession = await sessionResponse.json();
-    
+
     // 참가자 정보를 포함한 결과 반환
     return {
-      ...testSession,
+      ...testSession[0],
       participants: participant
     };
   } catch (error) {
@@ -98,33 +88,38 @@ export async function getLatestCompletedTest(name: string): Promise<TestSessionD
   }
 }
 
-// 모니터앱에서 사용자 표시 이름으로 가민 데이터 가져오기
+// 사용자 표시 이름으로 가민 데이터 가져오기
 export async function getGarminDataByDisplayName(userDisplayName: string): Promise<GarminDataPoint[]> {
   try {
-    const response = await fetch(`https://kidsmotion.app/api/garmin-data-user/${encodeURIComponent(userDisplayName)}`);
-    
-    if (!response.ok) {
-      console.log('No garmin data found for user:', userDisplayName);
+    const { data, error } = await supabase
+      .from('garmin_data')
+      .select('*')
+      .eq('user_display_name', userDisplayName)
+      .order('timestamp', { ascending: true });
+
+    if (error) {
+      console.error('Error fetching garmin data:', error);
       return [];
     }
-    
-    const data = await response.json();
-    console.log('Garmin data from monitor app:', data);
-    
+
     return data || [];
   } catch (error) {
-    console.error('Error fetching garmin data from monitor app:', error);
+    console.error('Error in getGarminDataByDisplayName:', error);
     return [];
   }
 }
 
-// 🔥 모니터앱에서 스테이지 구간 파워값 추출
+// 🔥 새로운 스테이지 넘버링 시스템 - stage_intervals 테이블에서 파워값 추출
 export async function getStageIntervalPowerValues(userDisplayName: string) {
   try {
-    const response = await fetch(`https://kidsmotion.app/api/stage-intervals/${encodeURIComponent(userDisplayName)}`);
-    
-    if (!response.ok) {
-      console.log(`${userDisplayName}: 스테이지 구간 데이터 없음 - 가민 데이터 사용`);
+    const { data: stages, error } = await supabase
+      .from('stage_intervals')
+      .select('*')
+      .eq('user_display_name', userDisplayName)
+      .order('sequence_number', { ascending: true });
+
+    if (error) {
+      console.error("스테이지 구간 조회 오류:", error);
       return {
         power5s: null,
         power15s: null,
@@ -135,9 +130,6 @@ export async function getStageIntervalPowerValues(userDisplayName: string) {
         hasStageData: false
       };
     }
-    
-    const stages = await response.json();
-    console.log('Stage intervals from monitor app:', stages);
 
     if (!stages || stages.length === 0) {
       console.log(`${userDisplayName}: 스테이지 구간 데이터 없음 - 가민 데이터 사용`);
@@ -152,20 +144,18 @@ export async function getStageIntervalPowerValues(userDisplayName: string) {
       };
     }
 
-    // 첨부파일 요구사항에 따른 파워값 추출
-    // 5초: 최대파워 (max_power_in_stage)
-    // 15초+: 평균파워 (avg_power_in_stage)
+    // 순서별로 파워값 추출 (1-6번 스테이지)
     const powerValues = {
-      power5s: stages.find(s => s.sequence_number === 1)?.max_power_in_stage || null,    // 5초: 최대파워
-      power15s: stages.find(s => s.sequence_number === 2)?.avg_power_in_stage || null,   // 15초: 평균파워
-      power30s: stages.find(s => s.sequence_number === 3)?.avg_power_in_stage || null,   // 30초: 평균파워
-      power60s: stages.find(s => s.sequence_number === 4)?.avg_power_in_stage || null,   // 60초: 평균파워
-      power180s: stages.find(s => s.sequence_number === 5)?.avg_power_in_stage || null,  // 180초: 평균파워
-      power360s: stages.find(s => s.sequence_number === 6)?.avg_power_in_stage || null,  // 360초: 평균파워
+      power5s: stages.find(s => s.sequence_number === 1)?.max_power_in_stage || null,
+      power15s: stages.find(s => s.sequence_number === 2)?.max_power_in_stage || null,
+      power30s: stages.find(s => s.sequence_number === 3)?.max_power_in_stage || null,
+      power60s: stages.find(s => s.sequence_number === 4)?.max_power_in_stage || null,
+      power180s: stages.find(s => s.sequence_number === 5)?.max_power_in_stage || null,
+      power360s: stages.find(s => s.sequence_number === 6)?.max_power_in_stage || null,
       hasStageData: true
     };
 
-    console.log(`${userDisplayName} 스테이지 파워값 (과학적 기준):`, powerValues);
+    console.log(`${userDisplayName} 스테이지 파워값:`, powerValues);
     return powerValues;
 
   } catch (error) {
