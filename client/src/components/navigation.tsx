@@ -58,6 +58,13 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
             >
               IR자료
             </Link>
+            <Link
+              href="/ir-presentation"
+              onClick={() => notifyParent("ir-presentation")}
+              className="text-lg font-medium text-blue-600 tracking-wide cursor-pointer hover:text-blue-800 transition-colors border-2 border-blue-400 px-3 py-1 rounded-lg hover:border-blue-600 hover:bg-blue-50"
+            >
+              IR발표자료
+            </Link>
           </div>
 
           {/* ▶ 메인 네비게이션 + 우측 버튼들 */}

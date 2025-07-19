@@ -19,6 +19,7 @@ import GrowthManagement from "@/pages/growth-management";
 import ProfessionalReport from "@/pages/professional-report";
 import EasySharing from "@/pages/easy-sharing";
 import IRMaterials from "@/pages/ir-materials";
+import IRPresentation from "@/pages/ir-presentation";
 import Admin from "@/pages/admin";
 import SnapshotViewer from "@/pages/snapshot-viewer";
 
@@ -63,6 +64,7 @@ function App() {
     else if (path === '/professional-report') setCurrentPage('professional-report');
     else if (path === '/easy-sharing') setCurrentPage('easy-sharing');
     else if (path === '/ir-materials') setCurrentPage('ir-materials');
+    else if (path === '/ir-presentation') setCurrentPage('ir-presentation');
     else if (path === '/admin') setCurrentPage('admin');
     else if (path.startsWith('/report/')) setCurrentPage('snapshot-viewer');
 
@@ -147,6 +149,8 @@ function App() {
         return <EasySharing onNavigate={navigateTo} />;
       case 'ir-materials':
         return <IRMaterials onNavigate={navigateTo} />;
+      case 'ir-presentation':
+        return <IRPresentation onNavigate={navigateTo} />;
       default:
         return <Home onNavigate={navigateTo} />;
     }
