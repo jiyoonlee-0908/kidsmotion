@@ -276,7 +276,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                       <p>• 60초 근력: 근육 지구력 측정</p>
                       <p>• 180초 근지구력: 유산소-무산소 경계</p>
                       <p>• 360초 심폐지구력: 유산소 능력 평가 (장거리달리기)</p>
-                      <p className="text-blue-600 font-bold text-base">(생체역학에 )</p>
+                      <p className="text-blue-600 font-bold text-base">(생체역학적 테스트 프로토콜 개발)</p>
                     </div>
                   </div>
                 </div>
