@@ -169,6 +169,103 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
+        {/* MotionBike 핵심 기술 */}
+        <div className="mb-20">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
+          
+          {/* 깔끔한 좌우 분할 레이아웃 */}
+          <div className="grid grid-cols-2 gap-16 items-start max-w-7xl mx-auto">
+            {/* 왼쪽: 3개 이미지 - 세로로 3줄 */}
+            <div className="space-y-6">
+              {/* 키즈모션 사이클 */}
+              <div className="text-center">
+                <div className="w-full max-w-lg mx-auto">
+                  <img 
+                    src="/kidsmotion.png" 
+                    alt="MotionBike 스마트사이클" 
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/kidsmotion.png')}
+                  />
+                  <p className="mt-3 text-lg font-semibold text-gray-800">키즈모션 사이클</p>
+                </div>
+              </div>
+
+              {/* 가민 파워미터 */}
+              <div className="text-center">
+                <div className="w-full max-w-lg mx-auto">
+                  <img 
+                    src="/garmin_rally.png" 
+                    alt="Garmin Rally RS200 Power Pedals" 
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/garmin_rally.png')}
+                  />
+                  <p className="mt-3 text-lg font-semibold text-gray-800">가민 Rally RS200 파워페달</p>
+                </div>
+              </div>
+
+              {/* 실시간 모니터링 앱 */}
+              <div className="text-center">
+                <div className="w-full max-w-lg mx-auto">
+                  <img 
+                    src="/monitoring_app.png" 
+                    alt="실시간 모니터링 앱" 
+                    className="w-full object-contain bg-gray-50 rounded-2xl shadow-xl cursor-pointer hover:shadow-2xl transition-shadow"
+                    onClick={() => setSelectedImage('/monitoring_app.png')}
+                  />
+                  <p className="mt-3 text-lg font-semibold text-gray-800">실시간 모니터링 앱</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 오른쪽: 핵심 기술 설명 */}
+            <div className="space-y-8">
+              {/* 높이 조정을 위한 컨테이너 */}
+              <div className="flex flex-col justify-center h-full space-y-8">
+                
+                <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                      <Activity className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">정밀한 파워 측정</h3>
+                  </div>
+                  <div className="space-y-4 text-gray-700">
+                    <p className="leading-relaxed">Garmin Rally RS200 페달을 통해 <span className="font-bold text-blue-600">0.01% 정밀도</span>로 좌우 파워 밸런스를 실시간 측정합니다.</p>
+                    <p className="leading-relaxed">6단계 프로토콜(5초-15초-30초-60초-180초-360초)을 통해 순발력부터 심폐지구력까지 <span className="font-bold text-blue-600">과학적으로 평가</span>합니다.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-green-600 rounded-2xl flex items-center justify-center mr-4">
+                      <BarChart3 className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">AI 기반 분석</h3>
+                  </div>
+                  <div className="space-y-4 text-gray-700">
+                    <p className="leading-relaxed">측정 데이터를 <span className="font-bold text-green-600">GPT-4 기반 AI</span>가 분석하여 개별 맞춤형 운동 처방을 제공합니다.</p>
+                    <p className="leading-relaxed">연령별·성별 백분위 데이터와 비교하여 <span className="font-bold text-green-600">정확한 체력 등급</span>을 산출합니다.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100">
+                  <div className="flex items-center mb-6">
+                    <div className="w-12 h-12 bg-purple-600 rounded-2xl flex items-center justify-center mr-4">
+                      <Settings className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900">통합 솔루션</h3>
+                  </div>
+                  <div className="space-y-4 text-gray-700">
+                    <p className="leading-relaxed">측정부터 분석, 리포트 생성까지 <span className="font-bold text-purple-600">원스톱 서비스</span>를 제공합니다.</p>
+                    <p className="leading-relaxed">QR코드 기반 리포트 공유로 언제 어디서나 <span className="font-bold text-purple-600">간편한 접근</span>이 가능합니다.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* 영상 */}
         <div className="mb-16">
           <div className="relative w-full max-w-5xl mx-auto">
@@ -225,9 +322,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-
-
-        {/* MotionBike 핵심 기술 */}
+        {/* 시장 규모 */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
