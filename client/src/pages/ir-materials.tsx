@@ -112,40 +112,64 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-12">
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-purple-800 mb-4">💝 창업자 편지</h1>
-            <p className="text-2xl text-purple-600">"현장에서 매일 부딪혔습니다. 그래서 직접 만들었습니다."</p>
+            <p className="text-2xl text-purple-600">"체력측정의 패러다임을 바꾸다"</p>
           </div>
           
           <div className="text-lg leading-relaxed text-gray-700 space-y-6 mb-8">
             <div className="max-w-4xl mx-auto space-y-6">
-              <p>저는 사이클 아카데미에서 어시스트 업무를 하며, 아이들을 지켜보고 부모님들과 상담해왔습니다.</p>
+              <p><span className="font-bold text-blue-700">통계청 발표에 따르면, 국민의 80%가 과학적 체력관리가 필요하다고 합니다.</span></p>
               
-              <p>현장에서 가장 어려웠던 순간은,<br/>
-              <span className="font-bold text-red-600">"아이의 체력이 평균보다 부족한가요?"<br/>
-              "운동을 더 시켜야 하나요?"<br/>
-              "저희 아이가 엘리트 선수가 될 수 있을까요?"</span></p>
+              <p>하지만 현실은 어떨까요? 체내 측정은 인바디로, 관절가동범위는 모션캡처로 디지털화되었지만, 정작 체력의 핵심인 <span className="font-bold text-red-600">순발력, 근력, 지구력 측정은 여전히 아날로그</span>입니다.</p>
               
-              <p className="font-bold text-purple-700">이 질문에 명확히 답할 수 없을 때였습니다.</p>
+              <p>PAPS 장비가 디지털화되었다고 하지만, 여전히 '몇 분 몇 초', '몇 미터'로만 측정됩니다. <span className="font-bold text-red-600">힘의 단위인 W(와트)로 측정되지 않아 정확히 언제, 어떻게 힘을 썼는지 알 수 없습니다.</span></p>
+
+              <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-blue-500">
+                <h3 className="text-xl font-bold text-blue-800 mb-4">기존 3가지 vs 우리의 6단계 혁신 평가</h3>
+                
+                <div className="grid grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-bold text-red-700 mb-3">기존 방식:</h4>
+                    <ul className="space-y-2 text-red-600">
+                      <li>• 멀리뛰기 → 거리만 측정</li>
+                      <li>• 근거리 달리기 → 시간만 측정</li>
+                      <li>• 장거리 달리기 → 지속시간만 측정</li>
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h4 className="font-bold text-blue-700 mb-3">KidsMotion의 6단계 과학적 평가:</h4>
+                    <ul className="space-y-2 text-blue-600">
+                      <li>• <span className="font-bold">5초 테스트</span> → 순발력을 W 단위로 정밀측정</li>
+                      <li>• <span className="font-bold">15초 테스트</span> → 근력을 생체역학적으로 분석</li>
+                      <li>• <span className="font-bold">30초 테스트</span> → 젖산 역치 정확한 파악</li>
+                      <li>• <span className="font-bold">60초 테스트</span> → 근지구력 세밀한 평가</li>
+                      <li>• <span className="font-bold">180초 테스트</span> → 유산소와 무산소의 경계 측정</li>
+                      <li>• <span className="font-bold">360초 테스트</span> → 심폐지구력 종합 분석</li>
+                      <li>• <span className="font-bold">좌우 밸런스</span> → 성장기 불균형 조기 발견</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               
-              <p><span className="font-bold">수치가 없으면 말도 설명도 설득도 어려웠습니다.</span></p>
+              <p className="font-bold text-purple-700">"달리기와 멀리뛰기는 체력을 측정하는 도구가 아닙니다. 체력을 증진시키는 훈련방법이어야 합니다."</p>
               
-              <p>어떤 아이는 늘 숨이 차서 수업을 따라가기 힘들어하고,<br/>
-              어떤 부모는 아이가 비대칭인거같다고 걱정하지만,<br/>
-              병원에서는 <span className="font-bold text-red-600">"크면 괜찮아질 수 있어요"</span>라는 말만 돌아옵니다.</p>
-              
-              <p className="font-bold text-blue-700">운동도, 체력도, 성장도<br/>
-              설문지와 줄자로만 설명되는 시대는 끝나야 한다고 생각했습니다.</p>
-              
-              <p>그래서 만들었습니다.<br/>
-              아이의 체력을 디지털 수치로 정확히 보여주고,<br/>
-              부모가 납득할 수 있게 해석해주는 <span className="font-bold text-blue-600">'키즈모션'</span>이라는 도구.</p>
-              
-              <p>현장에서의 한계와 부모로서의 고민,<br/>
-              그리고 데이터를 통해 아이의 가능성을 볼 수 있다는 믿음.<br/>
-              이 모든 것이 저희 제품의 출발점입니다.</p>
+              <div className="bg-gray-50 p-6 rounded-xl">
+                <h4 className="font-bold text-gray-800 mb-3">왜 사이클인가?</h4>
+                <p>사이클링은 다리만의 운동이 아닙니다. <span className="font-bold text-blue-600">진정한 파워를 내기 위해서는 전신의 힘을 통합적으로 사용</span>해야 합니다. 또한 대칭 기구의 특성상 <span className="font-bold text-blue-600">좌우 불균형을 0.01% 단위까지 정확하게 감지</span>할 수 있습니다.</p>
+              </div>
+
+              <div className="bg-blue-50 p-6 rounded-xl">
+                <h4 className="font-bold text-blue-800 mb-3">데이터 기반 맞춤형 성장</h4>
+                <ul className="space-y-2 text-blue-700">
+                  <li>• <span className="font-bold">정밀 측정</span>: W(와트) 단위 파워 측정으로 정확한 체력 평가</li>
+                  <li>• <span className="font-bold">AI 분석</span>: 개별 아동의 성장 패턴 예측 및 맞춤형 훈련 제안</li>
+                  <li>• <span className="font-bold">추적 관리</span>: 측정-평가-훈련의 과학적 순환 체계 구축</li>
+                </ul>
+              </div>
             </div>
             
             <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
-              <p className="text-xl font-bold text-purple-800">이제는 감이 아닌 데이터로<br/>아이의 성장을 이야기할 수 있어야 합니다.<br/>MotionBike는 그 기준을 만듭니다.</p>
+              <p className="text-xl font-bold text-purple-800">"측정이 올바라야 평가가 정확하고, 평가가 정확해야 훈련이 효과적입니다."<br/><br/>KidsMotion으로 아이들의 체력을 과학적으로 측정하고, 데이터 기반 개인 맞춤형 성장을 지원하겠습니다.</p>
             </div>
             
             <p className="text-right text-lg font-medium text-purple-600 mt-4">– 모션바이크 대표</p>
