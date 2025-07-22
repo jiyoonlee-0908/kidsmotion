@@ -102,7 +102,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
       <div className="max-w-7xl mx-auto px-6 py-12 pt-24">
         
         {/* 창업자 편지 */}
-        <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
+        <div className="mb-32 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-purple-800 mb-3">체력측정의 패러다임을 바꾸다</h1>
           </div>
@@ -169,7 +169,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* MotionBike 핵심 기술 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
           {/* 깔끔한 좌우 분할 레이아웃 */}
@@ -313,14 +313,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 영상 */}
-        <div className="mb-16">
+        <div className="mb-32">
           <div className="relative w-full max-w-5xl mx-auto">
             <VideoPlayer />
           </div>
         </div>
 
         {/* 핵심 문제와 해결책 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 정량 데이터로 해결합니다</h2>
           
           <div className="grid grid-cols-2 gap-8 mb-16">
@@ -369,7 +369,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 정부 정책과 완벽한 연계 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">🏛️ 정부 정책과 완벽한 연계</h2>
             <p className="text-2xl font-bold text-blue-800">국민건강 데이터화 추진</p>
@@ -423,7 +423,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 시장 규모 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
           <div className="grid grid-cols-3 gap-8 mb-12">
             <div className="text-center bg-emerald-50 p-8 rounded-3xl shadow-lg">
@@ -478,7 +478,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* MotionBike 솔루션 가격 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl py-8 px-8 mb-12">
             <div className="text-center">
               <h3 className="text-3xl font-bold text-indigo-800 mb-4">MotionBike 솔루션</h3>
@@ -504,7 +504,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 핵심 역량 기반 팀 구성 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
           
           <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -558,7 +558,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 파일럿 테스트 */}
-        <div className="mb-20">
+        <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">지금, 이 시장을 증명하고 있습니다</h2>
           <div className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-3xl p-12 text-white">
             <h3 className="text-3xl font-bold text-center mb-8">2025년 파일럿 테스트 확정</h3>
