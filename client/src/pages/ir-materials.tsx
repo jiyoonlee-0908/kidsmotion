@@ -585,53 +585,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-        {/* 정부 정책 연계 */}
-        <div className="mb-20">
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-3xl p-12">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-indigo-800 mb-4">🏛️ 정부 정책과 완벽한 연계</h2>
-              <p className="text-2xl text-indigo-600">국민건강 데이터화 추진</p>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-12">
-              <div className="bg-red-100 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-red-700 mb-6">국민체력100의 한계</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-red-600">제자리 멀리뛰기 → 줄자로 측정</div>
-                  </div>
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-red-600">윗몸말아올리기 → 사람이 카운트</div>
-                  </div>
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-red-600">왕복오래달리기 → 수동 기록</div>
-                  </div>
-                  <div className="bg-red-200 p-4 rounded-xl">
-                    <div className="font-bold text-red-800">결과: 정확성 부족, 빅데이터 구축 불가</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-green-100 rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-green-700 mb-6">우리의 디지털 혁신</h3>
-                <div className="space-y-4">
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-green-600">정량적 데이터 수집 시스템</div>
-                  </div>
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-green-600">국민체력 빅데이터 구축</div>
-                  </div>
-                  <div className="bg-white p-4 rounded-xl">
-                    <div className="font-bold text-green-600">객관적 평가로 정책 수립</div>
-                  </div>
-                  <div className="bg-green-200 p-4 rounded-xl">
-                    <div className="font-bold text-green-800">MotionBike로 디지털 체력측정 실현</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
 
         {/* 투자 제안 */}
         <div className="bg-gradient-to-r from-indigo-100 to-purple-100 rounded-3xl p-12">
