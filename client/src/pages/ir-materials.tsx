@@ -422,63 +422,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-
-
-        {/* 시장 규모 */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
-          <div className="grid grid-cols-3 gap-8 mb-12">
-            <div className="text-center bg-emerald-50 p-8 rounded-3xl shadow-lg">
-              <div className="text-5xl font-bold text-emerald-600 mb-4">249만명</div>
-              <div className="text-xl font-medium text-gray-700">전국 초등학생 수</div>
-              <div className="text-gray-500">(2024년 기준)</div>
-            </div>
-            <div className="text-center bg-red-50 p-8 rounded-3xl shadow-lg">
-              <div className="text-5xl font-bold text-red-600 mb-4">3,302개소</div>
-              <div className="text-xl font-medium text-gray-700">소아·청소년과</div>
-              <div className="text-gray-500">전문 진료기관</div>
-            </div>
-            <div className="text-center bg-blue-50 p-8 rounded-3xl shadow-lg">
-              <div className="text-5xl font-bold text-blue-600 mb-4">2만4천개+</div>
-              <div className="text-xl font-medium text-gray-700">아동 스포츠 학원</div>
-              <div className="text-gray-500">(축구·태권도·수영 등)</div>
-            </div>
-          </div>
-
-          {/* 3개 시장별 특화 서비스 */}
-          <div className="grid grid-cols-3 gap-8">
-            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
-              <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원</h3>
-              <div className="space-y-4">
-                <div className="bg-red-50 p-4 rounded-xl">
-                  <p className="font-bold text-red-800 mb-2">✓ 프리미엄 성장검진 + 운동 능력 정량 평가</p>
-                  <p className="text-gray-600 text-sm">차별화된 진단 서비스로 환자 만족도 향상</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-blue-500">
-              <h3 className="text-2xl font-bold text-blue-700 mb-6 text-center">스포츠 학원</h3>
-              <div className="space-y-4">
-                <div className="bg-blue-50 p-4 rounded-xl">
-                  <p className="font-bold text-blue-800 mb-2">✓ 실력 향상 데이터 제공</p>
-                  <p className="text-gray-600 text-sm">학부모 신뢰도 증가와 경쟁력 확보로 등록 유도</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
-              <h3 className="text-2xl font-bold text-purple-700 mb-6 text-center">보건소/공공기관</h3>
-              <div className="space-y-4">
-                <div className="bg-purple-50 p-4 rounded-xl">
-                  <p className="font-bold text-purple-800 mb-2">✓ 아동 체력 건강 빅데이터</p>
-                  <p className="text-gray-600 text-sm">정책 수립을 위한 데이터 구축</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* 시장 규모 */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
