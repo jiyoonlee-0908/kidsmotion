@@ -109,27 +109,27 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* 창업자 편지 */}
-        <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-12">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-purple-800 mb-4">💝 창업자 편지</h1>
-            <p className="text-2xl text-purple-600">"체력측정의 패러다임을 바꾸다"</p>
+        <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-purple-800 mb-3">💝 창업자 편지</h1>
+            <p className="text-xl text-purple-600">"체력측정의 패러다임을 바꾸다"</p>
           </div>
           
-          <div className="text-lg leading-relaxed text-gray-700 space-y-6 mb-8">
-            <div className="max-w-4xl mx-auto space-y-6">
+          <div className="text-base leading-relaxed text-gray-700 space-y-5">
+            <div className="space-y-5">
               <p><span className="font-bold text-blue-700">통계청 발표에 따르면, 국민의 80%가 과학적 체력관리가 필요하다고 합니다.</span></p>
               
               <p>하지만 현실은 어떨까요? 체내 측정은 인바디로, 관절가동범위는 모션캡처로 디지털화되었지만, 정작 체력의 핵심인 <span className="font-bold text-red-600">순발력, 근력, 지구력 측정은 여전히 아날로그</span>입니다.</p>
               
               <p>PAPS 장비가 디지털화되었다고 하지만, 여전히 '몇 분 몇 초', '몇 미터'로만 측정됩니다. <span className="font-bold text-red-600">힘의 단위인 W(와트)로 측정되지 않아 정확히 언제, 어떻게 힘을 썼는지 알 수 없습니다.</span></p>
 
-              <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-blue-500">
-                <h3 className="text-xl font-bold text-blue-800 mb-4">기존 3가지 vs 우리의 6단계 혁신 평가</h3>
+              <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500">
+                <h3 className="text-lg font-bold text-blue-800 mb-3">기존 3가지 vs 우리의 6단계 혁신 평가</h3>
                 
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-6">
                   <div>
-                    <h4 className="font-bold text-red-700 mb-3">기존 방식:</h4>
-                    <ul className="space-y-2 text-red-600">
+                    <h4 className="font-bold text-red-700 mb-2">기존 방식:</h4>
+                    <ul className="space-y-1 text-sm text-red-600">
                       <li>• 멀리뛰기 → 거리만 측정</li>
                       <li>• 근거리 달리기 → 시간만 측정</li>
                       <li>• 장거리 달리기 → 지속시간만 측정</li>
@@ -137,8 +137,8 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   </div>
                   
                   <div>
-                    <h4 className="font-bold text-blue-700 mb-3">KidsMotion의 6단계 과학적 평가:</h4>
-                    <ul className="space-y-2 text-blue-600">
+                    <h4 className="font-bold text-blue-700 mb-2">KidsMotion의 6단계 과학적 평가:</h4>
+                    <ul className="space-y-1 text-sm text-blue-600">
                       <li>• <span className="font-bold">5초 테스트</span> → 순발력을 W 단위로 정밀측정</li>
                       <li>• <span className="font-bold">15초 테스트</span> → 근력을 생체역학적으로 분석</li>
                       <li>• <span className="font-bold">30초 테스트</span> → 젖산 역치 정확한 파악</li>
@@ -153,14 +153,14 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               <p className="font-bold text-purple-700">"달리기와 멀리뛰기는 체력을 측정하는 도구가 아닙니다. 체력을 증진시키는 훈련방법이어야 합니다."</p>
               
-              <div className="bg-gray-50 p-6 rounded-xl">
-                <h4 className="font-bold text-gray-800 mb-3">왜 사이클인가?</h4>
-                <p>사이클링은 다리만의 운동이 아닙니다. <span className="font-bold text-blue-600">진정한 파워를 내기 위해서는 전신의 힘을 통합적으로 사용</span>해야 합니다. 또한 대칭 기구의 특성상 <span className="font-bold text-blue-600">좌우 불균형을 0.01% 단위까지 정확하게 감지</span>할 수 있습니다.</p>
+              <div className="bg-gray-50 p-5 rounded-xl">
+                <h4 className="font-bold text-gray-800 mb-2">왜 사이클인가?</h4>
+                <p className="text-sm">사이클링은 다리만의 운동이 아닙니다. <span className="font-bold text-blue-600">진정한 파워를 내기 위해서는 전신의 힘을 통합적으로 사용</span>해야 합니다. 또한 대칭 기구의 특성상 <span className="font-bold text-blue-600">좌우 불균형을 0.01% 단위까지 정확하게 감지</span>할 수 있습니다.</p>
               </div>
 
-              <div className="bg-blue-50 p-6 rounded-xl">
-                <h4 className="font-bold text-blue-800 mb-3">데이터 기반 맞춤형 성장</h4>
-                <ul className="space-y-2 text-blue-700">
+              <div className="bg-blue-50 p-5 rounded-xl">
+                <h4 className="font-bold text-blue-800 mb-2">데이터 기반 맞춤형 성장</h4>
+                <ul className="space-y-1 text-sm text-blue-700">
                   <li>• <span className="font-bold">정밀 측정</span>: W(와트) 단위 파워 측정으로 정확한 체력 평가</li>
                   <li>• <span className="font-bold">AI 분석</span>: 개별 아동의 성장 패턴 예측 및 맞춤형 훈련 제안</li>
                   <li>• <span className="font-bold">추적 관리</span>: 측정-평가-훈련의 과학적 순환 체계 구축</li>
@@ -168,11 +168,11 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
             
-            <div className="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-purple-500">
-              <p className="text-xl font-bold text-purple-800">"측정이 올바라야 평가가 정확하고, 평가가 정확해야 훈련이 효과적입니다."<br/><br/>KidsMotion으로 아이들의 체력을 과학적으로 측정하고, 데이터 기반 개인 맞춤형 성장을 지원하겠습니다.</p>
+            <div className="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500 mt-5">
+              <p className="text-lg font-bold text-purple-800">"측정이 올바라야 평가가 정확하고, 평가가 정확해야 훈련이 효과적입니다."<br/><br/>KidsMotion으로 아이들의 체력을 과학적으로 측정하고, 데이터 기반 개인 맞춤형 성장을 지원하겠습니다.</p>
             </div>
             
-            <p className="text-right text-lg font-medium text-purple-600 mt-4">– 모션바이크 대표</p>
+            <p className="text-right text-base font-medium text-purple-600 mt-3">– 모션바이크 대표</p>
           </div>
         </div>
 
