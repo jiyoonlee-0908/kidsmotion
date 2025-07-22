@@ -257,6 +257,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                       <p>• 실시간 파워 센서: 객관적 체력 데이터 측정</p>
                       <p>• 좌우 밸런스 센서: 페달링 중 불균형을 정량 측정</p>
                       <p>• 과학적 체력 데이터 확보</p>
+                      <p className="text-blue-600 font-bold text-base">(오차범위 +/- 1.0%)</p>
                     </div>
                   </div>
                 </div>
