@@ -270,12 +270,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-3">6단계 정밀 체력 측정</h3>
                     <div className="space-y-1 text-gray-700 text-lg">
-                      <p>• 5초 순발력: 순간 최대 파워 측정</p>
-                      <p>• 15초 스프린트: 무산소 능력 평가</p>
+                      <p>• 5초 순발력: 순간 최대 파워 측정 (제자리멀리뛰기)</p>
+                      <p>• 15초 스프린트: 무산소 능력 평가 (단거리달리기)</p>
                       <p>• 30초 지속력: 젖산 역치 확인</p>
                       <p>• 60초 근력: 근육 지구력 측정</p>
                       <p>• 180초 근지구력: 유산소-무산소 경계</p>
-                      <p>• 360초 심폐지구력: 유산소 능력 평가</p>
+                      <p>• 360초 심폐지구력: 유산소 능력 평가 (장거리달리기)</p>
+                      <p className="text-blue-600 font-bold text-base">(생체역학에 )</p>
                     </div>
                   </div>
                 </div>
