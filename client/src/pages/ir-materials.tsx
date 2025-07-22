@@ -101,13 +101,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto px-6 py-12 pt-24">
         
-        {/* 영상 */}
-        <div className="mb-16">
-          <div className="relative w-full max-w-5xl mx-auto">
-            <VideoPlayer />
-          </div>
-        </div>
-
         {/* 창업자 편지 */}
         <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
           <div className="text-center mb-8">
@@ -173,6 +166,13 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             </div>
             
             <p className="text-right text-base font-medium text-purple-600 mt-3">– 모션바이크 대표</p>
+          </div>
+        </div>
+
+        {/* 영상 */}
+        <div className="mb-16">
+          <div className="relative w-full max-w-5xl mx-auto">
+            <VideoPlayer />
           </div>
         </div>
 
