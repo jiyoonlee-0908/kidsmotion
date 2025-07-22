@@ -104,8 +104,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 창업자 편지 */}
         <div className="mb-20 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-purple-800 mb-3">💝 창업자 편지</h1>
-            <p className="text-xl text-purple-600">"체력측정의 패러다임을 바꾸다"</p>
+            <h1 className="text-3xl font-bold text-purple-800 mb-3">체력측정의 패러다임을 바꾸다</h1>
           </div>
           
           <div className="text-base leading-relaxed text-gray-700 space-y-5">
