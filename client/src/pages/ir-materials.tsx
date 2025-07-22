@@ -534,7 +534,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-        {/* 통합 솔루션 가격 */}
+        {/* MotionBike 솔루션 가격 */}
         <div className="mb-20">
           <div className="bg-gradient-to-r from-indigo-100 to-blue-100 rounded-3xl py-8 px-8 mb-12">
             <div className="text-center">
