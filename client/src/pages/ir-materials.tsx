@@ -168,63 +168,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
-        {/* 영상 */}
-        <div className="mb-16">
-          <div className="relative w-full max-w-5xl mx-auto">
-            <VideoPlayer />
-          </div>
-        </div>
-
-        {/* 핵심 문제와 해결책 */}
-        <div className="mb-20">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 정량 데이터로 해결합니다</h2>
-          
-          <div className="grid grid-cols-2 gap-8 mb-16">
-            {/* 왼쪽: 문제 */}
-            <div>
-              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모의 걱정</h3>
-              <div className="space-y-4">
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"아이 몸이 좌우로 틀어져 보이는데, 성장에 영향이 없을까?"</p>
-                </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"우리아이 운동 능력정도면, 엘리트 선수로 성장할 가능성이 있는 걸까?"</p>
-                </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"다른 아이들보다 체력이 약한 것 같은데, 정확히 얼마나 부족한 걸까?"</p>
-                </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
-                  <p className="text-lg font-bold text-red-800">"병원에서는 괜찮다지만, 근거 있는 수치를 보고 싶어요."</p>
-                </div>
-              </div>
-            </div>
-
-            {/* 오른쪽: 해결책 */}
-            <div>
-              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">데이터 기반 해결책</h3>
-              <div className="space-y-4">
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">페달링 중 좌우 밸런스를 실시간 수치화</p>
-                  <p className="text-blue-600">→ 비대칭 조기 발견 및 교정 가이드</p>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">백분위에서 상위 1% 체력 소유</p>
-                  <p className="text-blue-600">→ 운동 잠재력 객관적 판단 가능</p>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">5등급 체계 + 백분위 수치 제공</p>
-                  <p className="text-blue-600">→ 우리 아이의 정확한 위치 파악</p>
-                </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
-                  <p className="text-lg font-bold text-blue-800 mb-1">하위 4%(5등급) 확인 즉시 알림</p>
-                  <p className="text-blue-600">→ 운동 개입 필요 시점 자동 안내</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 시장 규모 */}
+        {/* MotionBike 핵심 기술 */}
         <div className="mb-20">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
@@ -366,8 +310,173 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* 영상 */}
+        <div className="mb-16">
+          <div className="relative w-full max-w-5xl mx-auto">
+            <VideoPlayer />
+          </div>
+        </div>
+
+        {/* 핵심 문제와 해결책 */}
+        <div className="mb-20">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">부모의 걱정을 정량 데이터로 해결합니다</h2>
+          
+          <div className="grid grid-cols-2 gap-8 mb-16">
+            {/* 왼쪽: 문제 */}
+            <div>
+              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">부모의 걱정</h3>
+              <div className="space-y-4">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"아이 몸이 좌우로 틀어져 보이는데, 성장에 영향이 없을까?"</p>
+                </div>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"우리아이 운동 능력정도면, 엘리트 선수로 성장할 가능성이 있는 걸까?"</p>
+                </div>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"다른 아이들보다 체력이 약한 것 같은데, 정확히 얼마나 부족한 걸까?"</p>
+                </div>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 h-24 flex items-center">
+                  <p className="text-lg font-bold text-red-800">"병원에서는 괜찮다지만, 근거 있는 수치를 보고 싶어요."</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 오른쪽: 해결책 */}
+            <div>
+              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">데이터 기반 해결책</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">페달링 중 좌우 밸런스를 실시간 수치화</p>
+                  <p className="text-blue-600">→ 비대칭 조기 발견 및 교정 가이드</p>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">백분위에서 상위 1% 체력 소유</p>
+                  <p className="text-blue-600">→ 운동 잠재력 객관적 판단 가능</p>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">5등급 체계 + 백분위 수치 제공</p>
+                  <p className="text-blue-600">→ 우리 아이의 정확한 위치 파악</p>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 h-24 flex flex-col justify-center">
+                  <p className="text-lg font-bold text-blue-800 mb-1">하위 4%(5등급) 확인 즉시 알림</p>
+                  <p className="text-blue-600">→ 운동 개입 필요 시점 자동 안내</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 정부 정책과 완벽한 연계 */}
+        <div className="mb-20">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">🏛️ 정부 정책과 완벽한 연계</h2>
+            <p className="text-2xl font-bold text-blue-800">국민건강 데이터화 추진</p>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-8">
+            {/* 왼쪽: 문제 (국민체력100의 한계) */}
+            <div>
+              <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">국민체력100의 한계</h3>
+              <div className="space-y-6">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                  <p className="text-lg font-bold text-red-800 mb-2">제자리 멀리뛰기 → 줄자로 측정</p>
+                  <p className="text-red-600">정확성 한계</p>
+                </div>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                  <p className="text-lg font-bold text-red-800 mb-2">윗몸말아올리기 → 사람이 카운트</p>
+                  <p className="text-red-600">주관적 오차 발생</p>
+                </div>
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                  <p className="text-lg font-bold text-red-800 mb-2">왕복오래달리기 → 수동 기록</p>
+                  <p className="text-red-600">기록 오류 가능성</p>
+                </div>
+                <div className="bg-red-100 p-6 rounded-xl border border-red-400">
+                  <p className="text-xl font-bold text-red-900 text-center">결과: 정확성 부족, 빅데이터 구축 불가</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* 오른쪽: 해결책 (우리의 디지털 혁신) */}
+            <div>
+              <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">우리의 디지털 혁신</h3>
+              <div className="space-y-6">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-lg font-bold text-blue-800">정량적 데이터 수집 시스템</p>
+                  <p className="text-blue-600">0.01% 정밀도의 와트 단위 측정</p>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-lg font-bold text-blue-800">국민체력 빅데이터 구축</p>
+                  <p className="text-blue-600">연령별, 지역별 체력 데이터 자동 수집</p>
+                </div>
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                  <p className="text-lg font-bold text-blue-800">객관적 평가로 정책 수립</p>
+                  <p className="text-blue-600">정확한 데이터 기반 정책 결정 지원</p>
+                </div>
+                <div className="bg-blue-100 p-6 rounded-xl border border-blue-400">
+                  <p className="text-xl font-bold text-blue-900 text-center">MotionBike로 디지털 체력측정 실현</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
+
+        {/* 시장 규모 */}
+        <div className="mb-20">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
+          <div className="grid grid-cols-3 gap-8 mb-12">
+            <div className="text-center bg-emerald-50 p-8 rounded-3xl shadow-lg">
+              <div className="text-5xl font-bold text-emerald-600 mb-4">249만명</div>
+              <div className="text-xl font-medium text-gray-700">전국 초등학생 수</div>
+              <div className="text-gray-500">(2024년 기준)</div>
+            </div>
+            <div className="text-center bg-red-50 p-8 rounded-3xl shadow-lg">
+              <div className="text-5xl font-bold text-red-600 mb-4">3,302개소</div>
+              <div className="text-xl font-medium text-gray-700">소아·청소년과</div>
+              <div className="text-gray-500">전문 진료기관</div>
+            </div>
+            <div className="text-center bg-blue-50 p-8 rounded-3xl shadow-lg">
+              <div className="text-5xl font-bold text-blue-600 mb-4">2만4천개+</div>
+              <div className="text-xl font-medium text-gray-700">아동 스포츠 학원</div>
+              <div className="text-gray-500">(축구·태권도·수영 등)</div>
+            </div>
+          </div>
+
+          {/* 3개 시장별 특화 서비스 */}
+          <div className="grid grid-cols-3 gap-8">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-red-500">
+              <h3 className="text-2xl font-bold text-red-700 mb-6 text-center">병원</h3>
+              <div className="space-y-4">
+                <div className="bg-red-50 p-4 rounded-xl">
+                  <p className="font-bold text-red-800 mb-2">✓ 프리미엄 성장검진 + 운동 능력 정량 평가</p>
+                  <p className="text-gray-600 text-sm">차별화된 진단 서비스로 환자 만족도 향상</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-blue-500">
+              <h3 className="text-2xl font-bold text-blue-700 mb-6 text-center">스포츠 학원</h3>
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-xl">
+                  <p className="font-bold text-blue-800 mb-2">✓ 실력 향상 데이터 제공</p>
+                  <p className="text-gray-600 text-sm">학부모 신뢰도 증가와 경쟁력 확보로 등록 유도</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-purple-500">
+              <h3 className="text-2xl font-bold text-purple-700 mb-6 text-center">보건소/공공기관</h3>
+              <div className="space-y-4">
+                <div className="bg-purple-50 p-4 rounded-xl">
+                  <p className="font-bold text-purple-800 mb-2">✓ 아동 체력 건강 빅데이터</p>
+                  <p className="text-gray-600 text-sm">정책 수립을 위한 데이터 구축</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 시장 규모 */}
