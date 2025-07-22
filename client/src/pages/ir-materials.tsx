@@ -104,10 +104,10 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         {/* 창업자 편지 */}
         <div className="mb-32 bg-gradient-to-r from-purple-50 to-pink-50 rounded-3xl p-8 max-w-6xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-purple-800 mb-3">체력측정의 패러다임을 바꾸다</h1>
+            <h1 className="text-4xl font-bold text-purple-800 mb-4">체력측정의 패러다임을 바꾸다</h1>
           </div>
           
-          <div className="text-base leading-relaxed text-gray-700 space-y-5">
+          <div className="text-lg leading-relaxed text-gray-700 space-y-6">
             <div className="space-y-5">
               <p><span className="font-bold text-blue-700">통계청 발표에 따르면, 국민의 80%가 과학적 체력관리가 필요하다고 합니다.</span></p>
               
@@ -422,6 +422,60 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
           </div>
         </div>
 
+        {/* 핵심 역량 기반 팀 구성 */}
+        <div className="mb-32">
+          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
+          
+          <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* 대표자 */}
+            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">대표자</h3>
+                <p className="text-lg text-blue-600 font-medium">"사업 기획 및 기술 실현 전문성"</p>
+              </div>
+              <div className="space-y-4 text-gray-700">
+                <p className="leading-relaxed">2018년부터 현재까지 사이클 아카데미 어시스트를 하며, 현장 전문성 보유</p>
+                <p className="leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발</p>
+              </div>
+            </div>
+
+            {/* 팀원 */}
+            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Award className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">팀원</h3>
+                <p className="text-lg text-green-600 font-medium">"운동역학 및 데이터 분석 전문성"</p>
+              </div>
+              <div className="space-y-4 text-gray-700">
+                <p className="leading-relaxed">국가대표 사이클 선수 출신으로 운동역학 석사 (30년 엘리트 경력 + 13년간 아카데미 운영)</p>
+                <p className="leading-relaxed">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</p>
+                <p className="leading-relaxed">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</p>
+              </div>
+            </div>
+
+            {/* 파트너 */}
+            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <Settings className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">파트너</h3>
+                <p className="text-lg text-purple-600 font-medium">"하드웨어 개발 파트너십"</p>
+              </div>
+              <div className="space-y-4 text-gray-700">
+                <p className="leading-relaxed">자전거 부품 특허 다수 보유</p>
+                <p className="leading-relaxed">키즈모션 사이클 프레임 및 부품 공동 설계</p>
+                <p className="leading-relaxed">현재 MVP 시제품 공동 개발 중</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* 시장 규모 */}
         <div className="mb-32">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-12">249만 아이들이 기다리는 시장</h2>
@@ -498,60 +552,6 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               <div className="mt-4 text-blue-600">
                 AI 분석 리포트 제공 + 누적 데이터 기반 백분위 업데이트 + 성장 추이 분석 및 체력 변화 자동 기록
               <div>(향후 의료기관 전용 모드 포함 예정)</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 핵심 역량 기반 팀 구성 */}
-        <div className="mb-32">
-          <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">핵심 역량 기반 팀 구성</h2>
-          
-          <div className="grid grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* 대표자 */}
-            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">대표자</h3>
-                <p className="text-lg text-blue-600 font-medium">"사업 기획 및 기술 실현 전문성"</p>
-              </div>
-              <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">2018년부터 현재까지 사이클 아카데미 어시스트를 하며, 현장 전문성 보유</p>
-                <p className="leading-relaxed">웹 리포트 MVP, 스마트사이클 모니터 앱, 측정 프로토콜 개발</p>
-              </div>
-            </div>
-
-            {/* 팀원 */}
-            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Award className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">팀원</h3>
-                <p className="text-lg text-green-600 font-medium">"운동역학 및 데이터 분석 전문성"</p>
-              </div>
-              <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">국가대표 사이클 선수 출신으로 운동역학 석사 (30년 엘리트 경력 + 13년간 아카데미 운영)</p>
-                <p className="leading-relaxed">아동 체형 맞춤 커스텀 피팅 설계 및 운동 데이터 해석 알고리즘 기획</p>
-                <p className="leading-relaxed">측정-분석-훈련 연결 데이터 기반 사이클링 교육 시스템 운영 경험</p>
-              </div>
-            </div>
-
-            {/* 파트너 */}
-            <div className="bg-white rounded-3xl p-10 shadow-lg border border-gray-100">
-              <div className="text-center mb-8">
-                <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <Settings className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">파트너</h3>
-                <p className="text-lg text-purple-600 font-medium">"하드웨어 개발 파트너십"</p>
-              </div>
-              <div className="space-y-4 text-gray-700">
-                <p className="leading-relaxed">자전거 부품 특허 다수 보유</p>
-                <p className="leading-relaxed">키즈모션 사이클 프레임 및 부품 공동 설계</p>
-                <p className="leading-relaxed">현재 MVP 시제품 공동 개발 중</p>
               </div>
             </div>
           </div>
