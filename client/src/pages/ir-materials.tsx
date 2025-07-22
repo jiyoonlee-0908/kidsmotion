@@ -169,7 +169,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
         </div>
 
         {/* MotionBike 핵심 기술 */}
-        <div className="mb-32">
+        <div className="mb-32 mt-16">
           <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">MotionBike 핵심 기술</h2>
           
           {/* 깔끔한 좌우 분할 레이아웃 */}
@@ -380,19 +380,19 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div>
               <h3 className="text-3xl font-bold text-red-700 mb-8 text-center">국민체력100의 한계</h3>
               <div className="space-y-6">
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-red-800 mb-2">제자리 멀리뛰기 → 줄자로 측정</p>
                   <p className="text-red-600">정확성 한계</p>
                 </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-red-800 mb-2">윗몸말아올리기 → 사람이 카운트</p>
                   <p className="text-red-600">주관적 오차 발생</p>
                 </div>
-                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                <div className="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-red-800 mb-2">왕복오래달리기 → 수동 기록</p>
                   <p className="text-red-600">기록 오류 가능성</p>
                 </div>
-                <div className="bg-red-100 p-6 rounded-xl border border-red-400">
+                <div className="bg-red-100 p-6 rounded-xl border border-red-400 min-h-[80px] flex items-center justify-center">
                   <p className="text-xl font-bold text-red-900 text-center">결과: 정확성 부족, 빅데이터 구축 불가</p>
                 </div>
               </div>
@@ -402,19 +402,19 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
             <div>
               <h3 className="text-3xl font-bold text-blue-700 mb-8 text-center">우리의 디지털 혁신</h3>
               <div className="space-y-6">
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-blue-800">정량적 데이터 수집 시스템</p>
                   <p className="text-blue-600">0.01% 정밀도의 와트 단위 측정</p>
                 </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-blue-800">국민체력 빅데이터 구축</p>
                   <p className="text-blue-600">연령별, 지역별 체력 데이터 자동 수집</p>
                 </div>
-                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500 min-h-[120px] flex flex-col justify-center">
                   <p className="text-lg font-bold text-blue-800">객관적 평가로 정책 수립</p>
                   <p className="text-blue-600">정확한 데이터 기반 정책 결정 지원</p>
                 </div>
-                <div className="bg-blue-100 p-6 rounded-xl border border-blue-400">
+                <div className="bg-blue-100 p-6 rounded-xl border border-blue-400 min-h-[80px] flex items-center justify-center">
                   <p className="text-xl font-bold text-blue-900 text-center">MotionBike로 디지털 체력측정 실현</p>
                 </div>
               </div>
