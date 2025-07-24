@@ -119,6 +119,11 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         title: "측정 완료",
         description: "체력 분석이 성공적으로 완료되었습니다.",
       });
+      
+      // 분석 완료 후 Supabase에 저장
+      const formData = form.getValues();
+      saveToSupabase.mutate(formData);
+      
       onComplete(data);
     },
     onError: (error) => {
@@ -162,9 +167,8 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       restingHeartRate: 70 // 기본값 설정
     }
     
-    // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
+    // 로컬 분석만 실행 (Supabase 저장은 분석 완료 후 수동으로)
     createMeasurement.mutate(measurementData);
-    saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
   }
 
   // 폼 데이터 채우기 공통 함수
