@@ -34,9 +34,8 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
         <div className="flex justify-between items-center py-6">
           {/* ▶ 로고 & 브랜드 */}
           <div className="flex items-center space-x-5">
-            <Link
-              href="/"
-              onClick={() => notifyParent("home")}
+            <div
+              onClick={() => window.location.href = 'https://kidsmotion.bike'}
               className="flex items-center space-x-5 cursor-pointer hover:opacity-80 transition-opacity"
             >
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-600 flex items-center justify-center shadow-xl">
@@ -50,7 +49,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
                   MotionBike
                 </span>
               </div>
-            </Link>
+            </div>
             <Link
               href="/ir-materials"
               onClick={() => notifyParent("ir-materials")}
