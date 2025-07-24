@@ -763,7 +763,11 @@ ${htmlContent}
         improvements: improvementsText
       };
       
-      // 🔥 Supabase에 웹리포트 결과 저장 (신체변화 추적용)
+      // ⚠️ 웹리포트 저장 건너뜀 (HTML 스냅샷 시스템 사용)
+      console.log("🔄 웹리포트 저장 건너뜀 (HTML 스냅샷 시스템 사용)");
+      
+      // 기존 Supabase 저장 로직 완전 제거 - 체력분석은 순수 분석만 수행
+      /*
       try {
         const studentIdentifier = `${measurementData.studentName}(${measurementData.birthDate})`;
         
@@ -846,13 +850,15 @@ ${htmlContent}
         //   console.log(`✅ 웹리포트 저장 완료: ${studentIdentifier} (${measurementData.measureDate})`);
         //   console.log("저장된 데이터 ID:", savedReport?.id);
         // }
-      } catch (reportSaveError) {
-        console.error("리포트 저장 중 예외 발생:", reportSaveError);
-      }
+      */
+      // } catch (reportSaveError) {
+      //   console.error("리포트 저장 중 예외 발생:", reportSaveError);
+      // }
 
       console.log("=== 측정 결과 계산 완료 ===");
       console.log("측정 ID:", measurement.id);
       console.log("학생 이름:", measurement.studentName);
+      console.log("⚠️ Supabase 자동 저장 비활성화 - 분석만 수행");
       
       res.json({
         measurement,

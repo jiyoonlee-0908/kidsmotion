@@ -167,7 +167,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       restingHeartRate: 70 // 기본값 설정
     }
     
-    // 로컬 분석만 실행 (Supabase 저장은 분석 완료 후 수동으로)
+    // ⚠️ 체력분석 시작은 로컬 분석만! Supabase 저장 X
     createMeasurement.mutate(measurementData);
   }
 
@@ -948,26 +948,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 )}
               </Button>
               
-              {/* Supabase 저장 상태 표시 */}
-              {saveToSupabase.isPending && (
-                <div className="flex items-center justify-center space-x-2 text-blue-600 bg-blue-50 p-2 rounded-lg">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span className="text-sm">KidsMotion 데이터베이스에 저장 중...</span>
-                </div>
-              )}
-              
-              {saveToSupabase.isSuccess && !saveToSupabase.isPending && (
-                <div className="flex items-center justify-center space-x-2 text-green-600 bg-green-50 p-2 rounded-lg">
-                  <ChartLine className="w-4 h-4" />
-                  <span className="text-sm">✓ 데이터베이스 저장 완료</span>
-                </div>
-              )}
-              
-              {saveToSupabase.isError && (
-                <div className="flex items-center justify-center space-x-2 text-red-600 bg-red-50 p-2 rounded-lg">
-                  <span className="text-sm">⚠ 데이터베이스 저장 실패</span>
-                </div>
-              )}
+              {/* ⚠️ Supabase 자동 저장 메시지 제거 - 체력분석은 분석만 수행 */}
             </div>
           </form>
         </Form>

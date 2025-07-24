@@ -75,8 +75,15 @@ function App() {
   };
 
   const navigateTo = (page: string) => {
+    console.log(`🔄 navigateTo 호출됨: ${page}`);
     setCurrentPage(page);
-    window.history.pushState({}, '', `/${page === 'home' ? '' : page}`);
+    
+    // URL 변경을 동기화하되 새로고침 없이
+    const newUrl = page === 'home' ? '/' : `/${page}`;
+    if (window.location.pathname !== newUrl) {
+      window.history.pushState({}, '', newUrl);
+    }
+    
     // 페이지 전환 시 맨 위로 스크롤
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
