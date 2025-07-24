@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   User, Trophy, Scale, BarChart3, TrendingUp, 
   FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart,
-  Brain, Sparkles
+  Brain, Sparkles, ArrowLeft
 } from "lucide-react";
 
 import BalanceChart from "@/components/charts/balance-chart";
@@ -289,6 +289,21 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             className="fitness-icon hover:scale-105 transition-all duration-300"
           >
             <Printer className="w-5 h-5 text-white" />
+          </Button>
+          <Button 
+            onClick={() => {
+              console.log("🏠 홈으로 이동 버튼 클릭");
+              if (onNavigate) {
+                onNavigate('home');
+              } else {
+                window.location.href = '/';
+              }
+            }}
+            variant="outline" 
+            className="px-6 py-3 rounded-2xl border-2 border-green-200 hover:border-green-300 hover:bg-green-50 transition-all duration-300 flex items-center space-x-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span className="font-semibold">홈으로</span>
           </Button>
           <Button 
             onClick={onNewMeasurement}

@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'wouter';
+import { Button } from "@/components/ui/button";
+import { Home, ArrowLeft } from "lucide-react";
 
 interface SnapshotData {
   id: number;
@@ -134,12 +136,43 @@ export default function SnapshotViewer() {
     );
   }
 
+  const handleGoHome = () => {
+    window.location.href = '/';
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* 저장된 HTML 컨텐츠를 그대로 렌더링 */}
+      {/* 🏠 고정 홈 네비게이션 바 */}
+      <div className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 border-b">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Button 
+              onClick={handleGoHome}
+              variant="outline"
+              size="sm"
+              className="flex items-center space-x-2 hover:bg-purple-50 border-purple-200"
+            >
+              <Home className="w-4 h-4" />
+              <span>홈으로</span>
+            </Button>
+            <div className="text-sm text-gray-600">
+              {snapshot.student_name} 리포트 · {snapshot.measure_date}
+            </div>
+          </div>
+          <div className="text-xs text-gray-500">
+            KidsMotion 분석 시스템
+          </div>
+        </div>
+      </div>
+      
+      {/* 저장된 HTML 컨텐츠를 그대로 렌더링 (상단 여백 추가) */}
       <div 
         dangerouslySetInnerHTML={{ __html: snapshot.html_content }}
-        style={{ width: '100%', minHeight: '100vh' }}
+        style={{ 
+          width: '100%', 
+          minHeight: '100vh',
+          paddingTop: '70px' // 고정 네비게이션 바 높이만큼 여백
+        }}
       />
     </div>
   );
