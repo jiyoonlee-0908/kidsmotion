@@ -291,6 +291,85 @@ ${htmlContent}
   });
 
   // 📋 학생별 리포트 목록 조회 (측정기록 페이지용) - 측정할 때마다 별도 리포트 생성
+  // 모든 리포트 조회 (측정기록 페이지용)
+  app.get("/api/student-reports/ALL_REPORTS", async (req, res) => {
+    try {
+      console.log("==== 모든 리포트 조회 요청 ====");
+      
+      const { data: allReports, error } = await supabase
+        .from('participants')
+        .select(`
+          *,
+          test_sessions (
+            id,
+            start_time,
+            end_time,
+            status,
+            analysis_results (*)
+          )
+        `)
+        .order('created_at', { ascending: false })
+        .limit(50); // 최근 50개만 조회
+        
+      if (error) {
+        throw error;
+      }
+      
+      // 참가자별 최신 세션 및 분석 결과 변환
+      const formattedReports = allReports.map(participant => {
+        const latestSession = participant.test_sessions?.[0];
+        const analysis = latestSession?.analysis_results?.[0];
+        
+        return {
+          id: participant.id,
+          student_name: participant.name,
+          organization: participant.organization,
+          birth_date: participant.birth_date,
+          gender: participant.gender,
+          age: new Date().getFullYear() - new Date(participant.birth_date).getFullYear(),
+          height: participant.height,
+          weight: participant.weight,
+          measure_date: participant.created_at?.split('T')[0] || new Date().toISOString().split('T')[0],
+          overall_percentile: analysis?.overall_percentile || 0,
+          overall_grade: analysis?.overall_percentile >= 97 ? '매우우수' : 
+                        analysis?.overall_percentile >= 85 ? '우수' :
+                        analysis?.overall_percentile >= 15 ? '보통' :
+                        analysis?.overall_percentile >= 3 ? '부족' : '매우부족',
+          power_5s: analysis?.power5s || 0,
+          power_15s: analysis?.power15s || 0,
+          power_30s: analysis?.power30s || 0,
+          power_60s: analysis?.power60s || 0,
+          power_180s: analysis?.power180s || 0,
+          power_360s: analysis?.power360s || 0,
+          percentile_5s: analysis?.percentile5s || 0,
+          percentile_15s: analysis?.percentile15s || 0,
+          percentile_30s: analysis?.percentile30s || 0,
+          percentile_60s: analysis?.percentile60s || 0,
+          percentile_180s: analysis?.percentile180s || 0,
+          percentile_360s: analysis?.percentile360s || 0,
+          left_balance: analysis?.leftBalance || 50,
+          right_balance: analysis?.rightBalance || 50,
+          max_heart_rate: null,
+          avg_heart_rate: null,
+          strengths: analysis?.strengths,
+          improvements: analysis?.improvements,
+          ai_core_insights: analysis?.aiCoreInsights,
+          balance_status: analysis?.balanceStatus
+        };
+      });
+      
+      console.log(`모든 리포트 응답: ${formattedReports.length}개`);
+      res.json(formattedReports);
+      
+    } catch (error) {
+      console.error('모든 리포트 조회 오류:', error);
+      res.status(500).json({ 
+        error: '모든 리포트를 조회하는데 실패했습니다.',
+        details: error instanceof Error ? error.message : '알 수 없는 오류'
+      });
+    }
+  });
+
   app.get("/api/student-reports/:studentName", async (req, res) => {
     try {
       const { studentName } = req.params;

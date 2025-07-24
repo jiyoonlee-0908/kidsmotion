@@ -73,11 +73,11 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     handleSearch();
   }, []);
 
-  // 저장된 리포트 조회
+  // 저장된 리포트 조회 (Supabase 기반)
   const searchSavedReports = async () => {
     if (!searchName.trim()) {
       toast({
-        title: "알림",
+        title: "알림", 
         description: "학생 이름을 입력해주세요.",
         variant: "default",
       });
@@ -86,6 +86,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
 
     setIsLoading(true);
     try {
+      console.log('Supabase 리포트 검색:', searchName.trim());
       const response = await fetch(`/api/student-reports/${encodeURIComponent(searchName.trim())}`);
       
       if (!response.ok) {
@@ -93,13 +94,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
       }
       
       const reports = await response.json();
+      console.log('받은 Supabase 리포트:', reports.length + '개');
       setSavedReports(reports);
       setShowReports(true);
       
       if (reports.length === 0) {
         toast({
           title: "알림",
-          description: "저장된 리포트가 없습니다.",
+          description: "저장된 리포트가 없습니다. Supabase 데이터베이스를 확인하세요.",
           variant: "default",
         });
       }
@@ -141,73 +143,63 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
     setIsLoading(true);
     
     try {
-      // 실제 서버 API 호출
-      const queryParams = new URLSearchParams();
-      if (searchName.trim()) queryParams.append('studentName', searchName.trim());
-      if (searchAffiliation.trim()) queryParams.append('affiliation', searchAffiliation.trim());
-      if (searchBirthDate.trim()) queryParams.append('birthDate', searchBirthDate.trim());
-      if (searchGender.trim()) queryParams.append('gender', searchGender.trim());
+      console.log("🔄 측정기록 검색: Supabase 리포트 기반으로 변경");
       
-      // 모든 조건이 비어있으면 빈 이름으로 검색 (모든 데이터)
-      if (!searchName.trim() && !searchAffiliation.trim() && !searchBirthDate.trim() && !searchGender.trim()) {
-        queryParams.append('studentName', '');
+      // ⚠️ 웹앱 로컬 저장소 대신 Supabase 리포트 검색으로 변경
+      let response;
+      
+      if (searchName.trim()) {
+        // 특정 학생 검색
+        response = await fetch(`/api/student-reports/${encodeURIComponent(searchName.trim())}`);
+      } else {
+        // 모든 리포트 조회 (최근 50개)
+        response = await fetch('/api/student-reports/ALL_REPORTS');
       }
       
-      const response = await fetch(`/api/measurements/search?${queryParams}`);
-      
       if (!response.ok) {
-        throw new Error('데이터를 가져오는데 실패했습니다.');
+        throw new Error('Supabase 리포트를 가져오는데 실패했습니다.');
       }
       
       const data = await response.json();
-      console.log("받은 데이터:", data);
+      console.log("받은 Supabase 데이터:", data.length + "개");
       if (data.length > 0) {
-        console.log("첫 번째 항목:", data[0]);
-        console.log("strengths:", data[0].strengths);
-        console.log("improvements:", data[0].improvements);
+        console.log("첫 번째 항목 백분위:", data[0].overall_percentile + "%");
       }
       
-      // 서버에서 받은 원본 데이터를 그대로 사용 (새로 계산하지 않음)
-      const formattedData: MeasurementData[] = data.map((item: any) => {
-        // 서버 응답이 {measurement: {...}, analysis: {...}} 구조인 경우 처리
-        const measurement = item.measurement || item;
-        const analysis = item.analysis || {};
-        
+      // Supabase 리포트 데이터를 측정기록 형태로 변환
+      const formattedData: MeasurementData[] = data.map((report: any) => {
         return {
-          id: measurement.id,
-          studentName: measurement.studentName,
-          affiliation: measurement.affiliation,
-          gender: measurement.gender,
-          age: analysis.age || 0,
-          measureDate: measurement.measureDate,
-          birthDate: measurement.birthDate,
-          height: measurement.height,
-          weight: measurement.weight,
-          power5s: measurement.power5s,
-          power15s: measurement.power15s,
-          power30s: measurement.power30s,
-          power60s: measurement.power60s,
-          power180s: measurement.power180s,
-          power360s: measurement.power360s,
-          leftBalance: measurement.leftBalance,
-          rightBalance: measurement.rightBalance,
-          maxHeartRate: measurement.maxHeartRate,
-          avgHeartRate: measurement.avgHeartRate,
-          overallGrade: analysis.overallPercentile >= 97 ? '매우우수' : 
-                       analysis.overallPercentile >= 85 ? '우수' :
-                       analysis.overallPercentile >= 15 ? '보통' :
-                       analysis.overallPercentile >= 3 ? '부족' : '매우부족',
-          overallPercentile: analysis.overallPercentile || 0,
-          percentile5s: analysis.percentile5s || 0,
-          percentile15s: analysis.percentile15s || 0,
-          percentile30s: analysis.percentile30s || 0,
-          percentile60s: analysis.percentile60s || 0,
-          percentile180s: analysis.percentile180s || null,
-          percentile360s: analysis.percentile360s || null,
-          strengths: analysis.strengths,
-          improvements: analysis.improvements,
-          aiCoreInsights: analysis.aiCoreInsights,
-          balanceStatus: analysis.balanceStatus
+          id: report.id,
+          studentName: report.student_name,
+          affiliation: report.organization || report.affiliation || '소속 미입력',
+          gender: report.gender,
+          age: report.age,
+          measureDate: report.measure_date,
+          birthDate: report.birth_date,
+          height: report.height,
+          weight: report.weight,
+          power5s: report.power_5s || 0,
+          power15s: report.power_15s || 0,
+          power30s: report.power_30s || 0,
+          power60s: report.power_60s || 0,
+          power180s: report.power_180s || null,
+          power360s: report.power_360s || null,
+          leftBalance: report.left_balance || 50,
+          rightBalance: report.right_balance || 50,
+          maxHeartRate: report.max_heart_rate || null,
+          avgHeartRate: report.avg_heart_rate || null,
+          overallGrade: report.overall_grade,
+          overallPercentile: report.overall_percentile,
+          percentile5s: report.percentile_5s,
+          percentile15s: report.percentile_15s,
+          percentile30s: report.percentile_30s,
+          percentile60s: report.percentile_60s,
+          percentile180s: report.percentile_180s || null,
+          percentile360s: report.percentile_360s || null,
+          strengths: report.strengths,
+          improvements: report.improvements,
+          aiCoreInsights: report.ai_core_insights,
+          balanceStatus: report.balance_status
         };
       });
       
