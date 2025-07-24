@@ -29,6 +29,11 @@ interface ResultsDisplayProps {
 
 export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
+  
+  // BMI 계산 (안전한 처리)
+  const bmi = measurement.height && measurement.weight 
+    ? (measurement.weight / Math.pow(measurement.height / 100, 2))
+    : 0;
 
   // QR 코드 완성 후 HTML 스냅샷 자동 저장
   useEffect(() => {
@@ -346,7 +351,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
             <div className="text-center">
               <p className="text-sm text-gray-600">BMI</p>
-              <p className="font-semibold text-gray-900">{analysis.bmi.toFixed(1)}</p>
+              <p className="font-semibold text-gray-900">{bmi.toFixed(1)}</p>
             </div>
           </div>
         </CardContent>
@@ -364,7 +369,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">{analysis.bmi.toFixed(1)}</div>
+                <div className="text-3xl font-bold text-gray-900">{bmi.toFixed(1)}</div>
                 <div className="text-sm text-gray-600">BMI (kg/m²)</div>
               </div>
               <div className="flex justify-center">
