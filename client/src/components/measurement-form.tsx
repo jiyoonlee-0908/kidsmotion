@@ -111,18 +111,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
-      const response = await fetch('/api/measurements', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      
+      // 로딩 애니메이션 시작
+      onStart?.();
+      const response = await apiRequest("POST", "/api/measurements", data);
       return response.json();
     },
     onSuccess: (data) => {
@@ -130,11 +121,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         title: "측정 완료",
         description: "체력 분석이 성공적으로 완료되었습니다.",
       });
-      
       onComplete(data);
     },
     onError: (error) => {
-      console.error("측정 오류:", error);
       toast({
         title: "오류 발생",
         description: "측정 데이터 처리 중 오류가 발생했습니다.",
@@ -143,20 +132,38 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     },
   });
 
-  // Supabase 저장은 제거 (간단한 측정 기능만 유지)
+  const saveToSupabase = useMutation({
+    mutationFn: async (data: FormData) => {
+      const response = await apiRequest("POST", "/api/supabase/save-measurement", data);
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Supabase 저장 완료",
+        description: "데이터가 KidsMotion 데이터베이스에 성공적으로 저장되었습니다.",
+      });
+      console.log("Supabase 저장 결과:", data);
+    },
+    onError: (error) => {
+      toast({
+        title: "Supabase 저장 실패",
+        description: "데이터베이스 저장 중 오류가 발생했습니다.",
+        variant: "destructive",
+      });
+      console.error("Supabase 저장 오류:", error);
+    },
+  });
 
   const onSubmit = (data: FormData) => {
-    // 로딩 애니메이션 시작
-    onStart?.();
-    
     // restingHeartRate를 기본값으로 설정 (임시 해결책)
     const measurementData = {
       ...data,
       restingHeartRate: 70 // 기본값 설정
     }
     
-    console.log("측정 데이터 전송:", measurementData);
+    // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
     createMeasurement.mutate(measurementData);
+    saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
   }
 
   // 폼 데이터 채우기 공통 함수
@@ -212,17 +219,26 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   }
 
   // 특정 참가자 선택 함수
-  const handleParticipantSelect = (participant: any) => {
+  const handleParticipantSelect = async (participantId: number) => {
     try {
-      // 직접 participant 데이터를 사용하여 폼 채우기
-      fillFormData(participant);
-      setShowParticipantSelection(false);
-      setParticipantOptions([]);
+      const response = await fetch(`/api/supabase/participant/${participantId}`);
       
-      toast({
-        title: "자동 입력 완료",
-        description: `${participant.studentName}님의 정보를 불러왔습니다.`,
-      });
+      if (!response.ok) {
+        throw new Error('참가자 데이터 불러오기 실패');
+      }
+      
+      const userData = await response.json();
+      
+      if (userData && userData.studentName) {
+        fillFormData(userData);
+        setShowParticipantSelection(false);
+        setParticipantOptions([]);
+        
+        toast({
+          title: "자동 입력 완료",
+          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
+        });
+      }
     } catch (error) {
       toast({
         title: "자동 입력 실패",
@@ -254,40 +270,18 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       const userData = await response.json();
       console.log('받은 사용자 데이터:', userData);
       
-      // API가 배열을 반환하는 경우 처리
-      if (Array.isArray(userData)) {
-        if (userData.length === 0) {
-          toast({
-            title: "정보 없음",
-            description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
-            variant: "destructive"
-          });
-          return;
-        }
-        
-        if (userData.length === 1) {
-          // 단일 사용자
-          fillFormData(userData[0]);
-          toast({
-            title: "자동 입력 완료",
-            description: `${userData[0].studentName}님의 정보를 불러왔습니다.`,
-          });
-          return;
-        }
-        
-        if (userData.length > 1) {
-          // 여러 명이 있는 경우 - 선택 옵션 표시
-          setParticipantOptions(userData);
-          setShowParticipantSelection(true);
-          toast({
-            title: "여러 명 발견",
-            description: `"${name}" 이름으로 ${userData.length}명이 등록되어 있습니다. 선택해주세요.`,
-          });
-          return;
-        }
+      // 여러 명이 있는 경우
+      if (userData && userData.multiple) {
+        setParticipantOptions(userData.participants);
+        setShowParticipantSelection(true);
+        toast({
+          title: "여러 명 발견",
+          description: `"${name}" 이름으로 ${userData.participants.length}명이 등록되어 있습니다. 선택해주세요.`,
+        });
+        return;
       }
       
-      // 기존 단일 객체 방식 (호환성 유지)
+      // 단일 사용자인 경우
       if (userData && userData.studentName) {
         fillFormData(userData);
         toast({
@@ -296,7 +290,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         });
       } else {
         toast({
-          title: "정보 없음", 
+          title: "정보 없음",
           description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
           variant: "destructive"
         });
@@ -327,7 +321,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             측정 정보 입력 
-            <span className="text-sm font-normal text-gray-500 ml-2">(유아~초등대상) (이름에 박시아를 넣고 엔터를 쳐보세요)</span>
+            <span className="text-sm font-normal text-gray-500 ml-2">(유아~초등대상)</span>
           </h2>
         </div>
         
@@ -474,49 +468,28 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     동일한 이름의 참가자가 여러 명 있습니다. 올바른 참가자를 선택해주세요:
                   </p>
                   <div className="space-y-2">
-                    {participantOptions.map((participant, index) => (
+                    {participantOptions.map((participant) => (
                       <div 
-                        key={index}
+                        key={participant.id}
                         className="flex items-center justify-between p-3 bg-white rounded-lg border hover:bg-blue-50 cursor-pointer"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleParticipantSelect(participant);
-                        }}
+                        onClick={() => handleParticipantSelect(participant.id)}
                       >
                         <div>
-                          <div className="font-semibold">{participant.studentName}</div>
+                          <div className="font-semibold">{participant.name}</div>
                           <div className="text-sm text-gray-600">
-                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.affiliation || "미등록"}
+                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
                           </div>
-                          {participant.measureDate && (
-                            <div className="text-xs text-blue-600 font-medium">
-                              측정일: {participant.measureDate}
-                            </div>
-                          )}
                         </div>
-                        <Button 
-                          type="button"
-                          variant="outline" 
-                          size="sm"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            handleParticipantSelect(participant);
-                          }}
-                        >
+                        <Button variant="outline" size="sm">
                           선택
                         </Button>
                       </div>
                     ))}
                   </div>
                   <Button 
-                    type="button"
                     variant="outline" 
                     className="mt-4 w-full"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
+                    onClick={() => {
                       setShowParticipantSelection(false);
                       setParticipantOptions([]);
                     }}
@@ -931,7 +904,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
               <Button 
                 type="submit" 
                 className="w-full bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
-                disabled={createMeasurement.isPending}
+                disabled={createMeasurement.isPending || saveToSupabase.isPending}
               >
                 {createMeasurement.isPending ? (
                   <>
@@ -946,7 +919,26 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                 )}
               </Button>
               
-              {/* ⚠️ Supabase 자동 저장 메시지 제거 - 체력분석은 분석만 수행 */}
+              {/* Supabase 저장 상태 표시 */}
+              {saveToSupabase.isPending && (
+                <div className="flex items-center justify-center space-x-2 text-blue-600 bg-blue-50 p-2 rounded-lg">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span className="text-sm">KidsMotion 데이터베이스에 저장 중...</span>
+                </div>
+              )}
+              
+              {saveToSupabase.isSuccess && !saveToSupabase.isPending && (
+                <div className="flex items-center justify-center space-x-2 text-green-600 bg-green-50 p-2 rounded-lg">
+                  <ChartLine className="w-4 h-4" />
+                  <span className="text-sm">✓ 데이터베이스 저장 완료</span>
+                </div>
+              )}
+              
+              {saveToSupabase.isError && (
+                <div className="flex items-center justify-center space-x-2 text-red-600 bg-red-50 p-2 rounded-lg">
+                  <span className="text-sm">⚠ 데이터베이스 저장 실패</span>
+                </div>
+              )}
             </div>
           </form>
         </Form>

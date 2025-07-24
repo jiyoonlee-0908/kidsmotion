@@ -26,13 +26,7 @@ export default function Navigation({ onNavigate }: NavigationProps = {}) {
   /**
    * Link 로 이동하면서 동시에 상위에 페이지 정보를 알림.
    */
-  const notifyParent = (page: string) => {
-    // 즉시 상위 컴포넌트에 페이지 변경 알림
-    if (onNavigate) {
-      // setTimeout을 사용해 Link의 네비게이션 후에 상태 업데이트
-      setTimeout(() => onNavigate(page), 0);
-    }
-  };
+  const notifyParent = (page: string) => onNavigate && onNavigate(page);
 
   return (
     <header className="glass-effect border-b border-white/20 sticky top-0 z-40">

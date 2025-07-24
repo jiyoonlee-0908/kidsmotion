@@ -63,6 +63,7 @@ function VideoPlayer() {
         controls
         autoPlay
         loop
+        muted
         playsInline
         preload="metadata"
         className="w-full h-full rounded-lg shadow-lg"
@@ -74,7 +75,7 @@ function VideoPlayer() {
         onError={handleVideoError}
         onLoadedMetadata={() => {
           if (videoRef.current) {
-            videoRef.current.muted = false;
+            videoRef.current.muted = true;
             videoRef.current.play().catch(() => {
               console.log("자동재생을 위해 영상을 클릭해주세요");
             });

@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   User, Trophy, Scale, BarChart3, TrendingUp, 
   FileText, Calendar, Info, ChartLine, RotateCcw, QrCode, Download, Printer, Heart,
-  Brain, Sparkles, ArrowLeft
+  Brain, Sparkles
 } from "lucide-react";
 
 import BalanceChart from "@/components/charts/balance-chart";
@@ -29,34 +29,6 @@ interface ResultsDisplayProps {
 
 export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: ResultsDisplayProps) {
   const { measurement, analysis, strengths, improvements } = data;
-  
-  // strengths와 improvements가 문자열인 경우 배열로 변환
-  const safeStrengths = Array.isArray(strengths) ? strengths : [strengths].filter(Boolean);
-  const safeImprovements = Array.isArray(improvements) ? improvements : [improvements].filter(Boolean);
-  
-  // BMI 계산 (안전한 처리)
-  const bmi = measurement.height && measurement.weight 
-    ? (measurement.weight / Math.pow(measurement.height / 100, 2))
-    : 0;
-    
-  // 나이 계산 (안전한 처리)
-  const age = measurement.birthDate 
-    ? new Date().getFullYear() - new Date(measurement.birthDate).getFullYear()
-    : 0;
-    
-  // analysis 객체 안전 처리 (기본값 제공)
-  const safeAnalysis = {
-    overallPercentile: analysis?.overallPercentile || 75,
-    percentile5s: analysis?.percentile5s || 70,
-    percentile15s: analysis?.percentile15s || 72,
-    percentile30s: analysis?.percentile30s || 75,
-    percentile60s: analysis?.percentile60s || 73,
-    percentile180s: analysis?.percentile180s || 76,
-    percentile360s: analysis?.percentile360s || 74,
-    balanceStatus: analysis?.balanceStatus || "균형",
-    aiCoreInsights: analysis?.aiCoreInsights || "체력 측정이 완료되었습니다.",
-    ...analysis
-  };
 
   // QR 코드 완성 후 HTML 스냅샷 자동 저장
   useEffect(() => {
@@ -118,11 +90,11 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
         height: measurement.height,
         weight: measurement.weight,
         organization: measurement.affiliation,
-        overallPercentile: safeAnalysis.overallPercentile,
-        powerGrade: getGradeText(safeAnalysis.percentile5s),
-        strengthGrade: getGradeText(safeAnalysis.percentile15s),
-        muscleEnduranceGrade: getGradeText(safeAnalysis.percentile30s),
-        cardioEnduranceGrade: getGradeText(safeAnalysis.percentile60s)
+        overallPercentile: analysis.overallPercentile,
+        powerGrade: getGradeText(analysis.percentile5s),
+        strengthGrade: getGradeText(analysis.percentile15s),
+        muscleEnduranceGrade: getGradeText(analysis.percentile30s),
+        cardioEnduranceGrade: getGradeText(analysis.percentile60s)
       };
 
       console.log('스냅샷 저장 요청:', snapshotData.measurementId);
@@ -256,44 +228,44 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
     {
       title: "순발력 (5초)",
       power: measurement.power5s,
-      percentile: Math.round(safeAnalysis.percentile5s),
-      explanation: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile5s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile5s),
+      explanation: `순간적으로 최대의 힘을 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile5s)}등 수준입니다.`,
       category: "power"
     },
     {
       title: "스프린트 파워 (15초)",
       power: measurement.power15s,
-      percentile: Math.round(safeAnalysis.percentile15s),
-      explanation: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile15s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile15s),
+      explanation: `15초간 강한 힘을 지속적으로 발휘하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile15s)}등 수준입니다.`,
       category: "strength"
     },
     {
       title: "파워 지속력 (30초)",
       power: measurement.power30s,
-      percentile: Math.round(safeAnalysis.percentile30s),
-      explanation: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile30s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile30s),
+      explanation: `30초간 일정한 강도의 힘을 유지하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile30s)}등 수준입니다.`,
       category: "endurance"
     },
     {
       title: "근력 (60초)",
       power: measurement.power60s,
-      percentile: Math.round(safeAnalysis.percentile60s),
-      explanation: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile60s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile60s),
+      explanation: `1분간 근육이 지치지 않고 운동을 계속하는 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile60s)}등 수준입니다.`,
       category: "cardio"
     },
     // 180초, 360초 데이터가 있으면 추가
-    ...(measurement.power180s && safeAnalysis.percentile180s ? [{
+    ...(measurement.power180s && analysis.percentile180s ? [{
       title: "근지구력 (180초)",
       power: measurement.power180s,
-      percentile: Math.round(safeAnalysis.percentile180s),
-      explanation: `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile180s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile180s),
+      explanation: `3분간 근육의 지구력을 통해 지속적인 운동 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile180s)}등 수준입니다.`,
       category: "muscular-endurance"
     }] : []),
-    ...(measurement.power360s && safeAnalysis.percentile360s ? [{
+    ...(measurement.power360s && analysis.percentile360s ? [{
       title: "심폐지구력 (360초)",
       power: measurement.power360s,
-      percentile: Math.round(safeAnalysis.percentile360s),
-      explanation: `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - safeAnalysis.percentile360s)}등 수준입니다.`,
+      percentile: Math.round(analysis.percentile360s),
+      explanation: `6분간 심장과 폐의 협력을 통한 장시간 운동 지속 능력을 평가합니다. 100명 중 ${Math.round(100 - analysis.percentile360s)}등 수준입니다.`,
       category: "cardio-endurance"
     }] : [])
   ];
@@ -317,21 +289,6 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             className="fitness-icon hover:scale-105 transition-all duration-300"
           >
             <Printer className="w-5 h-5 text-white" />
-          </Button>
-          <Button 
-            onClick={() => {
-              console.log("🏠 홈으로 이동 버튼 클릭");
-              if (onNavigate) {
-                onNavigate('home');
-              } else {
-                window.location.href = '/';
-              }
-            }}
-            variant="outline" 
-            className="px-6 py-3 rounded-2xl border-2 border-green-200 hover:border-green-300 hover:bg-green-50 transition-all duration-300 flex items-center space-x-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="font-semibold">홈으로</span>
           </Button>
           <Button 
             onClick={onNewMeasurement}
@@ -374,7 +331,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             </div>
             <div className="text-center">
               <p className="text-sm text-gray-600">BMI</p>
-              <p className="font-semibold text-gray-900">{bmi.toFixed(1)}</p>
+              <p className="font-semibold text-gray-900">{analysis.bmi.toFixed(1)}</p>
             </div>
           </div>
         </CardContent>
@@ -392,7 +349,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="text-center">
-                <div className="text-3xl font-bold text-gray-900">{bmi.toFixed(1)}</div>
+                <div className="text-3xl font-bold text-gray-900">{analysis.bmi.toFixed(1)}</div>
                 <div className="text-sm text-gray-600">BMI (kg/m²)</div>
               </div>
               <div className="flex justify-center">
@@ -411,7 +368,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                   <h4 className="font-semibold text-green-900">성장 평가</h4>
                 </div>
                 <div className="text-sm text-gray-700 leading-relaxed">
-                  <p>현재 BMI {bmi.toFixed(1)}은 {age}세 {measurement.gender === 'M' ? '남아' : '여아'}의 건강한 성장 범위에 포함됩니다.</p>
+                  <p>현재 BMI {analysis.bmi.toFixed(1)}은 {analysis.age}세 {measurement.gender === 'M' ? '남아' : '여아'}의 건강한 성장 범위에 포함됩니다.</p>
                   <p className="mt-2">균형잡힌 식단과 꾸준한 운동으로 건강한 성장을 유지하세요.</p>
                 </div>
               </div>
@@ -435,7 +392,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                 <BalanceChart 
                   leftBalance={measurement.leftBalance} 
                   rightBalance={measurement.rightBalance} 
-                  status={safeAnalysis.balanceStatus}
+                  status={analysis.balanceStatus}
                 />
               </div>
               {/* 밸런스 데이터 표 */}
@@ -630,11 +587,11 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
             <div className="flex justify-center -mt-5">
               <RadarChart 
                 data={{
-                  balance: safeAnalysis.balanceStatus === "이상적" ? 100 : safeAnalysis.balanceStatus === "주의" ? 70 : 40,
-                  power: safeAnalysis.percentile5s,
-                  strength: safeAnalysis.percentile15s,
-                  muscleEndurance: safeAnalysis.percentile30s,
-                  cardioEndurance: safeAnalysis.percentile60s
+                  balance: analysis.balanceStatus === "이상적" ? 100 : analysis.balanceStatus === "주의" ? 70 : 40,
+                  power: analysis.percentile5s,
+                  strength: analysis.percentile15s,
+                  muscleEndurance: analysis.percentile30s,
+                  cardioEndurance: analysis.percentile60s
                 }}
               />
             </div>
@@ -657,10 +614,10 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 w-full">
                   <h4 className="text-sm font-semibold text-gray-700 mb-3 text-center">지구력 스펙트럼</h4>
                   <div className="flex items-center justify-between">
-                    {measurement.power180s && safeAnalysis.percentile180s && (
+                    {measurement.power180s && analysis.percentile180s && (
                       <div className="text-center flex-1">
                         <div className="text-xs text-gray-600 mb-1">180초</div>
-                        <div className="text-lg font-bold text-blue-600">{Math.round(safeAnalysis.percentile180s)}%</div>
+                        <div className="text-lg font-bold text-blue-600">{Math.round(analysis.percentile180s)}%</div>
                         <div className="text-xs text-gray-500">근지구력</div>
                       </div>
                     )}
@@ -669,10 +626,10 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                         <div className="w-8 h-0.5 bg-gradient-to-r from-blue-400 to-purple-400"></div>
                       </div>
                     )}
-                    {measurement.power360s && safeAnalysis.percentile360s && (
+                    {measurement.power360s && analysis.percentile360s && (
                       <div className="text-center flex-1">
                         <div className="text-xs text-gray-600 mb-1">360초</div>
-                        <div className="text-lg font-bold text-purple-600">{Math.round(safeAnalysis.percentile360s)}%</div>
+                        <div className="text-lg font-bold text-purple-600">{Math.round(analysis.percentile360s)}%</div>
                         <div className="text-xs text-gray-500">심폐지구력</div>
                       </div>
                     )}
@@ -780,12 +737,12 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
               <h4 className="font-semibold text-gray-900 mb-4">체력 변화</h4>
               <ProgressChart 
                 currentData={[
-                  Math.round(safeAnalysis.percentile5s),
-                  Math.round(safeAnalysis.percentile15s),
-                  Math.round(safeAnalysis.percentile30s),
-                  Math.round(safeAnalysis.percentile60s),
-                  ...(measurement.power180s && safeAnalysis.percentile180s ? [Math.round(safeAnalysis.percentile180s)] : []),
-                  ...(measurement.power360s && safeAnalysis.percentile360s ? [Math.round(safeAnalysis.percentile360s)] : [])
+                  Math.round(analysis.percentile5s),
+                  Math.round(analysis.percentile15s),
+                  Math.round(analysis.percentile30s),
+                  Math.round(analysis.percentile60s),
+                  ...(measurement.power180s && analysis.percentile180s ? [Math.round(analysis.percentile180s)] : []),
+                  ...(measurement.power360s && analysis.percentile360s ? [Math.round(analysis.percentile360s)] : [])
                 ]}
                 labels={[
                   "순발력 (5초)",
@@ -888,7 +845,7 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
                   지도선생님 참고
                 </p>
                 <p className="text-gray-600">
-                  중점 관리 항목: {safeImprovements.slice(0, 2).join(', ')}
+                  중점 관리 항목: {data.improvements.slice(0, 2).join(', ')}
                 </p>
               </div>
               <div>
