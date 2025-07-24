@@ -20,8 +20,8 @@ import { usePrefill } from "@/hooks/usePrefill";
 
 const formSchema = insertMeasurementSchema.extend({
   // Add client-side validation
-  height: z.number().min(50).max(250),
-  weight: z.number().min(5).max(150),
+  height: z.number().max(250),
+  weight: z.number().max(150),
   leftBalance: z.number().min(0).max(100),
   rightBalance: z.number().min(0).max(100),
   // 선택 사항 심박수 필드들
@@ -519,8 +519,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     <FormControl>
                       <Input 
                         type="number" 
-                        min="100" 
-                        max="200"
+                        max="250"
                         value={field.value === 0 ? "" : field.value}
                         onChange={(e) => {
                           const value = e.target.value;
@@ -546,8 +545,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     <FormControl>
                       <Input 
                         type="number" 
-                        min="15" 
-                        max="100"
+                        max="150"
                         step="0.01"
                         value={field.value === 0 ? "" : field.value}
                         onChange={(e) => {
