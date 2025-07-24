@@ -488,13 +488,14 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                             소속: {participant.organization || "미등록"} | 측정일: {participant.measureDate}
                           </div>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button type="button" variant="outline" size="sm">
                           선택
                         </Button>
                       </div>
                     ))}
                   </div>
                   <Button 
+                    type="button"
                     variant="outline" 
                     className="mt-4 w-full"
                     onClick={() => {
