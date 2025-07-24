@@ -1,14 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+// Neon 데이터베이스를 Supabase 클라이언트로 사용
+const databaseUrl = process.env.DATABASE_URL;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables');
-  throw new Error('Missing Supabase environment variables');
+if (!databaseUrl) {
+  console.error('Missing DATABASE_URL environment variable');
+  throw new Error('Missing DATABASE_URL environment variable');
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// DATABASE_URL을 Supabase 호환 형식으로 변환
+const parsedUrl = new URL(databaseUrl);
+const supabaseUrl = `https://${parsedUrl.hostname}`;
+const supabaseAnonKey = 'dummy-key'; // Neon은 직접 연결이므로 더미 키 사용
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  db: {
+    schema: 'public'
+  },
+  auth: {
+    persistSession: false
+  }
+});
 
 // 타입 정의
 export interface ParticipantData {
