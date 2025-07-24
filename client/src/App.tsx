@@ -81,6 +81,37 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // URL 변경 감지를 위한 popstate 이벤트 리스너 추가
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/about') setCurrentPage('about');
+      else if (path === '/contact') setCurrentPage('contact');
+      else if (path === '/records') setCurrentPage('records');
+      else if (path === '/user-guide') setCurrentPage('user-guide');
+      else if (path === '/faq') setCurrentPage('faq');
+      else if (path === '/tech-support') setCurrentPage('tech-support');
+      else if (path === '/updates') setCurrentPage('updates');
+      else if (path === '/privacy-policy') setCurrentPage('privacy-policy');
+      else if (path === '/terms-of-service') setCurrentPage('terms-of-service');
+      else if (path === '/ai-exercise-prescription') setCurrentPage('ai-exercise-prescription');
+      else if (path === '/growth-management') setCurrentPage('growth-management');
+      else if (path === '/professional-report') setCurrentPage('professional-report');
+      else if (path === '/easy-sharing') setCurrentPage('easy-sharing');
+      else if (path === '/ir-materials') setCurrentPage('ir-materials');
+      else if (path === '/admin') setCurrentPage('admin');
+      else if (path.startsWith('/report/')) setCurrentPage('snapshot-viewer');
+      else setCurrentPage('home');
+    };
+
+    // 브라우저 뒤로가기/앞으로가기 버튼 처리
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
   // Admin page and snapshot viewer can be accessed without authentication
   if (currentPage === 'admin') {
     return (
