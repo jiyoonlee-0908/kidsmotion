@@ -224,26 +224,17 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   }
 
   // 특정 참가자 선택 함수
-  const handleParticipantSelect = async (participantId: number) => {
+  const handleParticipantSelect = (participant: any) => {
     try {
-      const response = await fetch(`/api/supabase/participant/${participantId}`);
+      // 직접 participant 데이터를 사용하여 폼 채우기
+      fillFormData(participant);
+      setShowParticipantSelection(false);
+      setParticipantOptions([]);
       
-      if (!response.ok) {
-        throw new Error('참가자 데이터 불러오기 실패');
-      }
-      
-      const userData = await response.json();
-      
-      if (userData && userData.studentName) {
-        fillFormData(userData);
-        setShowParticipantSelection(false);
-        setParticipantOptions([]);
-        
-        toast({
-          title: "자동 입력 완료",
-          description: `${userData.studentName}님의 정보를 불러왔습니다.`,
-        });
-      }
+      toast({
+        title: "자동 입력 완료",
+        description: `${participant.studentName}님의 정보를 불러왔습니다.`,
+      });
     } catch (error) {
       toast({
         title: "자동 입력 실패",
@@ -275,18 +266,40 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       const userData = await response.json();
       console.log('받은 사용자 데이터:', userData);
       
-      // 여러 명이 있는 경우
-      if (userData && userData.multiple) {
-        setParticipantOptions(userData.participants);
-        setShowParticipantSelection(true);
-        toast({
-          title: "여러 명 발견",
-          description: `"${name}" 이름으로 ${userData.participants.length}명이 등록되어 있습니다. 선택해주세요.`,
-        });
-        return;
+      // API가 배열을 반환하는 경우 처리
+      if (Array.isArray(userData)) {
+        if (userData.length === 0) {
+          toast({
+            title: "정보 없음",
+            description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
+            variant: "destructive"
+          });
+          return;
+        }
+        
+        if (userData.length === 1) {
+          // 단일 사용자
+          fillFormData(userData[0]);
+          toast({
+            title: "자동 입력 완료",
+            description: `${userData[0].studentName}님의 정보를 불러왔습니다.`,
+          });
+          return;
+        }
+        
+        if (userData.length > 1) {
+          // 여러 명이 있는 경우 - 선택 옵션 표시
+          setParticipantOptions(userData);
+          setShowParticipantSelection(true);
+          toast({
+            title: "여러 명 발견",
+            description: `"${name}" 이름으로 ${userData.length}명이 등록되어 있습니다. 선택해주세요.`,
+          });
+          return;
+        }
       }
       
-      // 단일 사용자인 경우
+      // 기존 단일 객체 방식 (호환성 유지)
       if (userData && userData.studentName) {
         fillFormData(userData);
         toast({
@@ -295,7 +308,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         });
       } else {
         toast({
-          title: "정보 없음",
+          title: "정보 없음", 
           description: "해당 이름으로 등록된 정보가 없습니다. 수동으로 입력해주세요.",
           variant: "destructive"
         });
@@ -473,28 +486,29 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                     동일한 이름의 참가자가 여러 명 있습니다. 올바른 참가자를 선택해주세요:
                   </p>
                   <div className="space-y-2">
-                    {participantOptions.map((participant) => (
+                    {participantOptions.map((participant, index) => (
                       <div 
-                        key={participant.id}
+                        key={index}
                         className="flex items-center justify-between p-3 bg-white rounded-lg border hover:bg-blue-50 cursor-pointer"
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          handleParticipantSelect(participant.id);
+                          handleParticipantSelect(participant);
                         }}
                       >
                         <div>
-                          <div className="font-semibold">{participant.name}</div>
+                          <div className="font-semibold">{participant.studentName}</div>
                           <div className="text-sm text-gray-600">
-                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
+                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.affiliation || "미등록"}
                           </div>
                           {participant.measureDate && (
                             <div className="text-xs text-blue-600 font-medium">
-                              측정일: {new Date(participant.measureDate).toLocaleDateString('ko-KR', {
-                                year: 'numeric', 
-                                month: 'long', 
-                                day: 'numeric'
-                              })}
+                              측정일: {participant.measureDate}
+                            </div>
+                          )}
+                          {participant.power5s && (
+                            <div className="text-xs text-green-600 font-medium">
+                              파워 데이터: 5초 {participant.power5s}W, 15초 {participant.power15s}W, 30초 {participant.power30s}W
                             </div>
                           )}
                         </div>
@@ -505,6 +519,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
+                            handleParticipantSelect(participant);
                           }}
                         >
                           선택
