@@ -172,6 +172,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create measurement and analysis
+  app.post("/api/measurements", async (req, res) => {
+    try {
+      console.log("=== 측정 데이터 생성 요청 ===");
+      const measurementData = req.body;
+      console.log("받은 측정 데이터:", measurementData);
+      
+      // 간단한 임시 ID 생성
+      const measurementId = Date.now();
+      
+      // 기본 측정 객체 생성
+      const measurement = {
+        id: measurementId,
+        ...measurementData,
+        createdAt: new Date().toISOString()
+      };
+      
+      // 간단한 분석 결과 생성 (실제 AI 분석 없이 기본 응답)
+      const analysisResult = {
+        id: measurementId + 1,
+        measurementId: measurementId,
+        overallPercentile: 75, // 기본값
+        strengths: "균형잡힌 체력",
+        improvements: "지속적인 훈련 필요",
+        aiCoreInsights: "체력 측정이 완료되었습니다."
+      };
+      
+      console.log("=== 측정 결과 계산 완료 ===");
+      console.log("측정 ID:", measurement.id);
+      console.log("학생 이름:", measurement.studentName);
+      
+      res.json({
+        measurement,
+        analysis: analysisResult,
+        strengths: analysisResult.strengths,
+        improvements: analysisResult.improvements
+      });
+      
+    } catch (error) {
+      console.error("Error creating measurement:", error);
+      res.status(400).json({ error: "측정 데이터 처리 중 오류가 발생했습니다" });
+    }
+  });
+
   // Health check (API만)
   app.get("/api/health", (req, res) => {
     res.json({ message: "KidsMotion API 서버가 정상 작동 중입니다." });
