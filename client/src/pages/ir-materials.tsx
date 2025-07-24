@@ -63,6 +63,7 @@ function VideoPlayer() {
         controls
         autoPlay
         loop
+        muted
         playsInline
         preload="metadata"
         className="w-full h-full rounded-lg shadow-lg"
@@ -74,7 +75,7 @@ function VideoPlayer() {
         onError={handleVideoError}
         onLoadedMetadata={() => {
           if (videoRef.current) {
-            videoRef.current.muted = false;
+            videoRef.current.muted = true;
             videoRef.current.play().catch(() => {
               console.log("자동재생을 위해 영상을 클릭해주세요");
             });
@@ -147,7 +148,7 @@ export default function IRMaterials({ onNavigate }: IRMaterialsProps) {
               
               <div className="bg-gray-50 p-6 rounded-xl">
                 <h4 className="text-lg font-bold text-gray-800 mb-3">왜 사이클인가?</h4>
-                <p className="text-base">사이클링은 다리만의 운동이 아닙니다. <span className="font-bold text-blue-600">진정한 파워를 내기 위해서는 전신의 힘을 통합적으로 사용</span>해야 합니다. 또한 대칭 기구의 특성상 <span className="font-bold text-blue-600">좌우 불균형을 0.01% 단위까지 정확하게 감지</span>할 수 있습니다.</p>
+                <p className="text-base">사이클링은 다리만의 운동이 아닙니다. <span className="font-bold text-blue-600">진정한 파워를 내기 위해서는 전신의 힘을 통합적으로 사용</span>해야 합니다. 또한 대칭 기구의 특성상 <span className="font-bold text-blue-600">좌우 불균형을 정확하게 감지</span>할 수 있습니다.(오차범위 : ±1%)</p>
               </div>
 
               <div className="bg-blue-50 p-6 rounded-xl">
