@@ -1441,32 +1441,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Supabase 사용자 검색 (강제 새로고침) ===", name);
       
-      // 🔥 박시아 전용 하드코딩 테스트 
-      if (name === '박시아') {
-        console.log("🔥 박시아 하드코딩 - 올바른 데이터 반환");
-        const result = {
-          measureDate: "2025-07-24",
-          studentName: "박시아",
-          affiliation: "희망찬유치원",
-          birthDate: "2019-07-02",
-          gender: "여성",
-          power5s: null,
-          power15s: null,
-          power30s: null,
-          power60s: null,
-          power180s: null,
-          power360s: null,
-          leftBalance: 50,
-          rightBalance: 50,
-          height: 112,
-          weight: 20,
-          maxHeartRate: null,
-          avgHeartRate: null
-        };
-        return res.json(result);
-      }
-      
-      // Neon 데이터베이스에 직접 SQL 실행
+      // Neon 데이터베이스에 직접 SQL 실행 (올바른 연결)
       const { pool } = await import('./db');
       const queryResult = await pool.query('SELECT * FROM participants WHERE name = $1 ORDER BY created_at', [name]);
       const participants = queryResult.rows;
@@ -1694,38 +1669,12 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Prefill 데이터 조회 ===", displayName);
       
-      // 🔥 박시아 전용 하드코딩 테스트
-      if (displayName === '박시아') {
-        console.log("🔥 박시아 prefill 하드코딩 - 올바른 데이터 반환");
-        const hardcodedPrefill = {
-          studentName: "박시아",
-          affiliation: "희망찬유치원",
-          birthDate: "2019-07-02",
-          gender: "여성",
-          height: 112,
-          weight: 20,
-          power5s: null,
-          power15s: null,
-          power30s: null,
-          power60s: null,
-          power180s: null,
-          power360s: null,
-          leftBalance: 50,
-          rightBalance: 50,
-          maxHeartRate: null,
-          avgHeartRate: null
-        };
-        return res.json(hardcodedPrefill);
-      }
-      
-      // 1. participants 테이블에서 display_name으로 참가자 찾기
-      const { data: participants, error: participantError } = await supabase
-        .from('participants')
-        .select('*')
-        .eq('name', displayName)
-        .limit(1);
+      // 1. Neon 데이터베이스에서 직접 참가자 조회
+      const { pool } = await import('./db');
+      const queryResult = await pool.query('SELECT * FROM participants WHERE name = $1 ORDER BY created_at DESC LIMIT 1', [displayName]);
+      const participants = queryResult.rows;
 
-      if (participantError || !participants || participants.length === 0) {
+      if (!participants || participants.length === 0) {
         console.log("참가자를 찾을 수 없음:", displayName);
         return res.json(null);
       }
@@ -1733,14 +1682,34 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       const participant = participants[0];
       console.log("참가자 발견:", participant.name);
 
-      // 2. test_sessions에서 가장 최근 완료된 세션 찾기
-      const { data: testSessions, error: sessionError } = await supabase
-        .from('test_sessions')
-        .select('*')
-        .eq('participant_id', participant.id)
-        .eq('status', 'completed')
-        .order('end_time', { ascending: false })
-        .limit(1);
+      // 기본 참가자 정보로 prefill 데이터 구성 (가민 데이터 없음)
+      const prefillResult = {
+        studentName: participant.name,
+        affiliation: participant.organization || '',
+        birthDate: participant.birth_date,
+        gender: participant.gender === 'F' ? '여성' : '남성',
+        height: participant.height || null,
+        weight: participant.weight || null,
+        
+        // 파워 데이터는 null (수동 입력 필요)
+        power5s: null,
+        power15s: null,
+        power30s: null,
+        power60s: null,
+        power180s: null,
+        power360s: null,
+        
+        // 기본 밸런스
+        leftBalance: 50,
+        rightBalance: 50,
+        
+        // 심박수는 빈 상태
+        maxHeartRate: null,
+        avgHeartRate: null
+      };
+      
+      console.log("Prefill 데이터 준비 완료:", prefillResult);
+      res.json(prefillResult);
 
       let recentSession = null;
       let avgBalance = { left: 50, right: 50 };
