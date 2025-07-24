@@ -111,8 +111,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
-      // 로딩 애니메이션 시작
-      onStart?.();
       const response = await apiRequest("POST", "/api/measurements", data);
       return response.json();
     },
@@ -155,6 +153,9 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   });
 
   const onSubmit = (data: FormData) => {
+    // 로딩 애니메이션 시작
+    onStart?.();
+    
     // restingHeartRate를 기본값으로 설정 (임시 해결책)
     const measurementData = {
       ...data,
@@ -479,6 +480,15 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           <div className="text-sm text-gray-600">
                             생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
                           </div>
+                          {participant.measureDate && (
+                            <div className="text-xs text-blue-600 font-medium">
+                              측정일: {new Date(participant.measureDate).toLocaleDateString('ko-KR', {
+                                year: 'numeric', 
+                                month: 'long', 
+                                day: 'numeric'
+                              })}
+                            </div>
+                          )}
                         </div>
                         <Button variant="outline" size="sm">
                           선택

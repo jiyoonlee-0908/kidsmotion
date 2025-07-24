@@ -1332,6 +1332,11 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       if (deduplicatedParticipants.length > 1) {
         const participantList = deduplicatedParticipants.map(p => {
           const measureDate = new Date(p.created_at).toISOString().split('T')[0];
+          const formattedDate = new Date(measureDate).toLocaleDateString('ko-KR', {
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric'
+          });
           return {
             id: p.id,
             name: p.name,
@@ -1340,10 +1345,11 @@ Style: Professional product photography, bright and clean, medical/fitness equip
             organization: p.organization || "기관없음",
             measureDate: measureDate,
             createdAt: p.created_at,
-            displayName: `${p.name} (${p.birth_date} / ${p.organization || '기관없음'} / ${measureDate})`
+            displayName: `${p.name} (생년월일: ${p.birth_date} / 기관: ${p.organization || '기관없음'} / 측정일: ${formattedDate})`
           };
         });
         console.log(`동명이인 또는 다른 측정일: ${participantList.length}명 목록 반환`);
+        console.log("참가자 표시명 목록:", participantList.map(p => p.displayName));
         return res.json({ 
           multiple: true, 
           participants: participantList 
