@@ -593,6 +593,12 @@ ${htmlContent}
       };
       
       console.log(`최종 백분위 결과: 5s=${percentiles["5s"]}%, 15s=${percentiles["15s"]}%, 30s=${percentiles["30s"]}%, 60s=${percentiles["60s"]}%`);
+      if (percentiles["180s"] !== null) {
+        console.log(`180초 백분위: ${percentiles["180s"]}%`);
+      }
+      if (percentiles["360s"] !== null) {
+        console.log(`360초 백분위: ${percentiles["360s"]}%`);
+      }
       
       const overallPercentile = (percentiles["5s"] + percentiles["15s"] + percentiles["30s"] + percentiles["60s"]) / 4;
       const balanceStatus = getBalanceStatus(measurementData.leftBalance, measurementData.rightBalance);
