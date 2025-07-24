@@ -326,7 +326,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
           </div>
           <h2 className="text-2xl font-bold text-gray-900">
             측정 정보 입력 
-            <span className="text-sm font-normal text-gray-500 ml-2">(유아~초등대상) (이름에 박시아를 입력 후 엔터를 눌러보세요)</span>
+            <span className="text-sm font-normal text-gray-500 ml-2" style={{background: 'none !important', backgroundColor: 'transparent !important', color: 'rgb(107 114 128) !important'}}>(유아~초등대상) (이름에 박시아를 입력 후 엔터를 눌러보세요)</span>
           </h2>
         </div>
         
