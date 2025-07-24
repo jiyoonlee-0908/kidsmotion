@@ -1288,6 +1288,62 @@ Style: Professional product photography, bright and clean, medical/fitness equip
     }
   });
 
+  // 김철수 데이터 완전 정리 엔드포인트 (긴급)
+  app.delete("/api/cleanup-kim-data", async (req, res) => {
+    try {
+      console.log("🔥 김철수 데이터 완전 정리 시작");
+      
+      // 1. 모든 김철수 test_sessions 삭제
+      const { error: sessionsError } = await supabase
+        .from('test_sessions')
+        .delete()
+        .in('participant_id', [91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,115,116,119,120,121]);
+      
+      if (sessionsError) {
+        console.error('test_sessions 삭제 오류:', sessionsError);
+      }
+      
+      // 2. 모든 김철수 participants 삭제
+      const { error: participantsError } = await supabase
+        .from('participants')
+        .delete()
+        .eq('name', '김철수');
+      
+      if (participantsError) {
+        console.error('participants 삭제 오류:', participantsError);
+        return res.status(500).json({ error: participantsError.message });
+      }
+      
+      // 3. 투자자용 김철수 3개 복원
+      const investorData = [
+        {name:"김철수",birth_date:"2018-03-15",gender:"M",organization:"꿈나무초등학교",height:115,weight:25,created_at:"2025-07-10T01:12:30.596822+00:00"},
+        {name:"김철수",birth_date:"2018-03-15",gender:"M",organization:"꿈나무초등학교",height:115,weight:25,created_at:"2025-07-17T04:41:29.013523+00:00"},
+        {name:"김철수",birth_date:"2018-03-15",gender:"M",organization:"꿈나무초등학교",height:115,weight:25,created_at:"2025-07-22T05:33:33.082768+00:00"}
+      ];
+      
+      const { data: insertedData, error: insertError } = await supabase
+        .from('participants')
+        .insert(investorData)
+        .select();
+      
+      if (insertError) {
+        console.error('투자자 데이터 복원 오류:', insertError);
+        return res.status(500).json({ error: insertError.message });
+      }
+      
+      console.log("✅ 김철수 데이터 정리 완료, 투자자용 3개 복원됨");
+      res.json({ 
+        success: true, 
+        message: "김철수 데이터 정리 완료, 투자자용 3개만 남김",
+        restoredCount: insertedData?.length || 0
+      });
+      
+    } catch (error) {
+      console.error('김철수 데이터 정리 실패:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   // Supabase integration endpoints
   app.get("/api/supabase/search-user/:name", async (req, res) => {
     try {
