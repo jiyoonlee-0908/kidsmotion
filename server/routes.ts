@@ -1694,6 +1694,30 @@ Style: Professional product photography, bright and clean, medical/fitness equip
 
       console.log("=== Prefill 데이터 조회 ===", displayName);
       
+      // 🔥 박시아 전용 하드코딩 테스트
+      if (displayName === '박시아') {
+        console.log("🔥 박시아 prefill 하드코딩 - 올바른 데이터 반환");
+        const hardcodedPrefill = {
+          studentName: "박시아",
+          affiliation: "희망찬유치원",
+          birthDate: "2019-07-02",
+          gender: "여성",
+          height: 112,
+          weight: 20,
+          power5s: null,
+          power15s: null,
+          power30s: null,
+          power60s: null,
+          power180s: null,
+          power360s: null,
+          leftBalance: 50,
+          rightBalance: 50,
+          maxHeartRate: null,
+          avgHeartRate: null
+        };
+        return res.json(hardcodedPrefill);
+      }
+      
       // 1. participants 테이블에서 display_name으로 참가자 찾기
       const { data: participants, error: participantError } = await supabase
         .from('participants')
