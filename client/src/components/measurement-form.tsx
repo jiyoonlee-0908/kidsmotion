@@ -176,8 +176,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     form.setValue("affiliation", userData.affiliation || "");
     form.setValue("birthDate", userData.birthDate || "");
     // 성별 변환: "남성" -> "M", "여성" -> "F"
-    const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : "";
-    form.setValue("gender", genderCode);
+    const genderCode = userData.gender === "남성" ? "M" : userData.gender === "여성" ? "F" : undefined;
+    if (genderCode) {
+      form.setValue("gender", genderCode);
+    }
     
     // ✅ 키/몸무게 자동 입력 추가
     console.log('키/몸무게 데이터 확인:', { height: userData.height, weight: userData.weight });
@@ -360,7 +362,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                           {...field} 
                           placeholder="예: 김철수"
                           onBlur={(e) => {
-                            field.onBlur(e);
+                            field.onBlur();
                             setStudentNameInput(e.target.value);
                           }}
                           onKeyDown={(e) => {
