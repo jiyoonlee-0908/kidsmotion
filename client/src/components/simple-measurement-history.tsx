@@ -314,7 +314,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
   };
 
   const getGradeColor = (grade: string) => {
-    return 'text-gray-700 font-medium';
+    switch (grade) {
+      case '매우우수': return 'bg-purple-100 text-purple-800';
+      case '우수': return 'bg-blue-100 text-blue-800';
+      case '보통': return 'bg-green-100 text-green-800';
+      case '부족': return 'bg-yellow-100 text-yellow-800';
+      case '매우부족': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
   };
 
   return (
@@ -459,14 +466,20 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                             <p className="text-sm text-gray-600">나이: {report.age}세</p>
                           </div>
                           <div>
-                            <span className="text-gray-700 font-medium">
+                            <Badge className={`${
+                              report.overall_percentile >= 97 ? 'bg-purple-100 text-purple-800' :
+                              report.overall_percentile >= 85 ? 'bg-blue-100 text-blue-800' :
+                              report.overall_percentile >= 15 ? 'bg-green-100 text-green-800' :
+                              report.overall_percentile >= 3 ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-red-100 text-red-800'
+                            }`}>
                               {Math.round(report.overall_percentile)}% ({
                                 report.overall_percentile >= 97 ? '매우우수' :
                                 report.overall_percentile >= 85 ? '우수' :
                                 report.overall_percentile >= 15 ? '보통' :
                                 report.overall_percentile >= 3 ? '부족' : '매우부족'
                               })
-                            </span>
+                            </Badge>
                           </div>
                           <div className="text-sm text-gray-500">
                             {new Date(report.created_at).toLocaleDateString('ko-KR')} 저장
@@ -786,14 +799,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power5s}W | 환산점수: {Math.round(selectedMeasurement.percentile5s)}</p>
                       </div>
                       <div className="text-right">
-                        <span className="text-gray-700 font-medium">
+                        <Badge className={`${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                           {selectedMeasurement.percentile5s >= 97 ? '매우우수' : selectedMeasurement.percentile5s >= 85 ? '우수' : selectedMeasurement.percentile5s >= 15 ? '보통' : selectedMeasurement.percentile5s >= 3 ? '부족' : '매우부족'}
-                        </span>
+                        </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile5s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className="progress-fill bg-gray-300" 
+                      <div className={`progress-fill ${selectedMeasurement.percentile5s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile5s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile5s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile5s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
@@ -812,14 +825,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power15s}W | 환산점수: {Math.round(selectedMeasurement.percentile15s)}</p>
                       </div>
                       <div className="text-right">
-                        <span className="text-gray-700 font-medium">
+                        <Badge className={`${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                           {selectedMeasurement.percentile15s >= 97 ? '매우우수' : selectedMeasurement.percentile15s >= 85 ? '우수' : selectedMeasurement.percentile15s >= 15 ? '보통' : selectedMeasurement.percentile15s >= 3 ? '부족' : '매우부족'}
-                        </span>
+                        </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile15s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className="progress-fill bg-gray-300" 
+                      <div className={`progress-fill ${selectedMeasurement.percentile15s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile15s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile15s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile15s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
@@ -838,14 +851,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power30s}W | 환산점수: {Math.round(selectedMeasurement.percentile30s)}</p>
                       </div>
                       <div className="text-right">
-                        <span className="text-gray-700 font-medium">
+                        <Badge className={`${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                           {selectedMeasurement.percentile30s >= 97 ? '매우우수' : selectedMeasurement.percentile30s >= 85 ? '우수' : selectedMeasurement.percentile30s >= 15 ? '보통' : selectedMeasurement.percentile30s >= 3 ? '부족' : '매우부족'}
-                        </span>
+                        </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile30s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className="progress-fill bg-gray-300" 
+                      <div className={`progress-fill ${selectedMeasurement.percentile30s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile30s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile30s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile30s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
@@ -864,14 +877,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                         <p className="text-sm text-gray-600">{selectedMeasurement.power60s}W | 환산점수: {Math.round(selectedMeasurement.percentile60s)}</p>
                       </div>
                       <div className="text-right">
-                        <span className="text-gray-700 font-medium">
+                        <Badge className={`${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                           {selectedMeasurement.percentile60s >= 97 ? '매우우수' : selectedMeasurement.percentile60s >= 85 ? '우수' : selectedMeasurement.percentile60s >= 15 ? '보통' : selectedMeasurement.percentile60s >= 3 ? '부족' : '매우부족'}
-                        </span>
+                        </Badge>
                         <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile60s}%</p>
                       </div>
                     </div>
                     <div className="progress-bar mb-3">
-                      <div className="progress-fill bg-gray-300" 
+                      <div className={`progress-fill ${selectedMeasurement.percentile60s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile60s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile60s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                            style={{width: `${selectedMeasurement.percentile60s}%`}}></div>
                     </div>
                     <p className="text-sm text-gray-700">
@@ -892,14 +905,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <p className="text-sm text-gray-600">{selectedMeasurement.power180s}W | 환산점수: {Math.round(selectedMeasurement.percentile180s)}</p>
                         </div>
                         <div className="text-right">
-                          <span className="text-gray-700 font-medium">
+                          <Badge className={`${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                             {selectedMeasurement.percentile180s >= 97 ? '매우우수' : selectedMeasurement.percentile180s >= 85 ? '우수' : selectedMeasurement.percentile180s >= 15 ? '보통' : selectedMeasurement.percentile180s >= 3 ? '부족' : '매우부족'}
-                          </span>
+                          </Badge>
                           <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile180s}%</p>
                         </div>
                       </div>
                       <div className="progress-bar mb-3">
-                        <div className="progress-fill bg-gray-300" 
+                        <div className={`progress-fill ${selectedMeasurement.percentile180s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile180s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile180s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                              style={{width: `${selectedMeasurement.percentile180s}%`}}></div>
                       </div>
                       <p className="text-sm text-gray-700">
@@ -921,14 +934,14 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                           <p className="text-sm text-gray-600">{selectedMeasurement.power360s}W | 환산점수: {Math.round(selectedMeasurement.percentile360s)}</p>
                         </div>
                         <div className="text-right">
-                          <span className="text-gray-700 font-medium">
+                          <Badge className={`${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'} text-white`}>
                             {selectedMeasurement.percentile360s >= 97 ? '매우우수' : selectedMeasurement.percentile360s >= 85 ? '우수' : selectedMeasurement.percentile360s >= 15 ? '보통' : selectedMeasurement.percentile360s >= 3 ? '부족' : '매우부족'}
-                          </span>
+                          </Badge>
                           <p className="text-sm text-gray-600 mt-1">{selectedMeasurement.percentile360s}%</p>
                         </div>
                       </div>
                       <div className="progress-bar mb-3">
-                        <div className="progress-fill bg-gray-300" 
+                        <div className={`progress-fill ${selectedMeasurement.percentile360s >= 85 ? 'bg-blue-500' : selectedMeasurement.percentile360s >= 15 ? 'bg-green-500' : selectedMeasurement.percentile360s >= 3 ? 'bg-yellow-500' : 'bg-red-500'}`} 
                              style={{width: `${selectedMeasurement.percentile360s}%`}}></div>
                       </div>
                       <p className="text-sm text-gray-700">
