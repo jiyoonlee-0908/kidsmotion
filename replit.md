@@ -108,6 +108,13 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Changes
 
+- July 24, 2025: 체력분석시작 버튼 로직 수정 및 동명이인 측정일 선택 기능 완성
+  - 체력분석시작 버튼이 임의 데이터 생성하던 문제 해결: 입력된 데이터로만 분석 수행
+  - 동명이인/재측정 시 측정일 기준 선택 기능 구현: 소속 + 측정일 표시로 구분
+  - 김철수 테스트 데이터 Supabase 추가로 자동입력 기능 검증 완료
+  - 서버 API에서 multiple participants 응답에 measureDate 필드 추가
+  - 클라이언트 UI에서 "소속: xx | 측정일: yyyy-mm-dd" 형태로 명확한 구분 표시
+
 - July 9, 2025: QR 코드 시스템 완전 구현 및 측정기록 페이지 UI 정리
   - 측정기록 페이지에서 QR 코드 버튼 제거, "리포트 보기" 버튼만 유지
   - QR 코드는 웹리포트 내부에 자동 생성되어 인쇄용으로 제공

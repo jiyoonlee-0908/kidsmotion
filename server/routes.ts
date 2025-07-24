@@ -1659,11 +1659,13 @@ Style: Professional product photography, bright and clean, medical/fitness equip
           multiple: true,
           participants: deduplicatedParticipants.map(p => ({
             id: p.id,
-            studentName: p.name,
-            affiliation: p.organization || "",
+            name: p.name,
             birthDate: p.birth_date,
             gender: p.gender,
-            createdAt: p.created_at
+            organization: p.organization || "",
+            measureDate: new Date(p.created_at).toISOString().split('T')[0],
+            createdAt: p.created_at,
+            displayName: `${p.name} (${p.birth_date} / ${p.organization || '소속없음'} / ${new Date(p.created_at).toISOString().split('T')[0]})`
           }))
         });
       }

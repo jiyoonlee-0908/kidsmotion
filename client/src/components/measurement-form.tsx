@@ -155,15 +155,20 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
   });
 
   const onSubmit = (data: FormData) => {
+    // 🔥 체력분석시작 버튼: 이미 입력된 데이터로 분석, 새로운 데이터 생성 안함
+    console.log("체력분석시작 - 입력된 데이터 분석:", data);
+    
     // restingHeartRate를 기본값으로 설정 (임시 해결책)
     const measurementData = {
       ...data,
       restingHeartRate: 70 // 기본값 설정
     }
     
-    // 동시에 두 작업 실행: 분석 생성 + Supabase 저장
+    // 분석만 실행 (새로운 데이터 생성 아님)
     createMeasurement.mutate(measurementData);
-    saveToSupabase.mutate(data); // 원본 데이터를 Supabase에 저장
+    
+    // Supabase 저장은 별도로 실행하지 않음 (이미 자동입력 시 저장됨)
+    // saveToSupabase.mutate(data);
   }
 
   // 폼 데이터 채우기 공통 함수
@@ -477,7 +482,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                         <div>
                           <div className="font-semibold">{participant.name}</div>
                           <div className="text-sm text-gray-600">
-                            생년월일: {participant.birthDate} | 성별: {participant.gender} | 소속: {participant.organization || "미등록"}
+                            생년월일: {participant.birthDate} | 성별: {participant.gender}
+                          </div>
+                          <div className="text-sm text-blue-600 font-medium">
+                            소속: {participant.organization || "미등록"} | 측정일: {participant.measureDate}
                           </div>
                         </div>
                         <Button variant="outline" size="sm">
