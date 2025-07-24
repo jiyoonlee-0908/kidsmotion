@@ -114,6 +114,7 @@ Preferred communication style: Simple, everyday language.
   - 김철수 테스트 데이터 Supabase 추가로 자동입력 기능 검증 완료
   - 서버 API에서 multiple participants 응답에 measureDate 필드 추가
   - 클라이언트 UI에서 "소속: xx | 측정일: yyyy-mm-dd" 형태로 명확한 구분 표시
+  - 리포트 결과 화면에서 로고/홈 버튼 링크 수정: kidsmotion.bike로 이동하도록 설정
 
 - July 9, 2025: QR 코드 시스템 완전 구현 및 측정기록 페이지 UI 정리
   - 측정기록 페이지에서 QR 코드 버튼 제거, "리포트 보기" 버튼만 유지

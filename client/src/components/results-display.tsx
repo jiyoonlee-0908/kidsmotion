@@ -276,7 +276,12 @@ export default function ResultsDisplay({ data, onNewMeasurement, onNavigate }: R
     <div className="w-full max-w-[1200px] mx-auto space-y-6">
       {/* Header with Action Buttons */}
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold gradient-text">체력 분석 결과</h2>
+        <h2 
+          className="text-3xl font-bold gradient-text cursor-pointer hover:opacity-80 transition-opacity" 
+          onClick={() => window.location.href = 'https://kidsmotion.bike'}
+        >
+          체력 분석 결과
+        </h2>
         <div className="flex items-center space-x-3">
           <Button 
             onClick={handleSavePDF}

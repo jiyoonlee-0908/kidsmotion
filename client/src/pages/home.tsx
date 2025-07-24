@@ -61,9 +61,8 @@ export default function Home({ onNavigate }: HomeProps) {
   };
 
   const handleNewMeasurement = () => {
-    setShowResults(false);
-    setMeasurementData(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 🔥 KidsMotion 로고 / 홈 버튼 클릭 시 kidsmotion.bike로 이동
+    window.location.href = 'https://kidsmotion.bike';
   };
 
   return (
