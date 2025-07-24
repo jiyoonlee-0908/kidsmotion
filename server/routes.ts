@@ -1307,10 +1307,47 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       console.log("🔥 중복 제거 로직 시작 (4개 필드 기준)");
       const deduplicatedMap = new Map();
       
-      participants.forEach(participant => {
-        // 측정일을 날짜만 추출 (시간 제거)
-        const measureDate = new Date(participant.created_at).toISOString().split('T')[0];
-        const key = `${participant.name}_${participant.birth_date}_${participant.organization || ''}_${measureDate}`;
+      // 각 참가자별로 실제 측정일 매핑
+      const participantsWithMeasureDates = await Promise.all(
+        participants.map(async (participant) => {
+          try {
+            // test_sessions에서 실제 측정일 찾기
+            const { data: sessions, error: sessionError } = await supabase
+              .from('test_sessions')
+              .select('start_time, status')
+              .eq('user_id', participant.id)
+              .eq('status', 'completed')
+              .order('start_time', { ascending: false })
+              .limit(1);
+
+            let actualMeasureDate;
+            if (!sessionError && sessions && sessions.length > 0) {
+              // test_sessions에 실제 측정일이 있는 경우
+              actualMeasureDate = new Date(sessions[0].start_time).toISOString().split('T')[0];
+              console.log(`${participant.name} ID:${participant.id} 실제 측정일: ${actualMeasureDate}`);
+            } else {
+              // test_sessions에 없으면 created_at 사용 (체력분석 시작일)
+              actualMeasureDate = new Date(participant.created_at).toISOString().split('T')[0];
+              console.log(`${participant.name} ID:${participant.id} 체력분석 시작일: ${actualMeasureDate} (실제 측정 미완료)`);
+            }
+
+            return {
+              ...participant,
+              actualMeasureDate
+            };
+          } catch (error) {
+            console.error(`${participant.name} 측정일 조회 오류:`, error);
+            return {
+              ...participant,
+              actualMeasureDate: new Date(participant.created_at).toISOString().split('T')[0]
+            };
+          }
+        })
+      );
+
+      // 중복 제거: 이름+생년월일+기관+실제측정일 4개 조합으로 고유 식별
+      participantsWithMeasureDates.forEach(participant => {
+        const key = `${participant.name}_${participant.birth_date}_${participant.organization || ''}_${participant.actualMeasureDate}`;
         
         // 이미 같은 조합이 있다면, 더 최신 데이터만 유지 (같은 날 여러 번 측정 시)
         if (!deduplicatedMap.has(key) || 
@@ -1324,15 +1361,13 @@ Style: Professional product photography, bright and clean, medical/fitness equip
       
       console.log(`중복 제거 후: ${deduplicatedParticipants.length}명`);
       console.log("중복 제거된 참가자 목록:", deduplicatedParticipants.map(p => {
-        const measureDate = new Date(p.created_at).toISOString().split('T')[0];
-        return `${p.name}(${p.birth_date}/${p.organization || '기관없음'}/${measureDate}) ID:${p.id}`;
+        return `${p.name}(${p.birth_date}/${p.organization || '기관없음'}/${p.actualMeasureDate}) ID:${p.id}`;
       }));
 
       // 여러 명이 있을 때는 선택 목록 반환 (중복 제거 후)
       if (deduplicatedParticipants.length > 1) {
         const participantList = deduplicatedParticipants.map(p => {
-          const measureDate = new Date(p.created_at).toISOString().split('T')[0];
-          const formattedDate = new Date(measureDate).toLocaleDateString('ko-KR', {
+          const formattedDate = new Date(p.actualMeasureDate).toLocaleDateString('ko-KR', {
             year: 'numeric', 
             month: 'long', 
             day: 'numeric'
@@ -1343,9 +1378,9 @@ Style: Professional product photography, bright and clean, medical/fitness equip
             birthDate: p.birth_date,
             gender: p.gender,
             organization: p.organization || "기관없음",
-            measureDate: measureDate,
+            measureDate: p.actualMeasureDate,
             createdAt: p.created_at,
-            displayName: `${p.name} (생년월일: ${p.birth_date} / 기관: ${p.organization || '기관없음'} / 측정일: ${formattedDate})`
+            displayName: `${p.name} (생년월일: ${p.birth_date} / 기관: ${p.organization || '기관없음'} / 실제측정일: ${formattedDate})`
           };
         });
         console.log(`동명이인 또는 다른 측정일: ${participantList.length}명 목록 반환`);
