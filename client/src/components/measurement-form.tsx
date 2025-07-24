@@ -111,7 +111,18 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
 
   const createMeasurement = useMutation({
     mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/measurements", data);
+      const response = await fetch('/api/measurements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       return response.json();
     },
     onSuccess: (data) => {
@@ -120,13 +131,10 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
         description: "체력 분석이 성공적으로 완료되었습니다.",
       });
       
-      // 분석 완료 후 Supabase에 저장
-      const formData = form.getValues();
-      saveToSupabase.mutate(formData);
-      
       onComplete(data);
     },
     onError: (error) => {
+      console.error("측정 오류:", error);
       toast({
         title: "오류 발생",
         description: "측정 데이터 처리 중 오류가 발생했습니다.",
@@ -135,27 +143,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
     },
   });
 
-  const saveToSupabase = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await apiRequest("POST", "/api/supabase/save-measurement", data);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      toast({
-        title: "Supabase 저장 완료",
-        description: "데이터가 KidsMotion 데이터베이스에 성공적으로 저장되었습니다.",
-      });
-      console.log("Supabase 저장 결과:", data);
-    },
-    onError: (error) => {
-      toast({
-        title: "Supabase 저장 실패",
-        description: "데이터베이스 저장 중 오류가 발생했습니다.",
-        variant: "destructive",
-      });
-      console.error("Supabase 저장 오류:", error);
-    },
-  });
+  // Supabase 저장은 제거 (간단한 측정 기능만 유지)
 
   const onSubmit = (data: FormData) => {
     // 로딩 애니메이션 시작
@@ -167,7 +155,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
       restingHeartRate: 70 // 기본값 설정
     }
     
-    // ⚠️ 체력분석 시작은 로컬 분석만! Supabase 저장 X
+    console.log("측정 데이터 전송:", measurementData);
     createMeasurement.mutate(measurementData);
   }
 
@@ -943,7 +931,7 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
               <Button 
                 type="submit" 
                 className="w-full bg-primary hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2"
-                disabled={createMeasurement.isPending || saveToSupabase.isPending}
+                disabled={createMeasurement.isPending}
               >
                 {createMeasurement.isPending ? (
                   <>
