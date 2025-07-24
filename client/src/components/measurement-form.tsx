@@ -506,11 +506,6 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                               측정일: {participant.measureDate}
                             </div>
                           )}
-                          {participant.power5s && (
-                            <div className="text-xs text-green-600 font-medium">
-                              파워 데이터: 5초 {participant.power5s}W, 15초 {participant.power15s}W, 30초 {participant.power30s}W
-                            </div>
-                          )}
                         </div>
                         <Button 
                           type="button"
