@@ -175,7 +175,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create measurement and analysis
   app.post("/api/measurements", async (req, res) => {
     try {
-      console.log("=== 측정 데이터 생성 요청 ===");
+      console.log("=== API 측정 엔드포인트 도달! ===");
+      console.log("Content-Type:", req.headers['content-type']);
       const measurementData = req.body;
       console.log("받은 측정 데이터:", measurementData);
       
@@ -203,12 +204,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("측정 ID:", measurement.id);
       console.log("학생 이름:", measurement.studentName);
       
-      res.json({
+      const responseData = {
         measurement,
         analysis: analysisResult,
         strengths: analysisResult.strengths,
         improvements: analysisResult.improvements
-      });
+      };
+      
+      console.log("응답 데이터:", responseData);
+      res.setHeader('Content-Type', 'application/json');
+      res.json(responseData);
       
     } catch (error) {
       console.error("Error creating measurement:", error);
