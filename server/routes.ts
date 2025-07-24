@@ -132,8 +132,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Health check
-  app.get("/", (req, res) => {
+  // Health check (API만)
+  app.get("/api/health", (req, res) => {
     res.json({ message: "KidsMotion API 서버가 정상 작동 중입니다." });
   });
   
