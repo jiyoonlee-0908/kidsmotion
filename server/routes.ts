@@ -43,25 +43,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.json([]);
       }
       
-      // 각 참가자 데이터를 웹앱 형식으로 변환
-      const formattedResults = participants.map(participant => ({
-        measureDate: new Date(participant.created_at).toISOString().split('T')[0],
-        studentName: participant.name,
-        affiliation: participant.organization || '',
-        birthDate: participant.birth_date,
-        gender: participant.gender === 'F' ? '여성' : '남성',
-        power5s: null,
-        power15s: null,
-        power30s: null,
-        power60s: null,
-        power180s: null,
-        power360s: null,
-        leftBalance: 50,
-        rightBalance: 50,
-        height: participant.height || null,
-        weight: participant.weight || null,
-        maxHeartRate: null,
-        avgHeartRate: null
+      // 각 참가자의 6단계 테스트 결과를 조회하여 웹앱 형식으로 변환
+      const formattedResults = await Promise.all(participants.map(async (participant) => {
+        // 해당 참가자의 6단계 테스트 결과 조회
+        const stageQuery = await pool.query(`
+          SELECT si.sequence_number, si.avg_power_in_stage, si.max_power_in_stage
+          FROM stage_intervals si 
+          JOIN test_sessions ts ON si.session_id = ts.id 
+          WHERE ts.participant_id = $1
+          ORDER BY si.sequence_number
+        `, [participant.id]);
+        
+        const stages = stageQuery.rows;
+        
+        // 6단계별 파워값 매핑
+        const power5s = stages.find(s => s.sequence_number === 1)?.max_power_in_stage || null;
+        const power15s = stages.find(s => s.sequence_number === 2)?.avg_power_in_stage || null;
+        const power30s = stages.find(s => s.sequence_number === 3)?.avg_power_in_stage || null;
+        const power60s = stages.find(s => s.sequence_number === 4)?.avg_power_in_stage || null;
+        const power180s = stages.find(s => s.sequence_number === 5)?.avg_power_in_stage || null;
+        const power360s = stages.find(s => s.sequence_number === 6)?.avg_power_in_stage || null;
+        
+        return {
+          measureDate: new Date(participant.created_at).toISOString().split('T')[0],
+          studentName: participant.name,
+          affiliation: participant.organization || '',
+          birthDate: participant.birth_date,
+          gender: participant.gender === 'F' ? '여성' : '남성',
+          power5s: power5s ? Math.round(power5s * 10) / 10 : null,
+          power15s: power15s ? Math.round(power15s * 10) / 10 : null,
+          power30s: power30s ? Math.round(power30s * 10) / 10 : null,
+          power60s: power60s ? Math.round(power60s * 10) / 10 : null,
+          power180s: power180s ? Math.round(power180s * 10) / 10 : null,
+          power360s: power360s ? Math.round(power360s * 10) / 10 : null,
+          leftBalance: 50,
+          rightBalance: 50,
+          height: participant.height || null,
+          weight: participant.weight || null,
+          maxHeartRate: null,
+          avgHeartRate: null
+        };
       }));
       
       console.log(`변환된 검색 결과:`, formattedResults);
