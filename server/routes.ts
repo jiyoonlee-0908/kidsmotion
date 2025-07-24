@@ -1468,7 +1468,7 @@ Style: Professional product photography, bright and clean, medical/fitness equip
             const { data: sessions, error: sessionError } = await supabase
               .from('test_sessions')
               .select('start_time, status')
-              .eq('user_id', participant.id)
+              .eq('participant_id', participant.id)
               .eq('status', 'completed')
               .order('start_time', { ascending: false })
               .limit(1);
