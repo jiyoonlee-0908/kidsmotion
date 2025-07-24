@@ -465,22 +465,7 @@ export default function SimpleMeasurementHistory({ onViewDetails }: SimpleMeasur
                             <p className="font-semibold text-gray-900">측정일: {report.measure_date}</p>
                             <p className="text-sm text-gray-600">나이: {report.age}세</p>
                           </div>
-                          <div>
-                            <Badge className={`${
-                              report.overall_percentile >= 97 ? 'bg-purple-100 text-purple-800' :
-                              report.overall_percentile >= 85 ? 'bg-blue-100 text-blue-800' :
-                              report.overall_percentile >= 15 ? 'bg-green-100 text-green-800' :
-                              report.overall_percentile >= 3 ? 'bg-yellow-100 text-yellow-800' :
-                              'bg-red-100 text-red-800'
-                            }`}>
-                              {Math.round(report.overall_percentile)}% ({
-                                report.overall_percentile >= 97 ? '매우우수' :
-                                report.overall_percentile >= 85 ? '우수' :
-                                report.overall_percentile >= 15 ? '보통' :
-                                report.overall_percentile >= 3 ? '부족' : '매우부족'
-                              })
-                            </Badge>
-                          </div>
+
                           <div className="text-sm text-gray-500">
                             {new Date(report.created_at).toLocaleDateString('ko-KR')} 저장
                           </div>
