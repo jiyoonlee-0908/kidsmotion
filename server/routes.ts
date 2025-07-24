@@ -53,6 +53,18 @@ function getBalanceStatus(leftBalance: number, rightBalance: number): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // 🎯 김철수 투자자 시연용 데이터 생성 API
+  app.post('/api/create-demo-data', async (req, res) => {
+    try {
+      const { createKimDemoData } = await import('./create-demo-data.js');
+      await createKimDemoData();
+      res.json({ success: true, message: "김철수 투자자 시연용 데이터 생성 완료" });
+    } catch (error) {
+      console.error('데모 데이터 생성 오류:', error);
+      res.status(500).json({ error: "데모 데이터 생성 실패" });
+    }
+  });
+
   // 🏗️ Supabase 테이블 생성 API (초기 설정용)
   app.post("/api/setup-fitness-reports-table", async (req, res) => {
     try {
