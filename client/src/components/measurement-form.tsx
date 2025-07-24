@@ -473,7 +473,11 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                       <div 
                         key={participant.id}
                         className="flex items-center justify-between p-3 bg-white rounded-lg border hover:bg-blue-50 cursor-pointer"
-                        onClick={() => handleParticipantSelect(participant.id)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleParticipantSelect(participant.id);
+                        }}
                       >
                         <div>
                           <div className="font-semibold">{participant.name}</div>
@@ -490,16 +494,27 @@ export default function MeasurementForm({ onComplete, onStart }: MeasurementForm
                             </div>
                           )}
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          type="button"
+                          variant="outline" 
+                          size="sm"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                          }}
+                        >
                           선택
                         </Button>
                       </div>
                     ))}
                   </div>
                   <Button 
+                    type="button"
                     variant="outline" 
                     className="mt-4 w-full"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       setShowParticipantSelection(false);
                       setParticipantOptions([]);
                     }}
