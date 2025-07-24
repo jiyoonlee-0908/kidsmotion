@@ -10,7 +10,7 @@ export default function SimpleLoadingAnimation({ isVisible, onAnimationComplete 
   const [currentMessage, setCurrentMessage] = useState(0);
 
   const messages = [
-    "결과값 생성을 위해 5분정도 로딩"
+    "결과값 생성을 위해 5분정도 로딩이 필요합니다...",
     "입력된 체력데이터를 스마트 알고리즘이 실시간 분석하고 있습니다...",
     "AI가 체력 데이터를 실시간 해석하고 있습니다...",
     "또래 대비 우리 아이 체력 수준을 계산하고 있습니다...",
